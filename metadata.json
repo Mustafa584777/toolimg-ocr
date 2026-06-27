@@ -1,0 +1,8 @@
+{
+  "name": "ToolIMG",
+  "description": "ToolIMG is a premium, SEO-friendly multi-page OCR and image utility hub. Scan, translate, and extract text, tables, receipts, business cards, license plates, and barcodes with server-side AI OCR technology.",
+  "requestFramePermissions": [],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
