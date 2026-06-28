@@ -2462,14 +2462,7 @@
         try {
           const base64Data = await fileToBase64(state.uploadedFile);
           
-          // Use Vercel backend if hosted externally, otherwise use relative endpoint
-          const apiEndpoint = window.location.hostname === 'localhost' || 
-                              window.location.hostname === '127.0.0.1' || 
-                              window.location.hostname.includes('run.app')
-            ? '/api/ocr'
-            : 'https://toolimg-ocr.vercel.app/api/ocr';
-
-          const response = await fetch(apiEndpoint, {
+          const response = await fetch('/api/ocr', {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json'

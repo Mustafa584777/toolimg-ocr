@@ -12,19 +12,6 @@ const port = 3000;
 // Increase payload limit for base64 images
 app.use(express.json({ limit: '50mb' }));
 
-// CORS middleware to allow the frontend on Hostinger or other hosting platforms to request this backend
-app.use((req, res, next) => {
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,Content-Type,Authorization');
-  res.setHeader('Access-Control-Allow-Credentials', 'true');
-  
-  if (req.method === 'OPTIONS') {
-    return res.sendStatus(200);
-  }
-  next();
-});
-
 // Initialize Gemini Client
 const apiKey = process.env.GEMINI_API_KEY;
 if (!apiKey) {
@@ -406,10 +393,6 @@ if (process.env.NODE_ENV === 'production') {
   app.use(vite.middlewares);
 }
 
-if (!process.env.VERCEL) {
-  app.listen(port, '0.0.0.0', () => {
-    console.log(`Server is running at http://0.0.0.0:${port}`);
-  });
-}
-
-export default app;
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server is running at http://0.0.0.0:${port}`);
+});
