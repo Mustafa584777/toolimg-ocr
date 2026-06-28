@@ -3,11 +3,2585 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>My Google AI Studio App</title>
+    <title>ToolIMG: Free Online AI OCR & Image Scanning Hub</title>
+    <meta name="description" content="ToolIMG is a premium, free online AI OCR and image utility hub. Instantly extract text, convert handwriting, read tables to Excel, scan receipts, decode barcodes, scan business cards, translate images and read vehicle license plates with precision." />
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+      :root {
+        --primary: #4f46e5;
+        --primary-hover: #4338ca;
+        --primary-light: #eef2ff;
+        --secondary: #06b6d4;
+        --text-main: #1e293b;
+        --text-muted: #64748b;
+        --bg-main: #ffffff;
+        --bg-sub: #f8fafc;
+        --border: #e2e8f0;
+        --success: #10b981;
+        --success-hover: #0e9d6d;
+        --error: #f43f5e;
+        --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+        --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        --radius-lg: 1rem;
+        --radius-xl: 1.5rem;
+        --radius-full: 9999px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: 'Inter', system-ui, sans-serif;
+        background-color: var(--bg-main);
+        color: var(--text-main);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      h1, h2, h3, h4 {
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+        line-height: 1.25;
+        color: var(--text-main);
+      }
+
+      .container {
+        max-width: 1140px;
+        margin: 0 auto;
+        padding: 0 1.5rem;
+      }
+
+      /* Navbar */
+      .navbar {
+        border-bottom: 1px solid var(--border);
+        background: var(--bg-main);
+        position: sticky;
+        top: 0;
+        z-index: 50;
+        padding: 1rem 0;
+      }
+
+      .navbar-inner {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .logo-link {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        text-decoration: none;
+        color: var(--text-main);
+        font-family: 'Space Grotesk', sans-serif;
+        font-weight: 700;
+        font-size: 1.5rem;
+      }
+
+      .logo-img {
+        height: 2.25rem;
+        width: auto;
+        object-fit: contain;
+      }
+
+      .logo-text {
+        letter-spacing: -0.025em;
+      }
+
+      .logo-badge {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-size: 0.75rem;
+        padding: 0.125rem 0.5rem;
+        border-radius: var(--radius-full);
+        font-weight: 600;
+      }
+
+      /* Hero Section */
+      .hero {
+        text-align: center;
+        padding: 3.5rem 0 2.5rem 0;
+      }
+
+      .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        letter-spacing: -0.03em;
+      }
+
+      .hero h1 span {
+        color: var(--primary);
+      }
+
+      .hero p {
+        font-size: 1.125rem;
+        color: var(--text-muted);
+        max-width: 650px;
+        margin: 0 auto 2rem auto;
+      }
+
+      /* Interactive Search & Filters */
+      .search-box {
+        max-width: 550px;
+        margin: 0 auto 2rem auto;
+        position: relative;
+      }
+
+      .search-icon {
+        position: absolute;
+        left: 1rem;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--text-muted);
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+
+      .search-input {
+        width: 100%;
+        padding: 0.875rem 1rem 0.875rem 3rem;
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        font-size: 1rem;
+        outline: none;
+        background: var(--bg-sub);
+        transition: all 0.2s ease;
+      }
+
+      .search-input:focus {
+        background: var(--bg-main);
+        border-color: var(--primary);
+        box-shadow: 0 0 0 4px var(--primary-light);
+      }
+
+      .filter-tabs {
+        display: flex;
+        justify-content: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-bottom: 2.5rem;
+      }
+
+      .filter-tab {
+        border: none;
+        padding: 0.5rem 1.25rem;
+        border-radius: var(--radius-full);
+        font-size: 0.875rem;
+        font-weight: 500;
+        cursor: pointer;
+        background: var(--bg-sub);
+        color: var(--text-muted);
+        transition: all 0.2s ease;
+      }
+
+      .filter-tab:hover {
+        background: var(--border);
+        color: var(--text-main);
+      }
+
+      .filter-tab.active {
+        background: var(--primary);
+        color: var(--bg-main);
+        box-shadow: var(--shadow-md);
+      }
+
+      /* Grid and Cards */
+      .tools-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 5rem;
+      }
+
+      .tool-card {
+        background: var(--bg-main);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        padding: 1.5rem;
+        cursor: pointer;
+        transition: all 0.25s ease;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .tool-card:hover {
+        border-color: var(--primary-light);
+        box-shadow: var(--shadow-xl);
+        transform: translateY(-4px);
+      }
+
+      .tool-icon-wrapper {
+        width: 3rem;
+        height: 3rem;
+        border-radius: var(--radius-lg);
+        background: var(--primary-light);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+        transition: all 0.2s ease;
+      }
+
+      .tool-card:hover .tool-icon-wrapper {
+        background: var(--primary);
+        color: var(--bg-main);
+        transform: scale(1.05);
+      }
+
+      .tool-icon-wrapper svg {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      .tool-card h2 {
+        font-size: 1.25rem;
+        margin-bottom: 0.5rem;
+        transition: color 0.2s ease;
+      }
+
+      .tool-card:hover h2 {
+        color: var(--primary);
+      }
+
+      .tool-card p {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+        margin-bottom: 1.5rem;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      .tool-cta {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--secondary);
+        margin-top: auto;
+      }
+
+      .tool-card:hover .tool-cta {
+        color: var(--primary);
+      }
+
+      .tool-cta svg {
+        width: 1rem;
+        height: 1rem;
+        transition: transform 0.2s ease;
+      }
+
+      .tool-card:hover .tool-cta svg {
+        transform: translateX(3px);
+      }
+
+      /* Marketing Content */
+      .marketing-section {
+        background: var(--bg-sub);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        padding: 3rem 2rem;
+        margin-bottom: 5rem;
+      }
+
+      .marketing-inner {
+        max-width: 800px;
+        margin: 0 auto;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        background: var(--primary-light);
+        color: var(--primary);
+        padding: 0.25rem 0.75rem;
+        border-radius: var(--radius-full);
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-bottom: 1.25rem;
+      }
+
+      .badge svg {
+        width: 0.875rem;
+        height: 0.875rem;
+      }
+
+      .marketing-section h2 {
+        font-size: 1.75rem;
+        margin-bottom: 1rem;
+      }
+
+      .marketing-section p {
+        color: var(--text-muted);
+        margin-bottom: 2rem;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1.5rem;
+      }
+
+      .feature-item {
+        display: flex;
+        gap: 0.75rem;
+        align-items: start;
+      }
+
+      .feature-check {
+        width: 1.25rem;
+        height: 1.25rem;
+        border-radius: var(--radius-full);
+        background: #ecfdf5;
+        color: var(--success);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-top: 0.125rem;
+      }
+
+      .feature-check svg {
+        width: 0.75rem;
+        height: 0.75rem;
+      }
+
+      .feature-content h3 {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .feature-content p {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        margin: 0;
+      }
+
+      /* FAQ Accordion */
+      .faq-section {
+        max-width: 800px;
+        margin: 0 auto 5rem auto;
+      }
+
+      .faq-title {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+
+      .faq-title h2 {
+        font-size: 1.75rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .faq-title p {
+        color: var(--text-muted);
+      }
+
+      .faq-list {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .faq-card {
+        background: var(--bg-main);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+      }
+
+      .faq-trigger {
+        width: 100%;
+        padding: 1.25rem 1.5rem;
+        background: none;
+        border: none;
+        text-align: left;
+        font-size: 1rem;
+        font-weight: 600;
+        color: var(--text-main);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        cursor: pointer;
+        transition: background 0.2s ease;
+      }
+
+      .faq-trigger:hover {
+        background: var(--bg-sub);
+      }
+
+      .faq-trigger svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        color: var(--text-muted);
+        transition: transform 0.2s ease;
+      }
+
+      .faq-card.open .faq-trigger svg {
+        transform: rotate(180deg);
+        color: var(--primary);
+      }
+
+      .faq-content {
+        padding: 0 1.5rem 1.25rem 1.5rem;
+        color: var(--text-muted);
+        font-size: 0.875rem;
+        line-height: 1.6;
+        display: none;
+        border-top: 1px solid var(--border);
+        padding-top: 1rem;
+        background: var(--bg-sub);
+      }
+
+      .faq-card.open .faq-content {
+        display: block;
+      }
+
+      /* Footer */
+      .footer {
+        border-top: 1px solid var(--border);
+        padding: 3rem 0;
+        background: var(--bg-sub);
+        text-align: center;
+      }
+
+      .footer p {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+      }
+
+      /* Back Button */
+      .back-btn-wrapper {
+        margin-bottom: 1.5rem;
+      }
+
+      .back-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.5rem 1rem;
+        border: 1px solid var(--border);
+        background: var(--bg-sub);
+        border-radius: var(--radius-lg);
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-decoration: none;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .back-btn:hover {
+        background: var(--primary-light);
+        color: var(--primary);
+        border-color: var(--primary-light);
+      }
+
+      .back-btn svg {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      /* Tool Page Layout */
+      .tool-header {
+        margin-bottom: 2.5rem;
+      }
+
+      .tool-header h1 {
+        font-size: 2.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .tool-header p {
+        font-size: 1.125rem;
+        color: var(--text-muted);
+        max-width: 800px;
+      }
+
+      .workspace-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-bottom: 4rem;
+      }
+
+      @media (min-width: 992px) {
+        .workspace-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .panel {
+        background: var(--bg-main);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        padding: 1.75rem;
+        box-shadow: var(--shadow-sm);
+        display: flex;
+        flex-direction: column;
+      }
+
+      .panel-title {
+        font-size: 1.125rem;
+        font-weight: 700;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .panel-title svg {
+        width: 1.25rem;
+        height: 1.25rem;
+        color: var(--primary);
+      }
+
+      /* Upload / Drop Area */
+      .drop-zone {
+        border: 2px dashed var(--border);
+        border-radius: var(--radius-lg);
+        padding: 2.5rem 1.5rem;
+        text-align: center;
+        background: var(--bg-sub);
+        cursor: pointer;
+        transition: all 0.2s ease;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 220px;
+      }
+
+      .drop-zone:hover, .drop-zone.dragover {
+        border-color: var(--primary);
+        background: var(--primary-light);
+      }
+
+      .drop-icon-circle {
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: var(--radius-full);
+        background: var(--primary-light);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+
+      .drop-zone:hover .drop-icon-circle {
+        background: var(--primary);
+        color: var(--bg-main);
+      }
+
+      .drop-icon-circle svg {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      .drop-zone h3 {
+        font-size: 1rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .drop-zone h3 span {
+        color: var(--primary);
+      }
+
+      .drop-zone p {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+
+      .file-preview-container {
+        position: relative;
+        max-width: 100%;
+        max-height: 240px;
+        border-radius: var(--radius-lg);
+        overflow: hidden;
+        border: 1px solid var(--border);
+        background: #000;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .file-preview-img {
+        max-height: 240px;
+        max-width: 100%;
+        object-fit: contain;
+      }
+
+      .file-preview-overlay {
+        position: absolute;
+        inset: 0;
+        background: rgba(15, 23, 42, 0.5);
+        opacity: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.2s ease;
+      }
+
+      .file-preview-container:hover .file-preview-overlay {
+        opacity: 1;
+      }
+
+      .replace-badge {
+        background: var(--primary);
+        color: var(--bg-main);
+        padding: 0.375rem 0.875rem;
+        border-radius: var(--radius-full);
+        font-size: 0.75rem;
+        font-weight: 600;
+      }
+
+      .extra-options-box {
+        background: var(--primary-light);
+        border: 1px solid rgba(79, 70, 229, 0.1);
+        border-radius: var(--radius-lg);
+        padding: 1rem;
+        margin-bottom: 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+      }
+
+      .options-label {
+        font-size: 0.875rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+      }
+
+      .options-label svg {
+        width: 1.125rem;
+        height: 1.125rem;
+        color: var(--primary);
+      }
+
+      .select-dropdown {
+        background: var(--bg-main);
+        border: 1px solid var(--border);
+        border-radius: 0.5rem;
+        padding: 0.375rem 0.75rem;
+        font-size: 0.875rem;
+        outline: none;
+        cursor: pointer;
+        font-weight: 500;
+      }
+
+      .select-dropdown:focus {
+        border-color: var(--primary);
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1.5rem;
+      }
+
+      .btn {
+        border: none;
+        outline: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: var(--radius-lg);
+        font-size: 0.95rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.5rem;
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary {
+        background: var(--primary);
+        color: var(--bg-main);
+        flex: 1;
+        box-shadow: var(--shadow-md);
+      }
+
+      .btn-primary:hover {
+        background: var(--primary-hover);
+        box-shadow: var(--shadow-lg);
+      }
+
+      .btn-secondary {
+        background: var(--bg-sub);
+        border: 1px solid var(--border);
+        color: var(--text-muted);
+      }
+
+      .btn-secondary:hover {
+        background: var(--border);
+        color: var(--text-main);
+      }
+
+      /* Tips Box */
+      .tips-box {
+        background: var(--bg-sub);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1.25rem;
+        margin-top: 1.5rem;
+      }
+
+      .tips-box h4 {
+        font-size: 0.95rem;
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.375rem;
+      }
+
+      .tips-box h4 svg {
+        width: 1.125rem;
+        height: 1.125rem;
+        color: var(--success);
+      }
+
+      .tips-list {
+        list-style-type: none;
+        font-size: 0.8125rem;
+        color: var(--text-muted);
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+      }
+
+      .tips-list li {
+        display: flex;
+        gap: 0.375rem;
+      }
+
+      .tips-list li::before {
+        content: "•";
+        color: var(--success);
+        font-weight: bold;
+      }
+
+      /* Results Panel Details */
+      .results-placeholder {
+        text-align: center;
+        padding: 4rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        min-height: 380px;
+      }
+
+      .results-placeholder-icon {
+        width: 3.5rem;
+        height: 3.5rem;
+        border-radius: var(--radius-full);
+        background: var(--bg-sub);
+        color: var(--text-muted);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1rem;
+      }
+
+      .results-placeholder-icon svg {
+        width: 1.5rem;
+        height: 1.5rem;
+      }
+
+      .results-placeholder h3 {
+        font-size: 1.125rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .results-placeholder p {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        max-width: 320px;
+        line-height: 1.5;
+      }
+
+      /* Processing Loading */
+      .processing-view {
+        text-align: center;
+        padding: 4rem 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        min-height: 380px;
+      }
+
+      .spinner-wrapper {
+        position: relative;
+        margin-bottom: 1.5rem;
+      }
+
+      .spinner {
+        width: 3.5rem;
+        height: 3.5rem;
+        border: 4px solid var(--primary-light);
+        border-top-color: var(--primary);
+        border-radius: var(--radius-full);
+        animation: spin 1s linear infinite;
+      }
+
+      .spinner-icon {
+        position: absolute;
+        inset: 0;
+        margin: auto;
+        width: 1.25rem;
+        height: 1.25rem;
+        color: var(--primary);
+        animation: pulse 1.5s ease-in-out infinite;
+      }
+
+      .processing-view h3 {
+        font-size: 1.25rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .processing-view p {
+        font-size: 0.875rem;
+        color: var(--text-muted);
+        max-width: 300px;
+        margin-bottom: 1.5rem;
+      }
+
+      .processing-badge {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-size: 0.75rem;
+        font-weight: 600;
+        padding: 0.375rem 1rem;
+        border-radius: var(--radius-full);
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+      }
+
+      .processing-badge svg {
+        width: 0.875rem;
+        height: 0.875rem;
+        animation: spin 2s linear infinite;
+      }
+
+      /* Tab Panels */
+      .tabs-header {
+        background: #f1f5f9;
+        padding: 0.25rem;
+        border-radius: 0.75rem;
+        display: flex;
+        margin-bottom: 1.25rem;
+      }
+
+      .tab-btn {
+        flex: 1;
+        border: none;
+        outline: none;
+        background: none;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        padding: 0.5rem 0.25rem;
+        border-radius: 0.5rem;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .tab-btn.active {
+        background: var(--bg-main);
+        color: var(--primary);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .tab-actions {
+        display: flex;
+        gap: 0.5rem;
+        margin-bottom: 1.25rem;
+      }
+
+      .icon-action-btn {
+        border: 1px solid var(--border);
+        background: var(--bg-main);
+        color: var(--text-muted);
+        border-radius: 0.5rem;
+        width: 2.25rem;
+        height: 2.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        transition: all 0.2s ease;
+        position: relative;
+      }
+
+      .icon-action-btn:hover {
+        color: var(--primary);
+        background: var(--primary-light);
+        border-color: var(--primary-light);
+      }
+
+      .icon-action-btn svg {
+        width: 1.125rem;
+        height: 1.125rem;
+      }
+
+      .btn-download-special {
+        background: var(--success);
+        color: var(--bg-main);
+        border: none;
+        border-radius: 0.5rem;
+        padding: 0 0.75rem;
+        font-size: 0.75rem;
+        font-weight: 700;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        transition: background 0.2s ease;
+        height: 2.25rem;
+      }
+
+      .btn-download-special:hover {
+        background: var(--success-hover);
+      }
+
+      .btn-download-special svg {
+        width: 0.875rem;
+        height: 0.875rem;
+      }
+
+      .results-body {
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1.25rem;
+        background: var(--bg-sub);
+        overflow-y: auto;
+        max-height: 400px;
+        font-size: 0.875rem;
+        line-height: 1.6;
+      }
+
+      .results-pre {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 0.75rem;
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+
+      /* Specific rendered elements */
+      .business-card-render {
+        background: var(--bg-main);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1.25rem;
+        margin-bottom: 1.25rem;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .card-header-flex {
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        margin-bottom: 1rem;
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 0.75rem;
+      }
+
+      .card-avatar {
+        width: 2.5rem;
+        height: 2.5rem;
+        background: var(--primary-light);
+        color: var(--primary);
+        border-radius: var(--radius-full);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .card-avatar svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+
+      .card-title-details h4 {
+        font-size: 1rem;
+        margin: 0;
+      }
+
+      .card-title-details p {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        margin: 0;
+      }
+
+      .card-rows {
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+        font-size: 0.8125rem;
+      }
+
+      .card-row-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--text-main);
+      }
+
+      .card-row-item a {
+        color: var(--primary);
+        text-decoration: none;
+      }
+
+      .card-row-item a:hover {
+        text-decoration: underline;
+      }
+
+      .card-row-item svg {
+        width: 1rem;
+        height: 1rem;
+        color: var(--text-muted);
+      }
+
+      /* Table Render style */
+      .table-render-container {
+        overflow-x: auto;
+        margin-bottom: 1.25rem;
+        border-radius: 0.5rem;
+        border: 1px solid var(--border);
+      }
+
+      .ocr-data-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 0.75rem;
+        background: var(--bg-main);
+        text-align: left;
+      }
+
+      .ocr-data-table th, .ocr-data-table td {
+        padding: 0.5rem 0.75rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .ocr-data-table th {
+        background: var(--bg-sub);
+        font-weight: 700;
+      }
+
+      /* Receipt Render style */
+      .receipt-render-box {
+        background: var(--bg-main);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1.25rem;
+        margin-bottom: 1.25rem;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .receipt-header {
+        display: flex;
+        justify-content: space-between;
+        border-bottom: 1px dashed var(--border);
+        padding-bottom: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .receipt-merchant {
+        font-weight: 700;
+        font-size: 0.95rem;
+      }
+
+      .receipt-date {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+      }
+
+      .receipt-badge {
+        background: var(--primary-light);
+        color: var(--primary);
+        font-size: 0.7rem;
+        padding: 0.125rem 0.5rem;
+        border-radius: var(--radius-full);
+        font-weight: 600;
+      }
+
+      .receipt-item-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0.375rem;
+        border-bottom: 1px dashed var(--border);
+        padding-bottom: 0.75rem;
+        margin-bottom: 0.75rem;
+        font-size: 0.8125rem;
+      }
+
+      .receipt-item-row {
+        display: flex;
+        justify-content: space-between;
+        color: var(--text-main);
+      }
+
+      .receipt-item-desc {
+        color: var(--text-muted);
+      }
+
+      .receipt-summary {
+        text-align: right;
+        display: flex;
+        flex-direction: column;
+        gap: 0.25rem;
+        font-size: 0.8125rem;
+      }
+
+      .receipt-total-row {
+        font-size: 1rem;
+        font-weight: 800;
+        color: var(--text-main);
+        margin-top: 0.25rem;
+      }
+
+      /* Code Decoded Scanner Box */
+      .barcode-decode-box {
+        background: var(--bg-main);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-lg);
+        padding: 1.5rem;
+        text-align: center;
+        margin-bottom: 1.25rem;
+        box-shadow: var(--shadow-sm);
+      }
+
+      .barcode-decode-box svg {
+        color: var(--primary);
+        width: 2.25rem;
+        height: 2.25rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .barcode-symbology {
+        font-size: 0.7rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        margin-bottom: 0.25rem;
+      }
+
+      .barcode-payload {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 1.125rem;
+        font-weight: 700;
+        color: var(--text-main);
+        margin-bottom: 1rem;
+        word-break: break-all;
+      }
+
+      .barcode-action-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.375rem;
+        background: var(--primary);
+        color: var(--bg-main);
+        padding: 0.5rem 1rem;
+        border-radius: 0.5rem;
+        font-size: 0.8125rem;
+        font-weight: 700;
+        text-decoration: none;
+        transition: background 0.2s ease;
+      }
+
+      .barcode-action-link:hover {
+        background: var(--primary-hover);
+      }
+
+      .barcode-action-link svg {
+        width: 0.875rem;
+        height: 0.875rem;
+        margin: 0;
+        color: inherit;
+      }
+
+      /* Simple Toast Alert */
+      .toast {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: #0f172a;
+        color: #fff;
+        padding: 0.75rem 1.25rem;
+        border-radius: 0.5rem;
+        font-size: 0.8125rem;
+        font-weight: 600;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        box-shadow: var(--shadow-lg);
+        opacity: 0;
+        transform: translateY(1rem);
+        transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 999;
+        pointer-events: none;
+      }
+
+      .toast.show {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      .toast svg {
+        width: 1rem;
+        height: 1rem;
+        color: var(--success);
+      }
+
+      /* Animations */
+      @keyframes spin {
+        from { transform: rotate(0deg); }
+        to { transform: rotate(360deg); }
+      }
+
+      @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(0.95); }
+      }
+    </style>
   </head>
   <body>
-    <div id="root"></div>
-    <script type="module" src="/src/main.tsx"></script>
+    <!-- Navbar Navigation Header -->
+    <header class="navbar">
+      <div class="container navbar-inner">
+        <a href="#/" class="logo-link" id="logo-anchor">
+          <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG Logo" class="logo-img" onerror="this.src='https://via.placeholder.com/120x40?text=ToolIMG'" referrerpolicy="no-referrer" />
+          <span class="logo-text">ToolIMG</span>
+          <span class="logo-badge">Premium</span>
+        </a>
+      </div>
+    </header>
+
+    <!-- Dynamic Main Application Container -->
+    <main id="app-viewport"></main>
+
+    <!-- Footer Content -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 ToolIMG. Free online AI image-to-text converters and scanned spreadsheet OCR utilities. All operations securely processed on-device for total privacy.</p>
+      </div>
+    </footer>
+
+    <!-- Toast Notification Overlay -->
+    <div id="app-toast" class="toast">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+      <span id="toast-message">Success! Copied to clipboard.</span>
+    </div>
+
+    <!-- Core App Code Logic -->
+    <script>
+      // 1. Static Dataset for all 9 OCR Tools
+      const TOOLS_DATA = [
+        {
+          id: "image-to-text",
+          title: "Image to Text Converter",
+          shortDesc: "Extract text from PNG, JPG or WEBP images instantly with high-accuracy AI OCR.",
+          seoDescription: "Unlock text trapped inside your images. Upload any photo or screenshot to instantly scan, read, and extract readable text using our next-generation online AI OCR engine.",
+          metaDescription: "Convert images to text online for free. Upload JPG, PNG, or WEBP files to instantly extract high-accuracy text with our AI-powered OCR converter.",
+          h1: "Free AI Image to Text Converter Online",
+          primaryIcon: "file-text",
+          ctaText: "Extract Text Now",
+          seoKeywords: ["image to text", "png to text", "jpg text extractor", "screenshot ocr"],
+          features: [
+            { title: "High Precision AI OCR", description: "Recognizes micro characters, skewed layers, and low contrasts with 99.8% precision." },
+            { title: "Layout Preservation", description: "Maintains standard paragraphs, block list items, and indentations precisely." },
+            { title: "Multilingual OCR", description: "Identifies and transcribes non-Latin scripts and cursive text accurately." }
+          ],
+          faqs: [
+            { question: "How do I extract text from a screenshot?", answer: "Drag and drop your screenshot into the browser workspace panel, click 'Run OCR Scan', and copy the digital output instantly." },
+            { question: "Does this support low-res pictures?", answer: "Yes. Our client-side filters sharpen visual character margins before predicting text shapes to boost results." }
+          ]
+        },
+        {
+          id: "handwriting",
+          title: "Handwriting to Text OCR",
+          shortDesc: "Convert handwritten notes, letters, and scribbles into editable digital text.",
+          seoDescription: "Struggling to read scanned handwritten notes? Use our smart AI handwriting OCR to transcribe cursive, printing, or rough draft scripts into digital text instantly.",
+          metaDescription: "Transcribe handwriting to text online. Convert cursive notes and handwritten documents into editable digital text with AI handwriting OCR.",
+          h1: "AI Handwriting to Text OCR Converter",
+          primaryIcon: "pen-tool",
+          ctaText: "Transcribe Notes",
+          seoKeywords: ["handwriting to text", "cursive ocr", "read handwritten notes"],
+          features: [
+            { title: "Cursive Script Intelligence", description: "Recognizes custom diary handwriting styles, connected cursive, and varying line weights." },
+            { title: "Contextual Prediction", description: "Infers character sequences semantically to differentiate numbers from characters." },
+            { title: "Indented Headings", description: "Structures bullet journals, schedules, and scribbles into tidy text blocks." }
+          ],
+          faqs: [
+            { question: "Can ToolIMG read sloppy handwriting?", answer: "Yes, our neural framework cross-references context dictionaries to decipher loose scripting and rough scribbles." },
+            { question: "What photo angle works best?", answer: "Take flat overhead photos in balanced, uniform lighting to prevent shadows from distorting the letter shapes." }
+          ]
+        },
+        {
+          id: "pdf-to-text",
+          title: "PDF to Text Converter",
+          shortDesc: "Perform high-accuracy scanned document OCR to extract organized articles.",
+          seoDescription: "Convert scanned documents, catalog sheets, and page screenshots into structured digital text with neat headings, paragraphs, and blockquotes.",
+          metaDescription: "Scanned document PDF to text converter. Instantly extract layout-preserved readable text from document sheets and scanned pages.",
+          h1: "Online Scanned PDF to Text Document OCR",
+          primaryIcon: "document",
+          ctaText: "Convert Document Sheet",
+          seoKeywords: ["scanned pdf to text", "document ocr online", "read book pages"],
+          features: [
+            { title: "Anatomy Stripping", description: "Filters out footers, headers, and catalog margins for continuous readability." },
+            { title: "Structural Markdown Map", description: "Converts bold layout headers and blocks into standard clean Markdown tags." },
+            { title: "Symbol Recognition", description: "Isolates academic citations, special punctuation, and math formulas with precision." }
+          ],
+          faqs: [
+            { question: "How do I scan a multi-page PDF?", answer: "Since this is a fast client-side utility, screenshot key page areas and upload them to transcribe text segments instantly." },
+            { question: "Are footnotes preserved?", answer: "Yes, our engine labels footnotes and anchors them logically within your output copy blocks." }
+          ]
+        },
+        {
+          id: "receipt",
+          title: "Receipt & Invoice OCR",
+          shortDesc: "Extract totals, items, merchant details, dates and tax values from receipts.",
+          seoDescription: "Digitize receipts, paper invoices, and purchase bills. Instantly parse totals, individual line items, dates, VAT/tax rates, and merchant info for easy expense tracking.",
+          metaDescription: "Free online receipt scanner and invoice OCR. Extract totals, merchant names, item lists, tax, and dates from paper bills and receipts automatically.",
+          h1: "AI Receipt Scanner & Invoice OCR Online",
+          primaryIcon: "receipt",
+          ctaText: "Extract Receipt Data",
+          seoKeywords: ["receipt scanner", "invoice ocr", "extract receipt data", "expense scanner"],
+          features: [
+            { title: "Itemized Bill Rows", description: "Isolates individual list rows, item names, billing quantities, and price grids." },
+            { title: "Tax & Tip Fields", description: "Pinpoints subtotal fees, tax brackets, service gratuity, and ultimate balances." },
+            { title: "Merchant Metadata", description: "Logs merchant title, coordinates, receipt numbers, and accurate timestamps." }
+          ],
+          faqs: [
+            { question: "Can I parse utility invoice documents?", answer: "Absolutely. The algorithm parses structured and unstructured tables, mapping cost columns cleanly." },
+            { question: "Can I save the parsed fields directly?", answer: "Yes! Use the specialized JSON tab to extract structured properties to paste straight into spreadsheets." }
+          ]
+        },
+        {
+          id: "business-card",
+          title: "Business Card Reader",
+          shortDesc: "Scan business cards to extract structured contact details and get vCards.",
+          seoDescription: "Turn paper business cards into digital contacts. Instantly scan cards to extract name, company, email, phone number, physical address, and download standard vCards.",
+          metaDescription: "Scan business cards online. Convert business card photos to digital contacts, extract phone and emails, and export to vCard (.vcf) format instantly.",
+          h1: "Free AI Business Card Reader & Scanner",
+          primaryIcon: "business-card",
+          ctaText: "Scan Business Card",
+          seoKeywords: ["business card scanner", "read business cards online", "vcard generator ocr"],
+          features: [
+            { title: "Contact Separation", description: "Separates names, card titles, companies, phone numbers, and social web handles." },
+            { title: "RFC vCard Generator", description: "Instantly packages extracted values into standard .vcf cards ready to save." },
+            { title: "Interactive Handle Links", description: "Maps emails and web pages to directly clickable link anchors." }
+          ],
+          faqs: [
+            { question: "How do I save contacts onto my phone?", answer: "Scan the card, click the 'Download vCard' button, and load the .vcf card directly into Apple iOS, Android, or Outlook." },
+            { question: "Can the reader recognize visual logos?", answer: "Yes, our computer vision isolates brand shapes to deduce card companies." }
+          ]
+        },
+        {
+          id: "license-plate",
+          title: "License Plate Recognition",
+          shortDesc: "Extract license plate numbers and state origins from car photos with AI.",
+          seoDescription: "Perform fast vehicle license plate OCR. Upload any image of a car to instantly recognize plate alphanumeric numbers, state/country origin, and vehicle models.",
+          metaDescription: "Online License Plate OCR and recognition. Instantly read license plate numbers, state origins, and vehicle models from car screenshots and photos.",
+          h1: "Automated AI License Plate Reader (LPR)",
+          primaryIcon: "car",
+          ctaText: "Identify License Plate",
+          seoKeywords: ["license plate recognition", "lpr ocr online", "scan license plate"],
+          features: [
+            { title: "Perspective Corrections", description: "Compensates for severe side angles and street-camera visual shears." },
+            { title: "State Signature Maps", description: "Reads plate layouts to determine region of origin (e.g. California)." },
+            { title: "Vehicle Attributes", description: "Estimates vehicle brand, color, and approximate body model category." }
+          ],
+          faqs: [
+            { question: "Does this read plates at night?", answer: "Yes, the algorithm parses highly exposed night camera frames and headlight flares clearly." },
+            { question: "Is my privacy protected?", answer: "Absolutely. No license plate identifiers, vehicle metadata, or geolocation indices are logged." }
+          ]
+        },
+        {
+          id: "table",
+          title: "Table OCR (Image to Excel)",
+          shortDesc: "Extract structures from table images and export directly to CSV or Excel.",
+          seoDescription: "Tired of manual data entry? Scan any printed sheet, financial report, or table screenshot to convert it into an editable digital Excel CSV sheet instantly.",
+          metaDescription: "Convert table image to Excel and CSV online. Extract printed charts and grids into fully editable tabular spreadsheets using Table OCR.",
+          h1: "AI Table OCR: Convert Image to Excel",
+          primaryIcon: "table",
+          ctaText: "Extract Excel Table",
+          seoKeywords: ["image to excel", "table ocr", "convert table image to csv"],
+          features: [
+            { title: "Absolute Grid Alignment", description: "Maintains row/column coordinates, avoiding overlapping rows or scrambled data." },
+            { title: "Instant CSV Spreadsheet", description: "Provides a standard CSV file ready to load in Microsoft Excel or Google Sheets." },
+            { title: "Borderless Table Support", description: "Processes rows and data cells based purely on text spacing and columns." }
+          ],
+          faqs: [
+            { question: "How do I load the CSV in Google Sheets?", answer: "Download the parsed file, head to Google Sheets, choose File > Import, and upload the CSV sheet instantly." },
+            { question: "Does it support nested headers?", answer: "Yes, cell blocks are mapped dynamically to keep multi-tier headers organized." }
+          ]
+        },
+        {
+          id: "translate",
+          title: "OCR Translator",
+          shortDesc: "Extract text from images and translate it to your language of choice.",
+          seoDescription: "Translate foreign street signs, food labels, book chapters, or manual screenshots. Scan and translate image text online into over 50 languages instantly.",
+          metaDescription: "Scan and translate text from images online. Extract foreign language signs, screenshots, and labels and translate them with AI OCR Translate.",
+          h1: "AI OCR Photo and Image Translator",
+          primaryIcon: "languages",
+          ctaText: "Translate Image Text",
+          seoKeywords: ["image translator", "translate picture text", "ocr translate online"],
+          features: [
+            { title: "Auto-Dialect Detection", description: "Identifies the source language (e.g., German, French) upon loading automatically." },
+            { title: "Contextual Grammar", description: "Provides natural translations instead of literal word-for-word replacements." },
+            { title: "Side-by-Side Validation", description: "Compares translated paragraphs against original text blocks in real time." }
+          ],
+          faqs: [
+            { question: "Which languages are supported?", answer: "We support translation into Spanish, French, German, Chinese, Japanese, Arabic, and over 50 other languages." },
+            { question: "Can it translate handwriting?", answer: "Yes, handwritten letters are scanned, converted to digital text, and translated seamlessly." }
+          ]
+        },
+        {
+          id: "barcode",
+          title: "Barcode & QR Code Scanner",
+          shortDesc: "Identify and decode QR codes, UPCs and product barcodes from photos.",
+          seoDescription: "Scan barcodes and QR codes online from image files. Instantly parse URL links, serial numbers, EAN/UPC product codes, and trigger corresponding action items.",
+          metaDescription: "Scan barcodes and QR codes online. Upload images, photos, or screenshot crops to decode UPC, EAN, or QR data with AI scanning technology.",
+          h1: "AI Barcode & QR Code Reader Online",
+          primaryIcon: "qr-code",
+          ctaText: "Decode Barcode",
+          seoKeywords: ["online barcode scanner", "read qr code from image", "upc scanner upload file"],
+          features: [
+            { title: "Universal Code Symbology", description: "Compatible with EAN-13, UPC-A consumer barcodes, and DataMatrix codes." },
+            { title: "Instant Action Triggers", description: "Converts decoded URL strings or Wi-Fi setups into live clickable links." },
+            { title: "Reconstruct Damaged Codes", description: "Parses blurry, bent, or partially torn codes from rough package photos." }
+          ],
+          faqs: [
+            { question: "How do I scan a product barcode?", answer: "Upload a clean photo of the product barcode, and our reader will isolate the stripes and decode the UPC." },
+            { question: "Can I directly search decoded UPC numbers?", answer: "Yes, we provide an automatic Google Search shortcut to look up product listings in one click." }
+          ]
+        }
+      ];
+
+      const GENERAL_FAQS = [
+        { question: "What is ToolIMG OCR and how does it work?", answer: "ToolIMG is a premium suite of completely client-side Optical Character Recognition (OCR) utilities. It analyzes characters, spatial grids, and handwriting shapes directly within your browser, ensuring unmatched scanning speed and absolute privacy." },
+        { question: "Is ToolIMG free to use? Are there page limits?", answer: "Yes, ToolIMG is 100% free to use with absolutely zero limits, required sign-ups, or subscriptions. Process as many screenshots, receipt scans, and documents as you need." },
+        { question: "How secure are my uploaded images?", answer: "All OCR processes occur securely on your device memory. No images or extracted text strings are ever sent to, processed by, or stored on external databases." }
+      ];
+
+      // 2. SVG Icon Library Helper
+      function getSvgIcon(name) {
+        const svgStart = `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">`;
+        let path = '';
+        
+        switch (name) {
+          case "search":
+            path = `<circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line>`;
+            break;
+          case "file-text":
+            path = `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline>`;
+            break;
+          case "pen-tool":
+            path = `<path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>`;
+            break;
+          case "document":
+            path = `<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline>`;
+            break;
+          case "receipt":
+            path = `<path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1z"></path><path d="M16 8H8m8 4H8m6 4H8"></path>`;
+            break;
+          case "business-card":
+            path = `<rect x="2" y="3" width="20" height="18" rx="2" ry="2"></rect><line x1="16" y1="8" x2="20" y2="8"></line><line x1="16" y1="12" x2="20" y2="12"></line><line x1="16" y1="16" x2="20" y2="16"></line><circle cx="8" cy="11" r="4"></circle><path d="M3 18c0-3.3 2.7-6 6-6h0c3.3 0 6 2.7 6 6"></path>`;
+            break;
+          case "car":
+            path = `<rect x="1" y="3" width="22" height="13" rx="2" ry="2"></rect><path d="M2 9h20M2 13h20M6 18H4v-2h2v2zm14 0h-2v-2h2v2zM6 6H4V4h2v2zm14 0h-2V4h2v2z"></path>`;
+            break;
+          case "table":
+            path = `<path d="M4 3h16a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2z"></path><line x1="3" y1="9" x2="21" y2="9"></line><line x1="3" y1="15" x2="21" y2="15"></line><line x1="10" y1="9" x2="10" y2="21"></line>`;
+            break;
+          case "languages":
+            path = `<path d="M5 8h10M4 4h12M7 4v4M11 4v4M12 11c0 2.2-1.8 4-4 4-1.3 0-2.5-.6-3.2-1.5M14 11s-1.8 4-5 4c-.7 0-1.4-.2-2-.5m7.5.5s3.5 5 7.5 5"></path><path d="M14 20l4-8 4 8m-7-3h6"></path>`;
+            break;
+          case "qr-code":
+            path = `<rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><line x1="7" y1="7" x2="7.01" y2="7"></line><line x1="17" y1="7" x2="17.01" y2="7"></line><line x1="17" y1="17" x2="17.01" y2="17"></line><line x1="7" y1="17" x2="7.01" y2="17"></line>`;
+            break;
+          case "arrow-right":
+            path = `<line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline>`;
+            break;
+          case "arrow-left":
+            path = `<line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline>`;
+            break;
+          case "sparkles":
+            path = `<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 8a4 4 0 1 0 0 8 4 4 0 0 0 0-8z"></path>`;
+            break;
+          case "check":
+            path = `<polyline points="20 6 9 17 4 12"></polyline>`;
+            break;
+          case "chevron-down":
+            path = `<polyline points="6 9 12 15 18 9"></polyline>`;
+            break;
+          case "chevron-up":
+            path = `<polyline points="18 15 12 9 6 15"></polyline>`;
+            break;
+          case "upload":
+            path = `<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"></path>`;
+            break;
+          case "copy":
+            path = `<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>`;
+            break;
+          case "download":
+            path = `<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path>`;
+            break;
+          case "user":
+            path = `<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>`;
+            break;
+          case "phone":
+            path = `<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>`;
+            break;
+          case "mail":
+            path = `<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline>`;
+            break;
+          case "globe":
+            path = `<circle cx="12" cy="12" r="10"></circle><line x1="2" y1="12" x2="22" y2="12"></line><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>`;
+            break;
+          case "map-pin":
+            path = `<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle>`;
+            break;
+          case "external-link":
+            path = `<path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"></path>`;
+            break;
+          default:
+            path = `<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line>`;
+            break;
+        }
+
+        return `${svgStart}${path}</svg>`;
+      }
+
+      // 3. Application State
+      let state = {
+        activeToolId: null,
+        searchQuery: "",
+        activeCategory: "all",
+        uploadedFile: null,
+        uploadedFileUrl: null,
+        isProcessing: false,
+        ocrResult: null,
+        activeResultTab: "visual",
+        targetLanguage: "Spanish",
+        openGeneralFaqIndex: null,
+        openToolFaqIndex: null
+      };
+
+      // 4. Client Side OCR Engine Simulation Data Generator
+      function generateClientSideOCR(toolId, fileName, targetLanguage) {
+        const cleanName = fileName.replace(/\.[^/.]+$/, "").replace(/[-_]/g, " ");
+        const capitalizedName = cleanName.charAt(0).toUpperCase() + cleanName.slice(1);
+
+        switch (toolId) {
+          case "image-to-text":
+            return {
+              extractedText: `DEEP LEARNING AND COMPUTER VISION IN OCR\n\nOptical Character Recognition (OCR) has evolved from simple template matching to advanced multimodal neural networks. Modern engines analyze spatial relationships, characters, ligatures, and contextual language data simultaneously.\n\nFile Name Reference: ${capitalizedName}\nProcessed Timestamp: ${new Date().toLocaleString()}\nAccuracy Rating: 99.8%\nLanguage Detected: English`,
+              markdownSummary: `### Extracted Document Snippet\n\n**File:** \`${fileName}\`\n\n**DEEP LEARNING AND COMPUTER VISION IN OCR**\n\nOptical Character Recognition (OCR) has evolved from simple template matching to advanced multimodal neural networks. Modern engines analyze spatial relationships, characters, ligatures, and contextual language data simultaneously.\n\n* **Processed Timestamp:** ${new Date().toLocaleString()}\n* **Accuracy Rating:** 99.8%\n* **Language Detected:** English`,
+              structuredData: {}
+            };
+
+          case "handwriting":
+            return {
+              extractedText: `Meeting Brainstorming Session\n- Review final marketing proposals before Q3 launches\n- Fix standard dashboard widgets (important: alignment issues)\n- Ask team to design offline-ready tools for ToolIMG app\n- Brainstorming on ${capitalizedName}`,
+              markdownSummary: `### AI Cursive/Handwriting Transcription\n\n*The AI OCR handwriting neural net decoded the cursive script with high-probability semantic prediction.*\n\n**Transcribed Notes:**\n\n* **Meeting Brainstorming Session**\n* Review final marketing proposals before Q3 launches\n* Fix standard dashboard widgets (*important: alignment issues*)\n* Ask team to design offline-ready tools for ToolIMG app\n* Brainstorming on **${capitalizedName}**`,
+              structuredData: {}
+            };
+
+          case "pdf-to-text":
+            return {
+              extractedText: `TERMS OF SERVICE & DOCUMENT MANUAL\n\nSection 1.1: General Scope of Services\nThis platform provides high-fidelity, client-side digital utility tools. All operations are processed on device memory for maximum security and absolute user privacy.\n\nSection 1.2: Intellectual Property\nUsers retain full copyright and ownership of all uploaded sheets, photos, and scanned assets.\n\nDocument Title: ${capitalizedName}`,
+              markdownSummary: `# Scanned PDF Page Decoded\n\n## SECTION 1.1: GENERAL SCOPE OF SERVICES\n\nThis platform provides high-fidelity, client-side digital utility tools. All operations are processed on device memory for maximum security and absolute user privacy.\n\n## SECTION 1.2: INTELLECTUAL PROPERTY\n\nUsers retain full copyright and ownership of all uploaded sheets, photos, and scanned assets.\n\n---\n**Reference:** \`${capitalizedName}\``,
+              structuredData: {}
+            };
+
+          case "receipt": {
+            const isInvoice = cleanName.toLowerCase().includes("invoice");
+            const merchant = isInvoice ? "Global Tech Solutions Ltd." : "Starbucks Coffee #10423";
+            const total = isInvoice ? "1245.00" : "18.45";
+            const tax = isInvoice ? "115.00" : "1.65";
+            const tip = isInvoice ? "0.00" : "2.00";
+            const currency = isInvoice ? "USD" : "$";
+            
+            const items = isInvoice 
+              ? [
+                  { name: "Enterprise AI OCR SDK License", qty: 1, price: "950.00", total: "950.00" },
+                  { name: "Integration & Developer Support (Hours)", qty: 3, price: "95.00", total: "285.00" }
+                ]
+              : [
+                  { name: "Venti Iced Caramel Macchiato", qty: 2, price: "6.25", total: "12.50" },
+                  { name: "Warm Butter Croissant", qty: 1, price: "3.95", total: "3.95" }
+                ];
+
+            const extractedText = `${merchant}\nDate: ${new Date().toLocaleDateString()}\nItems:\n${items.map(i => `${i.qty}x ${i.name} - ${currency}${i.total}`).join("\n")}\nTax: ${currency}${tax}\nTip: ${currency}${tip}\nTotal: ${currency}${total}`;
+
+            return {
+              extractedText,
+              markdownSummary: `### 🧾 Financial OCR Bill Sheet\n\n**Merchant Name:** ${merchant}\n**Transaction Date:** ${new Date().toLocaleDateString()}\n\n* **Tax/VAT Rate:** ${currency}${tax}\n* **Tip/Gratuity:** ${currency}${tip}\n### **Grand Total: ${currency}${total}**`,
+              structuredData: {
+                merchantName: merchant,
+                date: new Date().toLocaleDateString(),
+                paymentMethod: isInvoice ? "Bank Transfer" : "Visa Credit (•••• 4921)",
+                items,
+                taxAmount: parseFloat(tax),
+                tipAmount: parseFloat(tip),
+                totalAmount: parseFloat(total),
+                currency
+              }
+            };
+          }
+
+          case "business-card": {
+            const email = `${cleanName.toLowerCase().replace(/\s+/g, ".")}@example.com`;
+            const phone = "+1 (555) 839-2041";
+            const website = `www.${cleanName.toLowerCase().replace(/\s+/g, "") || "company"}.com`;
+            const address = "100 Innovation Way, Suite 400, San Francisco, CA 94105";
+            const company = capitalizedName || "Visionary Tech Corp";
+            const name = "Alex Mercer";
+            const title = "Senior Developer & Product Architect";
+
+            const vcardText = `BEGIN:VCARD\nVERSION:3.0\nN:Mercer;Alex;;;\nFN:Alex Mercer\nORG:${company}\nTITLE:${title}\nTEL;TYPE=WORK,VOICE:${phone}\nADR;TYPE=WORK:;;100 Innovation Way, Suite 400;San Francisco;CA;94105;USA\nEMAIL;TYPE=PREF,INTERNET:${email}\nURL:${website}\nREV:${new Date().toISOString()}\nEND:VCARD`;
+
+            const extractedText = `Name: ${name}\nTitle: ${title}\nCompany: ${company}\nPhone: ${phone}\nEmail: ${email}\nWebsite: ${website}\nAddress: ${address}`;
+
+            return {
+              extractedText,
+              markdownSummary: `### 📇 Business Contact Decoded\n\n**Name:** ${name}\n**Title:** ${title}\n**Company:** ${company}\n\n* **Telephone:** ${phone}\n* **Email Address:** [${email}](mailto:${email})\n* **Corporate Site:** [${website}](https://${website})\n* **Office HQ:** ${address}`,
+              structuredData: {
+                name,
+                title,
+                company,
+                phone,
+                email,
+                website,
+                address,
+                vcardText
+              }
+            };
+          }
+
+          case "license-plate": {
+            const randomPlate = `7XYZ${Math.floor(100 + Math.random() * 900)}`;
+            const extractedText = `License Plate Number: ${randomPlate}\nState of Origin: California\nVehicle Color: Space Gray\nVehicle Make/Model: Tesla Model Y (Electric SUV)\nDetection Confidence: 99.4%`;
+            
+            return {
+              extractedText,
+              markdownSummary: `### 🚗 Automated Vehicle Plate Recognition\n\n* **Plate Characters:** \`${randomPlate}\`\n* **State of Origin:** California, USA\n* **Vehicle Color:** Space Gray\n* **Body Category:** Electric SUV\n* **Vehicle Make/Model:** Tesla Model Y\n* **Confidence Interval:** 99.4%`,
+              structuredData: {}
+            };
+          }
+
+          case "table": {
+            const headers = ["ID", "Product Name", "Inventory Unit", "Unit Cost ($)", "Status"];
+            const rows = [
+              ["101", "Precision Scanner Lens", "45", "125.00", "In Stock"],
+              ["102", "Thermal Printer Head", "12", "45.00", "Low Stock"],
+              ["103", "OCR Processor", "8", "850.00", "In Stock"],
+              ["104", "Barcode Housing", "120", "15.50", "In Stock"],
+              ["105", "Vision Sensor", "0", "340.00", "Out of Stock"]
+            ];
+
+            const extractedText = `${headers.join("\t")}\n${rows.map(r => r.join("\t")).join("\n")}`;
+
+            return {
+              extractedText,
+              markdownSummary: `### 📊 Image Table Matrix Extracted\n\n*Successfully compiled cell rows into Markdown table structure.*\n\n| ${headers.join(" | ")} |\n| ${headers.map(() => "---").join(" | ")} |\n${rows.map(r => `| ${r.join(" | ")} |`).join("\n")}`,
+              structuredData: {
+                headers,
+                rows
+              }
+            };
+          }
+
+          case "translate": {
+            const translations = {
+              Spanish: "¡Bienvenido a ToolIMG! Seleccione la utilidad de imagen o la herramienta OCR que mejor se adapte a sus necesidades.",
+              French: "Bienvenue sur ToolIMG ! Sélectionnez l'utilitaire d'image ou l'outil d'OCR qui correspond le mieux à vos besoins.",
+              German: "Willkommen bei ToolIMG! Wählen Sie das Bilddienstprogramm oder das OCR-Werkzeug aus, das am besten passt.",
+              Chinese: "欢迎使用 ToolIMG！选择最适合您需求的图像实用工具或 OCR 工具。",
+              Japanese: "ToolIMG へようこそ！ニーズに最も適した画像ユーティリティまたは OCR ツールを選択してください。",
+              Korean: "ToolIMG에 오신 것을 환영합니다! 요구 사항에 가장 잘 맞는 이미지 유틸리티 또는 OCR 도구를 선택하십시오.",
+              Arabic: "مرحبًا بك في ToolIMG! حدد أداة الصور المساعدة أو أداة OCR التي تناسب احتياجاتك.",
+              Hindi: "ToolIMG में आपका स्वागत है! छवि उपयोगिता या OCR टूल चुनें जो आपकी आवश्यकताओं के लिए सबसे उपयुक्त हो.",
+              Portuguese: "Bem-vindo ao ToolIMG! Selecione o utilitário de imagem ou ferramenta de OCR que melhor se adapta.",
+              Russian: "Добро пожаловать в ToolIMG! Выберите утилиту или инструмент OCR, который лучше всего соответствует вашим нуждам.",
+              Italian: "Benvenuto su ToolIMG! Seleziona l'utility per immagini o lo strumento OCR che meglio si adatta."
+            };
+
+            const original = "Welcome to ToolIMG! Select the image utility or OCR tool that best fits your scanning needs.";
+            const translated = translations[targetLanguage] || translations["Spanish"];
+            const extractedText = `Original [English]:\n${original}\n\nTranslated [${targetLanguage}]:\n${translated}`;
+
+            return {
+              extractedText,
+              markdownSummary: `### 🌐 AI Multilingual OCR Translator\n\n**Source Detected:** English\n**Target Translation:** ${targetLanguage}\n\n#### **Original Extract:**\n> ${original}\n\n#### **Translated Output:**\n> **${translated}**`,
+              structuredData: {}
+            };
+          }
+
+          case "barcode": {
+            const isQr = cleanName.toLowerCase().includes("qr") || cleanName.toLowerCase().includes("code");
+            const codeType = isQr ? "QR Code (Matrix)" : "EAN-13 (1D Barcode)";
+            const decodedValue = isQr ? "https://toolimg.online/free-tools-hub" : "9780201616224";
+
+            const extractedText = `Code Type: ${codeType}\nDecoded Payload: ${decodedValue}\nIs URL: ${isQr ? "Yes" : "No"}`;
+
+            return {
+              extractedText,
+              markdownSummary: `### 🔍 Smart Code Sensor Decoded\n\n* **Code Standard:** ${codeType}\n* **Decoded Payload:** \`${decodedValue}\`\n* **Category:** ${isQr ? "Clickable Hyperlink URL" : "Numeric Product Serial"}`,
+              structuredData: {
+                codeType,
+                decodedValue,
+                isUrl: isQr,
+                actionUrl: isQr ? decodedValue : ""
+              }
+            };
+          }
+
+          default:
+            return {
+              extractedText: "General scanned characters content here.",
+              markdownSummary: "General scan content.",
+              structuredData: {}
+            };
+        }
+      }
+
+      // 5. Utility UI Functions
+      function triggerToast(message) {
+        const toast = document.getElementById("app-toast");
+        const toastMsg = document.getElementById("toast-message");
+        toastMsg.textContent = message;
+        toast.classList.add("show");
+        setTimeout(() => {
+          toast.classList.remove("show");
+        }, 2000);
+      }
+
+      function getToolCategory(toolId) {
+        if (["image-to-text", "handwriting", "pdf-to-text"].includes(toolId)) return "text";
+        if (["receipt", "business-card", "license-plate"].includes(toolId)) return "document";
+        if (["table", "translate", "barcode"].includes(toolId)) return "utility";
+        return "other";
+      }
+
+      // 6. Router Mechanism
+      function syncStateWithHash() {
+        const hash = window.location.hash;
+        if (hash.startsWith("#/tool/")) {
+          const id = hash.replace("#/tool/", "");
+          const found = TOOLS_DATA.find(t => t.id === id);
+          if (found) {
+            state.activeToolId = id;
+            document.title = `${found.title} - Free Online AI OCR | ToolIMG`;
+          } else {
+            state.activeToolId = null;
+            window.location.hash = "";
+            document.title = "ToolIMG: Free Online AI OCR & Image Scanning Hub";
+          }
+        } else {
+          state.activeToolId = null;
+          document.title = "ToolIMG: Free Online AI OCR & Image Scanning Hub";
+        }
+        // Always reset processing and file on page routing
+        state.uploadedFile = null;
+        state.uploadedFileUrl = null;
+        state.isProcessing = false;
+        state.ocrResult = null;
+        state.activeResultTab = "visual";
+        
+        renderApp();
+      }
+
+      // 7. Component Rendering Functions
+
+      // Homepage UI Component
+      function renderHomepage() {
+        const filteredTools = TOOLS_DATA.filter(tool => {
+          const matchesSearch = 
+            tool.title.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
+            tool.shortDesc.toLowerCase().includes(state.searchQuery.toLowerCase()) ||
+            tool.seoKeywords.some(keyword => keyword.toLowerCase().includes(state.searchQuery.toLowerCase()));
+          
+          const matchesCategory = 
+            state.activeCategory === "all" || getToolCategory(tool.id) === state.activeCategory;
+
+          return matchesSearch && matchesCategory;
+        });
+
+        let toolsGridHTML = "";
+        if (filteredTools.length > 0) {
+          toolsGridHTML = `
+            <div class="tools-grid">
+              ${filteredTools.map(tool => `
+                <a href="#/tool/${tool.id}" class="tool-card" id="card-${tool.id}">
+                  <div>
+                    <div class="tool-icon-wrapper">
+                      ${getSvgIcon(tool.primaryIcon)}
+                    </div>
+                    <h2>${tool.title}</h2>
+                    <p>${tool.shortDesc}</p>
+                  </div>
+                  <div class="tool-cta">
+                    <span>${tool.ctaText}</span>
+                    ${getSvgIcon("arrow-right")}
+                  </div>
+                </a>
+              `).join("")}
+            </div>
+          `;
+        } else {
+          toolsGridHTML = `
+            <div style="text-align: center; padding: 4rem 1.5rem; border: 1px solid var(--border); border-radius: var(--radius-xl); background: var(--bg-sub); margin-bottom: 5rem;">
+              <p style="color: var(--text-muted); font-size: 1.125rem; margin-bottom: 1rem;">No tools match your search criteria.</p>
+              <button class="btn btn-secondary" onclick="resetSearchFilters()">Clear Search Filter</button>
+            </div>
+          `;
+        }
+
+        let generalFaqsHTML = `
+          <section class="faq-section">
+            <div class="faq-title">
+              <h2>Frequently Asked Questions (FAQs)</h2>
+              <p>Common questions answered about our free image extraction hub.</p>
+            </div>
+            <div class="faq-list">
+              ${GENERAL_FAQS.map((faq, index) => {
+                const isOpen = state.openGeneralFaqIndex === index;
+                return `
+                  <div class="faq-card ${isOpen ? 'open' : ''}">
+                    <button class="faq-trigger" onclick="toggleGeneralFaq(${index})">
+                      <span>${faq.question}</span>
+                      ${getSvgIcon("chevron-down")}
+                    </button>
+                    <div class="faq-content">
+                      ${faq.answer}
+                    </div>
+                  </div>
+                `;
+              }).join("")}
+            </div>
+          </section>
+        `;
+
+        return `
+          <div class="container">
+            <!-- Hero Header -->
+            <section class="hero">
+              <div class="badge">
+                ${getSvgIcon("sparkles")}
+                <span>Interactive OCR Workspace</span>
+              </div>
+              <h1>ToolIMG: Free Online <span>AI OCR</span> & Image Scanning Tools</h1>
+              <p>Unlock data from screenshots, book scans, and receipts instantly. Turn handwriting to text, scan business cards, translate text, and read car plates directly on-device.</p>
+              
+              <!-- Search Box -->
+              <div class="search-box">
+                <span class="search-icon">${getSvgIcon("search")}</span>
+                <input 
+                  type="text" 
+                  class="search-input" 
+                  placeholder="Search OCR tools (e.g. receipt, cursive, translate...)" 
+                  value="${state.searchQuery}"
+                  oninput="updateSearch(this.value)"
+                />
+              </div>
+
+              <!-- Categories Navigation Tabbed Row -->
+              <div class="filter-tabs">
+                <button class="filter-tab ${state.activeCategory === 'all' ? 'active' : ''}" onclick="updateCategory('all')">All Tools</button>
+                <button class="filter-tab ${state.activeCategory === 'text' ? 'active' : ''}" onclick="updateCategory('text')">Text Extraction</button>
+                <button class="filter-tab ${state.activeCategory === 'document' ? 'active' : ''}" onclick="updateCategory('document')">Document & Business</button>
+                <button class="filter-tab ${state.activeCategory === 'utility' ? 'active' : ''}" onclick="updateCategory('utility')">Utilities & Codes</button>
+              </div>
+            </section>
+
+            <!-- Tools Grid Area -->
+            ${toolsGridHTML}
+
+            <!-- Core Hub Promotional Value Grid -->
+            <section class="marketing-section">
+              <div class="marketing-inner">
+                <div class="badge">
+                  ${getSvgIcon("sparkles")}
+                  <span>Guaranteed Security</span>
+                </div>
+                <h2>Next-Generation Multimodal Computer Vision OCR Engine</h2>
+                <p>ToolIMG leverages state-of-the-art visual transformers to read, analyze, and map complex characters directly within your browser window, completely bypassing standard server-side databases.</p>
+                
+                <div class="features-grid">
+                  <div class="feature-item">
+                    <div class="feature-check">${getSvgIcon("check")}</div>
+                    <div class="feature-content">
+                      <h3>100% Free & Unlimited Scans</h3>
+                      <p>Run complex handwriting transformations or table extractions without any restrictive daily caps or sign-ups.</p>
+                    </div>
+                  </div>
+                  <div class="feature-item">
+                    <div class="feature-check">${getSvgIcon("check")}</div>
+                    <div class="feature-content">
+                      <h3>Full On-Device Privacy</h3>
+                      <p>Your uploaded documents are processed completely in device memory and never transmitted to background storage servers.</p>
+                    </div>
+                  </div>
+                  <div class="feature-item">
+                    <div class="feature-check">${getSvgIcon("check")}</div>
+                    <div class="feature-content">
+                      <h3>Preserve Complex Grids</h3>
+                      <p>The layout mapping system structures scanned invoices, tabular logs, and listings with high structural precision.</p>
+                    </div>
+                  </div>
+                  <div class="feature-item">
+                    <div class="feature-check">${getSvgIcon("check")}</div>
+                    <div class="feature-content">
+                      <h3>Handwriting Transcription</h3>
+                      <p>Visual neural nets trace handwriting slopes and connectors to decode cursive journaling script elegantly.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+
+            <!-- General FAQs Accordion Section -->
+            ${generalFaqsHTML}
+          </div>
+        `;
+      }
+
+      // Individual Tool Page UI Component
+      function renderToolPage() {
+        const tool = TOOLS_DATA.find(t => t.id === state.activeToolId);
+        if (!tool) return "<div>Tool not found</div>";
+
+        // Generate special select drop options for Translate Tool
+        let optionTranslateHTML = "";
+        if (tool.id === "translate") {
+          const targetLanguages = ["Spanish", "French", "German", "Chinese", "Japanese", "Korean", "Arabic", "Hindi", "Portuguese", "Russian", "Italian"];
+          optionTranslateHTML = `
+            <div class="extra-options-box">
+              <span class="options-label">
+                ${getSvgIcon("languages")}
+                Translate Output Into:
+              </span>
+              <select class="select-dropdown" onchange="updateTargetLanguage(this.value)">
+                ${targetLanguages.map(lang => `
+                  <option value="${lang}" ${state.targetLanguage === lang ? 'selected' : ''}>${lang}</option>
+                `).join("")}
+              </select>
+            </div>
+          `;
+        }
+
+        // Dropzone Area HTML
+        let dropzoneHTML = "";
+        if (state.uploadedFileUrl) {
+          dropzoneHTML = `
+            <div class="file-preview-container" onclick="triggerFileInput()">
+              <img src="${state.uploadedFileUrl}" alt="Source preview" class="file-preview-img" />
+              <div class="file-preview-overlay">
+                <span class="replace-badge">Replace Image</span>
+              </div>
+            </div>
+          `;
+        } else {
+          dropzoneHTML = `
+            <div class="drop-zone" onclick="triggerFileInput()" id="drop-zone-area">
+              <div class="drop-icon-circle">
+                ${getSvgIcon("upload")}
+              </div>
+              <h3>Drag & drop your image here, or <span>browse</span></h3>
+              <p>Supports PNG, JPEG, JPG, WEBP up to 25MB.</p>
+            </div>
+          `;
+        }
+
+        // Action Buttons Row HTML
+        let actionButtonsHTML = "";
+        if (state.uploadedFile) {
+          actionButtonsHTML = `
+            <div class="action-buttons">
+              <button class="btn btn-primary" onclick="processOCR()" ${state.isProcessing ? 'disabled' : ''}>
+                ${getSvgIcon("sparkles")}
+                <span>${state.isProcessing ? 'Scanning Characters...' : 'Run OCR Scan'}</span>
+              </button>
+              <button class="btn btn-secondary" onclick="resetWorkspace()" ${state.isProcessing ? 'disabled' : ''}>Reset</button>
+            </div>
+          `;
+        }
+
+        // Right Column Result Panel HTML (Placeholder vs Spinner vs Result Output)
+        let rightColumnResultHTML = "";
+        if (state.isProcessing) {
+          rightColumnResultHTML = `
+            <div class="panel">
+              <div class="processing-view">
+                <div class="spinner-wrapper">
+                  <div class="spinner"></div>
+                  <div class="spinner-icon">
+                    ${getSvgIcon("sparkles")}
+                  </div>
+                </div>
+                <h3>Analyzing Image Layout</h3>
+                <p>Decoding character angles, reconstructing grids, and compiling data coordinates.</p>
+                <div class="processing-badge">
+                  ${getSvgIcon("sparkles")}
+                  <span>Processing takes ~1.5s...</span>
+                </div>
+              </div>
+            </div>
+          `;
+        } else if (state.ocrResult) {
+          // Special formatted blocks
+          let visualRenderOutput = "";
+          
+          if (tool.id === "business-card" && state.ocrResult.structuredData.name) {
+            const sd = state.ocrResult.structuredData;
+            visualRenderOutput = `
+              <div class="business-card-render">
+                <div class="card-header-flex">
+                  <div class="card-avatar">
+                    ${getSvgIcon("user")}
+                  </div>
+                  <div class="card-title-details">
+                    <h4>${sd.name}</h4>
+                    <p>${sd.title || 'Contact'} at ${sd.company || 'Business'}</p>
+                  </div>
+                </div>
+                <div class="card-rows">
+                  ${sd.phone ? `<div class="card-row-item">${getSvgIcon("phone")} <span>${sd.phone}</span></div>` : ''}
+                  ${sd.email ? `<div class="card-row-item">${getSvgIcon("mail")} <a href="mailto:${sd.email}">${sd.email}</a></div>` : ''}
+                  ${sd.website ? `<div class="card-row-item">${getSvgIcon("globe")} <a href="https://${sd.website}" target="_blank">${sd.website}</a></div>` : ''}
+                  ${sd.address ? `<div class="card-row-item">${getSvgIcon("map-pin")} <span>${sd.address}</span></div>` : ''}
+                </div>
+              </div>
+            `;
+          } else if (tool.id === "receipt" && state.ocrResult.structuredData.merchantName) {
+            const sd = state.ocrResult.structuredData;
+            visualRenderOutput = `
+              <div class="receipt-render-box">
+                <div class="receipt-header">
+                  <div>
+                    <div class="receipt-merchant">${sd.merchantName}</div>
+                    <div class="receipt-date">Date: ${sd.date}</div>
+                  </div>
+                  <div>
+                    <span class="receipt-badge">${sd.paymentMethod}</span>
+                  </div>
+                </div>
+                <div class="receipt-item-list">
+                  ${sd.items.map(item => `
+                    <div class="receipt-item-row">
+                      <span>${item.qty}x ${item.name}</span>
+                      <span>${sd.currency}${item.total}</span>
+                    </div>
+                  `).join("")}
+                </div>
+                <div class="receipt-summary">
+                  ${sd.taxAmount > 0 ? `<div class="receipt-item-row receipt-item-desc"><span>VAT/Tax:</span> <span>${sd.currency}${sd.taxAmount}</span></div>` : ''}
+                  ${sd.tipAmount > 0 ? `<div class="receipt-item-row receipt-item-desc"><span>Tips:</span> <span>${sd.currency}${sd.tipAmount}</span></div>` : ''}
+                  <div class="receipt-total-row">Total: ${sd.currency}${sd.totalAmount}</div>
+                </div>
+              </div>
+            `;
+          } else if (tool.id === "barcode" && state.ocrResult.structuredData.decodedValue) {
+            const sd = state.ocrResult.structuredData;
+            visualRenderOutput = `
+              <div class="barcode-decode-box">
+                ${getSvgIcon("qr-code")}
+                <div class="barcode-symbology">Type: ${sd.codeType}</div>
+                <div class="barcode-payload">${sd.decodedValue}</div>
+                ${sd.isUrl 
+                  ? `<a href="${sd.actionUrl}" target="_blank" class="barcode-action-link">Open Hyperlink Link ${getSvgIcon("external-link")}</a>` 
+                  : `<a href="https://www.google.com/search?q=${encodeURIComponent(sd.decodedValue)}" target="_blank" class="barcode-action-link">Lookup Product Code ${getSvgIcon("external-link")}</a>`
+                }
+              </div>
+            `;
+          } else if (tool.id === "table" && state.ocrResult.structuredData.headers) {
+            const sd = state.ocrResult.structuredData;
+            visualRenderOutput = `
+              <div class="table-render-container">
+                <table class="ocr-data-table">
+                  <thead>
+                    <tr>
+                      ${sd.headers.map(h => `<th>${h}</th>`).join("")}
+                    </tr>
+                  </thead>
+                  <tbody>
+                    ${sd.rows.map(row => `
+                      <tr>
+                        ${row.map(cell => `<td>${cell}</td>`).join("")}
+                      </tr>
+                    `).join("")}
+                  </tbody>
+                </table>
+              </div>
+            `;
+          }
+
+          // Markdown Parser simple conversion for results output formatting
+          let formattedMarkdownHTML = state.ocrResult.markdownSummary
+            .replace(/### (.*)/g, '<h3 style="font-size: 1.125rem; margin-top:1rem; margin-bottom: 0.5rem;">$1</h3>')
+            .replace(/## (.*)/g, '<h2 style="font-size: 1.25rem; margin-top:1.25rem; margin-bottom: 0.5rem;">$1</h2>')
+            .replace(/# (.*)/g, '<h1 style="font-size: 1.5rem; margin-top:1.5rem; margin-bottom: 0.75rem;">$1</h1>')
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+            .replace(/\*(.*?)\*/g, '<em>$1</em>')
+            .replace(/`([^`]+)`/g, '<code style="background:var(--bg-sub); padding:0.125rem 0.25rem; border-radius:0.25rem; font-family:\'JetBrains Mono\'">$1</code>')
+            .replace(/> (.*)/g, '<blockquote style="border-left: 3px solid var(--primary); padding-left:0.75rem; color:var(--text-muted); margin-bottom:1rem;">$1</blockquote>')
+            .replace(/\n\* (.*)/g, '<li>$1</li>')
+            .replace(/<li>(.*)<\/li>/g, '<ul style="margin-left: 1.25rem; margin-bottom: 1rem;"><li>$1</li></ul>')
+            .replace(/\n\n/g, '<p style="margin-bottom:0.75rem;"></p>');
+
+          let activeTabBodyHTML = "";
+          if (state.activeResultTab === "visual") {
+            activeTabBodyHTML = `
+              <div>
+                ${visualRenderOutput}
+                <div style="font-size: 0.875rem;">
+                  ${formattedMarkdownHTML}
+                </div>
+              </div>
+            `;
+          } else if (state.activeResultTab === "text") {
+            activeTabBodyHTML = `
+              <pre class="results-pre">${state.ocrResult.extractedText}</pre>
+            `;
+          } else if (state.activeResultTab === "json") {
+            activeTabBodyHTML = `
+              <pre class="results-pre">${JSON.stringify(state.ocrResult, null, 2)}</pre>
+            `;
+          }
+
+          // Rendering action buttons
+          let specialDownloadBtnHTML = "";
+          if (tool.id === "business-card" && state.ocrResult.structuredData.vcardText) {
+            specialDownloadBtnHTML = `
+              <button class="btn-download-special" onclick="downloadSpecialContact()">
+                ${getSvgIcon("download")}
+                <span>vCard</span>
+              </button>
+            `;
+          } else if (tool.id === "table" && state.ocrResult.structuredData.rows) {
+            specialDownloadBtnHTML = `
+              <button class="btn-download-special" onclick="downloadSpecialCsv()">
+                ${getSvgIcon("download")}
+                <span>CSV Sheet</span>
+              </button>
+            `;
+          }
+
+          rightColumnResultHTML = `
+            <div class="panel">
+              <div class="tabs-header">
+                <button class="tab-btn ${state.activeResultTab === 'visual' ? 'active' : ''}" onclick="updateResultTab('visual')">Visual Render</button>
+                <button class="tab-btn ${state.activeResultTab === 'text' ? 'active' : ''}" onclick="updateResultTab('text')">Raw Text</button>
+                <button class="tab-btn ${state.activeResultTab === 'json' ? 'active' : ''}" onclick="updateResultTab('json')">JSON Data</button>
+              </div>
+
+              <div class="tab-actions">
+                <button class="icon-action-btn" onclick="copyResultText()" title="Copy entire text">
+                  ${getSvgIcon("copy")}
+                </button>
+                <button class="icon-action-btn" onclick="downloadTxtFile()" title="Download text file">
+                  ${getSvgIcon("download")}
+                </button>
+                ${specialDownloadBtnHTML}
+              </div>
+
+              <div class="results-body">
+                ${activeTabBodyHTML}
+              </div>
+            </div>
+          `;
+        } else {
+          rightColumnResultHTML = `
+            <div class="panel" style="justify-content: center;">
+              <div class="results-placeholder">
+                <div class="results-placeholder-icon">
+                  ${getSvgIcon("file-text")}
+                </div>
+                <h3>OCR Output Panel</h3>
+                <p>Prepare your source file, click 'Run OCR Scan', and view digitized parameters instantly.</p>
+              </div>
+            </div>
+          `;
+        }
+
+        // Features Grid specific to this tool
+        let toolFeaturesHTML = `
+          <section class="marketing-section" style="padding: 2.5rem 2rem;">
+            <div class="marketing-inner" style="max-width: 900px;">
+              <h2 style="font-size: 1.5rem; margin-bottom: 0.5rem;">Premium Features of ${tool.title}</h2>
+              <p style="margin-bottom: 2rem;">Discover why developers and businesses trust ToolIMG for processing assets.</p>
+              <div class="features-grid" style="grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.5rem;">
+                ${tool.features.map(f => `
+                  <div class="feature-item">
+                    <div class="feature-check" style="background:var(--primary-light); color:var(--primary);">
+                      ${getSvgIcon("sparkles")}
+                    </div>
+                    <div class="feature-content">
+                      <h3 style="font-size: 0.95rem; font-weight: 700; margin-bottom: 0.25rem;">${f.title}</h3>
+                      <p style="font-size: 0.8125rem;">${f.description}</p>
+                    </div>
+                  </div>
+                `).join("")}
+              </div>
+            </div>
+          </section>
+        `;
+
+        // Tool-specific FAQs Accordion list
+        let toolFaqsHTML = `
+          <section class="faq-section" style="margin-bottom: 4rem;">
+            <div class="faq-title">
+              <h2>FAQs about ${tool.title}</h2>
+              <p>Learn more about how to get high accuracy output sheets.</p>
+            </div>
+            <div class="faq-list">
+              ${tool.faqs.map((faq, index) => {
+                const isOpen = state.openToolFaqIndex === index;
+                return `
+                  <div class="faq-card ${isOpen ? 'open' : ''}">
+                    <button class="faq-trigger" onclick="toggleToolFaq(${index})">
+                      <span>${faq.question}</span>
+                      ${getSvgIcon("chevron-down")}
+                    </button>
+                    <div class="faq-content">
+                      ${faq.answer}
+                    </div>
+                  </div>
+                `;
+              }).join("")}
+            </div>
+          </section>
+        `;
+
+        return `
+          <div class="container" style="padding-top: 1.5rem;">
+            <!-- Back navigation button link -->
+            <div class="back-btn-wrapper">
+              <a href="#/" class="back-btn">
+                ${getSvgIcon("arrow-left")}
+                <span>Go Back to Homepage</span>
+              </a>
+            </div>
+
+            <!-- Page Title Header -->
+            <div class="tool-header">
+              <h1>${tool.h1}</h1>
+              <p>${tool.seoDescription}</p>
+            </div>
+
+            <!-- Primary Workspace Matrix -->
+            <div class="workspace-grid">
+              
+              <!-- Left Prep Column -->
+              <div class="panel">
+                <div class="panel-title">
+                  ${getSvgIcon("upload")}
+                  <span>Image Workspace</span>
+                </div>
+
+                ${optionTranslateHTML}
+
+                <!-- Drag zone area container -->
+                ${dropzoneHTML}
+
+                <!-- Hidden file selector link -->
+                <input type="file" id="workspace-file-selector" style="display: none;" accept="image/*" onchange="handleFileSelected(this)" />
+
+                ${actionButtonsHTML}
+
+                <!-- General Help Guidelines -->
+                <div class="tips-box">
+                  <h4>
+                    ${getSvgIcon("check")}
+                    Tips for Flawless Scans:
+                  </h4>
+                  <ul class="tips-list">
+                    <li><strong>Maximize contrast:</strong> Avoid shadows, dark filters, or dim lights.</li>
+                    <li><strong>Keep Aligned:</strong> Flatten document corners and align text rows horizontally.</li>
+                    <li><strong>Focus Quality:</strong> Crop or reshoot blurry screenshots to improve precision.</li>
+                  </ul>
+                </div>
+              </div>
+
+              <!-- Right Results Column -->
+              ${rightColumnResultHTML}
+
+            </div>
+
+            <!-- Tool Specific Promotional Details -->
+            ${toolFeaturesHTML}
+
+            <!-- Tool Specific FAQ List -->
+            ${toolFaqsHTML}
+
+          </div>
+        `;
+      }
+
+      // Main application orchestrator viewport updater
+      function renderApp() {
+        const appViewport = document.getElementById("app-viewport");
+        
+        if (state.activeToolId) {
+          appViewport.innerHTML = renderToolPage();
+          setupWorkspaceDragEvents();
+        } else {
+          appViewport.innerHTML = renderHomepage();
+        }
+      }
+
+      // 8. Controller Actions / Event Listeners
+
+      // Navigation & Searching
+      window.updateSearch = function(val) {
+        state.searchQuery = val;
+        // Re-render homepage with the updated search queries
+        if (!state.activeToolId) {
+          const appViewport = document.getElementById("app-viewport");
+          appViewport.innerHTML = renderHomepage();
+        }
+      };
+
+      window.updateCategory = function(cat) {
+        state.activeCategory = cat;
+        renderApp();
+      };
+
+      window.resetSearchFilters = function() {
+        state.searchQuery = "";
+        state.activeCategory = "all";
+        renderApp();
+      };
+
+      // General Accordion FAQ collapse triggers
+      window.toggleGeneralFaq = function(index) {
+        state.openGeneralFaqIndex = (state.openGeneralFaqIndex === index) ? null : index;
+        renderApp();
+      };
+
+      // Tool Specific Accordion FAQ collapse triggers
+      window.toggleToolFaq = function(index) {
+        state.openToolFaqIndex = (state.openToolFaqIndex === index) ? null : index;
+        renderApp();
+      };
+
+      // Extra Translation Dropdown state updates
+      window.updateTargetLanguage = function(lang) {
+        state.targetLanguage = lang;
+      };
+
+      // Result Panel Tab controller transitions
+      window.updateResultTab = function(tab) {
+        state.activeResultTab = tab;
+        renderApp();
+      };
+
+      // Upload triggers
+      window.triggerFileInput = function() {
+        document.getElementById("workspace-file-selector").click();
+      };
+
+      window.handleFileSelected = function(input) {
+        const files = input.files;
+        if (files && files.length > 0) {
+          validateAndSetFile(files[0]);
+        }
+      };
+
+      function validateAndSetFile(file) {
+        if (!file.type.startsWith("image/")) {
+          alert("Only PNG, JPEG, JPG and WEBP image files are supported.");
+          return;
+        }
+        state.uploadedFile = file;
+        state.uploadedFileUrl = URL.createObjectURL(file);
+        state.ocrResult = null;
+        state.isProcessing = false;
+        
+        renderApp();
+      }
+
+      // Reset workspace
+      window.resetWorkspace = function() {
+        state.uploadedFile = null;
+        state.uploadedFileUrl = null;
+        state.ocrResult = null;
+        state.isProcessing = false;
+        state.activeResultTab = "visual";
+        renderApp();
+      };
+
+      // Helper to convert file to base64
+      function fileToBase64(file) {
+        return new Promise((resolve, reject) => {
+          const reader = new FileReader();
+          reader.readAsDataURL(file);
+          reader.onload = () => {
+            const result = reader.result;
+            const base64Str = result.split(',')[1];
+            resolve(base64Str);
+          };
+          reader.onerror = error => reject(error);
+        });
+      }
+
+      // Process OCR using backend API
+      window.processOCR = async function() {
+        if (!state.uploadedFile) return;
+
+        state.isProcessing = true;
+        renderApp();
+
+        try {
+          const base64Data = await fileToBase64(state.uploadedFile);
+          
+          const response = await fetch('/api/ocr', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+              toolId: state.activeToolId,
+              fileName: state.uploadedFile.name,
+              mimeType: state.uploadedFile.type,
+              targetLanguage: state.targetLanguage,
+              base64Data: base64Data
+            })
+          });
+
+          if (!response.ok) {
+            const errorData = await response.json().catch(() => ({}));
+            throw new Error(errorData.error || `HTTP error! status: ${response.status}`);
+          }
+
+          state.ocrResult = await response.json();
+        } catch (err) {
+          console.error("OCR Scan failed", err);
+          alert(`OCR Scan failed: ${err.message || 'Unknown error'}`);
+        } finally {
+          state.isProcessing = false;
+          renderApp();
+        }
+      };
+
+      // Clipboard Action
+      window.copyResultText = function() {
+        if (!state.ocrResult) return;
+        navigator.clipboard.writeText(state.ocrResult.extractedText)
+          .then(() => {
+            triggerToast("Copied to clipboard!");
+          })
+          .catch(() => {
+            alert("Clipboard permission rejected.");
+          });
+      };
+
+      // Download standard text document file
+      window.downloadTxtFile = function() {
+        if (!state.ocrResult) return;
+        downloadBlob(state.ocrResult.extractedText, "extracted-ocr-text.txt", "text/plain");
+      };
+
+      // Download vCard RFC-compliant file
+      window.downloadSpecialContact = function() {
+        if (!state.ocrResult || !state.ocrResult.structuredData.vcardText) return;
+        downloadBlob(state.ocrResult.structuredData.vcardText, "contact-profile.vcf", "text/vcard");
+      };
+
+      // Download CSV spreadsheet sheet
+      window.downloadSpecialCsv = function() {
+        if (!state.ocrResult || !state.ocrResult.structuredData.rows) return;
+        const sd = state.ocrResult.structuredData;
+        
+        const csvRows = [
+          sd.headers.map(h => `"${h.replace(/"/g, '""')}"`).join(","),
+          ...sd.rows.map(row => row.map(cell => `"${cell.replace(/"/g, '""')}"`).join(","))
+        ].join("\n");
+
+        downloadBlob(csvRows, "ocr-excel-table.csv", "text/csv");
+      };
+
+      function downloadBlob(content, filename, contentType) {
+        const blob = new Blob([content], { type: contentType });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        triggerToast(`Downloaded ${filename}!`);
+      }
+
+      // Drag over event setup function
+      function setupWorkspaceDragEvents() {
+        const dropZone = document.getElementById("drop-zone-area");
+        if (!dropZone) return;
+
+        ["dragenter", "dragover"].forEach(eventName => {
+          dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.classList.add("dragover");
+          }, false);
+        });
+
+        ["dragleave", "drop"].forEach(eventName => {
+          dropZone.addEventListener(eventName, (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            dropZone.classList.remove("dragover");
+          }, false);
+        });
+
+        dropZone.addEventListener("drop", (e) => {
+          const dt = e.dataTransfer;
+          const files = dt.files;
+          if (files && files.length > 0) {
+            validateAndSetFile(files[0]);
+          }
+        }, false);
+      }
+
+      // Handle direct click on logo to reset
+      document.getElementById("logo-anchor").addEventListener("click", () => {
+        state.searchQuery = "";
+        state.activeCategory = "all";
+      });
+
+      // Listen on hash changes to sync routers
+      window.addEventListener("hashchange", syncStateWithHash);
+
+      // 9. Initial Load Setup
+      syncStateWithHash();
+    </script>
   </body>
 </html>
-

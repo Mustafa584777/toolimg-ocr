@@ -1,301 +1,398 @@
-import express from "express";
-import path from "path";
-import dotenv from "dotenv";
-import { GoogleGenAI, Type } from "@google/genai";
-import { createServer as createViteServer } from "vite";
+import express from 'express';
+import { GoogleGenAI, Type } from '@google/genai';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-// Load environment variables
-dotenv.config();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 const app = express();
-const PORT = 3000;
+const port = 3000;
 
-// Set up body parsers with generous limits for base64 image uploads
-app.use(express.json({ limit: "25mb" }));
-app.use(express.urlencoded({ limit: "25mb", extended: true }));
+// Increase payload limit for base64 images
+app.use(express.json({ limit: '50mb' }));
 
-// Health check route
-app.get("/api/health", (req, res) => {
-  res.json({ status: "ok", time: new Date().toISOString() });
+// Initialize Gemini Client
+const apiKey = process.env.GEMINI_API_KEY;
+if (!apiKey) {
+  console.warn('Warning: GEMINI_API_KEY environment variable is missing.');
+}
+
+const ai = new GoogleGenAI({
+  apiKey: apiKey,
+  httpOptions: {
+    headers: {
+      'User-Agent': 'aistudio-build',
+    }
+  }
 });
 
-// Server-side OCR Processing route using @google/genai SDK
-app.post("/api/ocr/process", async (req, res): Promise<any> => {
+// Real OCR Endpoint
+app.post('/api/ocr', async (req: express.Request, res: express.Response) => {
   try {
-    const { toolId, base64, mimeType, extraParams } = req.body;
+    const { toolId, fileName, mimeType, targetLanguage, base64Data } = req.body;
 
-    if (!base64 || !mimeType) {
-      return res.status(400).json({ error: "Missing required image data (base64 and mimeType)" });
+    if (!base64Data) {
+      return res.status(400).json({ error: 'No image data provided' });
     }
 
-    const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ 
-        error: "GEMINI_API_KEY is not configured in the server environment. Please set it up in Settings > Secrets." 
-      });
+      return res.status(500).json({ error: 'GEMINI_API_KEY is not configured on the server. Please configure it in Settings > Secrets.' });
     }
 
-    // Initialize the GoogleGenAI client with standard configuration
-    const ai = new GoogleGenAI({
-      apiKey,
-      httpOptions: {
-        headers: {
-          "User-Agent": "aistudio-build",
-        },
-      },
-    });
+    // Prepare Gemini Prompt based on toolId and targetLanguage
+    let systemInstruction = '';
+    let responseSchema: any = null;
 
-    // Tailor instructions based on the specific tool requested
-    let promptInstruction = "";
-    
     switch (toolId) {
-      case "image-to-text":
-        promptInstruction = `
-          Perform high-accuracy optical character recognition (OCR) on the uploaded image.
-          Extract all readable text. Maintain paragraphs, formatting, and layout as closely as possible.
-          In your markdownSummary, present the extracted text clearly with neat formatting.
-          In structuredData, provide:
-          {
-            "wordCount": <integer count of extracted words>,
-            "lineCount": <integer count of lines>,
-            "hasTables": <boolean if tabular data exists>,
-            "confidence": "high" | "medium" | "low"
-          }
+      case 'image-to-text':
+        systemInstruction = `
+You are a high-accuracy document and screenshot OCR text extractor.
+Analyze the provided image and extract all text content exactly as it appears.
+Maintain standard paragraph breaks, lists, and indentation.
+If there are any visible details, transcribe them precisely.
+Return a JSON response with:
+1. extractedText: The raw text extracted from the image.
+2. markdownSummary: A beautiful Markdown formatted representation of the extracted document.
+3. structuredData: An empty object {}.
         `;
+        responseSchema = {
+          type: Type.OBJECT,
+          properties: {
+            extractedText: { type: Type.STRING },
+            markdownSummary: { type: Type.STRING },
+            structuredData: { type: Type.OBJECT }
+          },
+          required: ['extractedText', 'markdownSummary', 'structuredData']
+        };
         break;
-      case "handwriting":
-        promptInstruction = `
-          Analyze the uploaded image which contains handwritten text. 
-          Transcribe the handwriting as accurately as possible. 
-          Correct obvious structural typos but stay faithful to the exact written message.
-          In markdownSummary, present the transcription nicely with readable styling.
-          In structuredData, provide:
-          {
-            "originalHandwritingStyle": "cursive" | "print" | "mixed" | "sketchy",
-            "transcriptionConfidence": "high" | "medium" | "low",
-            "unreadableSegmentsCount": <integer>
-          }
+
+      case 'handwriting':
+        systemInstruction = `
+You are a handwriting to text transcriber.
+Analyze the handwritten text in the image.
+Perform handwriting OCR to transcribe cursive, printing, or rough draft scripts into clean text.
+Analyze the spatial layout, list bullets, journal items and headings.
+Return a JSON response with:
+1. extractedText: The transcribed raw text.
+2. markdownSummary: A beautiful Markdown formatted summary of the transcribed text, explaining any unclear or cursive sections.
+3. structuredData: An empty object {}.
         `;
+        responseSchema = {
+          type: Type.OBJECT,
+          properties: {
+            extractedText: { type: Type.STRING },
+            markdownSummary: { type: Type.STRING },
+            structuredData: { type: Type.OBJECT }
+          },
+          required: ['extractedText', 'markdownSummary', 'structuredData']
+        };
         break;
-      case "pdf-to-text":
-        promptInstruction = `
-          Analyze this scanned document page (representing a PDF-to-text OCR operation).
-          Perform layout-preserving text extraction. Identify headers, footers, list items, and sections.
-          In markdownSummary, output a beautifully formatted and structured document using markdown headings (# , ##), lists (*, -), blockquotes, etc.
-          In structuredData, provide:
-          {
-            "documentTitle": "Estimated document title",
-            "sections": ["Section 1 Title", "Section 2 Title"],
-            "language": "ISO 2-letter language code",
-            "pageNumber": <estimated page number or 1>
-          }
+
+      case 'pdf-to-text':
+        systemInstruction = `
+You are a scanned document PDF-to-Text page converter.
+Analyze the image of the document page.
+Filter out headers, footers, page numbers and margin noise.
+Recognize math formulas, special punctuation, and titles.
+Return a JSON response with:
+1. extractedText: The continuous readable raw text.
+2. markdownSummary: A beautiful Markdown formatted structure mapping headings (using #, ##), bold sections, and blockquotes logically.
+3. structuredData: An empty object {}.
         `;
+        responseSchema = {
+          type: Type.OBJECT,
+          properties: {
+            extractedText: { type: Type.STRING },
+            markdownSummary: { type: Type.STRING },
+            structuredData: { type: Type.OBJECT }
+          },
+          required: ['extractedText', 'markdownSummary', 'structuredData']
+        };
         break;
-      case "receipt":
-        promptInstruction = `
-          Perform Invoice and Receipt OCR. Extract critical business values and transaction details.
-          Extract merchant name, date, time, total, tax, tip, payment method, address, and item list.
-          In markdownSummary, create a sleek invoice card detailing:
-          - Merchant information
-          - A clean table listing items (Qty, Name, Price, Total)
-          - Transaction summary (Tax, Tip, Total)
-          In structuredData, provide:
-          {
-            "merchantName": "Name of the store",
-            "date": "YYYY-MM-DD format, or empty if not found",
-            "totalAmount": <number representation of total payment>,
-            "currency": "USD" | "EUR" | "INR" | "GBP" etc.,
-            "items": [
-              { "name": "Item name", "qty": <number>, "price": <number>, "total": <number> }
-            ],
-            "taxAmount": <number>,
-            "tipAmount": <number>,
-            "paymentMethod": "Cash" | "Credit Card" | "Debit Card" | "Mobile Pay" | "Unknown"
-          }
+
+      case 'receipt':
+        systemInstruction = `
+You are an advanced Financial Receipt & Invoice OCR parser.
+Identify the merchant name, transaction date, payment method, tax amount, tip amount, total amount, currency (or symbol), and list of items (each item must have name, qty, price, and total).
+Return a JSON response with:
+1. extractedText: A neat raw text representation of the receipt contents.
+2. markdownSummary: A formatted Markdown summary including merchant details, items list, tax, and a bold Grand Total.
+3. structuredData: A structured object containing:
+   - merchantName: string (e.g. Starbucks)
+   - date: string
+   - paymentMethod: string (e.g. Visa Credit, Cash)
+   - taxAmount: number
+   - tipAmount: number
+   - totalAmount: number
+   - currency: string (the symbol like $ or currency code like USD)
+   - items: array of objects with:
+     - name: string
+     - qty: number
+     - price: string
+     - total: string
         `;
+        responseSchema = {
+          type: Type.OBJECT,
+          properties: {
+            extractedText: { type: Type.STRING },
+            markdownSummary: { type: Type.STRING },
+            structuredData: {
+              type: Type.OBJECT,
+              properties: {
+                merchantName: { type: Type.STRING },
+                date: { type: Type.STRING },
+                paymentMethod: { type: Type.STRING },
+                taxAmount: { type: Type.NUMBER },
+                tipAmount: { type: Type.NUMBER },
+                totalAmount: { type: Type.NUMBER },
+                currency: { type: Type.STRING },
+                items: {
+                  type: Type.ARRAY,
+                  items: {
+                    type: Type.OBJECT,
+                    properties: {
+                      name: { type: Type.STRING },
+                      qty: { type: Type.INTEGER },
+                      price: { type: Type.STRING },
+                      total: { type: Type.STRING }
+                    },
+                    required: ['name', 'qty', 'price', 'total']
+                  }
+                }
+              },
+              required: ['merchantName', 'date', 'paymentMethod', 'taxAmount', 'tipAmount', 'totalAmount', 'currency', 'items']
+            }
+          },
+          required: ['extractedText', 'markdownSummary', 'structuredData']
+        };
         break;
-      case "business-card":
-        promptInstruction = `
-          Perform Business Card OCR. Extract contact information.
-          Identify Name, Job Title, Company Name, Phone Number, Email, Website, Address, and Social Media handles.
-          Also generate a standard downloadable vCard text (.vcf format).
-          In markdownSummary, create a beautiful digital business profile card.
-          In structuredData, provide:
-          {
-            "name": "Full name",
-            "title": "Job title",
-            "company": "Company name",
-            "phone": "Phone number",
-            "email": "Email address",
-            "website": "Website URL",
-            "address": "Full physical address",
-            "vcardText": "BEGIN:VCARD\\nVERSION:3.0\\nFN:Full Name\\nORG:Company\\nTITLE:Job Title\\nTEL:Phone\\nEMAIL:Email\\nURL:Website\\nADR:Address\\nEND:VCARD"
-          }
+
+      case 'business-card':
+        systemInstruction = `
+You are an AI Business Card Scanner and Reader.
+Identify contact information including name, title, company, phone, email, website, and physical address.
+Generate a valid RFC-compliant vCard (.vcf) string based on the parsed contact info.
+Return a JSON response with:
+1. extractedText: A raw text list of all identified contact parameters.
+2. markdownSummary: A clean Markdown business card visual representation with links to the email and website.
+3. structuredData: A structured object containing:
+   - name: string
+   - title: string
+   - company: string
+   - phone: string
+   - email: string
+   - website: string
+   - address: string
+   - vcardText: string (valid RFC-compliant vCard string)
         `;
+        responseSchema = {
+          type: Type.OBJECT,
+          properties: {
+            extractedText: { type: Type.STRING },
+            markdownSummary: { type: Type.STRING },
+            structuredData: {
+              type: Type.OBJECT,
+              properties: {
+                name: { type: Type.STRING },
+                title: { type: Type.STRING },
+                company: { type: Type.STRING },
+                phone: { type: Type.STRING },
+                email: { type: Type.STRING },
+                website: { type: Type.STRING },
+                address: { type: Type.STRING },
+                vcardText: { type: Type.STRING }
+              },
+              required: ['name', 'title', 'company', 'phone', 'email', 'website', 'address', 'vcardText']
+            }
+          },
+          required: ['extractedText', 'markdownSummary', 'structuredData']
+        };
         break;
-      case "license-plate":
-        promptInstruction = `
-          Perform License Plate Recognition (LPR).
-          Extract the alphanumeric characters of any license plate visible.
-          Identify the country/state/region of the license plate, as well as vehicle make, model, or color if visible.
-          In markdownSummary, present the plate cleanly in a stylized frame and list the vehicle details.
-          In structuredData, provide:
-          {
-            "plateNumber": "Extracted plate number (caps)",
-            "stateOrRegion": "Estimated State/Province/Country",
-            "vehicleColor": "Color or unknown",
-            "vehicleModel": "Estimated make/model, or unknown",
-            "confidence": "high" | "medium" | "low"
-          }
+
+      case 'license-plate':
+        systemInstruction = `
+You are an Automated License Plate Reader (LPR).
+Identify the license plate number, state/country origin, vehicle color, vehicle model, and estimation confidence.
+Return a JSON response with:
+1. extractedText: A neat raw text description of the car and plate.
+2. markdownSummary: A clean Markdown bullet-pointed description of the plate characters, origin, vehicle, and confidence level.
+3. structuredData: An empty object {}.
         `;
+        responseSchema = {
+          type: Type.OBJECT,
+          properties: {
+            extractedText: { type: Type.STRING },
+            markdownSummary: { type: Type.STRING },
+            structuredData: { type: Type.OBJECT }
+          },
+          required: ['extractedText', 'markdownSummary', 'structuredData']
+        };
         break;
-      case "table":
-        promptInstruction = `
-          Analyze the uploaded image containing a table, sheet, or grid.
-          Perform structural table extraction.
-          Extract column headers and all corresponding row cells as cleanly as possible.
-          In markdownSummary, construct a responsive Markdown table representing the data.
-          In structuredData, provide:
-          {
-            "headers": ["Header 1", "Header 2", ...],
-            "rows": [
-              ["Cell 1", "Cell 2", ...],
-              ["Cell 1", "Cell 2", ...]
-            ]
-          }
+
+      case 'table':
+        systemInstruction = `
+You are a Table OCR image extractor.
+Analyze the tabular data grid in the image.
+Extract the columns and rows perfectly.
+Return a JSON response with:
+1. extractedText: Tab-separated table format.
+2. markdownSummary: Beautiful Markdown representation of the table.
+3. structuredData: A structured object containing:
+   - headers: array of strings containing columns header names
+   - rows: array of array of strings containing rows cell data
         `;
+        responseSchema = {
+          type: Type.OBJECT,
+          properties: {
+            extractedText: { type: Type.STRING },
+            markdownSummary: { type: Type.STRING },
+            structuredData: {
+              type: Type.OBJECT,
+              properties: {
+                headers: {
+                  type: Type.ARRAY,
+                  items: { type: Type.STRING }
+                },
+                rows: {
+                  type: Type.ARRAY,
+                  items: {
+                    type: Type.ARRAY,
+                    items: { type: Type.STRING }
+                  }
+                }
+              },
+              required: ['headers', 'rows']
+            }
+          },
+          required: ['extractedText', 'markdownSummary', 'structuredData']
+        };
         break;
-      case "translate":
-        const targetLang = extraParams?.targetLanguage || "Spanish";
-        promptInstruction = `
-          Perform OCR Translation.
-          Step 1: Extract all readable text in the original language of the image.
-          Step 2: Detect the source language.
-          Step 3: Translate the extracted text accurately into ${targetLang}.
-          In markdownSummary, display a split layout with "Original Text" and "Translated Text (${targetLang})", formatted beautifully.
-          In structuredData, provide:
-          {
-            "detectedSourceLanguage": "Full name of source language",
-            "originalText": "Full extracted original text",
-            "translatedText": "Full translated text in ${targetLang}"
-          }
+
+      case 'translate':
+        systemInstruction = `
+You are an AI Multilingual OCR Translator.
+First, detect the source language and extract the text from the image.
+Then, translate the extracted text into the target language: "${targetLanguage}".
+Return a JSON response with:
+1. extractedText: A raw text block formatted with 'Original [detected language]:\\n...\\n\\nTranslated [${targetLanguage}]:\\n...'
+2. markdownSummary: A clean Markdown formatted comparison block showing the original and translated text side-by-side or stacked.
+3. structuredData: An empty object {}.
         `;
+        responseSchema = {
+          type: Type.OBJECT,
+          properties: {
+            extractedText: { type: Type.STRING },
+            markdownSummary: { type: Type.STRING },
+            structuredData: { type: Type.OBJECT }
+          },
+          required: ['extractedText', 'markdownSummary', 'structuredData']
+        };
         break;
-      case "barcode":
-        promptInstruction = `
-          Detect and decode any QR Codes or Barcodes in the image.
-          Scan and read the alphanumeric payload.
-          Identify the symbology type (e.g. QR Code, UPC-A, EAN-13, Code 39, Code 128, etc.).
-          Determine if the payload is a URL, product ID, plain text, or email, and generate a dynamic action URL if appropriate.
-          In markdownSummary, show the barcode value, the type, and an actionable link if it is a website.
-          In structuredData, provide:
-          {
-            "codeType": "QR Code" | "UPC-A" | "EAN-13" | "Code 128" | "Unknown",
-            "decodedValue": "Decoded alphanumeric value",
-            "isUrl": <boolean>,
-            "actionUrl": "Direct HTTP URL if value is a link, or a search link like Google search for product ID"
-          }
+
+      case 'barcode':
+        systemInstruction = `
+You are an AI Barcode & QR Code reader.
+Read the barcode, QR code, UPC, or EAN standard in the image.
+Identify the code standard/type, decoded alphanumeric payload, and check if it is a URL.
+Return a JSON response with:
+1. extractedText: A raw text block showing the code type and payload.
+2. markdownSummary: A neat Markdown summary showing code parameters.
+3. structuredData: A structured object containing:
+   - codeType: string
+   - decodedValue: string
+   - isUrl: boolean
+   - actionUrl: string (the URL itself, if it is a URL, otherwise empty string)
         `;
+        responseSchema = {
+          type: Type.OBJECT,
+          properties: {
+            extractedText: { type: Type.STRING },
+            markdownSummary: { type: Type.STRING },
+            structuredData: {
+              type: Type.OBJECT,
+              properties: {
+                codeType: { type: Type.STRING },
+                decodedValue: { type: Type.STRING },
+                isUrl: { type: Type.BOOLEAN },
+                actionUrl: { type: Type.STRING }
+              },
+              required: ['codeType', 'decodedValue', 'isUrl', 'actionUrl']
+            }
+          },
+          required: ['extractedText', 'markdownSummary', 'structuredData']
+        };
         break;
+
       default:
-        promptInstruction = `
-          Analyze the image and perform standard OCR text extraction.
-          Provide extractedText, markdownSummary, and structuredData in JSON.
+        systemInstruction = `
+Analyze the provided image and perform Optical Character Recognition (OCR).
+Extract text content and format it nicely.
+Return a JSON response with extractedText, markdownSummary, and an empty structuredData object.
         `;
+        responseSchema = {
+          type: Type.OBJECT,
+          properties: {
+            extractedText: { type: Type.STRING },
+            markdownSummary: { type: Type.STRING },
+            structuredData: { type: Type.OBJECT }
+          },
+          required: ['extractedText', 'markdownSummary', 'structuredData']
+        };
     }
 
-    const systemPrompt = `
-      You are a specialized AI Optical Character Recognition (OCR) engine for ToolIMG.
-      Your goal is to parse images and extract texts, codes, tabular data, and key-value pairs with absolute precision.
-      You must always return your output strictly in JSON format matching the schema requested below.
-      Never include any conversational preambles or postscripts in your output. Return ONLY the raw JSON string.
-    `;
-
-    // Package the image for Gemini API inlineData part
     const imagePart = {
       inlineData: {
-        mimeType,
-        data: base64,
-      },
+        mimeType: mimeType || 'image/png',
+        data: base64Data
+      }
     };
 
     const textPart = {
-      text: `
-        Analyze the image and apply the following OCR instructions:
-        ${promptInstruction}
-        
-        Ensure you return your response in the exact JSON format specified below.
-      `,
+      text: `Process this image for OCR task: "${toolId}". Source filename: "${fileName}". Target Language: "${targetLanguage || 'English'}"`
     };
 
-    // Ask Gemini for content generation with Structured JSON Schema output
+    // Call Gemini API
     const response = await ai.models.generateContent({
-      model: "gemini-3.5-flash",
-      contents: {
-        parts: [imagePart, textPart],
-      },
+      model: 'gemini-3.5-flash',
+      contents: { parts: [imagePart, textPart] },
       config: {
-        systemInstruction: systemPrompt,
-        responseMimeType: "application/json",
-        responseSchema: {
-          type: Type.OBJECT,
-          properties: {
-            extractedText: {
-              type: Type.STRING,
-              description: "All raw extracted text from the image, formatted with spaces and newlines.",
-            },
-            markdownSummary: {
-              type: Type.STRING,
-              description: "A beautifully styled, professional markdown representation of the data suited for visual render on the web.",
-            },
-            structuredData: {
-              type: Type.OBJECT,
-              description: "A tool-specific JSON object as instructed by the prompts.",
-            },
-          },
-          required: ["extractedText", "markdownSummary", "structuredData"],
-        },
-      },
+        systemInstruction,
+        responseMimeType: 'application/json',
+        responseSchema
+      }
     });
 
-    const responseText = response.text;
-    if (!responseText) {
-      throw new Error("No response received from the Gemini API model.");
+    const resultText = response.text;
+    if (!resultText) {
+      throw new Error('No response from Gemini API');
     }
 
-    // Parse the returned JSON from Gemini
-    const resultJson = JSON.parse(responseText.trim());
-    return res.json(resultJson);
-
+    const parsedResult = JSON.parse(resultText);
+    res.json(parsedResult);
   } catch (error: any) {
-    console.error("Error processing server OCR:", error);
-    return res.status(500).json({ 
-      error: error.message || "An error occurred while processing the image on the server." 
-    });
+    console.error('Error processing OCR request:', error);
+    res.status(500).json({ error: error.message || 'Failed to process OCR request' });
   }
 });
 
-// Configure Vite integration or static file serving depending on NODE_ENV
-async function initializeViteOrStatic() {
-  if (process.env.NODE_ENV !== "production") {
-    const vite = await createViteServer({
-      server: { middlewareMode: true },
-      appType: "spa",
-    });
-    app.use(vite.middlewares);
-    console.log("Mounted Vite development middleware");
-  } else {
-    const distPath = path.join(process.cwd(), "dist");
-    app.use(express.static(distPath));
-    app.get("*", (req, res) => {
-      res.sendFile(path.join(distPath, "index.html"));
-    });
-    console.log(`Serving static files from ${distPath}`);
-  }
-
-  app.listen(PORT, "0.0.0.0", () => {
-    console.log(`ToolIMG custom backend is actively listening on port ${PORT}`);
+// Serve frontend in dev / prod
+if (process.env.NODE_ENV === 'production') {
+  // Production static server
+  app.use(express.static(path.join(__dirname, 'dist')));
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
   });
+} else {
+  // Vite Dev Server middleware
+  const { createServer: createViteServer } = await import('vite');
+  const vite = await createViteServer({
+    server: { middlewareMode: true },
+    appType: 'spa'
+  });
+  app.use(vite.middlewares);
 }
 
-initializeViteOrStatic();
+app.listen(port, '0.0.0.0', () => {
+  console.log(`Server is running at http://0.0.0.0:${port}`);
+});
