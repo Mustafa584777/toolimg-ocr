@@ -1267,6 +1267,210 @@
         0%, 100% { opacity: 1; transform: scale(1); }
         50% { opacity: 0.5; transform: scale(0.95); }
       }
+
+      /* Auth & User Panel Styles */
+      .nav-auth-container {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .btn-google-login {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--bg-main);
+        color: var(--text-main);
+        border: 1px solid var(--border);
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius-full);
+        font-size: 0.875rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .btn-google-login:hover {
+        background: var(--bg-sub);
+        border-color: var(--text-muted);
+        box-shadow: var(--shadow-sm);
+      }
+
+      .btn-google-login svg {
+        width: 1rem;
+        height: 1rem;
+      }
+
+      .user-profile-menu {
+        position: relative;
+        display: inline-block;
+      }
+
+      .user-profile-btn {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: var(--bg-sub);
+        border: 1px solid var(--border);
+        padding: 0.375rem 0.75rem;
+        border-radius: var(--radius-full);
+        cursor: pointer;
+        font-size: 0.875rem;
+        font-weight: 500;
+        color: var(--text-main);
+        transition: all 0.2s ease;
+      }
+
+      .user-profile-btn:hover {
+        background: var(--border);
+      }
+
+      .user-avatar {
+        width: 1.5rem;
+        height: 1.5rem;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      .profile-dropdown-content {
+        display: none;
+        position: absolute;
+        right: 0;
+        top: 100%;
+        margin-top: 0.5rem;
+        background: var(--bg-main);
+        min-width: 180px;
+        box-shadow: var(--shadow-lg);
+        border: 1px solid var(--border);
+        border-radius: 0.75rem;
+        z-index: 100;
+        overflow: hidden;
+      }
+
+      .user-profile-menu:hover .profile-dropdown-content,
+      .profile-dropdown-content.show {
+        display: block;
+      }
+
+      .dropdown-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        padding: 0.75rem 1rem;
+        text-decoration: none;
+        color: var(--text-main);
+        font-size: 0.875rem;
+        cursor: pointer;
+        border: none;
+        background: none;
+        width: 100%;
+        text-align: left;
+        transition: background 0.2s ease;
+      }
+
+      .dropdown-item:hover {
+        background: var(--bg-sub);
+        color: var(--primary);
+      }
+
+      .dropdown-divider {
+        height: 1px;
+        background: var(--border);
+      }
+
+      /* Dashboard Page Styles */
+      .dashboard-container {
+        max-width: 800px;
+        margin: 3rem auto;
+        padding: 0 1.5rem;
+      }
+
+      .dashboard-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      .dashboard-welcome h1 {
+        font-size: 2rem;
+        margin-bottom: 0.25rem;
+      }
+
+      .dashboard-welcome p {
+        color: var(--text-muted);
+        font-size: 0.875rem;
+      }
+
+      .dashboard-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+      }
+
+      .dashboard-card {
+        background: var(--bg-main);
+        border: 1px solid var(--border);
+        border-radius: var(--radius-xl);
+        padding: 1.75rem;
+        box-shadow: var(--shadow-sm);
+        transition: box-shadow 0.2s ease;
+      }
+
+      .dashboard-card:hover {
+        box-shadow: var(--shadow-md);
+      }
+
+      .dashboard-card-icon {
+        width: 2.75rem;
+        height: 2.75rem;
+        border-radius: 0.75rem;
+        background: var(--primary-light);
+        color: var(--primary);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 1.25rem;
+      }
+
+      .dashboard-card-icon svg {
+        width: 1.25rem;
+        height: 1.25rem;
+      }
+
+      .dashboard-card-title {
+        font-size: 0.875rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+        margin-bottom: 0.5rem;
+      }
+
+      .dashboard-card-value {
+        font-size: 1.25rem;
+        font-weight: 700;
+        color: var(--text-main);
+        word-break: break-all;
+      }
+
+      .dashboard-back-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.5rem;
+        color: var(--primary);
+        text-decoration: none;
+        font-weight: 600;
+        font-size: 0.875rem;
+        transition: transform 0.2s ease;
+      }
+
+      .dashboard-back-link:hover {
+        transform: translateX(-3px);
+      }
     </style>
   </head>
   <body>
@@ -1278,6 +1482,7 @@
           <span class="logo-text">ToolIMG</span>
           <span class="logo-badge">Premium</span>
         </a>
+        <div id="navbar-auth-section"></div>
       </div>
     </header>
 
@@ -1298,7 +1503,11 @@
     </div>
 
     <!-- Core App Code Logic -->
-    <script>
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { getFirestore, doc, setDoc, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
       // 1. Static Dataset for all 9 OCR Tools
       const TOOLS_DATA = [
         {
@@ -1581,6 +1790,9 @@
       // 3. Application State
       let state = {
         activeToolId: null,
+        activePage: null,
+        currentUser: null,
+        joinedAt: null,
         searchQuery: "",
         activeCategory: "all",
         uploadedFile: null,
@@ -1793,7 +2005,12 @@
       // 6. Router Mechanism
       function syncStateWithHash() {
         const hash = window.location.hash;
-        if (hash.startsWith("#/tool/")) {
+        if (hash === "#/dashboard") {
+          state.activeToolId = null;
+          state.activePage = "dashboard";
+          document.title = "User Dashboard - ToolIMG";
+        } else if (hash.startsWith("#/tool/")) {
+          state.activePage = null;
           const id = hash.replace("#/tool/", "");
           const found = TOOLS_DATA.find(t => t.id === id);
           if (found) {
@@ -1801,11 +2018,13 @@
             document.title = `${found.title} - Free Online AI OCR | ToolIMG`;
           } else {
             state.activeToolId = null;
+            state.activePage = null;
             window.location.hash = "";
             document.title = "ToolIMG: Free Online AI OCR & Image Scanning Hub";
           }
         } else {
           state.activeToolId = null;
+          state.activePage = null;
           document.title = "ToolIMG: Free Online AI OCR & Image Scanning Hub";
         }
         // Always reset processing and file on page routing
@@ -2345,11 +2564,152 @@
         `;
       }
 
+      function renderNavbarAuth() {
+        const authSection = document.getElementById("navbar-auth-section");
+        if (!authSection) return;
+
+        if (state.currentUser) {
+          const user = state.currentUser;
+          const avatarUrl = user.photoURL || 'https://via.placeholder.com/40?text=' + (user.email ? user.email.charAt(0).toUpperCase() : 'U');
+          authSection.innerHTML = `
+            <div class="user-profile-menu">
+              <button class="user-profile-btn" onclick="toggleProfileDropdown(event)">
+                <img src="${avatarUrl}" class="user-avatar" referrerpolicy="no-referrer" />
+                <span>${user.displayName || user.email.split('@')[0]}</span>
+                ${getSvgIcon("chevron-down")}
+              </button>
+              <div id="profile-dropdown" class="profile-dropdown-content">
+                <a href="#/dashboard" class="dropdown-item">
+                  ${getSvgIcon("user")}
+                  <span>My Dashboard</span>
+                </a>
+                <div class="dropdown-divider"></div>
+                <button class="dropdown-item" onclick="handleLogout()">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem; height:1rem;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"></path></svg>
+                  <span>Logout</span>
+                </button>
+              </div>
+            </div>
+          `;
+        } else {
+          authSection.innerHTML = `
+            <button class="btn-google-login" onclick="handleLogin()">
+              <svg viewBox="0 0 24 24" style="width:1rem; height:1rem;" width="24" height="24">
+                <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v3.92h6.69c-.29 1.5-1.14 2.77-2.4 3.61v3h3.86c2.26-2.09 3.59-5.17 3.59-8.46z"/>
+                <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.11 0-5.74-2.11-6.68-4.96H1.21v3.11C3.18 21.88 7.31 24 12 24z"/>
+                <path fill="#FBBC05" d="M5.32 14.29c-.24-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.6H1.21C.44 8.12 0 9.83 0 11.63s.44 3.51 1.21 5.03l4.11-2.37z"/>
+                <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.18 2.12 1.21 5.03l4.11 2.37c.94-2.85 3.57-4.96 6.68-4.96z"/>
+              </svg>
+              <span>Login with Google</span>
+            </button>
+          `;
+        }
+      }
+
+      function renderDashboardPage() {
+        if (!state.currentUser) {
+          return `
+            <div class="dashboard-container" style="text-align: center; margin: 5rem auto;">
+              <div class="panel" style="padding: 3rem; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid var(--border); border-radius: var(--radius-xl); background: var(--bg-sub); max-width: 500px; margin: 0 auto;">
+                <div class="dashboard-card-icon" style="margin-bottom: 1.5rem; width: 4rem; height: 4rem; border-radius: 50%; background: var(--primary-light); color: var(--primary); display: flex; align-items: center; justify-content: center;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:2rem; height:2rem;"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+                </div>
+                <h1 style="font-size: 1.75rem; margin-bottom: 0.5rem;">Access Restricted</h1>
+                <p style="color: var(--text-muted); margin-bottom: 1.5rem; max-width: 400px; font-size: 0.9rem; line-height: 1.5;">Please login with Google using the button at the top right to access your personalized user dashboard.</p>
+                <button class="btn-google-login" onclick="handleLogin()" style="padding: 0.75rem 1.5rem; font-size: 0.95rem;">
+                  <svg viewBox="0 0 24 24" style="width:1rem; height:1rem;" width="24" height="24">
+                    <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v3.92h6.69c-.29 1.5-1.14 2.77-2.4 3.61v3h3.86c2.26-2.09 3.59-5.17 3.59-8.46z"/>
+                    <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.11 0-5.74-2.11-6.68-4.96H1.21v3.11C3.18 21.88 7.31 24 12 24z"/>
+                    <path fill="#FBBC05" d="M5.32 14.29c-.24-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.6H1.21C.44 8.12 0 9.83 0 11.63s.44 3.51 1.21 5.03l4.11-2.37z"/>
+                    <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.18 2.12 1.21 5.03l4.11 2.37c.94-2.85 3.57-4.96 6.68-4.96z"/>
+                  </svg>
+                  <span>Login with Google Now</span>
+                </button>
+              </div>
+            </div>
+          `;
+        }
+
+        const user = state.currentUser;
+        const joinedDate = state.joinedAt ? new Date(state.joinedAt).toLocaleDateString(undefined, {
+          year: 'numeric',
+          month: 'long',
+          day: 'numeric',
+          hour: '2-digit',
+          minute: '2-digit'
+        }) : "Loading...";
+
+        const avatarUrl = user.photoURL || 'https://via.placeholder.com/100?text=' + (user.email ? user.email.charAt(0).toUpperCase() : 'U');
+
+        return `
+          <div class="dashboard-container">
+            <div class="back-btn-wrapper" style="margin-bottom: 1.5rem;">
+              <a href="#/" class="dashboard-back-link">
+                ${getSvgIcon("arrow-left")}
+                <span>Go Back to Homepage</span>
+              </a>
+            </div>
+
+            <div class="dashboard-header">
+              <div class="dashboard-welcome">
+                <h1>Welcome Back!</h1>
+                <p>Manage your account parameters and view credentials.</p>
+              </div>
+              <button class="btn-google-login" onclick="handleLogout()" style="display: inline-flex; align-items: center; gap: 0.5rem; background: var(--bg-sub); border: 1px solid var(--border);">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1rem; height:1rem;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"></path></svg>
+                <span>Logout</span>
+              </button>
+            </div>
+
+            <div class="dashboard-grid">
+              <!-- Profile Info Card -->
+              <div class="dashboard-card" style="display: flex; flex-direction: column; align-items: center; text-align: center; justify-content: center;">
+                <img src="${avatarUrl}" referrerpolicy="no-referrer" style="width: 5rem; height: 5rem; border-radius: 50%; object-fit: cover; border: 4px solid var(--primary-light); margin-bottom: 1rem;" />
+                <h3 style="font-size: 1.25rem; margin-bottom: 0.25rem;">${user.displayName || 'Premium User'}</h3>
+                <span class="logo-badge">Verified Member</span>
+              </div>
+
+              <!-- Email Card -->
+              <div class="dashboard-card">
+                <div class="dashboard-card-icon">
+                  ${getSvgIcon("mail")}
+                </div>
+                <div class="dashboard-card-title">Registered Email</div>
+                <div class="dashboard-card-value">${user.email}</div>
+              </div>
+
+              <!-- Joining Date Card -->
+              <div class="dashboard-card">
+                <div class="dashboard-card-icon" style="background: #e0f2fe; color: #0284c7;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:1.25rem; height:1.25rem;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+                </div>
+                <div class="dashboard-card-title">Date of Joining</div>
+                <div class="dashboard-card-value">${joinedDate}</div>
+              </div>
+            </div>
+
+            <!-- Welcome Guidance Panel -->
+            <div class="panel" style="background: var(--bg-sub); border: 1px solid var(--border); border-radius: var(--radius-xl); padding: 2.25rem; margin-top: 2rem; box-shadow: var(--shadow-sm);">
+              <h2 style="font-size: 1.25rem; margin-bottom: 0.75rem;">Get Started with ToolIMG</h2>
+              <p style="color: var(--text-muted); font-size: 0.875rem; margin-bottom: 1.5rem; line-height: 1.6;">You now have full access to high-accuracy OCR tools including converters for handwritten journals, structured business cards, barcode scans, financial receipt sheets, translated text snippets, and more. All your scans are processed instantly using our advanced multi-modal models.</p>
+              <a href="#/" class="btn-google-login" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; background: var(--primary); color: white; border: none; padding: 0.625rem 1.25rem;">
+                <span>Explore OCR Tools Now</span>
+              </a>
+            </div>
+          </div>
+        `;
+      }
+
       // Main application orchestrator viewport updater
       function renderApp() {
         const appViewport = document.getElementById("app-viewport");
         
-        if (state.activeToolId) {
+        // Render auth navbar section
+        renderNavbarAuth();
+
+        if (state.activePage === "dashboard") {
+          appViewport.innerHTML = renderDashboardPage();
+        } else if (state.activeToolId) {
           appViewport.innerHTML = renderToolPage();
           setupWorkspaceDragEvents();
         } else {
@@ -2580,8 +2940,125 @@
       // Listen on hash changes to sync routers
       window.addEventListener("hashchange", syncStateWithHash);
 
+      // --- Firebase Auth & Firestore Integration ---
+      let app, auth, db, googleProvider;
+
+      async function getFirebaseConfig() {
+        try {
+          const res = await fetch('/api/config');
+          if (res.ok) {
+            const data = await res.json();
+            if (data.apiKey) return data;
+          }
+        } catch (err) {
+          console.warn("Could not fetch config from server, falling back to static client-side configuration:", err);
+        }
+
+        // Hardcoded robust client-side fallback configuration to ensure it works beautifully on Vercel or main domains out-of-the-box!
+        return {
+          apiKey: "AIzaSyCFyGzp7viV1tq25DAMnpKKSJpPngtVa14",
+          authDomain: "gen-lang-client-0844549707.firebaseapp.com",
+          projectId: "gen-lang-client-0844549707",
+          firestoreDatabaseId: "ai-studio-toolimg-a40860b9-3db9-4eab-a65f-f070e159a9b3",
+          storageBucket: "gen-lang-client-0844549707.firebasestorage.app",
+          messagingSenderId: "845800015860",
+          appId: "1:845800015860:web:a6229be704605991785ba1"
+        };
+      }
+
+      window.toggleProfileDropdown = function(event) {
+        event.stopPropagation();
+        const dropdown = document.getElementById("profile-dropdown");
+        if (dropdown) {
+          dropdown.classList.toggle("show");
+        }
+      };
+
+      // Close dropdown on click outside
+      window.addEventListener('click', () => {
+        const dropdown = document.getElementById("profile-dropdown");
+        if (dropdown && dropdown.classList.contains("show")) {
+          dropdown.classList.remove("show");
+        }
+      });
+
+      window.handleLogin = async function() {
+        if (!auth) {
+          alert("Firebase is still initializing. Please wait a moment.");
+          return;
+        }
+        try {
+          const result = await signInWithPopup(auth, googleProvider);
+          triggerToast(`Logged in as ${result.user.displayName || 'user'}!`);
+        } catch (err) {
+          console.error("Login failed:", err);
+          if (err.code === "auth/popup-blocked") {
+            alert("Login popup was blocked. Please enable popups or try opening the app in a new browser tab!");
+          } else {
+            alert(`Login failed: ${err.message}`);
+          }
+        }
+      };
+
+      window.handleLogout = async function() {
+        if (!auth) return;
+        try {
+          await signOut(auth);
+          triggerToast("Successfully logged out!");
+          if (window.location.hash === "#/dashboard") {
+            window.location.hash = "#/";
+          }
+        } catch (err) {
+          console.error("Logout failed:", err);
+        }
+      };
+
+      async function initFirebase() {
+        const firebaseConfig = await getFirebaseConfig();
+        try {
+          app = initializeApp(firebaseConfig);
+          auth = getAuth(app);
+          db = getFirestore(app);
+          googleProvider = new GoogleAuthProvider();
+
+          // Listen to Auth State Changes
+          onAuthStateChanged(auth, async (user) => {
+            if (user) {
+              state.currentUser = user;
+              const userDocRef = doc(db, "users", user.uid);
+              try {
+                const userDocSnap = await getDoc(userDocRef);
+                if (!userDocSnap.exists()) {
+                  const joinedAt = new Date().toISOString();
+                  state.joinedAt = joinedAt;
+                  await setDoc(userDocRef, {
+                    email: user.email,
+                    displayName: user.displayName,
+                    photoURL: user.photoURL,
+                    joinedAt: joinedAt
+                  });
+                } else {
+                  const userData = userDocSnap.data();
+                  state.joinedAt = userData.joinedAt || new Date().toISOString();
+                }
+              } catch (dbErr) {
+                console.error("Firestore user doc fetch/set error:", dbErr);
+                state.joinedAt = new Date().toISOString();
+              }
+            } else {
+              state.currentUser = null;
+              state.joinedAt = null;
+            }
+            renderApp();
+          });
+        } catch (err) {
+          console.error("Firebase initialization failed:", err);
+        }
+      }
+
       // 9. Initial Load Setup
       syncStateWithHash();
+      initFirebase();
     </script>
   </body>
 </html>

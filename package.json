@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node --env-file=.env --experimental-strip-types server.ts",
+    "dev": "node --experimental-strip-types server.ts",
     "build": "vite build",
     "start": "node server.ts",
     "clean": "rm -rf dist",
