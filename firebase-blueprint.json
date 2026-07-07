@@ -1,0 +1,23 @@
+{
+  "entities": {
+    "User": {
+      "title": "User Profile",
+      "description": "User profile with registration details and credits balance",
+      "type": "object",
+      "properties": {
+        "email": { "type": "string" },
+        "displayName": { "type": "string" },
+        "photoURL": { "type": "string" },
+        "joinedAt": { "type": "string" },
+        "credits": { "type": "number" }
+      },
+      "required": ["email", "joinedAt"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "User",
+      "description": "User profile documents"
+    }
+  }
+}

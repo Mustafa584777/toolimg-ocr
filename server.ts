@@ -19,7 +19,10 @@ app.get('/api/config', (req, res) => {
     const configPath = path.join(__dirname, 'firebase-applet-config.json');
     if (fs.existsSync(configPath)) {
       const configData = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-      return res.json(configData);
+      return res.json({
+        ...configData,
+        razorpayKeyId: process.env.RAZORPAY_KEY_ID || 'rzp_live_T9oCFNHFLfTJwA'
+      });
     }
     
     // Fallback to environment variables
@@ -30,11 +33,79 @@ app.get('/api/config', (req, res) => {
       firestoreDatabaseId: process.env.VITE_FIREBASE_FIRESTORE_DATABASE_ID || process.env.FIREBASE_FIRESTORE_DATABASE_ID || '',
       storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET || process.env.FIREBASE_STORAGE_BUCKET || '',
       messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID || process.env.FIREBASE_MESSAGING_SENDER_ID || '',
-      appId: process.env.VITE_FIREBASE_APP_ID || process.env.FIREBASE_APP_ID || ''
+      appId: process.env.VITE_FIREBASE_APP_ID || process.env.FIREBASE_APP_ID || '',
+      razorpayKeyId: process.env.RAZORPAY_KEY_ID || 'rzp_live_T9oCFNHFLfTJwA'
     });
   } catch (error: any) {
     console.error('Error reading config:', error);
     res.status(500).json({ error: 'Failed to read configuration' });
+  }
+});
+
+// Razorpay SDK Integration
+import Razorpay from 'razorpay';
+import crypto from 'crypto';
+
+const razorpayKeyId = process.env.RAZORPAY_KEY_ID || 'rzp_live_T9oCFNHFLfTJwA';
+const razorpayKeySecret = process.env.RAZORPAY_KEY_SECRET || 'bLZdc6p852hJDUl2g4VXi3zg';
+
+const rzp = new Razorpay({
+  key_id: razorpayKeyId,
+  key_secret: razorpayKeySecret,
+});
+
+// Endpoint to create Razorpay Order
+app.post('/api/razorpay/order', async (req: express.Request, res: express.Response) => {
+  try {
+    const { amount, currency = 'INR' } = req.body;
+    if (!amount) {
+      return res.status(400).json({ error: 'Amount is required' });
+    }
+
+    // Convert INR to Paise (1 INR = 100 Paise)
+    const amountInPaise = Math.round(amount * 100);
+
+    const options = {
+      amount: amountInPaise,
+      currency: currency,
+      receipt: 'rcpt_' + Math.random().toString(36).substring(2, 15),
+    };
+
+    const order = await rzp.orders.create(options);
+    res.json({
+      orderId: order.id,
+      amount: order.amount,
+      currency: order.currency,
+      keyId: razorpayKeyId
+    });
+  } catch (error: any) {
+    console.error('Razorpay Order Creation Error:', error);
+    res.status(500).json({ error: error.message || 'Failed to create Razorpay order' });
+  }
+});
+
+// Endpoint to verify Razorpay Payment Signature
+app.post('/api/razorpay/verify', async (req: express.Request, res: express.Response) => {
+  try {
+    const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
+
+    if (!razorpay_order_id || !razorpay_payment_id || !razorpay_signature) {
+      return res.status(400).json({ error: 'Missing payment details for verification' });
+    }
+
+    const generatedSignature = crypto
+      .createHmac('sha256', razorpayKeySecret)
+      .update(razorpay_order_id + '|' + razorpay_payment_id)
+      .digest('hex');
+
+    if (generatedSignature === razorpay_signature) {
+      res.json({ success: true, message: 'Payment verified successfully' });
+    } else {
+      res.status(400).json({ error: 'Invalid payment signature. Verification failed.' });
+    }
+  } catch (error: any) {
+    console.error('Razorpay Signature Verification Error:', error);
+    res.status(500).json({ error: error.message || 'Verification system error' });
   }
 });
 
