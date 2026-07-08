@@ -12,6 +12,7 @@
   },
   "dependencies": {
     "@google/genai": "^2.10.0",
+    "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "razorpay": "^2.9.6",
     "vite": "^6.2.3"

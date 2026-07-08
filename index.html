@@ -3304,15 +3304,19 @@
         }
 
         try {
+          // Convert price (INR) to paise (1 INR = 100 paise)
+          const amountInPaise = Math.round(price * 100);
+
           // 1. Create order on the server
-          const response = await fetch('/api/razorpay/order', {
+          const response = await fetch('/api/create-order', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ amount: price })
+            body: JSON.stringify({ amount: amountInPaise, currency: 'INR' })
           });
 
           if (!response.ok) {
-            throw new Error('Failed to create Razorpay payment order.');
+            const errData = await response.json().catch(() => ({}));
+            throw new Error(errData.error || 'Failed to create Razorpay payment order.');
           }
 
           const orderData = await response.json();
@@ -3325,11 +3329,11 @@
             name: "ToolIMG Premium",
             description: `Purchase of ${creditsAmount} Credits`,
             image: "https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png",
-            order_id: orderData.orderId,
+            order_id: orderData.order_id || orderData.orderId,
             handler: async function (response) {
               try {
                 // 3. Verify signature on the server
-                const verifyRes = await fetch('/api/razorpay/verify', {
+                const verifyRes = await fetch('/api/verify-payment', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({
@@ -3338,6 +3342,11 @@
                     razorpay_signature: response.razorpay_signature
                   })
                 });
+
+                if (!verifyRes.ok) {
+                  const verifyErrData = await verifyRes.json().catch(() => ({}));
+                  throw new Error(verifyErrData.error || 'Payment verification failed.');
+                }
 
                 const verifyData = await verifyRes.json();
                 if (verifyData.success) {
@@ -3352,7 +3361,7 @@
                 }
               } catch (verifyErr) {
                 console.error("Signature verification error:", verifyErr);
-                alert("Error during payment verification process.");
+                alert(`Error during payment verification process: ${verifyErr.message}`);
               }
             },
             prefill: {

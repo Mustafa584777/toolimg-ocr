@@ -1,3 +1,4 @@
+import 'dotenv/config';
 import express from 'express';
 import { GoogleGenAI, Type } from '@google/genai';
 import path from 'path';
@@ -21,7 +22,7 @@ app.get('/api/config', (req, res) => {
       const configData = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
       return res.json({
         ...configData,
-        razorpayKeyId: process.env.RAZORPAY_KEY_ID || 'rzp_live_T9oCFNHFLfTJwA'
+        razorpayKeyId: process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID || ''
       });
     }
     
@@ -34,7 +35,7 @@ app.get('/api/config', (req, res) => {
       storageBucket: process.env.VITE_FIREBASE_STORAGE_BUCKET || process.env.FIREBASE_STORAGE_BUCKET || '',
       messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID || process.env.FIREBASE_MESSAGING_SENDER_ID || '',
       appId: process.env.VITE_FIREBASE_APP_ID || process.env.FIREBASE_APP_ID || '',
-      razorpayKeyId: process.env.RAZORPAY_KEY_ID || 'rzp_live_T9oCFNHFLfTJwA'
+      razorpayKeyId: process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID || ''
     });
   } catch (error: any) {
     console.error('Error reading config:', error);
@@ -46,46 +47,71 @@ app.get('/api/config', (req, res) => {
 import Razorpay from 'razorpay';
 import crypto from 'crypto';
 
-const razorpayKeyId = process.env.RAZORPAY_KEY_ID || 'rzp_live_T9oCFNHFLfTJwA';
-const razorpayKeySecret = process.env.RAZORPAY_KEY_SECRET || 'bLZdc6p852hJDUl2g4VXi3zg';
+// Lazy initialization helper for Razorpay SDK Client
+let razorpayClient: Razorpay | null = null;
 
-const rzp = new Razorpay({
-  key_id: razorpayKeyId,
-  key_secret: razorpayKeySecret,
-});
+function getRazorpayClient(): Razorpay {
+  if (!razorpayClient) {
+    const keyId = process.env.RAZORPAY_KEY_ID;
+    const keySecret = process.env.RAZORPAY_KEY_SECRET;
+    if (!keyId || !keySecret) {
+      throw new Error('Razorpay API keys (RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET) are missing. Please configure them in your .env file.');
+    }
+    razorpayClient = new Razorpay({
+      key_id: keyId,
+      key_secret: keySecret,
+    });
+  }
+  return razorpayClient;
+}
 
-// Endpoint to create Razorpay Order
-app.post('/api/razorpay/order', async (req: express.Request, res: express.Response) => {
+// Shared logic to create a Razorpay payment order
+async function createOrderHandler(req: express.Request, res: express.Response) {
   try {
-    const { amount, currency = 'INR' } = req.body;
+    const { amount, currency = 'INR', receipt } = req.body;
     if (!amount) {
       return res.status(400).json({ error: 'Amount is required' });
     }
 
-    // Convert INR to Paise (1 INR = 100 Paise)
-    const amountInPaise = Math.round(amount * 100);
+    let amountInPaise = Number(amount);
+    
+    // Convert INR to Paise if called by old frontend endpoint /api/razorpay/order
+    if (req.path === '/api/razorpay/order' && amountInPaise < 100) {
+      amountInPaise = Math.round(amountInPaise * 100);
+    }
 
+    // Validate amount >= 100 paise
+    if (amountInPaise < 100) {
+      return res.status(400).json({ error: 'Minimum amount must be at least 100 paise (₹1)' });
+    }
+
+    const rzp = getRazorpayClient();
     const options = {
       amount: amountInPaise,
       currency: currency,
-      receipt: 'rcpt_' + Math.random().toString(36).substring(2, 15),
+      receipt: receipt || 'rcpt_' + Math.random().toString(36).substring(2, 15),
     };
 
     const order = await rzp.orders.create(options);
+    
     res.json({
       orderId: order.id,
+      order_id: order.id,
       amount: order.amount,
       currency: order.currency,
-      keyId: razorpayKeyId
+      keyId: process.env.RAZORPAY_KEY_ID || ''
     });
   } catch (error: any) {
     console.error('Razorpay Order Creation Error:', error);
+    if (error.statusCode === 401 || (error.message && error.message.toLowerCase().includes('auth'))) {
+      return res.status(401).json({ error: 'Razorpay API credentials authentication failed' });
+    }
     res.status(500).json({ error: error.message || 'Failed to create Razorpay order' });
   }
-});
+}
 
-// Endpoint to verify Razorpay Payment Signature
-app.post('/api/razorpay/verify', async (req: express.Request, res: express.Response) => {
+// Shared logic to verify a Razorpay payment signature
+async function verifyPaymentHandler(req: express.Request, res: express.Response) {
   try {
     const { razorpay_order_id, razorpay_payment_id, razorpay_signature } = req.body;
 
@@ -93,8 +119,13 @@ app.post('/api/razorpay/verify', async (req: express.Request, res: express.Respo
       return res.status(400).json({ error: 'Missing payment details for verification' });
     }
 
+    const secret = process.env.RAZORPAY_KEY_SECRET;
+    if (!secret) {
+      return res.status(500).json({ error: 'Razorpay secret key is not configured on the server.' });
+    }
+
     const generatedSignature = crypto
-      .createHmac('sha256', razorpayKeySecret)
+      .createHmac('sha256', secret)
       .update(razorpay_order_id + '|' + razorpay_payment_id)
       .digest('hex');
 
@@ -107,7 +138,15 @@ app.post('/api/razorpay/verify', async (req: express.Request, res: express.Respo
     console.error('Razorpay Signature Verification Error:', error);
     res.status(500).json({ error: error.message || 'Verification system error' });
   }
-});
+}
+
+// Order Creation routes (supports both styles)
+app.post('/api/create-order', createOrderHandler);
+app.post('/api/razorpay/order', createOrderHandler);
+
+// Verification routes (supports both styles)
+app.post('/api/verify-payment', verifyPaymentHandler);
+app.post('/api/razorpay/verify', verifyPaymentHandler);
 
 // Initialize Gemini Client
 const apiKey = process.env.GEMINI_API_KEY;
