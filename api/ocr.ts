@@ -7,7 +7,7 @@ function getAIClient() {
   if (!aiClient) {
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      throw new Error('GEMINI_API_KEY is not configured on the server. Please configure it in Vercel settings.');
+      throw new Error('GEMINI_API_KEY is not configured on the server. Please configure it in Settings > Secrets.');
     }
     aiClient = new GoogleGenAI({
       apiKey: apiKey,
@@ -19,6 +19,49 @@ function getAIClient() {
     });
   }
   return aiClient;
+}
+
+// Helper function to retry Gemini API calls with exponential backoff and model fallback
+async function generateContentWithRetryAndFallback(aiClient: any, params: any) {
+  let attempt = 0;
+  const maxRetries = 3;
+  const baseDelayMs = 1500;
+  const primaryModel = params.model || 'gemini-3.5-flash';
+  
+  while (true) {
+    try {
+      attempt++;
+      return await aiClient.models.generateContent(params);
+    } catch (error: any) {
+      console.error(`Gemini API call (${params.model}) attempt ${attempt} failed:`, error.message || error);
+      
+      const isTransient = error.status === 'UNAVAILABLE' || 
+                          error.statusCode === 503 || 
+                          error.statusCode === 429 ||
+                          (error.message && (
+                            error.message.includes('503') || 
+                            error.message.includes('UNAVAILABLE') || 
+                            error.message.includes('429') ||
+                            error.message.includes('demand') ||
+                            error.message.includes('resource')
+                          ));
+                          
+      if (isTransient && attempt < maxRetries) {
+        const delay = baseDelayMs * Math.pow(2, attempt - 1) * (0.8 + Math.random() * 0.4);
+        console.log(`Transient error on ${params.model} (Attempt ${attempt}/${maxRetries}). Retrying in ${Math.round(delay)}ms...`);
+        await new Promise(resolve => setTimeout(resolve, delay));
+      } else {
+        // If primary model failed after all retries, try to fall back if it was gemini-3.5-flash
+        if (primaryModel === 'gemini-3.5-flash' && params.model !== 'gemini-3.1-flash-lite') {
+          console.warn(`Primary model gemini-3.5-flash failed all attempts. Falling back to gemini-3.1-flash-lite...`);
+          params.model = 'gemini-3.1-flash-lite';
+          attempt = 0; // Reset attempt count for fallback model
+          continue;
+        }
+        throw error;
+      }
+    }
+  }
 }
 
 export default async function handler(req: Request, res: Response) {
@@ -36,7 +79,7 @@ export default async function handler(req: Request, res: Response) {
   }
 
   try {
-    const { toolId, fileName, mimeType, targetLanguage, base64Data } = req.body;
+    const { base64Data, fileName = 'mockup.png', mimeType = 'image/png', framework = 'html-tailwind', styleTheme = 'modern-dark', customPrompt = '', interactivity = 'interactive' } = req.body;
 
     if (!base64Data) {
       return res.status(400).json({ error: 'No image data provided' });
@@ -44,237 +87,69 @@ export default async function handler(req: Request, res: Response) {
 
     const apiKey = process.env.GEMINI_API_KEY;
     if (!apiKey) {
-      return res.status(500).json({ error: 'GEMINI_API_KEY is not configured on the server. Please configure it in Vercel settings.' });
+      return res.status(500).json({ error: 'GEMINI_API_KEY is not configured on the server. Please configure it in Settings > Secrets.' });
     }
 
-    // Prepare Gemini Prompt based on toolId and targetLanguage
-    let systemInstruction = '';
-    let responseSchema: any = null;
+    const systemInstruction = `
+You are a master frontend engineer specializing in converting user designs, wireframes, screenshots, or hand-drawn sketches into pixel-perfect, highly polished, responsive, and functional frontend code.
+Analyze the provided screenshot/mockup image.
+Your goal is to reconstruct the exact design, typography, spacing, visual layout, and color scheme.
 
-    switch (toolId) {
-      case 'image-to-text':
-        systemInstruction = `
-You are a high-accuracy document and screenshot OCR text extractor.
-Analyze the provided image and extract all text content exactly as it appears.
-Maintain standard paragraph breaks, lists, and indentation.
-If there are any visible details, transcribe them precisely.
-Return a JSON response with:
-1. extractedText: The raw text extracted from the image.
-2. markdownSummary: A beautiful Markdown formatted representation of the extracted document.
-3. structuredData: An empty object {}.
-        `;
-        responseSchema = {
+We support different target output options:
+1. TARGET FRAMEWORK:
+   - html-tailwind: Generate a single, completely self-contained, valid HTML5 file. This file MUST include Tailwind CSS CDN (<script src="https://cdn.tailwindcss.com"></script>), Google Fonts for typography matches, and FontAwesome/Lucide or clean custom SVGs for icons. Use a script block inside to implement realistic interactions if requested (tab switching, modals, dropdown toggles, counter increments, or search filters).
+   - react-tailwind: Generate a modern, highly interactive React functional component using Tailwind CSS utility classes and Lucide React or inline custom SVG icons. Ensure complete state management is written using React hooks (useState, useEffect, etc.).
+   - vue-tailwind: Generate a single-file Vue 3 component with <template>, <script setup> (using ref, computed, etc.), and Tailwind utility classes.
+
+2. STYLE THEMES (If specified, adapt or apply it cleanly):
+   - modern-dark: Sleek deep slate/charcoal colors, high-tech dark background, glowing indicators, smooth contrast.
+   - clean-light: Minimalist off-white backdrops, charcoal typography, elegant soft shadows, pristine light design.
+   - neon-cyberpunk: Dark background, vibrant electric pink, neon purple, and cyan highlights, glowing borders, high contrast.
+   - retro-90s: Windows 95/98 nostalgic style, retro grey buttons, thick borders, pixelated feel, serif typography, fun color tabs.
+   - minimalist-slate: Monochromatic grays, slate, spacious padding, heavy rely on bold/thin typography contrasts.
+
+3. INTERACTIVITY LEVEL (If 'interactive' is requested):
+   - Make the mockup feel completely alive! Write robust client-side event handlers/scripts or component state. For instance, if there's a sidebar, support folding/unfolding; if there are cards/tabs, allow clicking them to filter or switch active views; if there's an input/button, allow adding dummy items; if there's a search, implement simple client-side search/filter on dummy cards.
+
+Return a JSON response with the following structured format:
+{
+  "htmlCode": "A completely self-contained HTML file utilizing Tailwind CSS. This will be loaded into an iframe for instant rendering and interactive preview. It must be valid HTML with standard CSS/JS and no React syntax.",
+  "frameworkCode": "The clean source code written exactly in the selected framework format (e.g. JSX React code or Vue SFC code). If 'html-tailwind' is selected, this can be identical to htmlCode or beautifully formatted clean HTML.",
+  "markdownSummary": "A high-quality markdown document explaining: 1. Design Overview and color palette identified. 2. Key components implemented and their responsive adaptations. 3. Framework installation instructions (how to run the React/Vue component, what packages to install like 'lucide-react', 'recharts' if there were charts, etc.).",
+  "designAnalysis": {
+    "colors": ["list of hex codes or color names found"],
+    "typography": "font names and styles identified or mapped",
+    "layout": "structural strategy (e.g. sidebar left, main feed, header grid, bento box)",
+    "componentsIdentified": ["navbar", "sidebar", "metrics card", "etc."]
+  }
+}
+    `;
+
+    const responseSchema = {
+      type: Type.OBJECT,
+      properties: {
+        htmlCode: { type: Type.STRING },
+        frameworkCode: { type: Type.STRING },
+        markdownSummary: { type: Type.STRING },
+        designAnalysis: {
           type: Type.OBJECT,
           properties: {
-            extractedText: { type: Type.STRING },
-            markdownSummary: { type: Type.STRING },
-            structuredData: { type: Type.OBJECT }
-          },
-          required: ['extractedText', 'markdownSummary', 'structuredData']
-        };
-        break;
-
-      case 'handwriting':
-        systemInstruction = `
-You are a handwriting to text transcriber.
-Analyze the handwritten text in the image.
-Perform handwriting OCR to transcribe cursive, printing, or rough draft scripts into clean text.
-Analyze the spatial layout, list bullets, journal items and headings.
-Return a JSON response with:
-1. extractedText: The transcribed raw text.
-2. markdownSummary: A beautiful Markdown formatted summary of the transcribed text, explaining any unclear or cursive sections.
-3. structuredData: An empty object {}.
-        `;
-        responseSchema = {
-          type: Type.OBJECT,
-          properties: {
-            extractedText: { type: Type.STRING },
-            markdownSummary: { type: Type.STRING },
-            structuredData: { type: Type.OBJECT }
-          },
-          required: ['extractedText', 'markdownSummary', 'structuredData']
-        };
-        break;
-
-      case 'pdf-to-text':
-        systemInstruction = `
-You are a scanned document PDF-to-Text page converter.
-Analyze the image of the document page.
-Filter out headers, footers, page numbers and margin noise.
-Recognize math formulas, special punctuation, and titles.
-Return a JSON response with:
-1. extractedText: The continuous readable raw text.
-2. markdownSummary: A beautiful Markdown formatted structure mapping headings (using #, ##), bold sections, and blockquotes logically.
-3. structuredData: An empty object {}.
-        `;
-        responseSchema = {
-          type: Type.OBJECT,
-          properties: {
-            extractedText: { type: Type.STRING },
-            markdownSummary: { type: Type.STRING },
-            structuredData: { type: Type.OBJECT }
-          },
-          required: ['extractedText', 'markdownSummary', 'structuredData']
-        };
-        break;
-
-      case 'receipt':
-        systemInstruction = `
-You are an AI Smart Receipt & Invoice OCR Parser.
-Accurately parse all transactional data from the receipt or invoice.
-Extract merchant name, date, time, total amount, taxes, payment method, and individual line items with their quantities and prices.
-Return a JSON response with:
-1. extractedText: A neat formatted summary of the purchase.
-2. markdownSummary: A beautiful Markdown representation of the purchase details.
-3. structuredData: A JSON object containing:
-   - merchantName: string
-   - transactionDate: string
-   - totalAmount: number
-   - paymentMethod: string
-   - items: array of objects { name: string, quantity: number, price: number }
-        `;
-        responseSchema = {
-          type: Type.OBJECT,
-          properties: {
-            extractedText: { type: Type.STRING },
-            markdownSummary: { type: Type.STRING },
-            structuredData: {
-              type: Type.OBJECT,
-              properties: {
-                merchantName: { type: Type.STRING },
-                transactionDate: { type: Type.STRING },
-                totalAmount: { type: Type.NUMBER },
-                paymentMethod: { type: Type.STRING },
-                items: {
-                  type: Type.ARRAY,
-                  items: {
-                    type: Type.OBJECT,
-                    properties: {
-                      name: { type: Type.STRING },
-                      quantity: { type: Type.NUMBER },
-                      price: { type: Type.NUMBER }
-                    },
-                    required: ['name', 'quantity', 'price']
-                  }
-                }
-              },
-              required: ['merchantName', 'transactionDate', 'totalAmount', 'paymentMethod', 'items']
+            colors: {
+              type: Type.ARRAY,
+              items: { type: Type.STRING }
+            },
+            typography: { type: Type.STRING },
+            layout: { type: Type.STRING },
+            componentsIdentified: {
+              type: Type.ARRAY,
+              items: { type: Type.STRING }
             }
           },
-          required: ['extractedText', 'markdownSummary', 'structuredData']
-        };
-        break;
-
-      case 'table':
-        systemInstruction = `
-You are an AI Table OCR Extractor.
-Detect any tabular structures, spreadsheets, grids, or data matrixes in the image.
-Extract the table layout and cells precisely.
-Return a JSON response with:
-1. extractedText: A markdown table representation.
-2. markdownSummary: A clean Markdown section with descriptive notes on the data trends or column structures.
-3. structuredData: A JSON object containing:
-   - headers: array of strings
-   - rows: array of arrays (representing cell strings for each row)
-        `;
-        responseSchema = {
-          type: Type.OBJECT,
-          properties: {
-            extractedText: { type: Type.STRING },
-            markdownSummary: { type: Type.STRING },
-            structuredData: {
-              type: Type.OBJECT,
-              properties: {
-                headers: {
-                  type: Type.ARRAY,
-                  items: { type: Type.STRING }
-                },
-                rows: {
-                  type: Type.ARRAY,
-                  items: {
-                    type: Type.ARRAY,
-                    items: { type: Type.STRING }
-                  }
-                }
-              },
-              required: ['headers', 'rows']
-            }
-          },
-          required: ['extractedText', 'markdownSummary', 'structuredData']
-        };
-        break;
-
-      case 'translate':
-        systemInstruction = `
-You are an AI Multilingual OCR Translator.
-First, detect the source language and extract the text from the image.
-Then, translate the extracted text into the target language: "${targetLanguage}".
-Return a JSON response with:
-1. extractedText: A raw text block formatted with 'Original [detected language]:\\n...\\n\\nTranslated [${targetLanguage}]:\\n...'
-2. markdownSummary: A clean Markdown formatted comparison block showing the original and translated text side-by-side or stacked.
-3. structuredData: An empty object {}.
-        `;
-        responseSchema = {
-          type: Type.OBJECT,
-          properties: {
-            extractedText: { type: Type.STRING },
-            markdownSummary: { type: Type.STRING },
-            structuredData: { type: Type.OBJECT }
-          },
-          required: ['extractedText', 'markdownSummary', 'structuredData']
-        };
-        break;
-
-      case 'barcode':
-        systemInstruction = `
-You are an AI Barcode & QR Code reader.
-Read the barcode, QR code, UPC, or EAN standard in the image.
-Identify the code standard/type, decoded alphanumeric payload, and check if it is a URL.
-Return a JSON response with:
-1. extractedText: A raw text block showing the code type and payload.
-2. markdownSummary: A neat Markdown summary showing code parameters.
-3. structuredData: A structured object containing:
-   - codeType: string
-   - decodedValue: string
-   - isUrl: boolean
-   - actionUrl: string (the URL itself, if it is a URL, otherwise empty string)
-        `;
-        responseSchema = {
-          type: Type.OBJECT,
-          properties: {
-            extractedText: { type: Type.STRING },
-            markdownSummary: { type: Type.STRING },
-            structuredData: {
-              type: Type.OBJECT,
-              properties: {
-                codeType: { type: Type.STRING },
-                decodedValue: { type: Type.STRING },
-                isUrl: { type: Type.BOOLEAN },
-                actionUrl: { type: Type.STRING }
-              },
-              required: ['codeType', 'decodedValue', 'isUrl', 'actionUrl']
-            }
-          },
-          required: ['extractedText', 'markdownSummary', 'structuredData']
-        };
-        break;
-
-      default:
-        systemInstruction = `
-Analyze the provided image and perform Optical Character Recognition (OCR).
-Extract text content and format it nicely.
-Return a JSON response with extractedText, markdownSummary, and an empty structuredData object.
-        `;
-        responseSchema = {
-          type: Type.OBJECT,
-          properties: {
-            extractedText: { type: Type.STRING },
-            markdownSummary: { type: Type.STRING },
-            structuredData: { type: Type.OBJECT }
-          },
-          required: ['extractedText', 'markdownSummary', 'structuredData']
-        };
-    }
+          required: ['colors', 'typography', 'layout', 'componentsIdentified']
+        }
+      },
+      required: ['htmlCode', 'frameworkCode', 'markdownSummary', 'designAnalysis']
+    };
 
     const ai = getAIClient();
     const imagePart = {
@@ -284,12 +159,20 @@ Return a JSON response with extractedText, markdownSummary, and an empty structu
       }
     };
 
-    const textPart = {
-      text: `Process this image for OCR task: "${toolId}". Source filename: "${fileName}". Target Language: "${targetLanguage || 'English'}"`
-    };
+    let promptText = `Convert this image to code.
+Target Framework: ${framework}
+Style Theme: ${styleTheme}
+Interactivity: ${interactivity}
+Source filename: ${fileName}`;
 
-    // Call Gemini API
-    const response = await ai.models.generateContent({
+    if (customPrompt && customPrompt.trim()) {
+      promptText += `\nAdditional user instructions: "${customPrompt}"`;
+    }
+
+    const textPart = { text: promptText };
+
+    // Call Gemini API with robust retry and fallback mechanism
+    const response = await generateContentWithRetryAndFallback(ai, {
       model: 'gemini-3.5-flash',
       contents: { parts: [imagePart, textPart] },
       config: {
@@ -307,7 +190,7 @@ Return a JSON response with extractedText, markdownSummary, and an empty structu
     const parsedResult = JSON.parse(resultText);
     res.status(200).json(parsedResult);
   } catch (error: any) {
-    console.error('Error processing OCR request:', error);
-    res.status(500).json({ error: error.message || 'Failed to process OCR request' });
+    console.error('Error processing Image-to-Code request:', error);
+    res.status(500).json({ error: error.message || 'Failed to convert image to code' });
   }
 }
