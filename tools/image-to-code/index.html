@@ -1,1612 +1,511 @@
-<!doctype html>
-<html lang="en" class="h-full bg-slate-50 text-slate-900">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Image to Code Converter AI Online Free - ToolIMG</title>
-    <meta name="description" content="Use the best image to code converter online free. Easily convert images, screenshots, and PDFs to clean HTML, CSS, React, and Vue layouts using our state-of-the-art image to code generator." />
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3PK1RHDJ2S"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
 
-      gtag('config', 'G-3PK1RHDJ2S');
-    </script>
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-    <!-- Complete Internal CSS Stylesheet (Standalone & Zero CDN Dependencies) -->
-    <style>
-      :root {
-        --slate-50: #f8fafc;
-        --slate-100: #f1f5f9;
-        --slate-200: #e2e8f0;
-        --slate-300: #cbd5e1;
-        --slate-400: #94a3b8;
-        --slate-500: #64748b;
-        --slate-600: #475569;
-        --slate-700: #334155;
-        --slate-800: #1e293b;
-        --slate-900: #0f172a;
-        --slate-950: #020617;
-
-        --indigo-50: #eef2ff;
-        --indigo-100: #e0e7ff;
-        --indigo-200: #c7d2fe;
-        --indigo-500: #6366f1;
-        --indigo-600: #4f46e5;
-        --indigo-700: #4338ca;
-        --indigo-800: #3730a3;
-
-        --emerald-400: #34d399;
-        --emerald-500: #10b981;
-        --emerald-600: #059669;
-
-        --red-50: #fef2f2;
-        --red-500: #ef4444;
-        --red-600: #dc2626;
-
-        --font-sans: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-        --font-display: 'Space Grotesk', sans-serif;
-        --font-mono: 'JetBrains Mono', monospace;
-      }
-
-      *, *::before, *::after {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-      }
-
-      html {
-        scroll-behavior: smooth;
-        height: 100%;
-        -webkit-tap-highlight-color: transparent;
-      }
-
-      body {
-        height: 100%;
-        min-height: 100vh;
-        font-family: var(--font-sans);
-        background-color: var(--slate-50);
-        color: var(--slate-800);
-        line-height: 1.5;
-        -webkit-font-smoothing: antialiased;
-      }
-
-      /* Custom Scrollbars */
-      ::-webkit-scrollbar {
-        width: 8px;
-        height: 8px;
-      }
-      ::-webkit-scrollbar-track {
-        background: var(--slate-100);
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb {
-        background: var(--slate-300);
-        border-radius: 4px;
-      }
-      ::-webkit-scrollbar-thumb:hover {
-        background: var(--slate-400);
-      }
-
-      .custom-scrollbar::-webkit-scrollbar {
-        width: 6px;
-        height: 6px;
-      }
-      .custom-scrollbar::-webkit-scrollbar-thumb {
-        background-color: var(--slate-300);
-        border-radius: 9999px;
-      }
-
-      /* Typography */
-      .font-sans { font-family: var(--font-sans); }
-      .font-display { font-family: var(--font-display); }
-      .font-mono { font-family: var(--font-mono); }
-
-      .font-normal { font-weight: 400; }
-      .font-medium { font-weight: 500; }
-      .font-semibold { font-weight: 600; }
-      .font-bold { font-weight: 700; }
-      .font-extrabold { font-weight: 800; }
-
-      .text-xs { font-size: 0.75rem; line-height: 1rem; }
-      .text-sm { font-size: 0.875rem; line-height: 1.25rem; }
-      .text-base { font-size: 1rem; line-height: 1.5rem; }
-      .text-lg { font-size: 1.125rem; line-height: 1.75rem; }
-      .text-xl { font-size: 1.25rem; line-height: 1.75rem; }
-      .text-2xl { font-size: 1.5rem; line-height: 2rem; }
-      .text-3xl { font-size: 1.875rem; line-height: 2.25rem; }
-      .text-4xl { font-size: 2.25rem; line-height: 2.5rem; }
-      .text-4\.5xl { font-size: 2.5rem; line-height: 2.75rem; }
-
-      .uppercase { text-transform: uppercase; }
-      .lowercase { text-transform: lowercase; }
-      .capitalize { text-transform: capitalize; }
-      .tracking-tight { letter-spacing: -0.025em; }
-      .tracking-wider { letter-spacing: 0.05em; }
-
-      .text-left { text-align: left; }
-      .text-center { text-align: center; }
-      .text-right { text-align: right; }
-
-      .leading-none { line-height: 1; }
-      .leading-tight { line-height: 1.25; }
-      .leading-relaxed { line-height: 1.625; }
-
-      /* Color Utilities */
-      .text-white { color: #ffffff; }
-      .text-slate-400 { color: var(--slate-400); }
-      .text-slate-500 { color: var(--slate-500); }
-      .text-slate-600 { color: var(--slate-600); }
-      .text-slate-700 { color: var(--slate-700); }
-      .text-slate-800 { color: var(--slate-800); }
-      .text-slate-900 { color: var(--slate-900); }
-      .text-slate-950 { color: var(--slate-950); }
-      .text-indigo-600 { color: var(--indigo-600); }
-      .text-indigo-700 { color: var(--indigo-700); }
-      .text-emerald-400 { color: var(--emerald-400); }
-      .text-emerald-600 { color: var(--emerald-600); }
-      .text-red-600 { color: var(--red-600); }
-      .text-amber-600 { color: #d97706; }
-
-      .bg-white { background-color: #ffffff; }
-      .bg-slate-50 { background-color: var(--slate-50); }
-      .bg-slate-50\/50 { background-color: rgba(248, 250, 252, 0.5); }
-      .bg-slate-50\/60 { background-color: rgba(248, 250, 252, 0.6); }
-      .bg-slate-100 { background-color: var(--slate-100); }
-      .bg-slate-200 { background-color: var(--slate-200); }
-      .bg-slate-800 { background-color: var(--slate-800); }
-      .bg-slate-900 { background-color: var(--slate-900); }
-      .bg-slate-950 { background-color: var(--slate-950); }
-      .bg-slate-950\/60 { background-color: rgba(2, 6, 23, 0.6); }
-      .bg-indigo-50 { background-color: var(--indigo-50); }
-      .bg-indigo-50\/30 { background-color: rgba(238, 242, 255, 0.3); }
-      .bg-indigo-50\/50 { background-color: rgba(238, 242, 255, 0.5); }
-      .bg-indigo-50\/80 { background-color: rgba(238, 242, 255, 0.8); }
-      .bg-indigo-100 { background-color: var(--indigo-100); }
-      .bg-indigo-600 { background-color: var(--indigo-600); }
-      .bg-red-50 { background-color: var(--red-50); }
-
-      /* Borders & Corners */
-      .border { border-style: solid; border-width: 1px; border-color: var(--slate-200); }
-      .border-2 { border-style: solid; border-width: 2px; }
-      .border-dashed { border-style: dashed; }
-      .border-b { border-bottom-style: solid; border-bottom-width: 1px; border-bottom-color: var(--slate-200); }
-      .border-t { border-top-style: solid; border-top-width: 1px; border-top-color: var(--slate-200); }
-
-      .border-slate-100 { border-color: var(--slate-100); }
-      .border-slate-200 { border-color: var(--slate-200); }
-      .border-slate-200\/80 { border-color: rgba(226, 232, 240, 0.8); }
-      .border-slate-300 { border-color: var(--slate-300); }
-      .border-indigo-100 { border-color: var(--indigo-100); }
-      .border-indigo-100\/60 { border-color: rgba(224, 231, 255, 0.6); }
-      .border-indigo-200 { border-color: var(--indigo-200); }
-
-      .divide-y > * + * { border-top-style: solid; border-top-width: 1px; }
-      .divide-slate-100 > * + * { border-color: var(--slate-100); }
-
-      .rounded-lg { border-radius: 0.5rem; }
-      .rounded-xl { border-radius: 0.75rem; }
-      .rounded-2xl { border-radius: 1rem; }
-      .rounded-3xl { border-radius: 1.5rem; }
-      .rounded-full { border-radius: 9999px; }
-
-      /* Shadows */
-      .shadow-xs { box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05); }
-      .shadow-sm { box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px -1px rgba(0, 0, 0, 0.1); }
-      .shadow { box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1); }
-      .shadow-lg { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1); }
-      .shadow-xl { box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1); }
-
-      /* Display, Flex & Grid */
-      .block { display: block; }
-      .inline-block { display: inline-block; }
-      .flex { display: flex; }
-      .inline-flex { display: inline-flex; }
-      .grid { display: grid; }
-      .hidden { display: none; }
-
-      .flex-col { flex-direction: column; }
-      .flex-row { flex-direction: row; }
-      .flex-grow { flex-grow: 1; }
-      .shrink-0 { flex-shrink: 0; }
-
-      .items-center { align-items: center; }
-      .items-start { align-items: flex-start; }
-      .justify-between { justify-content: space-between; }
-      .justify-center { justify-content: center; }
-      .justify-end { justify-content: flex-end; }
-
-      .gap-1 { gap: 0.25rem; }
-      .gap-1\.5 { gap: 0.375rem; }
-      .gap-2 { gap: 0.5rem; }
-      .gap-2\.5 { gap: 0.625rem; }
-      .gap-3 { gap: 0.75rem; }
-      .gap-4 { gap: 1rem; }
-      .gap-5 { gap: 1.25rem; }
-      .gap-6 { gap: 1.5rem; }
-      .gap-8 { gap: 2rem; }
-
-      .grid-cols-1 { grid-template-columns: repeat(1, minmax(0, 1fr)); }
-
-      /* Spacing */
-      .m-0 { margin: 0; }
-      .mx-auto { margin-left: auto; margin-right: auto; }
-      .my-1 { margin-top: 0.25rem; margin-bottom: 0.25rem; }
-      .mb-1 { margin-bottom: 0.25rem; }
-      .mb-1\.5 { margin-bottom: 0.375rem; }
-      .mb-2 { margin-bottom: 0.5rem; }
-      .mb-2\.5 { margin-bottom: 0.625rem; }
-      .mb-3 { margin-bottom: 0.75rem; }
-      .mb-4 { margin-bottom: 1rem; }
-      .mb-5 { margin-bottom: 1.25rem; }
-      .mb-6 { margin-bottom: 1.5rem; }
-      .mb-8 { margin-bottom: 2rem; }
-      .mt-1 { margin-top: 0.25rem; }
-      .mt-2 { margin-top: 0.5rem; }
-      .mt-3 { margin-top: 0.75rem; }
-      .mt-4 { margin-top: 1rem; }
-      .mt-auto { margin-top: auto; }
-      .ml-4 { margin-left: 1rem; }
-
-      .p-1 { padding: 0.25rem; }
-      .p-2 { padding: 0.5rem; }
-      .p-2\.5 { padding: 0.625rem; }
-      .p-3 { padding: 0.75rem; }
-      .p-4 { padding: 1rem; }
-      .p-5 { padding: 1.25rem; }
-      .p-6 { padding: 1.5rem; }
-      .p-8 { padding: 2rem; }
-
-      .px-2 { padding-left: 0.5rem; padding-right: 0.5rem; }
-      .px-3 { padding-left: 0.75rem; padding-right: 0.75rem; }
-      .px-3\.5 { padding-left: 0.875rem; padding-right: 0.875rem; }
-      .px-4 { padding-left: 1rem; padding-right: 1rem; }
-      .px-5 { padding-left: 1.25rem; padding-right: 1.25rem; }
-      .py-0\.5 { padding-top: 0.125rem; padding-bottom: 0.125rem; }
-      .py-1 { padding-top: 0.25rem; padding-bottom: 0.25rem; }
-      .py-1\.5 { padding-top: 0.375rem; padding-bottom: 0.375rem; }
-      .py-2 { padding-top: 0.5rem; padding-bottom: 0.5rem; }
-      .py-2\.5 { padding-top: 0.625rem; padding-bottom: 0.625rem; }
-      .py-3 { padding-top: 0.75rem; padding-bottom: 0.75rem; }
-      .py-4 { padding-top: 1rem; padding-bottom: 1rem; }
-      .py-6 { padding-top: 1.5rem; padding-bottom: 1.5rem; }
-      .py-8 { padding-top: 2rem; padding-bottom: 2rem; }
-      .py-16 { padding-top: 4rem; padding-bottom: 4rem; }
-
-      .pb-2 { padding-bottom: 0.5rem; }
-      .pt-2 { padding-top: 0.5rem; }
-
-      /* Dimensions */
-      .w-full { width: 100%; }
-      .w-auto { width: auto; }
-      .w-4 { width: 1rem; }
-      .w-5 { width: 1.25rem; }
-      .w-6 { width: 1.5rem; }
-      .w-8 { width: 2rem; }
-      .w-9 { width: 2.25rem; }
-      .w-12 { width: 3rem; }
-      .w-48 { width: 12rem; }
-
-      .h-full { height: 100%; }
-      .min-h-full { min-height: 100%; }
-      .h-4 { height: 1rem; }
-      .h-5 { height: 1.25rem; }
-      .h-6 { height: 1.5rem; }
-      .h-8 { height: 2rem; }
-      .h-9 { height: 2.25rem; }
-      .h-12 { height: 3rem; }
-      .h-16 { height: 4rem; }
-
-      .max-w-xs { max-width: 20rem; }
-      .max-w-md { max-width: 28rem; }
-      .max-w-2xl { max-width: 42rem; }
-      .max-w-3xl { max-width: 48rem; }
-      .max-w-7xl { max-width: 80rem; }
-
-      .aspect-video { aspect-ratio: 16 / 9; }
-      .object-contain { object-fit: contain; }
-      .object-cover { object-fit: cover; }
-
-      /* Positioning */
-      .relative { position: relative; }
-      .absolute { position: absolute; }
-      .fixed { position: fixed; }
-      .sticky { position: sticky; }
-      .top-0 { top: 0; }
-      .top-full { top: 100%; }
-      .bottom-6 { bottom: 1.5rem; }
-      .right-0 { right: 0; }
-      .right-6 { right: 1.5rem; }
-      .inset-0 { top: 0; right: 0; bottom: 0; left: 0; }
-      .z-50 { z-index: 50; }
-
-      .overflow-hidden { overflow: hidden; }
-      .overflow-x-auto { overflow-x: auto; }
-      .cursor-pointer { cursor: pointer; }
-
-      .transition { transition-property: color, background-color, border-color, transform, opacity; transition-duration: 150ms; }
-      .transition-all { transition-property: all; transition-duration: 200ms; }
-      .transition-transform { transition-property: transform; transition-duration: 200ms; }
-      .duration-200 { transition-duration: 200ms; }
-      .duration-300 { transition-duration: 300ms; }
-
-      .opacity-0 { opacity: 0; opacity: 0; }
-      .opacity-100 { opacity: 1; opacity: 1; }
-      .pointer-events-none { pointer-events: none; }
-      .pointer-events-auto { pointer-events: auto; }
-
-      .rotate-180 { transform: rotate(180deg); }
-      .translate-y-12 { transform: translateY(3rem); }
-
-      /* Form Controls Styling */
-      select, textarea, input {
-        font-family: inherit;
-        font-size: 0.875rem;
-        line-height: 1.25rem;
-        color: var(--slate-800);
-        background-color: #ffffff;
-        border: 1px solid var(--slate-300);
-        border-radius: 0.75rem;
-        padding: 0.625rem 0.875rem;
-        width: 100%;
-        box-sizing: border-box;
-        transition: border-color 0.15s ease, box-shadow 0.15s ease;
-      }
-
-      select:focus, textarea:focus, input:focus {
-        outline: none;
-        border-color: var(--indigo-500);
-        box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-      }
-
-      button {
-        font-family: inherit;
-        cursor: pointer;
-        border: none;
-        background: none;
-      }
-
-      /* Hover States */
-      .hover\:bg-slate-50:hover { background-color: var(--slate-50); }
-      .hover\:bg-slate-100:hover { background-color: var(--slate-100); }
-      .hover\:bg-slate-200:hover { background-color: var(--slate-200); }
-      .hover\:bg-slate-800:hover { background-color: var(--slate-800); }
-      .hover\:bg-indigo-700:hover { background-color: var(--indigo-700); }
-      .hover\:bg-red-50:hover { background-color: var(--red-50); }
-      .hover\:bg-indigo-50\/30:hover { background-color: rgba(238, 242, 255, 0.3); }
-
-      .hover\:text-slate-800:hover { color: var(--slate-800); }
-      .hover\:text-slate-900:hover { color: var(--slate-900); }
-      .hover\:text-indigo-600:hover { color: var(--indigo-600); }
-      .hover\:border-indigo-400:hover { border-color: #818cf8; }
-      .hover\:scale-105:hover { transform: scale(1.05); }
-
-      .group:hover .group-hover\:opacity-100 { opacity: 1; pointer-events: auto; }
-      .group:hover .group-hover\:pointer-events-auto { pointer-events: auto; }
-      .group:hover .group-hover\:scale-105 { transform: scale(1.05); }
-      .group:hover .group-hover\:text-indigo-600 { color: var(--indigo-600); }
-
-      /* Accordion Max Heights */
-      .max-h-0 { max-height: 0; }
-      .max-h-\[300px\] { max-height: 300px; }
-
-      /* Backdrop blur */
-      .backdrop-blur-xs { backdrop-filter: blur(2px); }
-
-      /* Shimmer Loading Animation */
-      @keyframes shimmer {
-        0% { background-position: -200% 0; }
-        100% { background-position: 200% 0; }
-      }
-      .animate-shimmer {
-        background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%);
-        background-size: 200% 100%;
-        animation: shimmer 1.5s infinite;
-      }
-
-      /* Media Queries for Desktop Grid & Flex Layouts */
-      @media (min-width: 640px) {
-        .sm\:px-6 { padding-left: 1.5rem; padding-right: 1.5rem; }
-        .sm\:p-8 { padding: 2rem; }
-        .sm\:mb-10 { margin-bottom: 2.5rem; }
-        .sm\:text-base { font-size: 1rem; line-height: 1.5rem; }
-        .sm\:text-lg { font-size: 1.125rem; line-height: 1.75rem; }
-        .sm\:text-xl { font-size: 1.25rem; line-height: 1.75rem; }
-        .sm\:text-2xl { font-size: 1.5rem; line-height: 2rem; }
-        .sm\:text-4\.5xl { font-size: 2.5rem; line-height: 2.75rem; }
-        .sm\:flex-row { flex-direction: row; }
-        .sm\:w-auto { width: auto; }
-        .sm\:inline { display: inline; }
-      }
-
-      @media (min-width: 768px) {
-        .md\:grid-cols-2 { grid-template-columns: repeat(2, minmax(0, 1fr)); }
-        .md\:grid-cols-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-      }
-
-      @media (min-width: 1024px) {
-        .lg\:px-8 { padding-left: 2rem; padding-right: 2rem; }
-        .lg\:grid-cols-12 { grid-template-columns: repeat(12, minmax(0, 1fr)); }
-        .lg\:col-span-5 { grid-column: span 5 / span 5; }
-        .lg\:col-span-7 { grid-column: span 7 / span 7; }
-        .lg\:gap-8 { gap: 2rem; }
-      }
-    </style>
-    <!-- Razorpay Checkout SDK -->
-    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
-  </head>
-  <body class="flex flex-col min-h-full font-sans antialiased bg-slate-50 text-slate-800">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Image to Code Converter AI - ToolIMG</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
     
-    <!-- Navbar -->
-    <header class="sticky top-0 z-50 w-full bg-white border-b border-slate-200">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-        <a href="/" class="flex items-center gap-2.5 group" id="logo-anchor">
-          <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG Logo" class="h-9 w-auto object-contain transition-transform group-hover:scale-105" onerror="this.src='https://via.placeholder.com/120x40?text=ToolIMG'" referrerpolicy="no-referrer" />
-          <span class="font-display font-bold text-xl tracking-tight text-slate-950">ToolIMG</span>
-          <span class="bg-indigo-50 text-indigo-700 text-xs font-semibold px-2 py-0.5 rounded-full border border-indigo-100">Premium</span>
-        </a>
-        <div id="navbar-auth-section" class="flex items-center gap-4">
-          <!-- Populated by JavaScript -->
-        </div>
-      </div>
-    </header>
-
-    <!-- Main Viewport -->
-    <main id="app-viewport" class="flex-grow max-w-7xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-8">
-      <!-- Loaded dynamically -->
-    </main>
-
-    <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 py-6 mt-auto">
-      <div class="max-w-7xl mx-auto px-4 text-center">
-        <p class="text-xs text-slate-500">&copy; 2026 ToolIMG. Transform mockups and wireframes into interactive code instantly. All operations processed securely for total privacy.</p>
-      </div>
-    </footer>
-
-    <!-- Toast Notification Overlay -->
-    <div id="app-toast" class="fixed bottom-6 right-6 bg-slate-900 text-white px-4 py-3 rounded-xl shadow-xl flex items-center gap-2.5 translate-y-12 opacity-0 pointer-events-none transition-all duration-300 z-50">
-      <svg class="w-5 h-5 text-emerald-400 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
-      <span id="toast-message" class="text-sm font-semibold">Success!</span>
-    </div>
-
-    <!-- Firebase App & Scripts -->
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-      import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-      import { initializeFirestore, doc, setDoc, getDoc, updateDoc, increment, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-      // Error Handlers for Firestore Security Rules / Missing permissions
-      const OperationType = {
-        CREATE: 'create',
-        UPDATE: 'update',
-        DELETE: 'delete',
-        LIST: 'list',
-        GET: 'get',
-        WRITE: 'write',
-      };
-
-      function handleFirestoreError(error, operationType, path, shouldThrow = true) {
-        let errMessage = "Unknown error";
-        if (error && error.message) {
-          errMessage = error.message;
-        } else if (error instanceof Error) {
-          errMessage = error.message;
-        } else {
-          errMessage = String(error);
-        }
-
-        const errInfo = {
-          error: errMessage,
-          authInfo: {
-            userId: auth?.currentUser?.uid || null,
-            email: auth?.currentUser?.email || null,
-            emailVerified: auth?.currentUser?.emailVerified || null,
-            isAnonymous: auth?.currentUser?.isAnonymous || null,
-            tenantId: auth?.currentUser?.tenantId || null,
-            providerInfo: auth?.currentUser?.providerData?.map(provider => ({
-              providerId: provider.providerId,
-              email: provider.email,
-            })) || []
-          },
-          operationType,
-          path
-        };
-
-        let serialized = "";
-        try {
-          serialized = JSON.stringify(errInfo);
-        } catch (e) {
-          serialized = JSON.stringify({
-            error: errMessage,
-            serialization_failed: true,
-            operationType,
-            path
-          });
-        }
-
-        console.error('Firestore Error: ', serialized);
-        if (shouldThrow) {
-          throw new Error(serialized);
-        }
-      }
-
-      // 1. App State
-      let state = {
-        activePage: null, // "dashboard", "pricing", or null (workspace)
-        currentUser: null,
-        joinedAt: null,
-        credits: null,
-        uploadedFile: null,
-        uploadedFileUrl: null,
-        isProcessing: false,
-        ocrResult: null, // Stores image-to-code generated outputs
-        activeResultTab: "visual", // "visual", "code", "design", "summary"
-        selectedFramework: "html-tailwind",
-        selectedStyleTheme: "modern-dark",
-        selectedInteractivity: "interactive",
-        customPrompt: "",
-        openToolFaqIndex: null,
-        previewMode: "desktop" // "desktop" or "mobile" for iframe
-      };
-
-      // 2. Global SVG Icon Helper
-      function getSvgIcon(name, cls = "w-5 h-5") {
-        const svgStart = `<svg class="${cls}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">`;
-        let path = "";
-        switch (name) {
-          case "arrow-left":
-            path = `<line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline>`;
-            break;
-          case "sparkles":
-            path = `<path d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364-6.364l-.707.707M6.343 17.657l-.707.707m0-12.728l.707.707m11.314 11.314l.707.707M12 5a7 7 0 0 0-7 7c0 1.252.33 2.425.908 3.443L5 21l5.557-.908c1.018.578 2.191.908 3.443.908a7 7 0 0 0 7-7 7 7 0 0 0-7-7z"></path>`;
-            break;
-          case "upload":
-            path = `<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M17 8l-5-5-5 5M12 3v12"></path>`;
-            break;
-          case "check":
-            path = `<polyline points="20 6 9 17 4 12"></polyline>`;
-            break;
-          case "chevron-down":
-            path = `<polyline points="6 9 12 15 18 9"></polyline>`;
-            break;
-          case "copy":
-            path = `<rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>`;
-            break;
-          case "download":
-            path = `<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"></path>`;
-            break;
-          case "user":
-            path = `<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle>`;
-            break;
-          case "mail":
-            path = `<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path><polyline points="22,6 12,13 2,6"></polyline>`;
-            break;
-          default:
-            path = `<circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line>`;
-            break;
-        }
-        return `${svgStart}${path}</svg>`;
-      }
-
-      // 3. UI Helpers
-      function triggerToast(message) {
-        const toast = document.getElementById("app-toast");
-        const toastMsg = document.getElementById("toast-message");
-        toastMsg.textContent = message;
-        toast.classList.remove("translate-y-12", "opacity-0", "pointer-events-none");
-        setTimeout(() => {
-          toast.classList.add("translate-y-12", "opacity-0", "pointer-events-none");
-        }, 2500);
-      }
-
-      // 4. Core Router
-      function syncStateWithHash() {
-        const hash = window.location.hash;
-        if (hash === "#/dashboard") {
-          state.activePage = "dashboard";
-          document.title = "User Dashboard - ToolIMG";
-        } else if (hash === "#/pricing") {
-          state.activePage = "pricing";
-          document.title = "Pricing & Premium Credits - ToolIMG";
-        } else {
-          state.activePage = null;
-          document.title = "Image to Code Converter AI Online Free - ToolIMG";
-        }
-        renderApp();
-      }
-
-      // 5. Component Renderers
-
-      // Navigation Auth Section Renderer
-      function renderNavbarAuth() {
-        const authSection = document.getElementById("navbar-auth-section");
-        if (!authSection) return;
-
-        let html = `<a href="#/pricing" class="text-sm font-semibold text-slate-600 hover:text-slate-900 transition">Pricing</a>`;
-
-        if (state.currentUser) {
-          const user = state.currentUser;
-          const avatarUrl = user.photoURL || 'https://via.placeholder.com/40?text=' + (user.email ? user.email.charAt(0).toUpperCase() : 'U');
-          const currentCredits = state.credits !== null ? state.credits : 0;
-
-          html += `
-            <a href="#/pricing" class="bg-indigo-50 text-indigo-700 text-xs font-bold px-3 py-1.5 rounded-full border border-indigo-200 transition hover:scale-105">
-              ⭐ <span>${currentCredits} Credits</span>
-            </a>
-
-            <div class="relative group">
-              <button class="flex items-center gap-2 bg-slate-100 hover:bg-slate-200 px-3 py-1.5 rounded-full transition">
-                <img src="${avatarUrl}" class="w-6 h-6 rounded-full object-cover" referrerpolicy="no-referrer" />
-                <span class="text-sm font-medium text-slate-800 hidden sm:inline">${user.displayName || user.email.split('@')[0]}</span>
-                ${getSvgIcon("chevron-down", "w-4 h-4 text-slate-500")}
-              </button>
-              <div class="absolute right-0 top-full mt-2 w-48 bg-white border border-slate-200 rounded-xl shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 group-hover:pointer-events-auto transition-all duration-200 z-50 py-1">
-                <a href="#/dashboard" class="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-indigo-600 transition">
-                  ${getSvgIcon("user", "w-4 h-4")} My Dashboard
-                </a>
-                <a href="#/pricing" class="flex items-center gap-2 px-4 py-2.5 text-sm text-slate-700 hover:bg-slate-50 hover:text-indigo-600 transition">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="16"></line><line x1="8" y1="12" x2="16" y2="12"></line></svg> Buy Credits
-                </a>
-                <hr class="border-slate-200 my-1" />
-                <button onclick="handleLogout()" class="w-full flex items-center gap-2 px-4 py-2.5 text-sm text-red-600 hover:bg-red-50 transition">
-                  <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"></path></svg> Logout
-                </button>
-              </div>
-            </div>
-          `;
-        } else {
-          html += `
-            <div class="flex items-center gap-2">
-              <button onclick="handleLogin()" class="flex items-center gap-2 bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm px-4 py-2 rounded-full transition shadow-sm">
-                <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" width="24" height="24">
-                  <path fill="#4285F4" d="M23.745 12.27c0-.7-.06-1.4-.19-2.07H12v3.92h6.69c-.29 1.5-1.14 2.77-2.4 3.61v3h3.86c2.26-2.09 3.59-5.17 3.59-8.46z"/>
-                  <path fill="#34A853" d="M12 24c3.24 0 5.95-1.08 7.93-2.91l-3.86-3c-1.08.72-2.45 1.16-4.07 1.16-3.11 0-5.74-2.11-6.68-4.96H1.21v3.11C3.18 21.88 7.31 24 12 24z"/>
-                  <path fill="#FBBC05" d="M5.32 14.29c-.24-.72-.38-1.49-.38-2.29s.14-1.57.38-2.29V6.6H1.21C.44 8.12 0 9.83 0 11.63s.44 3.51 1.21 5.03l4.11-2.37z"/>
-                  <path fill="#EA4335" d="M12 4.75c1.77 0 3.35.61 4.6 1.8l3.42-3.42C17.95 1.19 15.24 0 12 0 7.31 0 3.18 2.12 1.21 5.03l4.11 2.37c.94-2.85 3.57-4.96 6.68-4.96z"/>
-                </svg>
-                <span>Login with Google</span>
-              </button>
-              <button onclick="handleGuestLogin()" class="flex items-center gap-1.5 bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm px-4 py-2 rounded-full transition border border-slate-200">
-                👤 <span>Guest Mode</span>
-              </button>
-            </div>
-          `;
-        }
-        authSection.innerHTML = html;
-      }
-
-      // 6. Interactive Image to Code Workspace Renderer
-      function renderWorkspace() {
-        // FAQ Data and Mapping for SEO (Image to Code Converter AI keywords)
-        const faqs = [
-          {
-            q: "What is an image to code converter ai?",
-            a: "An <strong>image to code converter ai</strong> is an advanced AI-powered design-to-code compiler that parses layout components, typography, color palettes, and spacing attributes from any screenshot, layout design, mockup, or digital sketch, and translates it into production-ready front-end code instantly. It functions as a robust <strong>image to code generator</strong> to automate design handoffs."
-          },
-          {
-            q: "How can I use the best image to code converter online free with PDFs or wireframes?",
-            a: "To convert a design, simply upload your file. If you have a PDF, you can save or snapshot it as an image, or use our <strong>image to code converter pdf</strong> capabilities. With this <strong>image to html css and javascript code generator</strong>, you can upload a mockup, select your target framework like HTML with Tailwind CSS, and let the AI compile the layout."
-          },
-          {
-            q: "Can I convert jpg image to html code or export interactive elements?",
-            a: "Yes! You can upload designs in standard formats (JPG, PNG, WEBP) to <strong>convert jpg image to html code</strong>. Our platform operates as a robust <strong>image to html and css code converter</strong>, supporting custom prompt instructions so you can add interactive states or specify detailed visual refinements."
-          },
-          {
-            q: "Why choose this over a standard image to html converter?",
-            a: "Standard tools only run static OCR text extraction, whereas our <strong>image to html converter online free</strong> utilizes advanced vision-language models to reconstruct responsive layouts, select matching Google fonts, configure nested grid systems, and implement full interactivity. It is widely considered the <strong>best convert image to html code ai free</strong> solution for quick prototyping."
-          },
-          {
-            q: "Is there support for other formats like image to html css code converter free pdf?",
-            a: "Absolutely! Our suite includes an <strong>image to html css code converter</strong> that lets you convert designs from static PDF wireframes or design exports. Simply take a snapshot of your PDF page and upload it to the <strong>image to html css code converter free</strong> space. Our system acts as a direct <strong>image to html css code converter free pdf</strong> utility, delivering clean, hand-crafted code with zero bloat."
-          },
-          {
-            q: "What features make this the ultimate image to code converter online free?",
-            a: "As a premium yet highly accessible <strong>image to html converter online free</strong> platform, we offer free guest credits to <strong>convert image to html code ai free</strong>. With built-in visual sandboxes, multiple style theme options, lifetime credit validity, and secure transaction handling, we aim to provide the most robust development experience."
-          }
-        ];
-
-        const faqHTML = faqs.map((faq, index) => {
-          const isOpen = state.openToolFaqIndex === index;
-          return `
-            <div class="border-b border-slate-200/80 py-4 transition-all">
-              <button onclick="toggleFaqIndex(${index})" class="w-full flex justify-between items-center text-left focus:outline-none py-2 group" id="faq-btn-${index}">
-                <span class="font-display font-bold text-slate-900 group-hover:text-indigo-600 transition text-sm sm:text-base">${faq.q}</span>
-                <span class="ml-4 text-indigo-600 shrink-0 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}">
-                  ${getSvgIcon("chevron-down", "w-5 h-5")}
-                </span>
-              </button>
-              <div class="transition-all duration-300 overflow-hidden ${isOpen ? 'max-h-[300px] opacity-100 mt-2' : 'max-h-0 opacity-0 mt-0 pointer-events-none'}">
-                <p class="text-xs sm:text-sm text-slate-600 leading-relaxed pb-2">${faq.a}</p>
-              </div>
-            </div>
-          `;
-        }).join("");
-
-        // Build Option Controls HTML
-        const optionFrameworkHTML = `
-          <div class="mb-5 bg-indigo-50/50 rounded-2xl border border-indigo-100/60 p-4">
-            <label class="block text-xs font-bold uppercase tracking-wider text-indigo-700 mb-2">Target Framework</label>
-            <select class="w-full bg-white border border-indigo-100 rounded-xl px-3.5 py-2.5 text-sm font-medium focus:outline-none focus:border-indigo-500" onchange="updateSelectedFramework(this.value)">
-              <option value="html-tailwind" ${state.selectedFramework === 'html-tailwind' ? 'selected' : ''}>HTML5 + Tailwind CSS</option>
-              <option value="react-tailwind" ${state.selectedFramework === 'react-tailwind' ? 'selected' : ''}>React functional component + Tailwind</option>
-              <option value="vue-tailwind" ${state.selectedFramework === 'vue-tailwind' ? 'selected' : ''}>Vue 3 Single File Component + Tailwind</option>
-            </select>
-          </div>
-        `;
-
-        const optionStyleHTML = `
-          <div class="mb-5 bg-slate-50 rounded-2xl border border-slate-200/60 p-4">
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Style Theme Accent</label>
-            <select class="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm font-medium focus:outline-none focus:border-indigo-500" onchange="updateSelectedStyleTheme(this.value)">
-              <option value="modern-dark" ${state.selectedStyleTheme === 'modern-dark' ? 'selected' : ''}>Modern Dark (Deep charcoal & violet glow)</option>
-              <option value="clean-light" ${state.selectedStyleTheme === 'clean-light' ? 'selected' : ''}>Clean Light (Off-white canvas & pristine grays)</option>
-              <option value="neon-cyberpunk" ${state.selectedStyleTheme === 'neon-cyberpunk' ? 'selected' : ''}>Neon Cyberpunk (Dark backdrop & electric pinks)</option>
-              <option value="retro-90s" ${state.selectedStyleTheme === 'retro-90s' ? 'selected' : ''}>Retro 90s (Windows 95 gray, thick lines, serif)</option>
-              <option value="minimalist-slate" ${state.selectedStyleTheme === 'minimalist-slate' ? 'selected' : ''}>Minimalist Slate (Monochromatic gray typography scale)</option>
-            </select>
-          </div>
-        `;
-
-        const optionInteractivityHTML = `
-          <div class="mb-5 bg-slate-50 rounded-2xl border border-slate-200/60 p-4">
-            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Interactivity Level</label>
-            <select class="w-full bg-white border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm font-medium focus:outline-none focus:border-indigo-500" onchange="updateSelectedInteractivity(this.value)">
-              <option value="interactive" ${state.selectedInteractivity === 'interactive' ? 'selected' : ''}>Interactive State (Tabs, drawer folds, search works)</option>
-              <option value="static" ${state.selectedInteractivity === 'static' ? 'selected' : ''}>Static Visual Only (Pure styled template mockup)</option>
-            </select>
-          </div>
-        `;
-
-        // Dropzone Layout
-        let dropzoneHTML = "";
-        if (state.uploadedFileUrl) {
-          dropzoneHTML = `
-            <div class="relative w-full rounded-2xl overflow-hidden border border-slate-300 shadow-inner bg-slate-900 group cursor-pointer" onclick="triggerFileInput()">
-              <img src="${state.uploadedFileUrl}" alt="Mockup preview" class="max-h-72 w-full object-contain mx-auto" />
-              <div class="absolute inset-0 bg-slate-950/60 opacity-0 group-hover:opacity-100 flex items-center justify-center transition-all duration-200">
-                <span class="bg-indigo-600 text-white font-bold text-sm px-4 py-2 rounded-full shadow-lg">Replace Design Mockup</span>
-              </div>
-            </div>
-          `;
-        } else {
-          dropzoneHTML = `
-            <div id="drop-zone-area" onclick="triggerFileInput()" class="border-2 border-dashed border-slate-300 hover:border-indigo-500 hover:bg-indigo-50/20 rounded-2xl p-8 text-center cursor-pointer transition-all duration-200 flex flex-col items-center justify-center min-h-[220px]">
-              <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-4">
-                ${getSvgIcon("upload", "w-6 h-6")}
-              </div>
-              <h3 class="font-display font-semibold text-slate-800 text-base mb-1">Drag & drop your mockup here, or <span class="text-indigo-600 hover:underline">browse</span></h3>
-              <p class="text-xs text-slate-500">Supports JPG, PNG, WEBP files up to 25MB.</p>
-            </div>
-          `;
-        }
-
-        // Generate Actions
-        let generateBtnHTML = "";
-        if (state.uploadedFile) {
-          generateBtnHTML = `
-            <div class="flex gap-3 mt-6">
-              <button onclick="processImageToCode()" class="flex-1 bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-3 rounded-xl transition flex items-center justify-center gap-2 shadow-md">
-                ${getSvgIcon("sparkles", "w-5 h-5")}
-                <span>Generate Interactive Code</span>
-              </button>
-              <button onclick="resetWorkspace()" class="bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold px-4 py-3 rounded-xl transition">
-                Reset
-              </button>
-            </div>
-          `;
-        }
-
-        // Right Column Result Section
-        let resultSectionHTML = "";
-        if (state.isProcessing) {
-          resultSectionHTML = `
-            <div class="bg-white border border-slate-200 rounded-3xl p-8 text-center flex flex-col items-center justify-center h-full min-h-[450px]">
-              <div class="relative w-16 h-16 flex items-center justify-center mb-6">
-                <div class="absolute inset-0 w-full h-full border-4 border-indigo-100 border-t-indigo-600 rounded-full animate-spin"></div>
-                <div class="text-indigo-600 animate-pulse">${getSvgIcon("sparkles", "w-6 h-6")}</div>
-              </div>
-              <h3 class="font-display font-bold text-slate-900 text-xl mb-1.5">Analyzing Layout Components</h3>
-              <p class="text-sm text-slate-500 max-w-sm leading-relaxed mb-4">Mapping coordinates, extracting visual elements, tracing grids, and generating code...</p>
-              <div class="bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold px-4 py-1.5 rounded-full inline-flex items-center gap-1.5">
-                ⌛ <span>Compiling frontend blocks takes ~3-4s</span>
-              </div>
-            </div>
-          `;
-        } else if (state.ocrResult) {
-          const res = state.ocrResult;
-
-          // Compile Results Tabs body
-          let tabBodyHTML = "";
-          if (state.activeResultTab === "visual") {
-            tabBodyHTML = `
-              <div class="flex flex-col h-full">
-                <!-- Sandbox Toolbar -->
-                <div class="flex flex-wrap justify-between items-center bg-slate-100/80 border border-slate-200 border-b-0 rounded-t-2xl p-2.5 gap-2">
-                  <div class="flex gap-1.5">
-                    <button class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 ${state.previewMode === 'desktop' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'}" onclick="updatePreviewMode('desktop')">
-                      💻 Desktop
-                    </button>
-                    <button class="px-3.5 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 ${state.previewMode === 'mobile' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-600 hover:text-slate-900'}" onclick="updatePreviewMode('mobile')">
-                      📱 Mobile
-                    </button>
-                  </div>
-                  <button onclick="openIframeInNewTab()" class="text-xs font-bold text-indigo-600 hover:text-indigo-700 transition flex items-center gap-1">
-                    Open Fullscreen ↗️
-                  </button>
-                </div>
-                <!-- Iframe Wrapper -->
-                <div class="bg-slate-200 border border-slate-200 rounded-b-2xl p-4 flex justify-center overflow-hidden">
-                  <iframe id="preview-sandbox-iframe" class="w-full h-[450px] border-none bg-white rounded-xl shadow-md transition-all duration-300" style="max-width: ${state.previewMode === 'mobile' ? '375px' : '100%'};" srcdoc="${res.htmlCode.replace(/"/g, '&quot;')}"></iframe>
-                </div>
-              </div>
-            `;
-          } else if (state.activeResultTab === "code") {
-            tabBodyHTML = `
-              <div class="flex flex-col">
-                <div class="flex gap-2 mb-3">
-                  <button onclick="copyGeneratedCode()" class="flex items-center gap-1 bg-white hover:bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 transition">
-                    ${getSvgIcon("copy", "w-4 h-4")} Copy Code
-                  </button>
-                  <button onclick="downloadGeneratedCodeFile()" class="flex items-center gap-1 bg-white hover:bg-slate-50 border border-slate-200 px-3 py-1.5 rounded-lg text-xs font-bold text-slate-700 transition">
-                    ${getSvgIcon("download", "w-4 h-4")} Download Code
-                  </button>
-                </div>
-                <div class="bg-slate-900 text-slate-100 rounded-2xl p-4 overflow-x-auto max-h-[480px]">
-                  <pre class="font-mono text-xs leading-relaxed whitespace-pre">${res.frameworkCode.replace(/</g, '&lt;').replace(/>/g, '&gt;')}</pre>
-                </div>
-              </div>
-            `;
-          } else if (state.activeResultTab === "design") {
-            const da = res.designAnalysis;
-            tabBodyHTML = `
-              <div class="space-y-6">
-                <!-- Identified Colors -->
-                <div>
-                  <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2.5">Identified Color Palette</h4>
-                  <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                    ${da.colors.map(color => `
-                      <div class="flex items-center gap-2 bg-slate-50 border border-slate-200/60 p-2 rounded-xl">
-                        <div class="w-8 h-8 rounded-lg shadow-sm border border-slate-300 shrink-0" style="background-color: ${color}"></div>
-                        <span class="font-mono text-xs font-semibold text-slate-700">${color}</span>
-                      </div>
-                    `).join("")}
-                  </div>
-                </div>
-
-                <!-- Detected Attributes -->
-                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl">
-                    <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">Typography & Styles</h5>
-                    <p class="text-sm font-semibold text-slate-800">${da.typography}</p>
-                  </div>
-                  <div class="bg-slate-50 border border-slate-200 p-4 rounded-2xl">
-                    <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">Layout Structural Strategy</h5>
-                    <p class="text-sm font-semibold text-slate-800">${da.layout}</p>
-                  </div>
-                </div>
-
-                <!-- Components list -->
-                <div>
-                  <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Extracted Elements</h4>
-                  <div class="flex flex-wrap gap-1.5">
-                    ${da.componentsIdentified.map(comp => `
-                      <span class="bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-medium px-3 py-1 rounded-full">${comp}</span>
-                    `).join("")}
-                  </div>
-                </div>
-              </div>
-            `;
-          } else if (state.activeResultTab === "summary") {
-            // Very simple parser to format raw markdown as html
-            const formattedMD = res.markdownSummary
-              .replace(/### (.*)/g, '<h4 class="text-sm font-bold text-slate-900 mt-4 mb-2">$1</h4>')
-              .replace(/## (.*)/g, '<h3 class="text-base font-bold text-slate-950 mt-5 mb-2.5">$1</h3>')
-              .replace(/# (.*)/g, '<h2 class="text-lg font-bold text-slate-950 mt-6 mb-3">$1</h2>')
-              .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-              .replace(/\*(.*?)\*/g, '<em>$1</em>')
-              .replace(/`([^`]+)`/g, '<code class="bg-slate-100 font-mono text-xs px-1.5 py-0.5 rounded text-indigo-600">$1</code>')
-              .replace(/> (.*)/g, '<blockquote class="border-l-4 border-indigo-500 pl-3.5 text-slate-500 italic my-3">$1</blockquote>')
-              .replace(/\n\* (.*)/g, '<li class="ml-4 list-disc text-sm text-slate-600 mb-1">$1</li>')
-              .replace(/\n\n/g, '<p class="my-2 text-sm text-slate-600 leading-relaxed"></p>');
-
-            tabBodyHTML = `
-              <div class="prose max-w-none max-h-[480px] overflow-y-auto">
-                ${formattedMD}
-              </div>
-            `;
-          }
-
-          resultSectionHTML = `
-            <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm flex flex-col h-full min-h-[450px]">
-              <!-- Tabs Header -->
-              <div class="flex bg-slate-100 p-1 rounded-xl mb-4">
-                <button onclick="updateResultTab('visual')" class="flex-1 text-xs font-bold py-2 rounded-lg transition ${state.activeResultTab === 'visual' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-800'}">
-                  Visual Sandbox
-                </button>
-                <button onclick="updateResultTab('code')" class="flex-1 text-xs font-bold py-2 rounded-lg transition ${state.activeResultTab === 'code' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-800'}">
-                  Source Code
-                </button>
-                <button onclick="updateResultTab('design')" class="flex-1 text-xs font-bold py-2 rounded-lg transition ${state.activeResultTab === 'design' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-800'}">
-                  Design Analysis
-                </button>
-                <button onclick="updateResultTab('summary')" class="flex-1 text-xs font-bold py-2 rounded-lg transition ${state.activeResultTab === 'summary' ? 'bg-white text-indigo-600 shadow-sm' : 'text-slate-600 hover:text-slate-800'}">
-                  Summary
-                </button>
-              </div>
-
-              <!-- Content Body -->
-              <div class="flex-grow">
-                ${tabBodyHTML}
-              </div>
-            </div>
-          `;
-        } else {
-          resultSectionHTML = `
-            <div class="bg-white border border-slate-200 rounded-3xl p-8 text-center flex flex-col items-center justify-center h-full min-h-[450px]">
-              <div class="w-14 h-14 bg-slate-50 text-slate-400 rounded-full flex items-center justify-center mb-4">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
-              </div>
-              <h3 class="font-display font-bold text-slate-900 text-lg mb-1">Visual Sandbox</h3>
-              <p class="text-sm text-slate-500 max-w-xs leading-relaxed">Your generated code, visual layouts, design attributes, and responsive adaptations will display inside this container instantly.</p>
-            </div>
-          `;
-        }
-
-        // Return Outer Workspace Structure
-        return `
-          <div class="space-y-8">
-            <!-- Hero Header -->
-            <div class="text-center max-w-3xl mx-auto py-4">
-              <div class="inline-flex items-center gap-1.5 bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full mb-3 shadow-sm">
-                ${getSvgIcon("sparkles", "w-4 h-4")}
-                <span>Multimodal Vision Code Compiler</span>
-              </div>
-              <h1 class="font-display font-bold text-slate-950 text-3xl sm:text-4.5xl tracking-tight leading-none mb-3">Image to code converter ai online free</h1>
-              <p class="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">Welcome to the ultimate <strong>image to code converter ai online free</strong> platform. Seamlessly convert wireframes, screenshots, and PDFs to production-ready Tailwind, HTML, React, or Vue components with our high-precision <strong>image to code converter ai</strong> compiler.</p>
-            </div>
-
-            <!-- Workspace Matrix Grid -->
-            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
-              
-              <!-- Left Setup Panel -->
-              <div class="lg:col-span-5 bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
-                <div class="flex items-center gap-2 mb-4 pb-3 border-b border-slate-100">
-                  <div class="text-indigo-600">${getSvgIcon("upload")}</div>
-                  <span class="font-display font-bold text-slate-900 text-lg">Source Workspace</span>
-                </div>
-
-                <!-- Parameters selections -->
-                ${optionFrameworkHTML}
-                ${optionStyleHTML}
-                ${optionInteractivityHTML}
-
-                <!-- Custom Instructions -->
-                <div class="mb-5 bg-slate-50 rounded-2xl border border-slate-200/60 p-4">
-                  <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Additional Instructions (Optional)</label>
-                  <textarea id="workspace-custom-prompt" rows="3" class="w-full bg-white border border-slate-200 rounded-xl p-3 text-sm focus:outline-none focus:border-indigo-500 placeholder:text-slate-400" placeholder="e.g. 'Make the buttons red', 'Add click event listeners to open the modal dialog', 'Use beautiful spacing'" oninput="updateCustomPrompt(this.value)">${state.customPrompt}</textarea>
-                </div>
-
-                <!-- Uploader dropzone -->
-                ${dropzoneHTML}
-
-                <!-- Hidden file selector input link -->
-                <input type="file" id="workspace-file-selector" style="display: none;" accept="image/*" onchange="handleFileSelected(this)" />
-
-                <!-- Action button rows -->
-                ${generateBtnHTML}
-              </div>
-
-              <!-- Right Visual Result Panel -->
-              <div class="lg:col-span-7 h-full">
-                ${resultSectionHTML}
-              </div>
-
-            </div>
-
-            <!-- Visual Value propositions -->
-            <section class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8">
-              <div class="max-w-3xl mx-auto text-center mb-8">
-                <h3 class="font-display font-bold text-slate-950 text-xl sm:text-2xl mb-1.5">Unmatched Visual Precision</h3>
-                <p class="text-sm text-slate-600">Our compiler decodes shapes, typography hierarchies, and grid layers to build pixel-perfect frontend layouts.</p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                <div class="flex gap-3">
-                  <div class="w-10 h-10 bg-indigo-50 text-indigo-600 rounded-xl flex items-center justify-center shrink-0 border border-indigo-100">
-                    ✨
-                  </div>
-                  <div>
-                    <h4 class="font-display font-bold text-slate-900 text-sm mb-1">Tailwind Utility Engine</h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">Utilizes highly efficient responsive utility classes to build fluid layouts fitting any screen.</p>
-                  </div>
-                </div>
-                <div class="flex gap-3">
-                  <div class="w-10 h-10 bg-emerald-50 text-emerald-600 rounded-xl flex items-center justify-center shrink-0 border border-emerald-100">
-                    ⚡
-                  </div>
-                  <div>
-                    <h4 class="font-display font-bold text-slate-900 text-sm mb-1">Full State Simulation</h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">Simulates standard UI interactions directly inside the visual sandbox with zero setup.</p>
-                  </div>
-                </div>
-                <div class="flex gap-3">
-                  <div class="w-10 h-10 bg-cyan-50 text-cyan-600 rounded-xl flex items-center justify-center shrink-0 border border-cyan-100">
-                    🔒
-                  </div>
-                  <div>
-                    <h4 class="font-display font-bold text-slate-900 text-sm mb-1">100% Private Sandbox</h4>
-                    <p class="text-xs text-slate-500 leading-relaxed">Operations occur directly in client memory. No personal files or screenshots are persisted.</p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            <!-- SEO Key Information Panel (Features & Guide) -->
-            <section class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8 space-y-6">
-              <div>
-                <span class="bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full mb-2.5 inline-block">Developer Guide</span>
-                <h3 class="font-display font-bold text-slate-950 text-xl sm:text-2xl mb-2">How to Use the Best Convert Image to HTML Code AI Free Platform</h3>
-                <p class="text-sm text-slate-600 leading-relaxed">
-                  Transforming mockups, sketches, and design wireframes with our <strong>image to html css and javascript code generator</strong> is incredibly simple. This <strong>image to html and css code converter</strong> utilizes state-of-the-art vision models to reconstruct your visuals as pixel-perfect markup. Follow these three simple steps:
-                </p>
-              </div>
-
-              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-2">
-                <div class="border border-slate-100 bg-slate-50/50 p-5 rounded-2xl">
-                  <div class="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center font-bold text-xs mb-3">1</div>
-                  <h4 class="font-display font-bold text-slate-900 text-sm mb-1.5">Upload Design File</h4>
-                  <p class="text-xs text-slate-500 leading-relaxed">Drop your design file here or browse locally. Our compiler serves as an outstanding <strong>image to html converter</strong>, supporting JPG, PNG, and WEBP formats up to 25MB.</p>
-                </div>
-                <div class="border border-slate-100 bg-slate-50/50 p-5 rounded-2xl">
-                  <div class="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center font-bold text-xs mb-3">2</div>
-                  <h4 class="font-display font-bold text-slate-900 text-sm mb-1.5">Set Target Framework</h4>
-                  <p class="text-xs text-slate-500 leading-relaxed">Configure output settings to target HTML5 + Tailwind CSS, React, or Vue components. You can also specify design theme accents and detailed instructions to <strong>convert image to html code ai free</strong>.</p>
-                </div>
-                <div class="border border-slate-100 bg-slate-50/50 p-5 rounded-2xl">
-                  <div class="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center font-bold text-xs mb-3">3</div>
-                  <h4 class="font-display font-bold text-slate-900 text-sm mb-1.5">Compile & Review Code</h4>
-                  <p class="text-xs text-slate-500 leading-relaxed">Click compile to run the <strong>image to code converter online free</strong> core. Instantly preview the interactive layout in the real-time sandbox and export the pristine hand-crafted codebase.</p>
-                </div>
-              </div>
-            </section>
-
-            <!-- SEO Accordion FAQ Section -->
-            <section class="bg-white border border-slate-200 rounded-3xl p-6 sm:p-8">
-              <div class="mb-6">
-                <span class="bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full mb-2.5 inline-block">Frequently Asked Questions</span>
-                <h3 class="font-display font-bold text-slate-950 text-xl sm:text-2xl mb-1.5">Image to Code Converter AI Online Free — Help & FAQ</h3>
-                <p class="text-sm text-slate-500 leading-relaxed">Everything you need to know about our visual <strong>image to code converter online free</strong> suite and our advanced <strong>image to code generator</strong> capabilities.</p>
-              </div>
-
-              <div class="divide-y divide-slate-100">
-                ${faqHTML}
-              </div>
-            </section>
-          </div>
-        `;
-      }
-
-      // pricing page rendering
-      function renderPricingPage() {
-        const currentCredits = state.credits !== null ? state.credits : 0;
-        return `
-          <div class="max-w-5xl mx-auto space-y-8 py-4">
-            <!-- Back Button -->
-            <div class="flex">
-              <a href="#/" class="inline-flex items-center gap-1 bg-white hover:bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl text-xs font-bold text-slate-600 transition shadow-sm">
-                ${getSvgIcon("arrow-left", "w-4 h-4")} Back to Workspace
-              </a>
-            </div>
-
-            <div class="text-center max-w-2xl mx-auto">
-              <span class="bg-indigo-50 border border-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full mb-3 shadow-sm inline-block">Credit Bundles</span>
-              <h1 class="font-display font-bold text-slate-950 text-3xl sm:text-4xl tracking-tight leading-none mb-3">Flexible Plans for Developers</h1>
-              <p class="text-slate-600 text-sm leading-relaxed max-w-md mx-auto">Buy credits on-demand for complex AI Image-to-Code conversions. Pay only for what you compile, with absolutely no recurring fees.</p>
-              
-              ${state.currentUser ? `
-                <div class="mt-4 inline-flex items-center gap-1.5 bg-white border border-slate-200 px-4 py-1.5 rounded-full text-xs font-semibold text-slate-700 shadow-sm">
-                  <div class="w-2 h-2 rounded-full bg-emerald-500"></div>
-                  <span>Your Current Balance: <strong class="text-indigo-600 font-bold">${currentCredits} Credits</strong></span>
-                </div>
-              ` : ''}
-            </div>
-
-            <!-- Bento Pricing Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 items-stretch max-w-4xl mx-auto">
-              
-              <!-- Pack 1: Test Pack -->
-              <div class="bg-white border-2 border-indigo-500 rounded-3xl p-6 shadow-md flex flex-col justify-between relative">
-                <div class="absolute -top-3 left-1/2 -translate-x-1/2 bg-indigo-600 text-white text-[10px] font-extrabold px-3 py-1 rounded-full uppercase tracking-wider">Most Popular Test</div>
-                <div>
-                  <div class="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 class="font-display font-bold text-slate-900 text-lg leading-tight">Testing Pack</h3>
-                      <p class="text-xs text-slate-500 leading-normal">Verify precision on visual sketches</p>
-                    </div>
-                    <div class="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center shrink-0">✨</div>
-                  </div>
-                  <div class="mb-5">
-                    <span class="font-display font-extrabold text-slate-900 text-4xl">₹1</span>
-                    <span class="text-xs text-slate-500">/ 1 credit</span>
-                  </div>
-                  <hr class="border-slate-100 my-4" />
-                  <ul class="space-y-2.5 text-xs font-medium text-slate-700 mb-6">
-                    <li class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      1 Image-to-Code Credit
-                    </li>
-                    <li class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      Interactive Sandbox Sandbox
-                    </li>
-                    <li class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      Lifetime Credit Validity
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  ${state.currentUser ? `
-                    <button onclick="buyCredits(1, 1)" class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs py-3 rounded-xl transition flex items-center justify-center gap-1 shadow">
-                      Buy 1 Credit (₹1)
-                    </button>
-                  ` : `
-                    <button onclick="handleLogin()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs py-3 rounded-xl transition">
-                      Login to Purchase
-                    </button>
-                  `}
-                </div>
-              </div>
-
-              <!-- Pack 2: Silver Pack -->
-              <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
-                <div>
-                  <div class="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 class="font-display font-bold text-slate-900 text-lg leading-tight">Silver Pack</h3>
-                      <p class="text-xs text-slate-500 leading-normal">Perfect for moderate code generation</p>
-                    </div>
-                    <div class="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center shrink-0">⚡</div>
-                  </div>
-                  <div class="mb-5">
-                    <span class="font-display font-extrabold text-slate-900 text-4xl">₹99</span>
-                    <span class="text-xs text-slate-500">/ 120 credits</span>
-                  </div>
-                  <hr class="border-slate-100 my-4" />
-                  <ul class="space-y-2.5 text-xs font-medium text-slate-700 mb-6">
-                    <li class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      120 Image-to-Code Credits
-                    </li>
-                    <li class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      All frameworks & style themes
-                    </li>
-                    <li class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      Lifetime Credit Validity
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  ${state.currentUser ? `
-                    <button onclick="buyCredits(99, 120)" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-3 rounded-xl transition flex items-center justify-center gap-1">
-                      Buy 120 Credits (₹99)
-                    </button>
-                  ` : `
-                    <button onclick="handleLogin()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs py-3 rounded-xl transition">
-                      Login to Purchase
-                    </button>
-                  `}
-                </div>
-              </div>
-
-              <!-- Pack 3: Gold Pack -->
-              <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm flex flex-col justify-between">
-                <div>
-                  <div class="flex justify-between items-start mb-4">
-                    <div>
-                      <h3 class="font-display font-bold text-slate-900 text-lg leading-tight">Gold Pack</h3>
-                      <p class="text-xs text-slate-500 leading-normal">Premium bundle for active builders</p>
-                    </div>
-                    <div class="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center shrink-0">👑</div>
-                  </div>
-                  <div class="mb-5">
-                    <span class="font-display font-extrabold text-slate-900 text-4xl">₹199</span>
-                    <span class="text-xs text-slate-500">/ 250 credits</span>
-                  </div>
-                  <hr class="border-slate-100 my-4" />
-                  <ul class="space-y-2.5 text-xs font-medium text-slate-700 mb-6">
-                    <li class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      250 Image-to-Code Credits
-                    </li>
-                    <li class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      Prioritized server generation queues
-                    </li>
-                    <li class="flex items-center gap-2">
-                      <svg class="w-4 h-4 text-emerald-500 shrink-0" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
-                      Lifetime Credit Validity
-                    </li>
-                  </ul>
-                </div>
-                <div>
-                  ${state.currentUser ? `
-                    <button onclick="buyCredits(199, 250)" class="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold text-xs py-3 rounded-xl transition flex items-center justify-center gap-1">
-                      Buy 250 Credits (₹199)
-                    </button>
-                  ` : `
-                    <button onclick="handleLogin()" class="w-full bg-slate-100 hover:bg-slate-200 text-slate-700 font-bold text-xs py-3 rounded-xl transition">
-                      Login to Purchase
-                    </button>
-                  `}
-                </div>
-              </div>
-
-            </div>
-
-            <!-- Razorpay visual trust footer -->
-            <div class="max-w-xl mx-auto bg-slate-100 border border-slate-200 rounded-2xl p-5 flex items-start gap-4">
-              <div class="w-10 h-10 bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-full flex items-center justify-center shrink-0">🛡️</div>
-              <div>
-                <h4 class="font-semibold text-slate-900 text-xs mb-0.5">Secure Transaction Processing via Razorpay</h4>
-                <p class="text-[11px] text-slate-500 leading-relaxed">Payments are managed securely by Razorpay. If the checkout modal does not trigger, please open the applet in a new tab to bypass iframe popup blockers.</p>
-              </div>
-            </div>
-          </div>
-        `;
-      }
-
-      // dashboard page rendering
-      function renderDashboardPage() {
-        if (!state.currentUser) {
-          return `
-            <div class="max-w-md mx-auto text-center py-16 bg-white border border-slate-200 rounded-3xl p-8 shadow-sm">
-              <div class="w-12 h-12 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mx-auto mb-4">🔐</div>
-              <h1 class="font-display font-bold text-slate-950 text-xl mb-1.5">Access Restricted</h1>
-              <p class="text-sm text-slate-500 mb-6 max-w-xs mx-auto">Please login with Google or use Guest Mode to access your custom dashboard panel.</p>
-              <div class="flex flex-col sm:flex-row gap-3 justify-center items-center">
-                <button onclick="handleLogin()" class="w-full sm:w-auto bg-slate-900 hover:bg-slate-800 text-white font-semibold text-sm px-5 py-2.5 rounded-full transition shadow flex items-center justify-center gap-2">
-                  Login with Google Now
-                </button>
-                <button onclick="handleGuestLogin()" class="w-full sm:w-auto bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-sm px-5 py-2.5 rounded-full transition border border-slate-200 flex items-center justify-center gap-2">
-                  👤 Try Guest Demo Mode
-                </button>
-              </div>
-            </div>
-          `;
-        }
-
-        const user = state.currentUser;
-        const joinedDate = state.joinedAt ? new Date(state.joinedAt).toLocaleDateString(undefined, {
-          year: 'numeric',
-          month: 'long',
-          day: 'numeric'
-        }) : "Loading...";
-        const avatarUrl = user.photoURL || 'https://via.placeholder.com/100?text=' + (user.email ? user.email.charAt(0).toUpperCase() : 'U');
-
-        return `
-          <div class="max-w-4xl mx-auto space-y-8 py-4">
-            <!-- Back Navigation -->
-            <div class="flex">
-              <a href="#/" class="inline-flex items-center gap-1 bg-white hover:bg-slate-50 border border-slate-200 px-4 py-2 rounded-xl text-xs font-bold text-slate-600 transition shadow-sm">
-                ${getSvgIcon("arrow-left", "w-4 h-4")} Back to Workspace
-              </a>
-            </div>
-
-            <div class="flex justify-between items-center pb-5 border-b border-slate-200">
-              <div>
-                <h1 class="font-display font-bold text-slate-950 text-2xl sm:text-3xl leading-tight">Welcome back!</h1>
-                <p class="text-sm text-slate-500">Manage credentials and visual credits</p>
-              </div>
-              <button onclick="handleLogout()" class="bg-red-50 hover:bg-red-100 text-red-600 border border-red-200 font-bold text-xs px-4 py-2 rounded-xl transition">
-                Logout
-              </button>
-            </div>
-
-            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6">
-              <!-- Profile Card -->
-              <div class="bg-white border border-slate-200 rounded-2xl p-6 text-center flex flex-col items-center justify-center">
-                <img src="${avatarUrl}" referrerpolicy="no-referrer" class="w-16 h-16 rounded-full border-4 border-indigo-50 mb-3" />
-                <h3 class="font-display font-bold text-slate-900 text-sm leading-snug">${user.displayName || 'Developer'}</h3>
-                <span class="bg-emerald-50 text-emerald-700 text-[10px] font-extrabold px-2 py-0.5 rounded-full border border-emerald-100 mt-1">Verified Member</span>
-              </div>
-
-              <!-- Credit Card -->
-              <div class="bg-white border border-slate-200 hover:border-indigo-500 rounded-2xl p-6 flex flex-col justify-between transition-all">
-                <div>
-                  <div class="w-8 h-8 bg-indigo-50 text-indigo-600 rounded-full flex items-center justify-center mb-3">⭐</div>
-                  <h4 class="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-0.5">Credit Balance</h4>
-                  <div class="font-display font-extrabold text-indigo-600 text-2xl">${state.credits !== null ? state.credits : '0'} Credits</div>
-                </div>
-                <a href="#/pricing" class="text-xs font-bold text-indigo-600 hover:underline inline-block mt-3">Buy more credits &rarr;</a>
-              </div>
-
-              <!-- General Info -->
-              <div class="bg-white border border-slate-200 rounded-2xl p-6">
-                <div class="w-8 h-8 bg-slate-50 text-slate-500 rounded-full flex items-center justify-center mb-3">📝</div>
-                <h4 class="text-slate-400 text-[10px] font-bold uppercase tracking-wider mb-0.5">Account Parameters</h4>
-                <div class="text-xs text-slate-800 font-medium truncate mb-1">${user.email}</div>
-                <div class="text-xs text-slate-400 font-medium">Joined: ${joinedDate}</div>
-              </div>
-            </div>
-
-            <!-- Getting Started guidance panel -->
-            <div class="bg-slate-900 text-white rounded-3xl p-6 sm:p-8 flex flex-col sm:flex-row items-center gap-6 justify-between shadow-lg">
-              <div class="max-w-lg">
-                <h3 class="font-display font-bold text-lg mb-2">Ready to compile layouts?</h3>
-                <p class="text-xs text-slate-300 leading-relaxed">Select any interface layout or screenshot, upload it directly on the dashboard homepage, configure your target output parameters (React component, HTML design or Vue SFC), and compile. It uses high-accuracy visual transformers to build components instantly.</p>
-              </div>
-              <a href="#/" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-xs px-6 py-3.5 rounded-xl transition shrink-0 shadow-md">
-                Launch Workspace
-              </a>
-            </div>
-          </div>
-        `;
-      }
-
-      // main render function
-      function renderApp() {
-        const appViewport = document.getElementById("app-viewport");
-        if (!appViewport) return;
-
-        renderNavbarAuth();
-
-        if (state.activePage === "dashboard") {
-          appViewport.innerHTML = renderDashboardPage();
-        } else if (state.activePage === "pricing") {
-          appViewport.innerHTML = renderPricingPage();
-        } else {
-          appViewport.innerHTML = renderWorkspace();
-          setupWorkspaceDragEvents();
-        }
-      }
-
-      // 7. Event Handler Actions
-
-      window.updateSelectedFramework = function(val) {
-        state.selectedFramework = val;
-      };
-
-      window.updateSelectedStyleTheme = function(val) {
-        state.selectedStyleTheme = val;
-      };
-
-      window.updateSelectedInteractivity = function(val) {
-        state.selectedInteractivity = val;
-      };
-
-      window.updateCustomPrompt = function(val) {
-        state.customPrompt = val;
-      };
-
-      window.toggleFaqIndex = function(index) {
-        if (state.openToolFaqIndex === index) {
-          state.openToolFaqIndex = null;
-        } else {
-          state.openToolFaqIndex = index;
-        }
-        renderApp();
-      };
-
-      window.updateResultTab = function(val) {
-        state.activeResultTab = val;
-        renderApp();
-      };
-
-      window.updatePreviewMode = function(val) {
-        state.previewMode = val;
-        renderApp();
-      };
-
-      window.openIframeInNewTab = function() {
-        if (!state.ocrResult || !state.ocrResult.htmlCode) return;
-        const blob = new Blob([state.ocrResult.htmlCode], { type: "text/html" });
-        const url = URL.createObjectURL(blob);
-        window.open(url, "_blank");
-      };
-
-      window.triggerFileInput = function() {
-        const fileSelector = document.getElementById("workspace-file-selector");
-        if (fileSelector) fileSelector.click();
-      };
-
-      window.handleFileSelected = function(input) {
-        const files = input.files;
-        if (files && files.length > 0) {
-          validateAndSetFile(files[0]);
-        }
-      };
-
-      function validateAndSetFile(file) {
-        if (!file.type.startsWith("image/")) {
-          alert("Only PNG, JPEG, JPG and WEBP image files are supported.");
-          return;
-        }
-        state.uploadedFile = file;
-        state.uploadedFileUrl = URL.createObjectURL(file);
-        state.ocrResult = null;
-        state.isProcessing = false;
-        renderApp();
-      }
-
-      window.resetWorkspace = function() {
-        state.uploadedFile = null;
-        state.uploadedFileUrl = null;
-        state.ocrResult = null;
-        state.isProcessing = false;
-        state.activeResultTab = "visual";
-        renderApp();
-      };
-
-      // Helper to convert file to base64
-      function fileToBase64(file) {
-        return new Promise((resolve, reject) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(file);
-          reader.onload = () => {
-            const result = reader.result;
-            const base64Str = result.split(',')[1];
-            resolve(base64Str);
-          };
-          reader.onerror = error => reject(error);
-        });
-      }
-
-      // Convert visual screenshot/mockup image to code
-      window.processImageToCode = async function() {
-        if (!state.uploadedFile) return;
-
-        // check credits limit
-        if (state.currentUser) {
-          if (state.credits === null || state.credits <= 0) {
-            alert("You have run out of premium credits! Please purchase more credits on the pricing page to run conversions.");
-            window.location.hash = "#/pricing";
-            return;
-          }
-        }
-
-        state.isProcessing = true;
-        renderApp();
-
-        try {
-          const base64Data = await fileToBase64(state.uploadedFile);
-          
-          const response = await fetch('/api/ocr', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({
-              fileName: state.uploadedFile.name,
-              mimeType: state.uploadedFile.type,
-              base64Data: base64Data,
-              framework: state.selectedFramework,
-              styleTheme: state.selectedStyleTheme,
-              interactivity: state.selectedInteractivity,
-              customPrompt: state.customPrompt
-            })
-          });
-
-          if (!response.ok) {
-            const errData = await response.json().catch(() => ({}));
-            throw new Error(errData.error || `Failed to convert design to code (status: ${response.status})`);
-          }
-
-          state.ocrResult = await response.json();
-
-          // deduct credit
-          if (state.currentUser) {
-            if (state.currentUser.uid === "guest_user") {
-              state.credits = Math.max(0, state.credits - 1);
-              localStorage.setItem("guest_credits", String(state.credits));
-              triggerToast("Deducted 1 Credit for Conversion");
-            } else {
-              const userDocRef = doc(db, "users", state.currentUser.uid);
-              try {
-                await updateDoc(userDocRef, {
-                  credits: increment(-1)
-                });
-                triggerToast("Deducted 1 Credit for Conversion");
-              } catch (fsErr) {
-                handleFirestoreError(fsErr, OperationType.UPDATE, `users/${state.currentUser.uid}`, false);
-                state.credits = Math.max(0, (state.credits || 10) - 1);
-                localStorage.setItem(`credits_${state.currentUser.uid}`, String(state.credits));
-                triggerToast("Deducted 1 Credit (Offline Fallback)");
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              violet: {
+                50: '#f5f3ff',
+                100: '#ede9fe',
+                200: '#ddd6fe',
+                300: '#c4b5fd',
+                400: '#a78bfa',
+                500: '#8b5cf6',
+                600: '#7c3aed',
+                700: '#6d28d9',
+                800: '#5b21b6',
+                900: '#4c1d95',
               }
             }
           }
-        } catch (err) {
-          console.error("Layout generation failed: " + (err ? (err.message || String(err)) : ""));
-          alert(`Layout generation failed: ${err.message || 'Unknown error occurred.'}`);
-        } finally {
-          state.isProcessing = false;
-          renderApp();
         }
-      };
-
-      window.copyGeneratedCode = function() {
-        if (!state.ocrResult) return;
-        navigator.clipboard.writeText(state.ocrResult.frameworkCode)
-          .then(() => triggerToast("Copied code to clipboard!"))
-          .catch(() => alert("Failed to write to clipboard."));
-      };
-
-      window.downloadGeneratedCodeFile = function() {
-        if (!state.ocrResult) return;
-        const code = state.ocrResult.frameworkCode;
-        let ext = "html";
-        if (state.selectedFramework === "react-tailwind") ext = "jsx";
-        else if (state.selectedFramework === "vue-tailwind") ext = "vue";
-        
-        const blob = new Blob([code], { type: "text/plain" });
-        const url = URL.createObjectURL(blob);
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = `converted-layout.${ext}`;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-        URL.revokeObjectURL(url);
-        triggerToast("Download triggered!");
-      };
-
-      function setupWorkspaceDragEvents() {
-        const dropZone = document.getElementById("drop-zone-area");
-        if (!dropZone) return;
-
-        ["dragenter", "dragover"].forEach(eventName => {
-          dropZone.addEventListener(eventName, (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            dropZone.classList.add("bg-indigo-50/40", "border-indigo-500");
-          }, false);
-        });
-
-        ["dragleave", "drop"].forEach(eventName => {
-          dropZone.addEventListener(eventName, (e) => {
-            e.preventDefault();
-            e.stopPropagation();
-            dropZone.classList.remove("bg-indigo-50/40", "border-indigo-500");
-          }, false);
-        });
-
-        dropZone.addEventListener("drop", (e) => {
-          const dt = e.dataTransfer;
-          const files = dt.files;
-          if (files && files.length > 0) {
-            validateAndSetFile(files[0]);
-          }
-        }, false);
       }
+    </script>
 
-      // logo navigation reset
-      document.getElementById("logo-anchor").addEventListener("click", () => {
-        state.customPrompt = "";
-      });
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #fafafa; }
+        .hero-gradient { background: radial-gradient(circle at 50% -20%, #ede9fe 0%, transparent 40%); }
+    </style>
+</head>
+<body class="hero-gradient text-slate-800 min-h-screen flex flex-col">
+    <!-- Navbar -->
+<header class="w-full px-4 sm:px-6 py-4 flex justify-between items-center bg-white border-b border-slate-100 sticky top-0 z-40 shadow-sm">
+    <div class="flex items-center gap-2 max-w-7xl mx-auto w-full justify-between">
+        <a href="/" class="flex items-center gap-2">
+            <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+            </svg>
+            <span class="font-bold text-xl tracking-tight text-slate-900">Toolghar</span>
+        </a>
+        
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="/" class="text-[15px] font-medium text-orange-600 transition">Home</a>
+            <a href="/#tools" class="text-[15px] font-medium text-slate-600 hover:text-slate-900 transition">Tools</a>
+            <a href="/tools/image-to-code/" class="text-[15px] font-medium text-slate-600 hover:text-slate-900 transition">AI Tools</a>
+            <a href="/tools/handwriting-to-text/" class="text-[15px] font-medium text-slate-600 hover:text-slate-900 transition">Calculators</a>
+            <a href="/blog/" class="text-[15px] font-medium text-slate-600 hover:text-slate-900 transition">Blog</a>
+            <a href="/pricing/" class="text-[15px] font-medium text-slate-600 hover:text-slate-900 transition">Pricing</a>
+        </nav>
+        
+        <div class="flex items-center gap-3">
+            <div class="hidden md:flex items-center gap-3">
+                <button id="login-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-slate-700 hover:bg-slate-50 rounded-xl transition">Log in</button>
+                <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-white bg-slate-900 hover:bg-slate-800 rounded-xl transition shadow-sm">Sign up</button>
+            </div>
+            <div id="user-menu" class="hidden items-center gap-3">
+                <span id="user-name" class="text-sm font-medium text-slate-700"></span>
+                <button onclick="handleLogout()" class="text-sm text-slate-500 hover:text-slate-700">Logout</button>
+            </div>
+            
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition ml-1">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </div>
+</header>
 
-      // listen to hash route transitions
-      window.addEventListener("hashchange", syncStateWithHash);
+<!-- Mobile Menu Modal -->
+<div id="mobile-menu-modal" class="fixed inset-0 z-50 hidden flex-col items-center justify-center p-4">
+    <!-- Backdrop -->
+    <div id="mobile-menu-backdrop" class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity opacity-0"></div>
+    
+    <!-- Modal Content -->
+    <div id="mobile-menu-content" class="relative w-full max-w-[340px] bg-white rounded-3xl shadow-2xl overflow-visible transition-all scale-95 opacity-0 duration-200 ease-out mt-[-10vh]">
+        <!-- Header -->
+        <div class="flex items-center justify-between px-6 py-5 border-b border-slate-50">
+            <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                <span class="font-bold text-lg text-slate-900 tracking-tight">Toolghar</span>
+            </div>
+            <button id="mobile-menu-close" class="text-slate-400 hover:text-slate-600 transition p-1 rounded-full hover:bg-slate-50">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
 
-      // --- Firebase Auth & DB setups ---
-      let app, auth, db, googleProvider;
+        <!-- Links -->
+        <div class="px-3 py-3 flex flex-col gap-1">
+            <a href="/" class="px-4 py-3.5 text-[15px] font-medium text-[#D9531E] bg-[#FFF5EE] rounded-xl transition flex items-center">Home</a>
+            <a href="/#tools" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 hover:bg-slate-50 rounded-xl transition flex items-center">Tools</a>
+            <a href="/tools/image-to-code/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 hover:bg-slate-50 rounded-xl transition flex items-center">AI Tools</a>
+            <a href="/tools/handwriting-to-text/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 hover:bg-slate-50 rounded-xl transition flex items-center">Calculators</a>
+            <a href="/blog/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 hover:bg-slate-50 rounded-xl transition flex items-center">Blog</a>
+            <a href="/pricing/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 hover:bg-slate-50 rounded-xl transition flex items-center">Pricing</a>
+        </div>
 
-      async function getFirebaseConfig() {
-        try {
-          const res = await fetch('/api/config');
-          if (res.ok) {
-            const data = await res.json();
-            if (data.apiKey) return data;
-          }
-        } catch (err) {
-          console.warn("Falling back to static config: " + (err ? (err.message || String(err)) : ""));
+        <!-- Divider -->
+        <div class="h-px bg-slate-100 w-full"></div>
+
+        <!-- Theme Toggle -->
+        <div class="px-3 py-3 relative">
+            <button id="theme-menu-btn" class="w-full px-4 py-3.5 flex justify-between items-center text-[15px] font-medium text-slate-700 hover:bg-slate-50 rounded-xl transition">
+                <span>Theme</span>
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            </button>
+            
+            <!-- Theme Dropdown Popover -->
+            <div id="theme-popover" class="absolute bottom-[100%] right-3 mb-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 p-2 hidden flex-col gap-1 z-50">
+                <button class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-900 bg-slate-50 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        Light
+                    </div>
+                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </button>
+                <button class="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-xl transition">
+                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    Dark
+                </button>
+                <button class="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-xl transition">
+                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    System
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('mobile-menu-btn');
+        const closeBtn = document.getElementById('mobile-menu-close');
+        const modal = document.getElementById('mobile-menu-modal');
+        const backdrop = document.getElementById('mobile-menu-backdrop');
+        const content = document.getElementById('mobile-menu-content');
+        const themeBtn = document.getElementById('theme-menu-btn');
+        const themePopover = document.getElementById('theme-popover');
+        
+        function openModal() {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            // trigger reflow
+            void modal.offsetWidth;
+            backdrop.classList.remove('opacity-0');
+            backdrop.classList.add('opacity-100');
+            content.classList.remove('scale-95', 'opacity-0');
+            content.classList.add('scale-100', 'opacity-100');
         }
-        return {
+        
+        function closeModal() {
+            backdrop.classList.remove('opacity-100');
+            backdrop.classList.add('opacity-0');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 200);
+            if(themePopover) {
+                themePopover.classList.add('hidden');
+                themePopover.classList.remove('flex');
+            }
+        }
+        
+        if(btn) btn.addEventListener('click', openModal);
+        if(closeBtn) closeBtn.addEventListener('click', closeModal);
+        if(backdrop) backdrop.addEventListener('click', closeModal);
+        
+        if(themeBtn && themePopover) {
+            themeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if(themePopover.classList.contains('hidden')) {
+                    themePopover.classList.remove('hidden');
+                    themePopover.classList.add('flex');
+                } else {
+                    themePopover.classList.add('hidden');
+                    themePopover.classList.remove('flex');
+                }
+            });
+            document.addEventListener('click', (e) => {
+                if(!themePopover.contains(e.target) && !themeBtn.contains(e.target)) {
+                    themePopover.classList.add('hidden');
+                    themePopover.classList.remove('flex');
+                }
+            });
+        }
+    });
+</script>
+<!-- End Navbar -->
+
+    <!-- Main Content -->
+    <main class="flex-grow max-w-6xl mx-auto w-full px-6 py-12 flex flex-col">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 tracking-tight mb-4">
+                Image to <span class="text-violet-600">Code</span>
+            </h1>
+            <p class="text-lg text-slate-500 max-w-2xl mx-auto">
+                Convert wireframes, mockups, and screenshots directly into interactive HTML, Tailwind, React, and Vue code.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-grow">
+            
+            <!-- Left Panel: Upload & Options -->
+            <div class="lg:col-span-5 flex flex-col gap-6">
+                <!-- Upload Zone -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                    <h2 class="text-lg font-bold text-slate-900 mb-4">1. Upload Design</h2>
+                    <div id="upload-zone" onclick="document.getElementById('file-input').click()" class="border-2 border-dashed border-slate-300 hover:border-violet-500 hover:bg-violet-50/50 rounded-2xl p-6 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[200px] relative overflow-hidden group">
+                        <input type="file" id="file-input" class="hidden" accept="image/png, image/jpeg, image/webp" onchange="handleFileSelect(event)">
+                        
+                        <div id="upload-placeholder" class="flex flex-col items-center">
+                            <div class="w-14 h-14 bg-violet-100 text-violet-600 rounded-full flex items-center justify-center mb-3">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                            </div>
+                            <h3 class="font-bold text-slate-800 mb-1">Click to Upload Image</h3>
+                            <p class="text-xs text-slate-500">JPG, PNG or WEBP</p>
+                        </div>
+                        <img id="image-preview" class="absolute inset-0 w-full h-full object-contain hidden" />
+                        <div id="image-overlay" class="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 hidden flex items-center justify-center transition">
+                            <span class="bg-white text-slate-900 font-bold px-4 py-2 rounded-xl text-sm shadow-sm">Change Image</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Options -->
+                <div class="bg-white border border-slate-200 rounded-3xl p-6 shadow-sm">
+                    <h2 class="text-lg font-bold text-slate-900 mb-4">2. Generation Settings</h2>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Target Framework</label>
+                            <select id="opt-framework" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm font-medium focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500">
+                                <option value="html-tailwind">HTML5 + Tailwind CSS</option>
+                                <option value="react-tailwind">React + Tailwind</option>
+                                <option value="vue-tailwind">Vue 3 + Tailwind</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Style Theme Accent</label>
+                            <select id="opt-style" class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm font-medium focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500">
+                                <option value="modern-dark">Modern Dark</option>
+                                <option value="clean-light">Clean Light</option>
+                                <option value="neon-cyberpunk">Neon Cyberpunk</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 mb-2">Custom Instructions (Optional)</label>
+                            <textarea id="opt-prompt" rows="2" placeholder="e.g. Make the button blue, add a hover effect..." class="w-full bg-slate-50 border border-slate-200 rounded-xl px-3.5 py-2.5 text-sm font-medium focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500"></textarea>
+                        </div>
+                    </div>
+
+                    <button id="generate-btn" onclick="generateCode()" disabled class="mt-6 w-full py-3 rounded-xl bg-violet-600 disabled:bg-slate-300 disabled:cursor-not-allowed hover:bg-violet-700 text-white font-bold text-base transition flex items-center justify-center gap-2 shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Generate Interactive Code
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Panel: Result -->
+            <div class="lg:col-span-7 bg-white border border-slate-200 rounded-3xl shadow-sm flex flex-col overflow-hidden">
+                <div class="border-b border-slate-200 bg-slate-50 p-2 flex gap-2">
+                    <button id="tab-visual" onclick="switchTab('visual')" class="flex-1 py-2 text-sm font-bold rounded-xl bg-white shadow-sm text-slate-900 border border-slate-200 transition">Visual Preview</button>
+                    <button id="tab-code" onclick="switchTab('code')" class="flex-1 py-2 text-sm font-bold rounded-xl text-slate-500 hover:bg-slate-100 transition">Source Code</button>
+                    <button id="tab-design" onclick="switchTab('design')" class="flex-1 py-2 text-sm font-bold rounded-xl text-slate-500 hover:bg-slate-100 transition">Analysis</button>
+                </div>
+
+                <div id="result-container" class="flex-grow p-4 relative min-h-[500px] flex flex-col">
+                    <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center text-slate-400">
+                        <svg class="w-12 h-12 mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                        <p class="text-sm">Upload an image and click Generate.</p>
+                    </div>
+                    
+                    <div id="loading-state" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-white/90 z-10">
+                        <div class="w-12 h-12 border-4 border-violet-200 border-t-violet-600 rounded-full animate-spin mb-4"></div>
+                        <h3 class="font-bold text-slate-900 text-lg mb-1">Analyzing Layout</h3>
+                        <p class="text-violet-700 text-sm font-medium animate-pulse">Compiling frontend components...</p>
+                    </div>
+
+                    <!-- Visual Tab -->
+                    <div id="view-visual" class="hidden flex-grow flex flex-col">
+                        <div class="bg-slate-200 rounded-xl flex-grow overflow-hidden border border-slate-300 relative">
+                            <iframe id="preview-iframe" class="w-full h-full border-none bg-white absolute inset-0"></iframe>
+                        </div>
+                    </div>
+
+                    <!-- Code Tab -->
+                    <div id="view-code" class="hidden flex-grow flex flex-col relative">
+                        <button onclick="copyGeneratedCode()" class="absolute top-4 right-4 bg-white/10 hover:bg-white/20 text-white border border-white/20 px-3 py-1.5 rounded-lg text-xs font-bold transition flex items-center gap-1 backdrop-blur-sm z-10">
+                            Copy
+                        </button>
+                        <div class="bg-slate-900 rounded-xl p-4 flex-grow overflow-auto">
+                            <pre id="code-output" class="text-slate-200 font-mono text-xs leading-relaxed"></pre>
+                        </div>
+                    </div>
+
+                    <!-- Design Tab -->
+                    <div id="view-design" class="hidden flex-grow flex flex-col gap-6 p-2">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Identified Color Palette</h4>
+                            <div id="design-colors" class="flex flex-wrap gap-3"></div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                                <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">Typography</h5>
+                                <p id="design-typography" class="text-sm font-medium text-slate-800"></p>
+                            </div>
+                            <div class="bg-slate-50 border border-slate-200 p-4 rounded-xl">
+                                <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1">Layout Strategy</h5>
+                                <p id="design-layout" class="text-sm font-medium text-slate-800"></p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-3">Extracted Components</h4>
+                            <ul id="design-components" class="list-disc list-inside text-sm text-slate-700 space-y-1"></ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+
+    
+    
+
+    <script>
+        let currentBase64 = null;
+        let generatedData = null;
+
+        window.handleFileSelect = function(event) {
+            const file = event.target.files[0];
+            if (!file) return;
+
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const result = e.target.result;
+                currentBase64 = result.split(',')[1];
+                
+                document.getElementById('upload-placeholder').classList.add('hidden');
+                const preview = document.getElementById('image-preview');
+                preview.src = result;
+                preview.classList.remove('hidden');
+                
+                document.getElementById('image-overlay').classList.remove('hidden');
+                document.getElementById('generate-btn').disabled = false;
+                
+                document.getElementById('empty-state').classList.remove('hidden');
+                document.getElementById('view-visual').classList.add('hidden');
+                document.getElementById('view-code').classList.add('hidden');
+                document.getElementById('view-design').classList.add('hidden');
+            };
+            reader.readAsDataURL(file);
+        }
+
+        window.generateCode = async function() {
+            if (!currentBase64) return;
+            
+            document.getElementById('empty-state').classList.add('hidden');
+            document.getElementById('view-visual').classList.add('hidden');
+            document.getElementById('view-code').classList.add('hidden');
+            document.getElementById('view-design').classList.add('hidden');
+            document.getElementById('loading-state').classList.remove('hidden');
+            document.getElementById('generate-btn').disabled = true;
+
+            const payload = {
+                base64Data: currentBase64,
+                framework: document.getElementById('opt-framework').value,
+                styleTheme: document.getElementById('opt-style').value,
+                customPrompt: document.getElementById('opt-prompt').value,
+                interactivity: 'interactive'
+            };
+
+            try {
+                const response = await fetch('/api/ocr', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const data = await response.json();
+                
+                if (data.error) throw new Error(data.error);
+
+                generatedData = data;
+                
+                // Populate views
+                document.getElementById('preview-iframe').srcdoc = data.htmlCode || 'No HTML available';
+                document.getElementById('code-output').textContent = data.frameworkCode || data.htmlCode || 'No code generated';
+                
+                if (data.designAnalysis) {
+                    const da = data.designAnalysis;
+                    document.getElementById('design-colors').innerHTML = (da.colors || []).map(c => 
+                        `<div class="flex items-center gap-2 bg-slate-50 border border-slate-200 p-2 rounded-lg"><div class="w-6 h-6 rounded border border-slate-300" style="background-color: ${c}"></div><span class="font-mono text-xs">${c}</span></div>`
+                    ).join('');
+                    document.getElementById('design-typography').textContent = da.typography || 'N/A';
+                    document.getElementById('design-layout').textContent = da.layout || 'N/A';
+                    document.getElementById('design-components').innerHTML = (da.components || []).map(c => `<li>${c}</li>`).join('');
+                }
+
+                document.getElementById('loading-state').classList.add('hidden');
+                switchTab('visual');
+
+            } catch (err) {
+                console.error(err);
+                alert("Error generating code: " + err.message);
+                document.getElementById('loading-state').classList.add('hidden');
+                document.getElementById('empty-state').classList.remove('hidden');
+            } finally {
+                document.getElementById('generate-btn').disabled = false;
+            }
+        }
+
+        window.switchTab = function(tabId) {
+            const tabs = ['visual', 'code', 'design'];
+            
+            tabs.forEach(t => {
+                const btn = document.getElementById(`tab-${t}`);
+                const view = document.getElementById(`view-${t}`);
+                
+                if (t === tabId) {
+                    btn.classList.add('bg-white', 'shadow-sm', 'text-slate-900', 'border', 'border-slate-200');
+                    btn.classList.remove('text-slate-500', 'hover:bg-slate-100');
+                    view.classList.remove('hidden');
+                } else {
+                    btn.classList.remove('bg-white', 'shadow-sm', 'text-slate-900', 'border', 'border-slate-200');
+                    btn.classList.add('text-slate-500', 'hover:bg-slate-100');
+                    view.classList.add('hidden');
+                }
+            });
+        }
+
+        window.copyGeneratedCode = function() {
+            if (!generatedData) return;
+            const text = generatedData.frameworkCode || generatedData.htmlCode;
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Copied to clipboard!");
+            });
+        }
+    </script>
+<!-- Footer -->
+<footer class="bg-white border-t border-slate-100 mt-auto pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <div class="md:col-span-1">
+                <a href="/" class="flex items-center gap-2 mb-4">
+                    <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">Toolghar</span>
+                </a>
+                <p class="text-slate-500 text-[15px] leading-relaxed">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-slate-900 mb-5">Products</h4>
+                <ul class="space-y-3.5">
+                    <li><a href="/tools/image-to-code/" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Image to Code AI</a></li>
+                    <li><a href="/tools/handwriting-to-text/" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Handwriting OCR</a></li>
+                    <li><a href="/#tools" class="text-[15px] text-slate-600 hover:text-slate-900 transition">All Tools</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-slate-900 mb-5">Resources</h4>
+                <ul class="space-y-3.5">
+                    <li><a href="/blog/" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Blog & Guides</a></li>
+                    <li><a href="#" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Documentation</a></li>
+                    <li><a href="/pricing/" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Pricing</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-slate-900 mb-5">Company</h4>
+                <ul class="space-y-3.5">
+                    <li><a href="#" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Privacy Policy</a></li>
+                    <li><a href="#" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Terms of Service</a></li>
+                    <li><a href="#" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-[15px] text-slate-500">© 2026 Toolghar. All rights reserved.</p>
+            <div class="flex gap-4">
+                <a href="#" class="text-slate-400 hover:text-slate-900 transition"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
+                <a href="#" class="text-slate-400 hover:text-slate-900 transition"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer -->
+    <!-- Firebase Scripts -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      
+      const firebaseConfig = {
           apiKey: "AIzaSyCFyGzp7viV1tq25DAMnpKKSJpPngtVa14",
           authDomain: "gen-lang-client-0844549707.firebaseapp.com",
           projectId: "gen-lang-client-0844549707",
@@ -1614,254 +513,45 @@
           storageBucket: "gen-lang-client-0844549707.firebasestorage.app",
           messagingSenderId: "845800015860",
           appId: "1:845800015860:web:a6229be704605991785ba1"
-        };
-      }
+      };
+      
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider();
 
       window.handleLogin = async function() {
-        if (!auth) return alert("Firebase still initializing...");
-        try {
-          const result = await signInWithPopup(auth, googleProvider);
-          triggerToast(`Welcome ${result.user.displayName || 'User'}!`);
-        } catch (err) {
-          console.error("Login error: " + (err ? (err.message || String(err)) : ""));
-          if (err.code === "auth/popup-blocked") {
-            alert("Popup blocked! Enable popups, open this page in a new browser window/tab, or click 'Guest Mode' to login instantly!");
-          } else if (err.code === "auth/popup-closed-by-user") {
-            triggerToast("Login cancelled. You can also try 'Guest Mode'!");
-          } else {
-            alert(`Login error: ${err.message}. Try using 'Guest Mode' as a seamless alternative.`);
+          try {
+              await signInWithPopup(auth, provider);
+          } catch (error) {
+              console.error("Login failed", error);
           }
-        }
-      };
-
-      window.handleGuestLogin = function() {
-        const joined = new Date().toISOString();
-        const guestUser = {
-          uid: "guest_user",
-          displayName: "Guest Demo User",
-          photoURL: "",
-          email: "guest@example.com"
-        };
-        localStorage.setItem("guest_user", JSON.stringify(guestUser));
-        localStorage.setItem("guest_credits", "10");
-        localStorage.setItem("guest_joined", joined);
-        
-        state.currentUser = guestUser;
-        state.credits = 10;
-        state.joinedAt = joined;
-        
-        triggerToast("Logged in as Guest!");
-        renderApp();
       };
 
       window.handleLogout = async function() {
-        try {
-          if (state.currentUser && state.currentUser.uid === "guest_user") {
-            localStorage.removeItem("guest_user");
-            localStorage.removeItem("guest_credits");
-            localStorage.removeItem("guest_joined");
-            state.currentUser = null;
-            state.credits = null;
-            state.joinedAt = null;
-            triggerToast("Logged out successfully");
-            if (state.activePage === "dashboard") {
-              window.location.hash = "#/";
-            }
-            renderApp();
-            return;
+          try {
+              await signOut(auth);
+          } catch (error) {
+              console.error("Logout failed", error);
           }
-          if (auth) {
-            await signOut(auth);
-          }
-          triggerToast("Logged out successfully");
-          if (state.activePage === "dashboard") {
-            window.location.hash = "#/";
-          }
-        } catch (err) {
-          console.error("Logout error: " + (err ? (err.message || String(err)) : ""));
-        }
       };
 
-      let unsubscribeCredits = null;
-
-      window.buyCredits = async function(price, creditsAmount) {
-        if (!state.currentUser) return alert("Login is required to buy credit packets.");
-        try {
-          const amountInPaise = Math.round(price * 100);
+      onAuthStateChanged(auth, (user) => {
+          const loginBtn = document.getElementById('login-btn');
+          const signupBtn = document.getElementById('signup-btn');
+          const userMenu = document.getElementById('user-menu');
+          const userName = document.getElementById('user-name');
           
-          const response = await fetch('/api/create-order', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ amount: amountInPaise, currency: 'INR' })
-          });
- 
-          if (!response.ok) throw new Error('Failed to create Razorpay order');
-          const orderData = await response.json();
- 
-          const options = {
-            key: orderData.keyId,
-            amount: orderData.amount,
-            currency: orderData.currency,
-            name: "ToolIMG",
-            description: `Buy ${creditsAmount} Credits`,
-            image: "https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png",
-            order_id: orderData.orderId || orderData.order_id,
-            handler: async function (response) {
-              try {
-                const verifyRes = await fetch('/api/verify-payment', {
-                  method: 'POST',
-                  headers: { 'Content-Type': 'application/json' },
-                  body: JSON.stringify({
-                    razorpay_order_id: response.razorpay_order_id,
-                    razorpay_payment_id: response.razorpay_payment_id,
-                    razorpay_signature: response.razorpay_signature
-                  })
-                });
- 
-                if (!verifyRes.ok) throw new Error('Verification failed on server.');
-                const verifyData = await verifyRes.json();
-                
-                if (verifyData.success) {
-                  if (state.currentUser.uid === "guest_user") {
-                    state.credits = (state.credits || 0) + creditsAmount;
-                    localStorage.setItem("guest_credits", String(state.credits));
-                    triggerToast(`Credited ${creditsAmount} Credits!`);
-                    renderApp();
-                  } else {
-                    const userDocRef = doc(db, "users", state.currentUser.uid);
-                    try {
-                      await updateDoc(userDocRef, {
-                        credits: increment(creditsAmount)
-                      });
-                      triggerToast(`Credited ${creditsAmount} Credits!`);
-                    } catch (fsErr) {
-                      handleFirestoreError(fsErr, OperationType.UPDATE, `users/${state.currentUser.uid}`, false);
-                      state.credits = (state.credits || 10) + creditsAmount;
-                      localStorage.setItem(`credits_${state.currentUser.uid}`, String(state.credits));
-                      triggerToast(`Credited ${creditsAmount} Credits (Offline Fallback)!`);
-                      renderApp();
-                    }
-                  }
-                } else {
-                  alert("Signature verification mismatch.");
-                }
-              } catch (verifyErr) {
-                console.error("Verification error: " + (verifyErr ? (verifyErr.message || String(verifyErr)) : ""));
-                alert("Payment verification failure: " + verifyErr.message);
-              }
-            },
-            prefill: {
-              name: state.currentUser.displayName || "",
-              email: state.currentUser.email || ""
-            },
-            theme: { color: "#4f46e5" }
-          };
- 
-          const rzp = new Razorpay(options);
-          rzp.open();
-        } catch (err) {
-          console.error("Payment setup error: " + (err ? (err.message || String(err)) : ""));
-          alert("Payment failed: " + err.message);
-        }
-      };
-
-      async function initFirebase() {
-        const config = await getFirebaseConfig();
-        try {
-          app = initializeApp(config);
-          auth = getAuth(app);
-          db = initializeFirestore(app, {
-            experimentalForceLongPolling: true,
-            useFetchStreams: false
-          }, config.firestoreDatabaseId || "ai-studio-toolimg-a40860b9-3db9-4eab-a65f-f070e159a9b3");
-          googleProvider = new GoogleAuthProvider();
-
-          onAuthStateChanged(auth, async (user) => {
-            if (unsubscribeCredits) {
-              unsubscribeCredits();
-              unsubscribeCredits = null;
-            }
-
-            if (user) {
-              state.currentUser = user;
-              const userDocRef = doc(db, "users", user.uid);
-              try {
-                let docSnap = null;
-                try {
-                  docSnap = await getDoc(userDocRef);
-                } catch (fsErr) {
-                  handleFirestoreError(fsErr, OperationType.GET, `users/${user.uid}`, false);
-                }
-
-                if (!docSnap || !docSnap.exists()) {
-                  const joined = new Date().toISOString();
-                  state.joinedAt = joined;
-                  state.credits = 10;
-                  try {
-                    await setDoc(userDocRef, {
-                      email: user.email || '',
-                      displayName: user.displayName || '',
-                      photoURL: user.photoURL || '',
-                      joinedAt: joined,
-                      credits: 10
-                    });
-                  } catch (fsErr) {
-                    handleFirestoreError(fsErr, OperationType.CREATE, `users/${user.uid}`, false);
-                    localStorage.setItem(`credits_${user.uid}`, "10");
-                  }
-                } else {
-                  const data = docSnap.data();
-                  state.joinedAt = data.joinedAt || new Date().toISOString();
-                  state.credits = data.credits !== undefined ? data.credits : 10;
-                }
-              } catch (dbErr) {
-                console.warn("Firestore initialization error, using local fallback: " + (dbErr ? (dbErr.message || String(dbErr)) : ""));
-                state.credits = Number(localStorage.getItem(`credits_${user.uid}`) || "10");
-                state.joinedAt = new Date().toISOString();
-              }
-
-              try {
-                unsubscribeCredits = onSnapshot(userDocRef, (snap) => {
-                  if (snap.exists()) {
-                    const data = snap.data();
-                    state.credits = data.credits !== undefined ? data.credits : 10;
-                    renderApp();
-                  }
-                }, (error) => {
-                  handleFirestoreError(error, OperationType.GET, `users/${user.uid}`, false);
-                  if (state.credits === null) {
-                    state.credits = Number(localStorage.getItem(`credits_${user.uid}`) || "10");
-                    renderApp();
-                  }
-                });
-              } catch (listenErr) {
-                console.warn("Snapshot subscription failed: " + (listenErr ? (listenErr.message || String(listenErr)) : ""));
-                if (state.credits === null) {
-                  state.credits = Number(localStorage.getItem(`credits_${user.uid}`) || "10");
-                }
-              }
-            } else {
-              const guestUser = localStorage.getItem("guest_user");
-              if (guestUser) {
-                state.currentUser = JSON.parse(guestUser);
-                state.credits = Number(localStorage.getItem("guest_credits") || "10");
-                state.joinedAt = localStorage.getItem("guest_joined") || new Date().toISOString();
-              } else {
-                state.currentUser = null;
-                state.credits = null;
-                state.joinedAt = null;
-              }
-            }
-            renderApp();
-          });
-        } catch (err) {
-          console.error("Firebase init failed: " + (err ? (err.message || String(err)) : ""));
-        }
-      }
-
-      // Initial execute loop
-      syncStateWithHash();
-      initFirebase();
+          if (user) {
+              if(loginBtn) loginBtn.style.display = 'none';
+              if(signupBtn) signupBtn.style.display = 'none';
+              if(userMenu) userMenu.style.display = 'flex';
+              if(userName) userName.textContent = user.displayName || user.email;
+          } else {
+              if(loginBtn) loginBtn.style.display = 'block';
+              if(signupBtn) signupBtn.style.display = 'block';
+              if(userMenu) userMenu.style.display = 'none';
+          }
+      });
     </script>
-  </body>
+</body>
 </html>

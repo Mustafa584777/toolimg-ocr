@@ -7,124 +7,332 @@
     <!-- Tailwind CSS -->
     <link rel="stylesheet" href="/style.css">
     <script src="https://cdn.tailwindcss.com"></script>
+    
+    
+    
     <script>
       tailwind.config = {
         theme: {
           extend: {
             colors: {
-              orange: {
-                50: '#fff7ed',
-                100: '#ffedd5',
-                200: '#fed7aa',
-                300: '#fdba74',
-                400: '#fb923c',
-                500: '#f97316',
-                600: '#ea580c',
-                700: '#c2410c',
-                800: '#9a3412',
-                900: '#7c2d12',
+              violet: {
+                50: '#f5f3ff',
+                100: '#ede9fe',
+                200: '#ddd6fe',
+                300: '#c4b5fd',
+                400: '#a78bfa',
+                500: '#8b5cf6',
+                600: '#7c3aed',
+                700: '#6d28d9',
+                800: '#5b21b6',
+                900: '#4c1d95',
               }
             }
           }
         }
       }
     </script>
+
+
+
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         body { font-family: 'Inter', sans-serif; background-color: #fafafa; }
         .hero-gradient {
-            background: radial-gradient(circle at 50% -20%, #ffedd5 0%, transparent 40%);
+            background: radial-gradient(circle at 50% -20%, #ede9fe 0%, transparent 40%);
         }
     </style>
 </head>
 <body class="hero-gradient text-slate-800 min-h-screen flex flex-col">
     <!-- Navbar -->
-    <header class="w-full max-w-6xl mx-auto px-6 py-4 flex justify-between items-center bg-transparent">
+<header class="w-full px-4 sm:px-6 py-4 flex justify-between items-center bg-white border-b border-slate-100 sticky top-0 z-40 shadow-sm">
+    <div class="flex items-center gap-2 max-w-7xl mx-auto w-full justify-between">
         <a href="/" class="flex items-center gap-2">
-            <svg class="w-7 h-7 text-black" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M12 2L2 12h3v8h14v-8h3L12 2zm0 2.8L19.2 12H17v6H7v-6H4.8L12 4.8z"/>
+            <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
             </svg>
-            <span class="font-bold text-xl tracking-tight">ToolIMG</span>
+            <span class="font-bold text-xl tracking-tight text-slate-900">Toolghar</span>
         </a>
-        <div class="flex items-center gap-4">
-            <button id="login-btn" onclick="handleLogin()" class="px-4 py-2 text-sm font-medium text-slate-700 hover:text-black border border-slate-300 rounded-lg bg-white shadow-sm transition">Log in</button>
-            <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-sm font-medium text-white bg-orange-600 hover:bg-orange-700 rounded-lg shadow-sm transition">Sign up</button>
+        
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="/" class="text-[15px] font-medium text-orange-600 transition">Home</a>
+            <a href="/#tools" class="text-[15px] font-medium text-slate-600 hover:text-slate-900 transition">Tools</a>
+            <a href="/tools/image-to-code/" class="text-[15px] font-medium text-slate-600 hover:text-slate-900 transition">AI Tools</a>
+            <a href="/tools/handwriting-to-text/" class="text-[15px] font-medium text-slate-600 hover:text-slate-900 transition">Calculators</a>
+            <a href="/blog/" class="text-[15px] font-medium text-slate-600 hover:text-slate-900 transition">Blog</a>
+            <a href="/pricing/" class="text-[15px] font-medium text-slate-600 hover:text-slate-900 transition">Pricing</a>
+        </nav>
+        
+        <div class="flex items-center gap-3">
+            <div class="hidden md:flex items-center gap-3">
+                <button id="login-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-slate-700 hover:bg-slate-50 rounded-xl transition">Log in</button>
+                <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-white bg-slate-900 hover:bg-slate-800 rounded-xl transition shadow-sm">Sign up</button>
+            </div>
             <div id="user-menu" class="hidden items-center gap-3">
                 <span id="user-name" class="text-sm font-medium text-slate-700"></span>
                 <button onclick="handleLogout()" class="text-sm text-slate-500 hover:text-slate-700">Logout</button>
             </div>
-            <button class="md:hidden text-slate-600">
+            
+            <!-- Mobile menu button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-lg transition ml-1">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
         </div>
-    </header>
+    </div>
+</header>
+
+<!-- Mobile Menu Modal -->
+<div id="mobile-menu-modal" class="fixed inset-0 z-50 hidden flex-col items-center justify-center p-4">
+    <!-- Backdrop -->
+    <div id="mobile-menu-backdrop" class="absolute inset-0 bg-slate-900/40 backdrop-blur-sm transition-opacity opacity-0"></div>
+    
+    <!-- Modal Content -->
+    <div id="mobile-menu-content" class="relative w-full max-w-[340px] bg-white rounded-3xl shadow-2xl overflow-visible transition-all scale-95 opacity-0 duration-200 ease-out mt-[-10vh]">
+        <!-- Header -->
+        <div class="flex items-center justify-between px-6 py-5 border-b border-slate-50">
+            <div class="flex items-center gap-3">
+                <svg class="w-5 h-5 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                </svg>
+                <span class="font-bold text-lg text-slate-900 tracking-tight">Toolghar</span>
+            </div>
+            <button id="mobile-menu-close" class="text-slate-400 hover:text-slate-600 transition p-1 rounded-full hover:bg-slate-50">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+
+        <!-- Links -->
+        <div class="px-3 py-3 flex flex-col gap-1">
+            <a href="/" class="px-4 py-3.5 text-[15px] font-medium text-[#D9531E] bg-[#FFF5EE] rounded-xl transition flex items-center">Home</a>
+            <a href="/#tools" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 hover:bg-slate-50 rounded-xl transition flex items-center">Tools</a>
+            <a href="/tools/image-to-code/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 hover:bg-slate-50 rounded-xl transition flex items-center">AI Tools</a>
+            <a href="/tools/handwriting-to-text/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 hover:bg-slate-50 rounded-xl transition flex items-center">Calculators</a>
+            <a href="/blog/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 hover:bg-slate-50 rounded-xl transition flex items-center">Blog</a>
+            <a href="/pricing/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 hover:bg-slate-50 rounded-xl transition flex items-center">Pricing</a>
+        </div>
+
+        <!-- Divider -->
+        <div class="h-px bg-slate-100 w-full"></div>
+
+        <!-- Theme Toggle -->
+        <div class="px-3 py-3 relative">
+            <button id="theme-menu-btn" class="w-full px-4 py-3.5 flex justify-between items-center text-[15px] font-medium text-slate-700 hover:bg-slate-50 rounded-xl transition">
+                <span>Theme</span>
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            </button>
+            
+            <!-- Theme Dropdown Popover -->
+            <div id="theme-popover" class="absolute bottom-[100%] right-3 mb-2 w-48 bg-white rounded-2xl shadow-xl border border-slate-100 p-2 hidden flex-col gap-1 z-50">
+                <button class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-900 bg-slate-50 rounded-xl">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        Light
+                    </div>
+                    <svg class="w-4 h-4 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </button>
+                <button class="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-xl transition">
+                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    Dark
+                </button>
+                <button class="w-full flex items-center gap-3 px-3 py-2.5 text-sm font-medium text-slate-600 hover:text-slate-900 hover:bg-slate-50 rounded-xl transition">
+                    <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                    System
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const btn = document.getElementById('mobile-menu-btn');
+        const closeBtn = document.getElementById('mobile-menu-close');
+        const modal = document.getElementById('mobile-menu-modal');
+        const backdrop = document.getElementById('mobile-menu-backdrop');
+        const content = document.getElementById('mobile-menu-content');
+        const themeBtn = document.getElementById('theme-menu-btn');
+        const themePopover = document.getElementById('theme-popover');
+        
+        function openModal() {
+            modal.classList.remove('hidden');
+            modal.classList.add('flex');
+            // trigger reflow
+            void modal.offsetWidth;
+            backdrop.classList.remove('opacity-0');
+            backdrop.classList.add('opacity-100');
+            content.classList.remove('scale-95', 'opacity-0');
+            content.classList.add('scale-100', 'opacity-100');
+        }
+        
+        function closeModal() {
+            backdrop.classList.remove('opacity-100');
+            backdrop.classList.add('opacity-0');
+            content.classList.remove('scale-100', 'opacity-100');
+            content.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                modal.classList.add('hidden');
+                modal.classList.remove('flex');
+            }, 200);
+            if(themePopover) {
+                themePopover.classList.add('hidden');
+                themePopover.classList.remove('flex');
+            }
+        }
+        
+        if(btn) btn.addEventListener('click', openModal);
+        if(closeBtn) closeBtn.addEventListener('click', closeModal);
+        if(backdrop) backdrop.addEventListener('click', closeModal);
+        
+        if(themeBtn && themePopover) {
+            themeBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                if(themePopover.classList.contains('hidden')) {
+                    themePopover.classList.remove('hidden');
+                    themePopover.classList.add('flex');
+                } else {
+                    themePopover.classList.add('hidden');
+                    themePopover.classList.remove('flex');
+                }
+            });
+            document.addEventListener('click', (e) => {
+                if(!themePopover.contains(e.target) && !themeBtn.contains(e.target)) {
+                    themePopover.classList.add('hidden');
+                    themePopover.classList.remove('flex');
+                }
+            });
+        }
+    });
+</script>
+<!-- End Navbar -->
 
     <!-- Main Content -->
-    <main class="flex-grow max-w-4xl mx-auto px-6 py-16 text-center">
+    <main class="flex-grow max-w-5xl mx-auto px-6 py-16 text-center">
         
         <!-- Pill -->
-        <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-slate-200 bg-white/60 backdrop-blur-sm text-sm text-slate-600 mb-8 shadow-sm">
-            <span>Introducing ToolIMG</span>
+        <div class="inline-flex items-center gap-2 px-5 py-2 rounded-full border border-slate-200 bg-white/70 backdrop-blur-sm text-sm text-slate-700 mb-8 shadow-sm">
+            <span class="font-medium">Introducing OCR Suite</span>
             <span class="text-slate-300">|</span>
-            <a href="#tools" class="flex items-center gap-1 text-slate-800 font-medium hover:text-orange-600 transition">
+            <a href="#tools" class="flex items-center gap-1 text-slate-800 font-bold hover:text-violet-600 transition">
                 Explore tools
-                <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
             </a>
         </div>
 
         <!-- Headings -->
-        <h1 class="text-4xl md:text-6xl font-bold text-slate-900 tracking-tight leading-tight mb-6">
-            ToolIMG provides tools that<br/>
-            <span class="text-orange-600">just work</span>
+        <h1 class="text-4xl md:text-6xl font-extrabold text-slate-900 tracking-tight leading-tight mb-6">
+            Intelligent extraction tools that<br/>
+            <span class="text-violet-600">just work</span>
         </h1>
         
         <p class="text-lg md:text-xl text-slate-500 mb-10 max-w-2xl mx-auto">
-            All the free tools you need for your daily tasks in one place - simple, fast, secure, and easy to use.
+            Extract code from wireframes or convert handwritten notes into digital text instantly. We utilize advanced AI vision models to ensure perfect accuracy.
         </p>
 
         <!-- CTAs -->
         <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-24">
-            <a href="#tools" class="px-6 py-3 w-full sm:w-auto text-base font-semibold text-white bg-orange-600 hover:bg-orange-700 rounded-xl shadow-sm transition">
-                Browse Tools
+            <a href="#tools" class="px-6 py-3 w-full sm:w-auto text-base font-semibold text-white bg-violet-600 hover:bg-violet-700 rounded-xl shadow-sm transition">
+                Browse OCR Tools
             </a>
             <button class="px-6 py-3 w-full sm:w-auto text-base font-medium text-slate-700 bg-white border border-slate-300 hover:bg-slate-50 rounded-xl shadow-sm transition">
-                Request a Tool
+                View API Docs
             </button>
         </div>
 
         <!-- Section 2 -->
-        <div id="tools" class="pt-8">
+        <div id="tools" class="pt-8 pb-16">
             <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-                Find your tools in <span class="text-orange-600">seconds</span>
+                Find your OCR tools in <span class="text-violet-600">seconds</span>
             </h2>
-            <p class="text-slate-500 mb-12">Pick a category and jump to what you need.</p>
+            <p class="text-slate-500 mb-12">Pick a category and start extracting text immediately.</p>
 
-            <!-- Tools Card -->
-            <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 md:p-8 text-left max-w-3xl mx-auto">
-                <h3 class="text-2xl font-bold text-slate-900 mb-2">AI Vision Tools</h3>
-                <p class="text-slate-500 mb-8">Convert, generate, and process images with AI - fast and private.</p>
-
-                <div class="space-y-4 mb-8">
-                    <a href="/tools/image-to-code/" class="flex items-center gap-3 text-slate-700 hover:text-orange-600 transition group">
-                        <svg class="w-4 h-4 text-orange-500 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-                        <span class="font-medium">Image to Code Converter</span>
-                    </a>
-                    <a href="/tools/handwriting-to-text/" class="flex items-center gap-3 text-slate-700 hover:text-orange-600 transition group">
-                        <svg class="w-4 h-4 text-orange-500 group-hover:translate-x-1 transition-transform" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 18l6-6-6-6"/></svg>
-                        <span class="font-medium">Handwriting to Text Tool</span>
+            <!-- Tools Cards Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto text-left">
+                
+                <!-- Tool 1 -->
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-violet-100 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Image to Code</h3>
+                    <p class="text-slate-500 mb-6 text-sm">Turn screenshots, mockups, and wireframes into clean, interactive HTML/Tailwind code with complete styling.</p>
+                    <a href="/tools/image-to-code/" class="inline-flex items-center gap-2 text-violet-600 font-medium hover:text-violet-700 transition">
+                        Open Tool
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                     </a>
                 </div>
 
-                <a href="/tools/image-to-code/" class="block w-full text-center py-3 px-4 border border-slate-200 rounded-xl text-slate-700 font-medium hover:bg-slate-50 transition">
-                    Explore AI Tools 
-                    <svg class="inline w-3.5 h-3.5 ml-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
-                </a>
+                <!-- Tool 2 -->
+                <div class="bg-white border border-slate-200 rounded-2xl shadow-sm p-6 hover:shadow-md transition">
+                    <div class="w-12 h-12 bg-violet-100 rounded-xl flex items-center justify-center mb-6">
+                        <svg class="w-6 h-6 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-slate-900 mb-2">Handwriting to Text</h3>
+                    <p class="text-slate-500 mb-6 text-sm">Digitize physical notes, whiteboards, or sketches. Extracts complex handwritten blocks into neat markdown text.</p>
+                    <a href="/tools/handwriting-to-text/" class="inline-flex items-center gap-2 text-violet-600 font-medium hover:text-violet-700 transition">
+                        Open Tool
+                        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                    </a>
+                </div>
+
             </div>
         </div>
 
     </main>
+        
+        
+        
 
+    
+    <!-- Footer -->
+<footer class="bg-white border-t border-slate-100 mt-auto pt-16 pb-8">
+    <div class="max-w-7xl mx-auto px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <div class="md:col-span-1">
+                <a href="/" class="flex items-center gap-2 mb-4">
+                    <svg class="w-6 h-6 text-slate-900" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path>
+                    </svg>
+                    <span class="font-bold text-xl tracking-tight text-slate-900">Toolghar</span>
+                </a>
+                <p class="text-slate-500 text-[15px] leading-relaxed">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
+            </div>
+            <div>
+                <h4 class="font-bold text-slate-900 mb-5">Products</h4>
+                <ul class="space-y-3.5">
+                    <li><a href="/tools/image-to-code/" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Image to Code AI</a></li>
+                    <li><a href="/tools/handwriting-to-text/" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Handwriting OCR</a></li>
+                    <li><a href="/#tools" class="text-[15px] text-slate-600 hover:text-slate-900 transition">All Tools</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-slate-900 mb-5">Resources</h4>
+                <ul class="space-y-3.5">
+                    <li><a href="/blog/" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Blog & Guides</a></li>
+                    <li><a href="#" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Documentation</a></li>
+                    <li><a href="/pricing/" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Pricing</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-slate-900 mb-5">Company</h4>
+                <ul class="space-y-3.5">
+                    <li><a href="#" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Privacy Policy</a></li>
+                    <li><a href="#" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Terms of Service</a></li>
+                    <li><a href="#" class="text-[15px] text-slate-600 hover:text-slate-900 transition">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="pt-8 border-t border-slate-100 flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-[15px] text-slate-500">© 2026 Toolghar. All rights reserved.</p>
+            <div class="flex gap-4">
+                <a href="#" class="text-slate-400 hover:text-slate-900 transition"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/></svg></a>
+                <a href="#" class="text-slate-400 hover:text-slate-900 transition"><svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg></a>
+            </div>
+        </div>
+    </div>
+</footer>
+<!-- End Footer -->
     <!-- Firebase Scripts -->
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
@@ -167,14 +375,14 @@
           const userName = document.getElementById('user-name');
           
           if (user) {
-              loginBtn.style.display = 'none';
-              signupBtn.style.display = 'none';
-              userMenu.style.display = 'flex';
-              userName.textContent = user.displayName || user.email;
+              if(loginBtn) loginBtn.style.display = 'none';
+              if(signupBtn) signupBtn.style.display = 'none';
+              if(userMenu) userMenu.style.display = 'flex';
+              if(userName) userName.textContent = user.displayName || user.email;
           } else {
-              loginBtn.style.display = 'block';
-              signupBtn.style.display = 'block';
-              userMenu.style.display = 'none';
+              if(loginBtn) loginBtn.style.display = 'block';
+              if(signupBtn) signupBtn.style.display = 'block';
+              if(userMenu) userMenu.style.display = 'none';
           }
       });
     </script>
