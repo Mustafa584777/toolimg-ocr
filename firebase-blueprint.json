@@ -7,17 +7,34 @@
       "properties": {
         "email": { "type": "string" },
         "displayName": { "type": "string" },
-        "photoURL": { "type": "string" },
-        "joinedAt": { "type": "string" },
-        "credits": { "type": "number" }
+        "credits": { "type": "number" },
+        "creditsUsed_imageToCode": { "type": "number" },
+        "creditsUsed_handwritingToText": { "type": "number" },
+        "createdAt": { "type": "string" }
       },
-      "required": ["email", "joinedAt"]
+      "required": ["email", "credits", "createdAt"]
+    },
+    "Guest": {
+      "title": "Guest Profile",
+      "description": "Guest transient profile tracking credit balance",
+      "type": "object",
+      "properties": {
+        "credits": { "type": "number" },
+        "creditsUsed_imageToCode": { "type": "number" },
+        "creditsUsed_handwritingToText": { "type": "number" },
+        "createdAt": { "type": "string" }
+      },
+      "required": ["credits", "createdAt"]
     }
   },
   "firestore": {
     "/users/{userId}": {
       "schema": "User",
       "description": "User profile documents"
+    },
+    "/guests/{guestId}": {
+      "schema": "Guest",
+      "description": "Guest transient tracker documents"
     }
   }
 }

@@ -428,15 +428,15 @@
           try {
               await signInWithPopup(auth, provider);
           } catch (error) {
-              console.error("Login failed", error);
+              console.error("Login failed", error ? (error.message || String(error)) : error);
           }
       };
- 
+
       window.handleLogout = async function() {
           try {
               await signOut(auth);
           } catch (error) {
-              console.error("Logout failed", error);
+              console.error("Logout failed", error ? (error.message || String(error)) : error);
           }
       };
  
@@ -543,7 +543,7 @@
                       updateStatsUI(data.creditsUsed_imageToCode || 0, data.creditsUsed_handwritingToText || 0);
                   }
               }, (error) => {
-                  console.error("Error listening to user credits:", error);
+                  console.error("Error listening to user credits:", error ? (error.message || String(error)) : error);
                   updateCreditsUI(5, false);
                   updateStatsUI(0, 0);
               });
@@ -571,7 +571,7 @@
                       updateStatsUI(data.creditsUsed_imageToCode || 0, data.creditsUsed_handwritingToText || 0);
                   }
               }, (error) => {
-                  console.error("Error listening to guest credits:", error);
+                  console.error("Error listening to guest credits:", error ? (error.message || String(error)) : error);
               });
           }
       });
@@ -792,7 +792,7 @@
             stopLoadingAnimation();
 
         } catch (err) {
-            console.error(err);
+            console.error(err ? (err.message || String(err)) : err);
             alert("Error extracting text: " + err.message);
             document.getElementById('loading-state').classList.add('hidden');
             stopLoadingAnimation();
