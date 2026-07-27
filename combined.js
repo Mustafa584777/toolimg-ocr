@@ -126,7 +126,7 @@
             };
 
             try {
-                const response = await fetch('/api/ocr', {
+                const response = await fetch('https://toolimg-ocr.vercel.app/api/ocr', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)

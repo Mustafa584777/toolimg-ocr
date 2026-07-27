@@ -332,7 +332,7 @@ const hwHTML = `
             document.getElementById('copy-btn').classList.add('hidden');
 
             try {
-                const response = await fetch('/api/handwriting', {
+                const response = await fetch('https://toolimg-ocr.vercel.app/api/handwriting', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ base64Data: currentBase64 })

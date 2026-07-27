@@ -3122,7 +3122,7 @@
                 headers['Authorization'] = 'Bearer ' + idToken;
             }
 
-            const response = await fetch('/api/handwriting', {
+            const response = await fetch('https://toolimg-ocr.vercel.app/api/handwriting', {
                 method: 'POST',
                 headers: headers,
                 body: JSON.stringify(payload)
