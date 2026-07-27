@@ -28,4 +28,16 @@
     <loc>https://toolimg.online/contact</loc>
     <changefreq>monthly</changefreq>
   </url>
+  <url>
+    <loc>https://toolimg.online/refund</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://toolimg.online/disclaimer</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://toolimg.online/about-us</loc>
+    <changefreq>monthly</changefreq>
+  </url>
 </urlset>
