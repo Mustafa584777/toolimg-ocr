@@ -410,8 +410,10 @@
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
       
-      const configResp = await fetch('/api/config');
-      const firebaseConfig = await configResp.json();
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "/api/config", false);
+      xhr.send(null);
+      const firebaseConfig = JSON.parse(xhr.responseText);
       
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
@@ -483,7 +485,7 @@
       }
 
       import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-      const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+      const db = getFirestore(app, firebaseConfig.firestoreDatabaseId || undefined);
       let unsubscribeCredits = null;
 
       onAuthStateChanged(auth, (user) => {
@@ -747,10 +749,22 @@
                 headers['Authorization'] = 'Bearer ' + idToken;
             }
 
+            const getCircularReplacer = () => {
+                const seen = new WeakSet();
+                return (key, value) => {
+                    if (typeof value === "object" && value !== null) {
+                        if (seen.has(value)) {
+                            return;
+                        }
+                        seen.add(value);
+                    }
+                    return value;
+                };
+            };
             const response = await fetch('/api/handwriting', {
                 method: 'POST',
                 headers: headers,
-                body: JSON.stringify(payload)
+                body: JSON.stringify(payload, getCircularReplacer())
             });
 
             const data = await response.json();

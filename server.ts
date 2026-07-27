@@ -22,7 +22,7 @@ function getFirebaseDb() {
       } else {
         firebaseAdminApp = admin.app();
       }
-      firestoreDb = admin.firestore("ai-studio-toolimg-a40860b9-3db9-4eab-a65f-f070e159a9b3");
+      firestoreDb = admin.firestore();
     } catch (error: any) {
       console.error("Firebase Admin initialization failed.", error);
       throw error;

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url>
+    <loc>https://ais-dev-evrfa65wiubcqn5xlwdv7y-261813730459.asia-east1.run.app/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ais-dev-evrfa65wiubcqn5xlwdv7y-261813730459.asia-east1.run.app/dashboard/</loc>
+    <changefreq>daily</changefreq>
+  </url>
+  <url>
+    <loc>https://ais-dev-evrfa65wiubcqn5xlwdv7y-261813730459.asia-east1.run.app/pricing/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>https://ais-dev-evrfa65wiubcqn5xlwdv7y-261813730459.asia-east1.run.app/tools/</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://ais-dev-evrfa65wiubcqn5xlwdv7y-261813730459.asia-east1.run.app/tools/handwriting-to-text/</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+  <url>
+    <loc>https://ais-dev-evrfa65wiubcqn5xlwdv7y-261813730459.asia-east1.run.app/tools/image-to-code/</loc>
+    <changefreq>weekly</changefreq>
+  </url>
+</urlset>

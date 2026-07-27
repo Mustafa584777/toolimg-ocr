@@ -319,14 +319,17 @@
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-      import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
       
-      const configResp = await fetch('/api/config');
-      const firebaseConfig = await configResp.json();
+      const xhr = new XMLHttpRequest();
+      xhr.open("GET", "/api/config", false);
+      xhr.send(null);
+      const firebaseConfig = JSON.parse(xhr.responseText);
+      console.log("Firebase config:", firebaseConfig);
       
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
-      const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+      const db = getFirestore(app, firebaseConfig.firestoreDatabaseId || undefined);
       const provider = new GoogleAuthProvider();
 
       window.handleLogin = async function() {
