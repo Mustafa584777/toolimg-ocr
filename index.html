@@ -63,7 +63,7 @@
         <nav class="hidden md:flex items-center gap-8">
             <a href="/" class="text-[15px] font-medium text-violet-600 dark:text-violet-400 transition">Home</a>
             <a href="/tools/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Tools</a>
-            <a href="/tools/" id="dashboard-nav" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition hidden">Dashboard</a>
+            <a href="/dashboard/" id="dashboard-nav" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition hidden">Dashboard</a>
             <a href="/pricing/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Pricing</a>
             
             <div class="relative">
@@ -75,7 +75,7 @@
         </nav>
         
         <div class="flex items-center gap-3">
-            <div id="credits-display" class="hidden items-center gap-2 bg-violet-100/50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-xs font-semibold px-3 py-1.5 rounded-full ring-1 ring-inset ring-violet-200 dark:ring-violet-800/50">
+            <div id="credits-display" class="hidden items-center gap-2 bg-violet-100/50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-xs font-semibold px-3 py-1.5 rounded-full ring-1 ring-inset ring-violet-200 dark:ring-violet-800/50 cursor-pointer hover:bg-violet-200/80 dark:hover:bg-violet-950 transition">
                 <svg class="w-3.5 h-3.5 text-violet-600 dark:text-violet-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
                 <span id="credits-count">5 Credits</span>
             </div>
@@ -111,7 +111,7 @@
         <div class="px-3 py-3 flex flex-col gap-1">
             <a href="/" class="px-4 py-3.5 text-[15px] font-medium text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 rounded-xl transition flex items-center">Home</a>
             <a href="/tools/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Tools</a>
-            <a href="/tools/" id="mobile-dashboard-nav" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center hidden">Dashboard</a>
+            <a href="/dashboard/" id="mobile-dashboard-nav" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center hidden">Dashboard</a>
             <a href="/pricing/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Pricing</a>
             
             <!-- Mobile Auth Section -->
@@ -367,6 +367,29 @@
               creditsDisplay.classList.add('flex');
               creditsCount.textContent = (isGuest ? 'Guest: ' : '') + credits + ' Credits';
           }
+          const statsBalance = document.getElementById('stats-remaining-balance');
+          if (statsBalance) {
+              statsBalance.textContent = credits + ' Credits';
+          }
+      }
+
+      function updateStatsUI(creditsUsedImgCode, creditsUsedHandwriting) {
+          const imgCodeUsed = parseInt(creditsUsedImgCode || '0', 10);
+          const handwritingUsed = parseInt(creditsUsedHandwriting || '0', 10);
+          
+          const maxThreshold = 10;
+          const imgProgress = Math.min((imgCodeUsed / maxThreshold) * 100, 100);
+          const handwritingProgress = Math.min((handwritingUsed / maxThreshold) * 100, 100);
+          
+          const modalImgCount = document.getElementById('stats-img-code-count');
+          const modalImgProgress = document.getElementById('stats-img-code-progress');
+          const modalHwCount = document.getElementById('stats-handwriting-count');
+          const modalHwProgress = document.getElementById('stats-handwriting-progress');
+          
+          if (modalImgCount) modalImgCount.textContent = imgCodeUsed + ' Credits';
+          if (modalImgProgress) modalImgProgress.style.width = imgProgress + '%';
+          if (modalHwCount) modalHwCount.textContent = handwritingUsed + ' Credits';
+          if (modalHwProgress) modalHwProgress.style.width = handwritingProgress + '%';
       }
 
       let unsubscribeCredits = null;
@@ -409,16 +432,21 @@
                           email: user.email,
                           displayName: user.displayName || '',
                           credits: 5,
+                          creditsUsed_imageToCode: 0,
+                          creditsUsed_handwritingToText: 0,
                           createdAt: new Date().toISOString()
                       });
                       updateCreditsUI(5, false);
+                      updateStatsUI(0, 0);
                   } else {
                       const data = docSnap.data();
                       updateCreditsUI(data.credits || 0, false);
+                      updateStatsUI(data.creditsUsed_imageToCode || 0, data.creditsUsed_handwritingToText || 0);
                   }
               }, (error) => {
                   console.error("Error listening to user credits:", error);
                   updateCreditsUI(5, false);
+                  updateStatsUI(0, 0);
               });
           } else {
               if(loginBtn) loginBtn.style.display = 'block';
@@ -433,6 +461,19 @@
 
               let guestCredits = parseInt(localStorage.getItem('guest_credits') || '5', 10);
               updateCreditsUI(guestCredits, true);
+              updateStatsUI(0, 0);
+
+              const guestId = localStorage.getItem('guest_id') || 'guest_unknown';
+              const guestDocRef = doc(db, 'guests', guestId);
+              unsubscribeCredits = onSnapshot(guestDocRef, (docSnap) => {
+                  if (docSnap.exists()) {
+                      const data = docSnap.data();
+                      updateCreditsUI(data.credits || 0, true);
+                      updateStatsUI(data.creditsUsed_imageToCode || 0, data.creditsUsed_handwritingToText || 0);
+                  }
+              }, (error) => {
+                  console.error("Error listening to guest credits:", error);
+              });
           }
       });
     </script>
@@ -521,8 +562,87 @@
                 }
             });
         }
+
+        // Stats Modal Trigger Logic
+        const creditsDisplay = document.getElementById('credits-display');
+        const statsModal = document.getElementById('stats-modal');
+        const statsBackdrop = document.getElementById('stats-modal-backdrop');
+        const statsContent = document.getElementById('stats-modal-content');
+        const statsClose = document.getElementById('stats-modal-close');
+
+        function openStatsModal() {
+            if(!statsModal) return;
+            statsModal.classList.remove('hidden');
+            statsModal.classList.add('flex');
+            void statsModal.offsetWidth;
+            statsBackdrop.classList.remove('opacity-0');
+            statsBackdrop.classList.add('opacity-100');
+            statsContent.classList.remove('scale-95', 'opacity-0');
+            statsContent.classList.add('scale-100', 'opacity-100');
+        }
+
+        function closeStatsModal() {
+            if(!statsModal) return;
+            statsBackdrop.classList.remove('opacity-100');
+            statsBackdrop.classList.add('opacity-0');
+            statsContent.classList.remove('scale-100', 'opacity-100');
+            statsContent.classList.add('scale-95', 'opacity-0');
+            setTimeout(() => {
+                statsModal.classList.add('hidden');
+                statsModal.classList.remove('flex');
+            }, 200);
+        }
+
+        if(creditsDisplay) creditsDisplay.addEventListener('click', openStatsModal);
+        if(statsClose) statsClose.addEventListener('click', closeStatsModal);
+        if(statsBackdrop) statsBackdrop.addEventListener('click', closeStatsModal);
     });
 </script>
+
+<!-- Interactive Stats Popup Modal -->
+<div id="stats-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+    <div id="stats-modal-backdrop" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+    <div id="stats-modal-content" class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl shadow-2xl p-6 border border-slate-100 dark:border-slate-800 transition-all scale-95 opacity-0 duration-200 ease-out">
+        <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                Credit Usage Stats
+            </h3>
+            <button id="stats-modal-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1.5 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        
+        <div class="space-y-6">
+            <!-- Image to Code in Modal -->
+            <div>
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Image to Code AI</span>
+                    <span id="stats-img-code-count" class="text-xs font-bold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 px-2.5 py-1 rounded-md">0 Credits</span>
+                </div>
+                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                    <div id="stats-img-code-progress" class="bg-violet-600 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <!-- Handwriting OCR in Modal -->
+            <div>
+                <div class="flex justify-between items-center mb-2">
+                    <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Handwriting OCR</span>
+                    <span id="stats-handwriting-count" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2.5 py-1 rounded-md">0 Credits</span>
+                </div>
+                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
+                    <div id="stats-handwriting-progress" class="bg-indigo-600 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+                </div>
+            </div>
+            
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between text-xs text-slate-500">
+                <span>Remaining Balance</span>
+                <span id="stats-remaining-balance" class="font-bold text-slate-700 dark:text-slate-300">5 Credits</span>
+            </div>
+        </div>
+    </div>
+</div>
 
 </body>
 </html>

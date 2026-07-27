@@ -31,11 +31,12 @@ function getFirebaseDb() {
   return firestoreDb;
 }
 
-async function verifyAndConsumeCredit(req: express.Request): Promise<{ decrement: () => Promise<void>, credits: number }> {
+async function verifyAndConsumeCredit(req: express.Request, toolName: 'image-to-code' | 'handwriting-to-text'): Promise<{ decrement: () => Promise<void>, credits: number }> {
   const db = getFirebaseDb();
   const authHeader = req.headers.authorization;
   const idToken = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split('Bearer ')[1] : null;
   const guestId = req.headers['x-guest-id'] as string;
+  const toolField = toolName === 'image-to-code' ? 'creditsUsed_imageToCode' : 'creditsUsed_handwritingToText';
 
   if (idToken && idToken !== 'null' && idToken !== 'undefined' && idToken.trim() !== '') {
     try {
@@ -48,6 +49,8 @@ async function verifyAndConsumeCredit(req: express.Request): Promise<{ decrement
           email: decodedToken.email || '',
           displayName: decodedToken.name || '',
           credits: 5,
+          creditsUsed_imageToCode: 0,
+          creditsUsed_handwritingToText: 0,
           createdAt: new Date().toISOString()
         });
       } else {
@@ -61,7 +64,10 @@ async function verifyAndConsumeCredit(req: express.Request): Promise<{ decrement
       return {
         credits,
         decrement: async () => {
-          await userDocRef.update({ credits: admin.firestore.FieldValue.increment(-1) });
+          await userDocRef.update({
+            credits: admin.firestore.FieldValue.increment(-1),
+            [toolField]: admin.firestore.FieldValue.increment(1)
+          });
         }
       };
     } catch (err: any) {
@@ -83,6 +89,8 @@ async function verifyAndConsumeCredit(req: express.Request): Promise<{ decrement
   if (!guestDoc.exists) {
     await guestDocRef.set({
       credits: 5,
+      creditsUsed_imageToCode: 0,
+      creditsUsed_handwritingToText: 0,
       createdAt: new Date().toISOString()
     });
   } else {
@@ -96,7 +104,10 @@ async function verifyAndConsumeCredit(req: express.Request): Promise<{ decrement
   return {
     credits,
     decrement: async () => {
-      await guestDocRef.update({ credits: admin.firestore.FieldValue.increment(-1) });
+      await guestDocRef.update({
+        credits: admin.firestore.FieldValue.increment(-1),
+        [toolField]: admin.firestore.FieldValue.increment(1)
+      });
     }
   };
 }
@@ -303,7 +314,7 @@ async function generateContentWithRetryAndFallback(aiClient: any, params: any) {
   }
 }
 
-// Image to Code Generation Endpoint
+    // Image to Code Generation Endpoint
 app.post('/api/ocr', async (req: express.Request, res: express.Response) => {
   let creditSession: { decrement: () => Promise<void>, credits: number } | null = null;
   try {
@@ -319,7 +330,7 @@ app.post('/api/ocr', async (req: express.Request, res: express.Response) => {
 
     // Verify credits before initiating expensive Gemini operations
     try {
-      creditSession = await verifyAndConsumeCredit(req);
+      creditSession = await verifyAndConsumeCredit(req, 'image-to-code');
     } catch (creditErr: any) {
       if (creditErr.message === "INSUFFICIENT_CREDITS") {
         return res.status(403).json({ error: "Sufficient credits are required to run this tool. Please purchase credits on the pricing page." });
@@ -457,7 +468,7 @@ app.post('/api/handwriting', async (req: express.Request, res: express.Response)
 
     // Verify credits before initiating expensive Gemini operations
     try {
-      creditSession = await verifyAndConsumeCredit(req);
+      creditSession = await verifyAndConsumeCredit(req, 'handwriting-to-text');
     } catch (creditErr: any) {
       if (creditErr.message === "INSUFFICIENT_CREDITS") {
         return res.status(403).json({ error: "Sufficient credits are required to run this tool. Please purchase credits on the pricing page." });
