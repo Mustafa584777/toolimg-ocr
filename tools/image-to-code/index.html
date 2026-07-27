@@ -457,10 +457,10 @@
             document.getElementById('generate-btn').disabled = true;
 
             const payload = {
-                base64Data: "test",
-                framework: "react",
-                styleTheme: "light",
-                customPrompt: "test",
+                base64Data: currentBase64,
+                framework: document.getElementById('opt-framework').value,
+                styleTheme: document.getElementById('opt-style').value,
+                customPrompt: document.getElementById('opt-prompt').value,
                 interactivity: 'interactive'
             };
 
@@ -476,30 +476,10 @@
                     headers['Authorization'] = 'Bearer ' + idToken;
                 }
 
-                let body;
-                try {
-                    const getCircularReplacer = () => {
-                      const seen = new WeakSet();
-                      return (key, value) => {
-                        if (typeof value === "object" && value !== null) {
-                          if (seen.has(value)) {
-                            return;
-                          }
-                          seen.add(value);
-                        }
-                        return value;
-                      };
-                    };
-                    body = JSON.stringify(payload, getCircularReplacer());
-                } catch (e) {
-                    console.error("JSON.stringify error", e, payload);
-                    throw e;
-                }
-
                 const response = await fetch('/api/ocr', {
                     method: 'POST',
                     headers: headers,
-                    body: body
+                    body: JSON.stringify(payload)
                 });
 
                 const data = await response.json();
@@ -664,10 +644,15 @@
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
       
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", "/api/config", false);
-      xhr.send(null);
-      const firebaseConfig = JSON.parse(xhr.responseText);
+      const firebaseConfig = {
+          apiKey: "AIzaSyCFyGzp7viV1tq25DAMnpKKSJpPngtVa14",
+          authDomain: "gen-lang-client-0844549707.firebaseapp.com",
+          projectId: "gen-lang-client-0844549707",
+          firestoreDatabaseId: "ai-studio-toolimg-a40860b9-3db9-4eab-a65f-f070e159a9b3",
+          storageBucket: "gen-lang-client-0844549707.firebasestorage.app",
+          messagingSenderId: "845800015860",
+          appId: "1:845800015860:web:a6229be704605991785ba1"
+      };
       
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
@@ -723,7 +708,7 @@
       }
 
       import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-      const db = getFirestore(app, firebaseConfig.firestoreDatabaseId || undefined);
+      const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
       let unsubscribeCredits = null;
 
       window.handleLogin = async function() {

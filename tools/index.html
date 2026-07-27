@@ -289,16 +289,21 @@
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-      import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
       
-      const xhr = new XMLHttpRequest();
-      xhr.open("GET", "/api/config", false);
-      xhr.send(null);
-      const firebaseConfig = JSON.parse(xhr.responseText);
+      const firebaseConfig = {
+          apiKey: "AIzaSyCFyGzp7viV1tq25DAMnpKKSJpPngtVa14",
+          authDomain: "gen-lang-client-0844549707.firebaseapp.com",
+          projectId: "gen-lang-client-0844549707",
+          firestoreDatabaseId: "ai-studio-toolimg-a40860b9-3db9-4eab-a65f-f070e159a9b3",
+          storageBucket: "gen-lang-client-0844549707.firebasestorage.app",
+          messagingSenderId: "845800015860",
+          appId: "1:845800015860:web:a6229be704605991785ba1"
+      };
       
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
-      const db = getFirestore(app, firebaseConfig.firestoreDatabaseId || undefined);
+      const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
       const provider = new GoogleAuthProvider();
 
       window.handleLogin = async function() {
