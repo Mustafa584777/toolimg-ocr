@@ -125,23 +125,11 @@
                 interactivity: 'interactive'
             };
 
-            const getCircularReplacer = () => {
-                const seen = new WeakSet();
-                return (key, value) => {
-                    if (typeof value === "object" && value !== null) {
-                        if (seen.has(value)) {
-                            return;
-                        }
-                        seen.add(value);
-                    }
-                    return value;
-                };
-            };
             try {
                 const response = await fetch('/api/ocr', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload, getCircularReplacer())
+                    body: JSON.stringify(payload)
                 });
 
                 const data = await response.json();

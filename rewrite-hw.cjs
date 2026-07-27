@@ -331,24 +331,11 @@ const hwHTML = `
             document.getElementById('extract-btn').disabled = true;
             document.getElementById('copy-btn').classList.add('hidden');
 
-            const getCircularReplacer = () => {
-                const seen = new WeakSet();
-                return (key, value) => {
-                    if (typeof value === "object" && value !== null) {
-                        if (seen.has(value)) {
-                            return;
-                        }
-                        seen.add(value);
-                    }
-                    return value;
-                };
-            };
-
             try {
                 const response = await fetch('/api/handwriting', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ base64Data: currentBase64 }, getCircularReplacer())
+                    body: JSON.stringify({ base64Data: currentBase64 })
                 });
 
                 const data = await response.json();
