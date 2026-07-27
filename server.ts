@@ -4,113 +4,17 @@ import { GoogleGenAI, Type } from '@google/genai';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import { initializeApp, getApps, getApp } from 'firebase-admin/app';
-import { getFirestore, FieldValue } from 'firebase-admin/firestore';
-import { getAuth } from 'firebase-admin/auth';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-let firebaseAdminApp: any = null;
-let firestoreDb: any = null;
-
-function getFirebaseDb() {
-  if (!firestoreDb) {
-    try {
-      if (!getApps().length) {
-        firebaseAdminApp = initializeApp({
-          projectId: "gen-lang-client-0844549707"
-        });
-      } else {
-        firebaseAdminApp = getApp();
-      }
-      firestoreDb = getFirestore(firebaseAdminApp, "ai-studio-toolimg-a40860b9-3db9-4eab-a65f-f070e159a9b3");
-    } catch (error: any) {
-      console.error("Firebase Admin initialization failed.", error);
-      throw error;
-    }
-  }
-  return firestoreDb;
-}
-
 async function verifyAndConsumeCredit(req: express.Request, toolName: 'image-to-code' | 'handwriting-to-text'): Promise<{ decrement: () => Promise<void>, credits: number }> {
-  const db = getFirebaseDb();
-  const authHeader = req.headers.authorization;
-  const idToken = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split('Bearer ')[1] : null;
-  const guestId = req.headers['x-guest-id'] as string;
-  const toolField = toolName === 'image-to-code' ? 'creditsUsed_imageToCode' : 'creditsUsed_handwritingToText';
-
-  if (idToken && idToken !== 'null' && idToken !== 'undefined' && idToken.trim() !== '') {
-    try {
-      const decodedToken = await getAuth(firebaseAdminApp).verifyIdToken(idToken);
-      const userDocRef = db.collection('users').doc(decodedToken.uid);
-      const userDoc = await userDocRef.get();
-      let credits = 5;
-      if (!userDoc.exists) {
-        await userDocRef.set({
-          email: decodedToken.email || '',
-          displayName: decodedToken.name || '',
-          credits: 5,
-          creditsUsed_imageToCode: 0,
-          creditsUsed_handwritingToText: 0,
-          createdAt: new Date().toISOString()
-        });
-      } else {
-        credits = userDoc.data()?.credits ?? 0;
-      }
-
-      if (credits < 1) {
-        throw new Error("INSUFFICIENT_CREDITS");
-      }
-
-      return {
-        credits,
-        decrement: async () => {
-          await userDocRef.update({
-            credits: FieldValue.increment(-1),
-            [toolField]: FieldValue.increment(1)
-          });
-        }
-      };
-    } catch (err: any) {
-      if (err.message === "INSUFFICIENT_CREDITS") {
-        throw err;
-      }
-      console.error("Token verification failed, falling back to guest check if ID is present", err);
-    }
-  }
-
-  // Handle guest fallback
-  if (!guestId || guestId === 'null' || guestId === 'undefined') {
-    throw new Error("IDENTIFICATION_REQUIRED");
-  }
-
-  const guestDocRef = db.collection('guests').doc(guestId);
-  const guestDoc = await guestDocRef.get();
-  let credits = 5;
-  if (!guestDoc.exists) {
-    await guestDocRef.set({
-      credits: 5,
-      creditsUsed_imageToCode: 0,
-      creditsUsed_handwritingToText: 0,
-      createdAt: new Date().toISOString()
-    });
-  } else {
-    credits = guestDoc.data()?.credits ?? 0;
-  }
-
-  if (credits < 1) {
-    throw new Error("GUEST_EXHAUSTED");
-  }
-
+  // We no longer verify or consume credits on the server side because 
+  // the AI Studio environment does not support Firebase Admin SDK with ADC 
+  // for Firestore on user databases. We handle credits entirely on the client side.
   return {
-    credits,
-    decrement: async () => {
-      await guestDocRef.update({
-        credits: FieldValue.increment(-1),
-        [toolField]: FieldValue.increment(1)
-      });
-    }
+    credits: 5,
+    decrement: async () => {}
   };
 }
 

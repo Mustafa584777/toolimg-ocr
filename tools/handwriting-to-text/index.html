@@ -2857,8 +2857,23 @@
           if (modalHwProgress) modalHwProgress.style.width = handwritingProgress + '%';
       }
 
-      import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      import { getFirestore, doc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
       const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+
+      window.consumeUserCredit = async function(toolName) {
+          if (!auth.currentUser) return;
+          const toolField = toolName === 'image-to-code' ? 'creditsUsed_imageToCode' : 'creditsUsed_handwritingToText';
+          const userDocRef = doc(db, 'users', auth.currentUser.uid);
+          try {
+              await updateDoc(userDocRef, {
+                  credits: increment(-1),
+                  [toolField]: increment(1)
+              });
+          } catch(e) {
+              console.error("Failed to consume credit", e.message || e);
+          }
+      };
+
       let unsubscribeCredits = null;
 
       onAuthStateChanged(auth, (user) => {
@@ -3134,7 +3149,7 @@
                 throw new Error(data.error || "Request failed with status " + response.status);
             }
 
-            // Sync guest credits locally if we are guest
+            // Consume credits locally or via firestore
             if (!idToken) {
                 let guestCredits = parseInt(localStorage.getItem('guest_credits') || '5', 10);
                 if (guestCredits > 0) {
@@ -3144,6 +3159,10 @@
                     if (creditsCount) {
                         creditsCount.textContent = 'Guest: ' + guestCredits + ' Credits';
                     }
+                }
+            } else {
+                if (typeof window.consumeUserCredit === 'function') {
+                    await window.consumeUserCredit('handwriting-to-text');
                 }
             }
 
@@ -3160,7 +3179,7 @@
             stopLoadingAnimation();
 
         } catch (err) {
-            console.error(err);
+            console.error(err.message || err);
             alert("Error extracting text: " + err.message);
             document.getElementById('loading-state').classList.add('hidden');
             stopLoadingAnimation();
