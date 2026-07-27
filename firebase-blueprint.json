@@ -12,12 +12,27 @@
         "credits": { "type": "number" }
       },
       "required": ["email", "joinedAt"]
+    },
+    "Guest": {
+      "title": "Guest Profile",
+      "description": "Guest profile with credits and usage statistics",
+      "type": "object",
+      "properties": {
+        "credits": { "type": "number" },
+        "creditsUsed_imageToCode": { "type": "number" },
+        "creditsUsed_handwritingToText": { "type": "number" }
+      },
+      "required": ["credits"]
     }
   },
   "firestore": {
     "/users/{userId}": {
       "schema": "User",
       "description": "User profile documents"
+    },
+    "/guests/{guestId}": {
+      "schema": "Guest",
+      "description": "Guest session documents"
     }
   }
 }

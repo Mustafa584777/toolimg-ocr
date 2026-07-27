@@ -2736,7 +2736,7 @@
           try {
               await signInWithPopup(auth, provider);
           } catch (error) {
-              console.error("Login failed", error);
+              console.error("Login failed", error.message || error);
           }
       };
 
@@ -2744,7 +2744,7 @@
           try {
               await signOut(auth);
           } catch (error) {
-              console.error("Logout failed", error);
+              console.error("Logout failed", error.message || error);
           }
       };
 
@@ -2840,7 +2840,7 @@
                       updateStatsUI(data.creditsUsed_imageToCode || 0, data.creditsUsed_handwritingToText || 0);
                   }
               }, (error) => {
-                  console.error("Error listening to user credits:", error);
+                  console.error("Error listening to user credits:", error.message || error);
                   updateCreditsUI(5, false);
                   updateStatsUI(0, 0);
               });
@@ -2868,7 +2868,7 @@
                       updateStatsUI(data.creditsUsed_imageToCode || 0, data.creditsUsed_handwritingToText || 0);
                   }
               }, (error) => {
-                  console.error("Error listening to guest credits:", error);
+                  console.error("Error listening to guest credits:", error.message || error);
               });
           }
       });
@@ -2980,7 +2980,7 @@
               rzp.open();
 
           } catch (err) {
-              console.error(err);
+              console.error(err.message || err);
               alert("Payment process failed: " + err.message);
           }
       };
@@ -3058,7 +3058,7 @@
               rzp.open();
 
           } catch (err) {
-              console.error(err);
+              console.error(err.message || err);
               alert("Payment process failed: " + err.message);
           }
       };
