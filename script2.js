@@ -37,6 +37,18 @@
             document.getElementById('loading-state').classList.remove('hidden');
             document.getElementById('generate-btn').disabled = true;
 
+            const getCircularReplacer = () => {
+                const seen = new WeakSet();
+                return (key, value) => {
+                    if (typeof value === "object" && value !== null) {
+                        if (seen.has(value)) {
+                            return;
+                        }
+                        seen.add(value);
+                    }
+                    return value;
+                };
+            };
             const payload = {
                 base64Data: currentBase64,
                 framework: document.getElementById('opt-framework').value,
@@ -49,7 +61,7 @@
                 const response = await fetch('/api/ocr', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify(payload)
+                    body: JSON.stringify(payload, getCircularReplacer())
                 });
 
                 const data = await response.json();
