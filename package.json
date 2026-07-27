@@ -14,11 +14,19 @@
     "@google/genai": "^2.10.0",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
+    "firebase-admin": "^14.2.0",
     "razorpay": "^2.9.6",
     "vite": "^6.2.3"
   },
   "devDependencies": {
+    "@tailwindcss/vite": "^4.3.3",
     "@types/express": "^5.0.6",
-    "@types/node": "^26.0.1"
-  }
+    "@types/node": "^26.0.1",
+    "tailwindcss": "^4.3.3"
+  },
+  "description": "",
+  "main": "combined.js",
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

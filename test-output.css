@@ -1,47 +1,11 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToolIMG - AI Tools that just work</title>
-
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-            <style>
-        * { font-family: "Poppins", sans-serif !important; }
-        body { font-family: 'Poppins', sans-serif; background-color: #fafafa; }
-        .dark body { background-color: #0f172a; color: #f8fafc; }
-        
-        /* Mobile Scaling - 30% reduction on mobile */
-        @media (max-width: 768px) {
-            html { font-size: 12px; }
-        }
-        @media (min-width: 769px) {
-            html { font-size: 16px; }
-        }
-    </style>
-
-    <!-- Tailwind CSS -->
-        
-    
-    
-    
-    
-
-
-
-    <!-- Google Fonts -->
-    
-    
-
-
-<style>
-/* TAILWIND INJECTED CSS */
 /*! tailwindcss v4.3.3 | MIT License | https://tailwindcss.com */
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
   :root, :host {
-    --font-sans: "Poppins", sans-serif;
+    --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+      "Noto Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+      "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
     --color-orange-400: oklch(75% 0.183 55.934);
@@ -61,16 +25,16 @@
     --color-indigo-500: oklch(58.5% 0.233 277.117);
     --color-indigo-600: oklch(51.1% 0.262 276.966);
     --color-indigo-900: oklch(35.9% 0.144 278.697);
-    --color-violet-50: #f5f3ff;
-    --color-violet-100: #ede9fe;
-    --color-violet-200: #ddd6fe;
-    --color-violet-300: #c4b5fd;
-    --color-violet-400: #a78bfa;
-    --color-violet-500: #8b5cf6;
-    --color-violet-600: #7c3aed;
-    --color-violet-700: #6d28d9;
-    --color-violet-800: #5b21b6;
-    --color-violet-900: #4c1d95;
+    --color-violet-50: oklch(96.9% 0.016 293.756);
+    --color-violet-100: oklch(94.3% 0.029 294.588);
+    --color-violet-200: oklch(89.4% 0.057 293.283);
+    --color-violet-300: oklch(81.1% 0.111 293.571);
+    --color-violet-400: oklch(70.2% 0.183 293.541);
+    --color-violet-500: oklch(60.6% 0.25 292.717);
+    --color-violet-600: oklch(54.1% 0.281 293.009);
+    --color-violet-700: oklch(49.1% 0.27 292.581);
+    --color-violet-800: oklch(43.2% 0.232 292.759);
+    --color-violet-900: oklch(38% 0.189 293.745);
     --color-violet-950: oklch(28.3% 0.141 291.089);
     --color-slate-50: oklch(98.4% 0.003 247.858);
     --color-slate-100: oklch(96.8% 0.007 247.896);
@@ -896,13 +860,13 @@
     border-color: var(--color-violet-100);
   }
   .border-violet-100\/30 {
-    border-color: color-mix(in srgb, #ede9fe 30%, transparent);
+    border-color: color-mix(in srgb, oklch(94.3% 0.029 294.588) 30%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       border-color: color-mix(in oklab, var(--color-violet-100) 30%, transparent);
     }
   }
   .border-violet-100\/50 {
-    border-color: color-mix(in srgb, #ede9fe 50%, transparent);
+    border-color: color-mix(in srgb, oklch(94.3% 0.029 294.588) 50%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       border-color: color-mix(in oklab, var(--color-violet-100) 50%, transparent);
     }
@@ -1028,7 +992,7 @@
     background-color: var(--color-violet-50);
   }
   .bg-violet-50\/50 {
-    background-color: color-mix(in srgb, #f5f3ff 50%, transparent);
+    background-color: color-mix(in srgb, oklch(96.9% 0.016 293.756) 50%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-violet-50) 50%, transparent);
     }
@@ -1037,7 +1001,7 @@
     background-color: var(--color-violet-100);
   }
   .bg-violet-100\/50 {
-    background-color: color-mix(in srgb, #ede9fe 50%, transparent);
+    background-color: color-mix(in srgb, oklch(94.3% 0.029 294.588) 50%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-violet-100) 50%, transparent);
     }
@@ -1100,7 +1064,7 @@
     --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
   }
   .from-violet-100\/50 {
-    --tw-gradient-from: color-mix(in srgb, #ede9fe 50%, transparent);
+    --tw-gradient-from: color-mix(in srgb, oklch(94.3% 0.029 294.588) 50%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       --tw-gradient-from: color-mix(in oklab, var(--color-violet-100) 50%, transparent);
     }
@@ -1469,25 +1433,25 @@
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-violet-200 {
-    --tw-shadow-color: #ddd6fe;
+    --tw-shadow-color: oklch(89.4% 0.057 293.283);
     @supports (color: color-mix(in lab, red, red)) {
       --tw-shadow-color: color-mix(in oklab, var(--color-violet-200) var(--tw-shadow-alpha), transparent);
     }
   }
   .shadow-violet-500 {
-    --tw-shadow-color: #8b5cf6;
+    --tw-shadow-color: oklch(60.6% 0.25 292.717);
     @supports (color: color-mix(in lab, red, red)) {
       --tw-shadow-color: color-mix(in oklab, var(--color-violet-500) var(--tw-shadow-alpha), transparent);
     }
   }
   .shadow-violet-500\/10 {
-    --tw-shadow-color: color-mix(in srgb, #8b5cf6 10%, transparent);
+    --tw-shadow-color: color-mix(in srgb, oklch(60.6% 0.25 292.717) 10%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-violet-500) 10%, transparent) var(--tw-shadow-alpha), transparent);
     }
   }
   .shadow-violet-500\/20 {
-    --tw-shadow-color: color-mix(in srgb, #8b5cf6 20%, transparent);
+    --tw-shadow-color: color-mix(in srgb, oklch(60.6% 0.25 292.717) 20%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-violet-500) 20%, transparent) var(--tw-shadow-alpha), transparent);
     }
@@ -1608,7 +1572,7 @@
       background-color: var(--color-slate-200);
     }
     .hover\:bg-violet-50\/50:hover {
-      background-color: color-mix(in srgb, #f5f3ff 50%, transparent);
+      background-color: color-mix(in srgb, oklch(96.9% 0.016 293.756) 50%, transparent);
     }
     @supports (color: color-mix(in lab, red, red)) {
       .hover\:bg-violet-50\/50:hover {
@@ -1616,7 +1580,7 @@
       }
     }
     .hover\:bg-violet-200\/80:hover {
-      background-color: color-mix(in srgb, #ddd6fe 80%, transparent);
+      background-color: color-mix(in srgb, oklch(89.4% 0.057 293.283) 80%, transparent);
     }
     @supports (color: color-mix(in lab, red, red)) {
       .hover\:bg-violet-200\/80:hover {
@@ -1657,7 +1621,7 @@
       box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     }
     .hover\:shadow-violet-100:hover {
-      --tw-shadow-color: #ede9fe;
+      --tw-shadow-color: oklch(94.3% 0.029 294.588);
     }
     @supports (color: color-mix(in lab, red, red)) {
       .hover\:shadow-violet-100:hover {
@@ -1665,7 +1629,7 @@
       }
     }
     .hover\:shadow-violet-100\/50:hover {
-      --tw-shadow-color: color-mix(in srgb, #ede9fe 50%, transparent);
+      --tw-shadow-color: color-mix(in srgb, oklch(94.3% 0.029 294.588) 50%, transparent);
     }
     @supports (color: color-mix(in lab, red, red)) {
       .hover\:shadow-violet-100\/50:hover {
@@ -1832,19 +1796,19 @@
     }
   }
   .dark\:border-violet-800\/50:is(.dark *) {
-    border-color: color-mix(in srgb, #5b21b6 50%, transparent);
+    border-color: color-mix(in srgb, oklch(43.2% 0.232 292.759) 50%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       border-color: color-mix(in oklab, var(--color-violet-800) 50%, transparent);
     }
   }
   .dark\:border-violet-900\/20:is(.dark *) {
-    border-color: color-mix(in srgb, #4c1d95 20%, transparent);
+    border-color: color-mix(in srgb, oklch(38% 0.189 293.745) 20%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       border-color: color-mix(in oklab, var(--color-violet-900) 20%, transparent);
     }
   }
   .dark\:border-violet-900\/30:is(.dark *) {
-    border-color: color-mix(in srgb, #4c1d95 30%, transparent);
+    border-color: color-mix(in srgb, oklch(38% 0.189 293.745) 30%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       border-color: color-mix(in oklab, var(--color-violet-900) 30%, transparent);
     }
@@ -1913,25 +1877,25 @@
     background-color: var(--color-violet-500);
   }
   .dark\:bg-violet-900\/20:is(.dark *) {
-    background-color: color-mix(in srgb, #4c1d95 20%, transparent);
+    background-color: color-mix(in srgb, oklch(38% 0.189 293.745) 20%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-violet-900) 20%, transparent);
     }
   }
   .dark\:bg-violet-900\/30:is(.dark *) {
-    background-color: color-mix(in srgb, #4c1d95 30%, transparent);
+    background-color: color-mix(in srgb, oklch(38% 0.189 293.745) 30%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-violet-900) 30%, transparent);
     }
   }
   .dark\:bg-violet-900\/40:is(.dark *) {
-    background-color: color-mix(in srgb, #4c1d95 40%, transparent);
+    background-color: color-mix(in srgb, oklch(38% 0.189 293.745) 40%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-violet-900) 40%, transparent);
     }
   }
   .dark\:bg-violet-900\/50:is(.dark *) {
-    background-color: color-mix(in srgb, #4c1d95 50%, transparent);
+    background-color: color-mix(in srgb, oklch(38% 0.189 293.745) 50%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-violet-900) 50%, transparent);
     }
@@ -1949,7 +1913,7 @@
     }
   }
   .dark\:from-violet-900\/20:is(.dark *) {
-    --tw-gradient-from: color-mix(in srgb, #4c1d95 20%, transparent);
+    --tw-gradient-from: color-mix(in srgb, oklch(38% 0.189 293.745) 20%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       --tw-gradient-from: color-mix(in oklab, var(--color-violet-900) 20%, transparent);
     }
@@ -2001,13 +1965,13 @@
     color: var(--color-white);
   }
   .dark\:shadow-violet-900\/20:is(.dark *) {
-    --tw-shadow-color: color-mix(in srgb, #4c1d95 20%, transparent);
+    --tw-shadow-color: color-mix(in srgb, oklch(38% 0.189 293.745) 20%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-violet-900) 20%, transparent) var(--tw-shadow-alpha), transparent);
     }
   }
   .dark\:ring-violet-800\/50:is(.dark *) {
-    --tw-ring-color: color-mix(in srgb, #5b21b6 50%, transparent);
+    --tw-ring-color: color-mix(in srgb, oklch(43.2% 0.232 292.759) 50%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       --tw-ring-color: color-mix(in oklab, var(--color-violet-800) 50%, transparent);
     }
@@ -2032,7 +1996,7 @@
       background-color: var(--color-slate-800);
     }
     .dark\:hover\:bg-violet-900\/10:is(.dark *):hover {
-      background-color: color-mix(in srgb, #4c1d95 10%, transparent);
+      background-color: color-mix(in srgb, oklch(38% 0.189 293.745) 10%, transparent);
     }
     @supports (color: color-mix(in lab, red, red)) {
       .dark\:hover\:bg-violet-900\/10:is(.dark *):hover {
@@ -2049,7 +2013,7 @@
       color: var(--color-white);
     }
     .dark\:hover\:shadow-violet-900\/20:is(.dark *):hover {
-      --tw-shadow-color: color-mix(in srgb, #4c1d95 20%, transparent);
+      --tw-shadow-color: color-mix(in srgb, oklch(38% 0.189 293.745) 20%, transparent);
     }
     @supports (color: color-mix(in lab, red, red)) {
       .dark\:hover\:shadow-violet-900\/20:is(.dark *):hover {
@@ -2429,602 +2393,3 @@
     }
   }
 }
-
-</style>
-</head>
-<body class="hero-gradient text-slate-800 min-h-screen flex flex-col">
-    <!-- Navbar -->
-<header class="w-full max-w-[85vw] mx-auto px-4 sm:px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-100 dark:border-slate-800 sticky top-4 z-40 shadow-sm rounded-2xl mb-8 transition-colors">
-    <div class="flex items-center gap-2 w-full justify-between">
-        <a href="/" class="flex items-center gap-2">
-            <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG" class="h-8 object-contain">
-            <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
-        </a>
-        
-        <!-- Desktop Nav -->
-        <nav class="hidden md:flex items-center gap-8">
-            <a href="/" class="text-[15px] font-medium text-violet-600 dark:text-violet-400 transition">Home</a>
-            <a href="/tools/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Tools</a>
-            <a href="/dashboard/" id="dashboard-nav" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition hidden">Dashboard</a>
-            <a href="/pricing/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Pricing</a>
-            
-            <div class="relative">
-                <button id="theme-btn" class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition" aria-label="Toggle theme">
-                    <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                </button>
-            </div>
-        </nav>
-        
-        <div class="flex items-center gap-3">
-            <div id="credits-display" class="hidden items-center gap-2 bg-violet-100/50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-xs font-semibold px-3 py-1.5 rounded-full ring-1 ring-inset ring-violet-200 dark:ring-violet-800/50 cursor-pointer hover:bg-violet-200/80 dark:hover:bg-violet-950 transition">
-                <svg class="w-3.5 h-3.5 text-violet-600 dark:text-violet-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
-                <span id="credits-count">5 Credits</span>
-            </div>
-            <div class="hidden md:flex items-center gap-3">
-                <button id="login-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Log in</button>
-                <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-xl transition shadow-sm">Sign up</button>
-            </div>
-            <div id="user-menu" class="hidden items-center gap-3">
-                <span id="user-name" class="text-sm font-medium text-slate-700 dark:text-slate-300"></span>
-                <button onclick="handleLogout()" class="text-sm text-slate-500 hover:text-slate-700 dark:hover:text-slate-300">Logout</button>
-            </div>
-            
-            <!-- Mobile menu button -->
-            <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition ml-1">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
-            </button>
-        </div>
-    </div>
-</header>
-<!-- Mobile Menu Modal -->
-<div id="mobile-menu-modal" class="fixed inset-0 z-50 hidden flex-col items-center justify-center p-4">
-    <div id="mobile-menu-backdrop" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
-    <div id="mobile-menu-content" class="relative w-full max-w-[340px] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-visible transition-all scale-95 opacity-0 duration-200 ease-out">
-        <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100 dark:border-slate-800">
-            <div class="flex items-center gap-3">
-                <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG" class="h-6 object-contain">
-                <span class="font-bold text-lg text-slate-900 dark:text-white tracking-tight">ToolIMG</span>
-            </div>
-            <button id="mobile-menu-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-        <div class="px-3 py-3 flex flex-col gap-1">
-            <a href="/" class="px-4 py-3.5 text-[15px] font-medium text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 rounded-xl transition flex items-center">Home</a>
-            <a href="/tools/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Tools</a>
-            <a href="/dashboard/" id="mobile-dashboard-nav" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center hidden">Dashboard</a>
-            <a href="/pricing/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Pricing</a>
-            
-            <!-- Mobile Auth Section -->
-            <div id="mobile-auth-guest" class="flex flex-col gap-2 mt-2 px-3">
-                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Log in</button>
-                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-xl transition shadow-sm">Sign up</button>
-            </div>
-            <div id="mobile-auth-user" class="hidden flex-col gap-2 mt-2 px-3">
-                <div class="flex items-center gap-2 px-1 py-1">
-                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                    <span id="mobile-user-name" class="text-sm font-medium text-slate-700 dark:text-slate-300 truncate"></span>
-                </div>
-                <button onclick="handleLogout()" class="w-full py-2.5 text-center text-sm font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Logout</button>
-            </div>
-            
-            <!-- Divider -->
-            <div class="h-px bg-slate-100 dark:bg-slate-800 w-full my-2"></div>
-        <!-- Theme Toggle -->
-        <div class="px-3 py-2 relative">
-            <button id="theme-menu-btn" class="w-full px-4 py-3.5 flex justify-between items-center text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">
-                <span>Theme</span>
-                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-            </button>
-            
-            <!-- Theme Dropdown Popover -->
-            <div id="theme-popover" class="absolute bottom-[100%] right-3 mb-2 w-48 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 p-2 hidden flex-col gap-1 z-50">
-                <button onclick="setTheme('light')" id="theme-light-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-900 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">
-                    <div class="flex items-center gap-3">
-                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                        Light
-                    </div>
-                    <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                </button>
-                <button onclick="setTheme('dark')" id="theme-dark-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">
-                    <div class="flex items-center gap-3">
-                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                        Dark
-                    </div>
-                    <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                </button>
-                <button onclick="setTheme('system')" id="theme-system-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">
-                    <div class="flex items-center gap-3">
-                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                        System
-                    </div>
-                    <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                </button>
-            </div>
-        </div>
-        </div>
-    </div>
-</div>
-<script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const btn = document.getElementById('mobile-menu-btn');
-        const closeBtn = document.getElementById('mobile-menu-close');
-        const modal = document.getElementById('mobile-menu-modal');
-        const backdrop = document.getElementById('mobile-menu-backdrop');
-        const content = document.getElementById('mobile-menu-content');
-        
-        function openModal() {
-            if(!modal) return;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            void modal.offsetWidth;
-            backdrop.classList.remove('opacity-0');
-            backdrop.classList.add('opacity-100');
-            content.classList.remove('scale-95', 'opacity-0');
-            content.classList.add('scale-100', 'opacity-100');
-        }
-        
-        function closeModal() {
-            if(!modal) return;
-            backdrop.classList.remove('opacity-100');
-            backdrop.classList.add('opacity-0');
-            content.classList.remove('scale-100', 'opacity-100');
-            content.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }, 200);
-        }
-        
-        if(btn) btn.addEventListener('click', openModal);
-        if(closeBtn) closeBtn.addEventListener('click', closeModal);
-        if(backdrop) backdrop.addEventListener('click', closeModal);
-    });
-</script>
-<!-- End Navbar -->
-
-    <!-- Main Content -->
-    <main class="flex-grow flex flex-col items-center justify-center w-full px-6 py-20 text-center relative overflow-hidden">
-    <!-- Clean background gradient -->
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-100/50 via-white to-white dark:from-violet-900/20 dark:via-slate-950 dark:to-slate-950 -z-10"></div>
-    
-    <div class="max-w-4xl mx-auto space-y-8 relative z-10">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-100/50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-sm font-medium mb-4 ring-1 ring-inset ring-violet-200 dark:ring-violet-800/50">
-            <span class="flex h-2 w-2 rounded-full bg-violet-600 dark:bg-violet-400"></span>
-            Next-gen AI Utilities
-        </div>
-        
-        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
-            Build Faster with <br/>
-            <span class="text-violet-600 dark:text-violet-400">ToolIMG AI</span>
-        </h1>
-        
-        <p class="text-lg md:text-xl font-semibold text-violet-600 dark:text-violet-400 max-w-2xl mx-auto tracking-wide">
-            Your ultimate destination for all the OCR tools you need
-        </p>
-        
-        <p class="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Convert designs to code and extract text from handwriting with unparalleled accuracy. Experience the future of AI-powered developer tools.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <a href="/tools/" class="px-8 py-4 bg-violet-600 hover:bg-violet-700 text-white rounded-2xl font-bold transition shadow-lg shadow-violet-200 dark:shadow-violet-900/20 w-full sm:w-auto text-lg">
-                Explore Tools
-            </a>
-            <a href="/pricing/" class="px-8 py-4 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 rounded-2xl font-bold transition w-full sm:w-auto text-lg">
-                View Pricing
-            </a>
-        </div>
-    </div>
-    
-    <!-- Premium Features Grid -->
-    <div class="max-w-6xl mx-auto mt-32 grid grid-cols-1 md:grid-cols-3 gap-8 text-left z-10 w-full">
-        <div class="p-8 rounded-3xl bg-white/60 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 backdrop-blur-md transition hover:-translate-y-1 hover:shadow-xl hover:shadow-violet-100/50 dark:hover:shadow-violet-900/20">
-            <div class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-6">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Image to Code AI</h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Turn any UI mockup, screenshot, or wireframe into production-ready HTML, Tailwind, and React code instantly.</p>
-        </div>
-        
-        <div class="p-8 rounded-3xl bg-white/60 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 backdrop-blur-md transition hover:-translate-y-1 hover:shadow-xl hover:shadow-violet-100/50 dark:hover:shadow-violet-900/20">
-            <div class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-6">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Handwriting OCR</h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Digitize messy handwritten notes, vintage documents, and whiteboard sketches with unparalleled precision.</p>
-        </div>
-        
-        <div class="p-8 rounded-3xl bg-white/60 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 backdrop-blur-md transition hover:-translate-y-1 hover:shadow-xl hover:shadow-violet-100/50 dark:hover:shadow-violet-900/20">
-            <div class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-6">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Lightning Fast</h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Powered by advanced multimodal models, our tools deliver results in seconds, streamlining your workflow.</p>
-        </div>
-    </div>
-</main>
-        
-        
-        
-
-    
-    <!-- Footer -->
-<footer class="bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 mt-auto pt-16 pb-8 transition-colors">
-    <div class="max-w-[85vw] mx-auto px-4 sm:px-6">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-            <div class="md:col-span-1">
-                <a href="/" class="flex items-center gap-2 mb-4">
-                    <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG" class="h-8 object-contain">
-                    <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
-                </a>
-                <p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed mb-4">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
-                <a href="mailto:support@toolimg.online" class="text-violet-600 dark:text-violet-400 font-medium hover:underline text-[11px]">support@toolimg.online</a>
-            </div>
-            <div>
-                <h4 class="font-bold text-slate-900 dark:text-white mb-5">Products</h4>
-                <ul class="space-y-3.5">
-                    <li><a href="/tools/image-to-code/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Image to Code AI</a></li>
-                    <li><a href="/tools/handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Handwriting OCR</a></li>
-                    <li><a href="/tools/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">All Tools</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-bold text-slate-900 dark:text-white mb-5">Company</h4>
-                <ul class="space-y-3.5">
-                    <li><a href="https://toolimg.online/about.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">About Us</a></li>
-                    <li><a href="https://toolimg.online/contact.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Contact Us</a></li>
-                    <li><a href="/pricing/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Pricing</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-bold text-slate-900 dark:text-white mb-5">Legal</h4>
-                <ul class="space-y-3.5">
-                    <li><a href="https://toolimg.online/privacy-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a></li>
-                    <li><a href="https://toolimg.online/terms.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Terms of Service</a></li>
-                    <li><a href="https://toolimg.online/refund-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Refund Policy</a></li>
-                    <li><a href="https://toolimg.online/disclaimer.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Disclaimer</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p class="text-[11px] text-slate-500 dark:text-slate-400">© 2026 ToolIMG. All rights reserved.</p>
-            <div class="flex gap-4">
-            </div>
-        </div>
-    </div>
-</footer>
-<!-- End Footer -->
-    
-    <!-- Firebase Scripts -->
-    <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-      import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-      import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-      
-      const firebaseConfig = {
-          apiKey: "AIzaSyCFyGzp7viV1tq25DAMnpKKSJpPngtVa14",
-          authDomain: "gen-lang-client-0844549707.firebaseapp.com",
-          projectId: "gen-lang-client-0844549707",
-          firestoreDatabaseId: "ai-studio-toolimg-a40860b9-3db9-4eab-a65f-f070e159a9b3",
-          storageBucket: "gen-lang-client-0844549707.firebasestorage.app",
-          messagingSenderId: "845800015860",
-          appId: "1:845800015860:web:a6229be704605991785ba1"
-      };
-      
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-      const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
-      const provider = new GoogleAuthProvider();
-
-      window.handleLogin = async function() {
-          try {
-              await signInWithPopup(auth, provider);
-          } catch (error) {
-              console.error("Login failed", error);
-          }
-      };
-
-      window.handleLogout = async function() {
-          try {
-              await signOut(auth);
-          } catch (error) {
-              console.error("Logout failed", error);
-          }
-      };
-
-      if (localStorage.getItem('guest_credits') === null) {
-          localStorage.setItem('guest_credits', '5');
-      }
-      if (!localStorage.getItem('guest_id')) {
-          localStorage.setItem('guest_id', 'guest_' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
-      }
-
-      function updateCreditsUI(credits, isGuest = false) {
-          const creditsDisplay = document.getElementById('credits-display');
-          const creditsCount = document.getElementById('credits-count');
-          if (creditsDisplay && creditsCount) {
-              creditsDisplay.classList.remove('hidden');
-              creditsDisplay.classList.add('flex');
-              creditsCount.textContent = (isGuest ? 'Guest: ' : '') + credits + ' Credits';
-          }
-          const statsBalance = document.getElementById('stats-remaining-balance');
-          if (statsBalance) {
-              statsBalance.textContent = credits + ' Credits';
-          }
-      }
-
-      function updateStatsUI(creditsUsedImgCode, creditsUsedHandwriting) {
-          const imgCodeUsed = parseInt(creditsUsedImgCode || '0', 10);
-          const handwritingUsed = parseInt(creditsUsedHandwriting || '0', 10);
-          
-          const maxThreshold = 10;
-          const imgProgress = Math.min((imgCodeUsed / maxThreshold) * 100, 100);
-          const handwritingProgress = Math.min((handwritingUsed / maxThreshold) * 100, 100);
-          
-          const modalImgCount = document.getElementById('stats-img-code-count');
-          const modalImgProgress = document.getElementById('stats-img-code-progress');
-          const modalHwCount = document.getElementById('stats-handwriting-count');
-          const modalHwProgress = document.getElementById('stats-handwriting-progress');
-          
-          if (modalImgCount) modalImgCount.textContent = imgCodeUsed + ' Credits';
-          if (modalImgProgress) modalImgProgress.style.width = imgProgress + '%';
-          if (modalHwCount) modalHwCount.textContent = handwritingUsed + ' Credits';
-          if (modalHwProgress) modalHwProgress.style.width = handwritingProgress + '%';
-      }
-
-      let unsubscribeCredits = null;
-
-      onAuthStateChanged(auth, (user) => {
-          const loginBtn = document.getElementById('login-btn');
-          const signupBtn = document.getElementById('signup-btn');
-          const userMenu = document.getElementById('user-menu');
-          const userName = document.getElementById('user-name');
-          
-          const mobileAuthGuest = document.getElementById('mobile-auth-guest');
-          const mobileAuthUser = document.getElementById('mobile-auth-user');
-          const mobileUserName = document.getElementById('mobile-user-name');
-
-          const dashboardNav = document.getElementById('dashboard-nav');
-          const mobileDashboardNav = document.getElementById('mobile-dashboard-nav');
-
-          if (unsubscribeCredits) {
-              unsubscribeCredits();
-              unsubscribeCredits = null;
-          }
-          
-          if (user) {
-              if(loginBtn) loginBtn.style.display = 'none';
-              if(signupBtn) signupBtn.style.display = 'none';
-              if(userMenu) userMenu.style.display = 'flex';
-              if(userName) userName.textContent = user.displayName || user.email;
-              
-              if(mobileAuthGuest) mobileAuthGuest.style.display = 'none';
-              if(mobileAuthUser) mobileAuthUser.style.display = 'flex';
-              if(mobileUserName) mobileUserName.textContent = user.displayName || user.email;
-
-              if(dashboardNav) dashboardNav.classList.remove('hidden');
-              if(mobileDashboardNav) mobileDashboardNav.classList.remove('hidden');
-
-              const userDocRef = doc(db, 'users', user.uid);
-              unsubscribeCredits = onSnapshot(userDocRef, async (docSnap) => {
-                  if (!docSnap.exists()) {
-                      await setDoc(userDocRef, {
-                          email: user.email,
-                          displayName: user.displayName || '',
-                          credits: 5,
-                          creditsUsed_imageToCode: 0,
-                          creditsUsed_handwritingToText: 0,
-                          createdAt: new Date().toISOString()
-                      });
-                      updateCreditsUI(5, false);
-                      updateStatsUI(0, 0);
-                  } else {
-                      const data = docSnap.data();
-                      updateCreditsUI(data.credits || 0, false);
-                      updateStatsUI(data.creditsUsed_imageToCode || 0, data.creditsUsed_handwritingToText || 0);
-                  }
-              }, (error) => {
-                  console.error("Error listening to user credits:", error);
-                  updateCreditsUI(5, false);
-                  updateStatsUI(0, 0);
-              });
-          } else {
-              if(loginBtn) loginBtn.style.display = 'block';
-              if(signupBtn) signupBtn.style.display = 'block';
-              if(userMenu) userMenu.style.display = 'none';
-              
-              if(mobileAuthGuest) mobileAuthGuest.style.display = 'flex';
-              if(mobileAuthUser) mobileAuthUser.style.display = 'none';
-
-              if(dashboardNav) dashboardNav.classList.add('hidden');
-              if(mobileDashboardNav) mobileDashboardNav.classList.add('hidden');
-
-              let guestCredits = parseInt(localStorage.getItem('guest_credits') || '5', 10);
-              updateCreditsUI(guestCredits, true);
-              updateStatsUI(0, 0);
-
-              const guestId = localStorage.getItem('guest_id') || 'guest_unknown';
-              const guestDocRef = doc(db, 'guests', guestId);
-              unsubscribeCredits = onSnapshot(guestDocRef, (docSnap) => {
-                  if (docSnap.exists()) {
-                      const data = docSnap.data();
-                      updateCreditsUI(data.credits || 0, true);
-                      updateStatsUI(data.creditsUsed_imageToCode || 0, data.creditsUsed_handwritingToText || 0);
-                  }
-              }, (error) => {
-                  console.error("Error listening to guest credits:", error);
-              });
-          }
-      });
-    </script>
-
-<script>
-    function updateThemeUI(theme) {
-        ['light', 'dark', 'system'].forEach(t => {
-            const btn = document.getElementById('theme-' + t + '-btn');
-            if (btn) {
-                const check = btn.querySelector('.check-icon');
-                if (check) { if (t === theme) {
-                    check.classList.remove('hidden');
-                    btn.classList.add('bg-slate-50', 'dark:bg-slate-800', 'text-slate-900', 'dark:text-white');
-                    btn.classList.remove('text-slate-600', 'dark:text-slate-300');
-                } else {
-                    check.classList.add('hidden');
-                    btn.classList.remove('bg-slate-50', 'dark:bg-slate-800', 'text-slate-900', 'dark:text-white');
-                    btn.classList.add('text-slate-600', 'dark:text-slate-300');
-                } }
-            }
-        });
-    }
-
-    function setTheme(theme) {
-        if (theme === 'system') {
-            localStorage.removeItem('theme');
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        } else {
-            localStorage.theme = theme;
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark');
-            }
-        }
-        updateThemeUI(theme);
-    }
-
-    let initialTheme = 'light';
-    if (localStorage.theme === 'dark') {
-        document.documentElement.classList.add('dark');
-        initialTheme = 'dark';
-    } else if (localStorage.theme === 'light') {
-        document.documentElement.classList.remove('dark');
-        initialTheme = 'light';
-    } else if (!('theme' in localStorage)) {
-        document.documentElement.classList.remove('dark');
-        initialTheme = 'light';
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        updateThemeUI(initialTheme);
-        
-        const themeBtn = document.getElementById('theme-btn');
-        if (themeBtn) {
-            themeBtn.addEventListener('click', () => {
-                if (document.documentElement.classList.contains('dark')) {
-                    setTheme('light');
-                } else {
-                    setTheme('dark');
-                }
-            });
-        }
-        
-        const mobileThemeBtn = document.getElementById('theme-menu-btn');
-        const themePopover = document.getElementById('theme-popover');
-        if(mobileThemeBtn && themePopover) {
-            mobileThemeBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if(themePopover.classList.contains('hidden')) {
-                    themePopover.classList.remove('hidden');
-                    themePopover.classList.add('flex');
-                } else {
-                    themePopover.classList.add('hidden');
-                    themePopover.classList.remove('flex');
-                }
-            });
-            document.addEventListener('click', (e) => {
-                if(!themePopover.contains(e.target) && !mobileThemeBtn.contains(e.target)) {
-                    themePopover.classList.add('hidden');
-                    themePopover.classList.remove('flex');
-                }
-            });
-        }
-
-        // Stats Modal Trigger Logic
-        const creditsDisplay = document.getElementById('credits-display');
-        const statsModal = document.getElementById('stats-modal');
-        const statsBackdrop = document.getElementById('stats-modal-backdrop');
-        const statsContent = document.getElementById('stats-modal-content');
-        const statsClose = document.getElementById('stats-modal-close');
-
-        function openStatsModal() {
-            if(!statsModal) return;
-            statsModal.classList.remove('hidden');
-            statsModal.classList.add('flex');
-            void statsModal.offsetWidth;
-            statsBackdrop.classList.remove('opacity-0');
-            statsBackdrop.classList.add('opacity-100');
-            statsContent.classList.remove('scale-95', 'opacity-0');
-            statsContent.classList.add('scale-100', 'opacity-100');
-        }
-
-        function closeStatsModal() {
-            if(!statsModal) return;
-            statsBackdrop.classList.remove('opacity-100');
-            statsBackdrop.classList.add('opacity-0');
-            statsContent.classList.remove('scale-100', 'opacity-100');
-            statsContent.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                statsModal.classList.add('hidden');
-                statsModal.classList.remove('flex');
-            }, 200);
-        }
-
-        if(creditsDisplay) creditsDisplay.addEventListener('click', openStatsModal);
-        if(statsClose) statsClose.addEventListener('click', closeStatsModal);
-        if(statsBackdrop) statsBackdrop.addEventListener('click', closeStatsModal);
-    });
-</script>
-
-<!-- Interactive Stats Popup Modal -->
-<div id="stats-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
-    <div id="stats-modal-backdrop" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
-    <div id="stats-modal-content" class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl shadow-2xl p-6 border border-slate-100 dark:border-slate-800 transition-all scale-95 opacity-0 duration-200 ease-out">
-        <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
-            <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
-                Credit Usage Stats
-            </h3>
-            <button id="stats-modal-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1.5 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-        
-        <div class="space-y-6">
-            <!-- Image to Code in Modal -->
-            <div>
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Image to Code AI</span>
-                    <span id="stats-img-code-count" class="text-xs font-bold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 px-2.5 py-1 rounded-md">0 Credits</span>
-                </div>
-                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
-                    <div id="stats-img-code-progress" class="bg-violet-600 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
-                </div>
-            </div>
-            
-            <!-- Handwriting OCR in Modal -->
-            <div>
-                <div class="flex justify-between items-center mb-2">
-                    <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Handwriting OCR</span>
-                    <span id="stats-handwriting-count" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2.5 py-1 rounded-md">0 Credits</span>
-                </div>
-                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-full overflow-hidden">
-                    <div id="stats-handwriting-progress" class="bg-indigo-600 h-full rounded-full transition-all duration-500" style="width: 0%"></div>
-                </div>
-            </div>
-            
-            <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between text-xs text-slate-500">
-                <span>Remaining Balance</span>
-                <span id="stats-remaining-balance" class="font-bold text-slate-700 dark:text-slate-300">5 Credits</span>
-            </div>
-        </div>
-    </div>
-</div>
-
-</body>
-</html>

@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="light">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToolIMG - AI Tools that just work</title>
-
+    <title>Pricing - ToolIMG</title>
+    
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
             <style>
         * { font-family: "Poppins", sans-serif !important; }
@@ -19,19 +19,8 @@
             html { font-size: 16px; }
         }
     </style>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
 
-    <!-- Tailwind CSS -->
-        
-    
-    
-    
-    
-
-
-
-    <!-- Google Fonts -->
-    
-    
 
 
 <style>
@@ -2432,7 +2421,7 @@
 
 </style>
 </head>
-<body class="hero-gradient text-slate-800 min-h-screen flex flex-col">
+<body class="bg-white dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen flex flex-col">
     <!-- Navbar -->
 <header class="w-full max-w-[85vw] mx-auto px-4 sm:px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-100 dark:border-slate-800 sticky top-4 z-40 shadow-sm rounded-2xl mb-8 transition-colors">
     <div class="flex items-center gap-2 w-full justify-between">
@@ -2443,10 +2432,10 @@
         
         <!-- Desktop Nav -->
         <nav class="hidden md:flex items-center gap-8">
-            <a href="/" class="text-[15px] font-medium text-violet-600 dark:text-violet-400 transition">Home</a>
+            <a href="/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Home</a>
             <a href="/tools/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Tools</a>
             <a href="/dashboard/" id="dashboard-nav" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition hidden">Dashboard</a>
-            <a href="/pricing/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Pricing</a>
+            <a href="/pricing/" class="text-[15px] font-medium text-violet-600 dark:text-violet-400 transition">Pricing</a>
             
             <div class="relative">
                 <button id="theme-btn" class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition" aria-label="Toggle theme">
@@ -2491,10 +2480,10 @@
             </button>
         </div>
         <div class="px-3 py-3 flex flex-col gap-1">
-            <a href="/" class="px-4 py-3.5 text-[15px] font-medium text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 rounded-xl transition flex items-center">Home</a>
+            <a href="/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Home</a>
             <a href="/tools/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Tools</a>
             <a href="/dashboard/" id="mobile-dashboard-nav" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center hidden">Dashboard</a>
-            <a href="/pricing/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Pricing</a>
+            <a href="/pricing/" class="px-4 py-3.5 text-[15px] font-medium text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 rounded-xl transition flex items-center">Pricing</a>
             
             <!-- Mobile Auth Section -->
             <div id="mobile-auth-guest" class="flex flex-col gap-2 mt-2 px-3">
@@ -2583,113 +2572,138 @@
     });
 </script>
 <!-- End Navbar -->
-
-    <!-- Main Content -->
-    <main class="flex-grow flex flex-col items-center justify-center w-full px-6 py-20 text-center relative overflow-hidden">
-    <!-- Clean background gradient -->
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-100/50 via-white to-white dark:from-violet-900/20 dark:via-slate-950 dark:to-slate-950 -z-10"></div>
     
-    <div class="max-w-4xl mx-auto space-y-8 relative z-10">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-100/50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-sm font-medium mb-4 ring-1 ring-inset ring-violet-200 dark:ring-violet-800/50">
-            <span class="flex h-2 w-2 rounded-full bg-violet-600 dark:bg-violet-400"></span>
-            Next-gen AI Utilities
-        </div>
+    <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 py-20 text-center">
+        <h1 class="text-4xl md:text-5xl font-extrabold tracking-tight mb-4 text-slate-900 dark:text-white">Simple, transparent pricing</h1>
+        <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto mb-16">Get access to powerful AI developer tools. No hidden fees.</p>
         
-        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
-            Build Faster with <br/>
-            <span class="text-violet-600 dark:text-violet-400">ToolIMG AI</span>
-        </h1>
-        
-        <p class="text-lg md:text-xl font-semibold text-violet-600 dark:text-violet-400 max-w-2xl mx-auto tracking-wide">
-            Your ultimate destination for all the OCR tools you need
-        </p>
-        
-        <p class="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Convert designs to code and extract text from handwriting with unparalleled accuracy. Experience the future of AI-powered developer tools.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <a href="/tools/" class="px-8 py-4 bg-violet-600 hover:bg-violet-700 text-white rounded-2xl font-bold transition shadow-lg shadow-violet-200 dark:shadow-violet-900/20 w-full sm:w-auto text-lg">
-                Explore Tools
-            </a>
-            <a href="/pricing/" class="px-8 py-4 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 rounded-2xl font-bold transition w-full sm:w-auto text-lg">
-                View Pricing
-            </a>
-        </div>
-    </div>
-    
-    <!-- Premium Features Grid -->
-    <div class="max-w-6xl mx-auto mt-32 grid grid-cols-1 md:grid-cols-3 gap-8 text-left z-10 w-full">
-        <div class="p-8 rounded-3xl bg-white/60 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 backdrop-blur-md transition hover:-translate-y-1 hover:shadow-xl hover:shadow-violet-100/50 dark:hover:shadow-violet-900/20">
-            <div class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-6">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-6xl mx-auto text-left">
+            <!-- Free Plan -->
+            <div class="bg-slate-50 dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 flex flex-col">
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Free</h3>
+                <p class="text-slate-500 dark:text-slate-400 mb-6">Perfect for trying out our AI tools.</p>
+                <div class="text-4xl font-extrabold text-slate-900 dark:text-white mb-8">₹0 <span class="text-lg font-medium text-slate-500 dark:text-slate-400">/mo</span></div>
+                
+                <ul class="space-y-4 mb-8 flex-grow text-sm">
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+                        <svg class="w-5 h-5 text-violet-600 dark:text-violet-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        5 credits on start
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+                        <svg class="w-5 h-5 text-violet-600 dark:text-violet-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        1 credit per tool result
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+                        <svg class="w-5 h-5 text-violet-600 dark:text-violet-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Standard generation speed
+                    </li>
+                </ul>
+                
+                <button onclick="handleLogin()" class="w-full py-4 bg-white dark:bg-slate-800 text-slate-900 dark:text-white border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 rounded-2xl font-bold transition">Get Started</button>
             </div>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Image to Code AI</h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Turn any UI mockup, screenshot, or wireframe into production-ready HTML, Tailwind, and React code instantly.</p>
-        </div>
-        
-        <div class="p-8 rounded-3xl bg-white/60 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 backdrop-blur-md transition hover:-translate-y-1 hover:shadow-xl hover:shadow-violet-100/50 dark:hover:shadow-violet-900/20">
-            <div class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-6">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Handwriting OCR</h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Digitize messy handwritten notes, vintage documents, and whiteboard sketches with unparalleled precision.</p>
-        </div>
-        
-        <div class="p-8 rounded-3xl bg-white/60 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 backdrop-blur-md transition hover:-translate-y-1 hover:shadow-xl hover:shadow-violet-100/50 dark:hover:shadow-violet-900/20">
-            <div class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-6">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Lightning Fast</h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Powered by advanced multimodal models, our tools deliver results in seconds, streamlining your workflow.</p>
-        </div>
-    </div>
-</main>
-        
-        
-        
+            
+            <!-- Custom Credits Pay-As-You-Go Plan -->
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-8 flex flex-col relative shadow-lg">
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-2">Pay As You Go</h3>
+                <p class="text-slate-500 dark:text-slate-400 mb-6">Buy exactly the number of credits you need.</p>
+                <div class="text-4xl font-extrabold text-slate-900 dark:text-white mb-6">₹1 <span class="text-lg font-medium text-slate-500 dark:text-slate-400">/credit</span></div>
+                
+                <div class="bg-slate-50 dark:bg-slate-950 p-4 rounded-2xl border border-slate-100 dark:border-slate-800 mb-6">
+                    <label class="block text-xs font-semibold text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">Select Credits</label>
+                    <div class="flex items-center justify-between gap-4">
+                        <button type="button" onclick="changeCustomCredits(-10)" class="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition">-</button>
+                        <input type="number" id="custom-credits-input" min="10" max="1000" value="50" oninput="validateCustomCredits()" class="flex-grow text-center font-bold text-xl bg-transparent text-slate-900 dark:text-white border-b border-dashed border-slate-300 dark:border-slate-700 focus:outline-none focus:border-violet-500 py-1 w-20">
+                        <button type="button" onclick="changeCustomCredits(10)" class="w-10 h-10 rounded-xl bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 flex items-center justify-center font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-700 transition">+</button>
+                    </div>
+                    <div class="mt-4 flex justify-between items-center text-sm font-medium">
+                        <span class="text-slate-500 dark:text-slate-400">Total Price:</span>
+                        <span id="custom-credits-price" class="font-bold text-violet-600 dark:text-violet-400 text-lg">₹50</span>
+                    </div>
+                </div>
 
+                <ul class="space-y-4 mb-8 flex-grow text-sm">
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+                        <svg class="w-5 h-5 text-violet-600 dark:text-violet-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        1 credit = 1 result in any tool
+                    </li>
+                    <li class="flex items-center gap-3 text-slate-700 dark:text-slate-300">
+                        <svg class="w-5 h-5 text-violet-600 dark:text-violet-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        No expiration date on credits
+                    </li>
+                </ul>
+                
+                <button type="button" onclick="buyCreditsPack()" class="w-full py-4 bg-violet-600 text-white hover:bg-violet-700 rounded-2xl font-bold transition shadow-md shadow-violet-500/10">Buy Credits Now</button>
+            </div>
+            
+            <!-- Pro Plan -->
+            <div class="bg-violet-600 border border-violet-500 rounded-3xl p-8 flex flex-col relative shadow-2xl shadow-violet-500/20">
+                <div class="absolute top-0 right-8 transform -translate-y-1/2">
+                    <span class="bg-gradient-to-r from-amber-400 to-orange-400 text-slate-900 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wider">Most Popular</span>
+                </div>
+                <h3 class="text-2xl font-bold text-white mb-2">Pro</h3>
+                <p class="text-violet-200 mb-6">For professionals and heavy users.</p>
+                <div class="text-4xl font-extrabold text-white mb-8">₹1500 <span class="text-lg font-medium text-violet-300">/mo</span></div>
+                
+                <ul class="space-y-4 mb-8 flex-grow text-sm">
+                    <li class="flex items-center gap-3 text-white">
+                        <svg class="w-5 h-5 text-violet-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Unlimited generations
+                    </li>
+                    <li class="flex items-center gap-3 text-white">
+                        <svg class="w-5 h-5 text-violet-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Unlimited OCR extractions
+                    </li>
+                    <li class="flex items-center gap-3 text-white">
+                        <svg class="w-5 h-5 text-violet-300 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        Priority fast generation speed
+                    </li>
+                </ul>
+                
+                <button onclick="buyProPlan()" class="w-full py-4 bg-white text-violet-900 hover:bg-slate-50 rounded-2xl font-bold transition">Upgrade to Pro</button>
+            </div>
+        </div>
+    </main>
     
     <!-- Footer -->
-<footer class="bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 mt-auto pt-16 pb-8 transition-colors">
-    <div class="max-w-[85vw] mx-auto px-4 sm:px-6">
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
-            <div class="md:col-span-1">
-                <a href="/" class="flex items-center gap-2 mb-4">
-                    <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG" class="h-8 object-contain">
-                    <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
-                </a>
-                <p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed mb-4">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
-                <a href="mailto:support@toolimg.online" class="text-violet-600 dark:text-violet-400 font-medium hover:underline text-[11px]">support@toolimg.online</a>
+    <footer class="bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 mt-auto pt-16 pb-8 transition-colors">
+        <div class="max-w-[85vw] mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="md:col-span-1">
+                    <a href="/" class="flex items-center gap-2 mb-4">
+                        <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG" class="h-8 object-contain">
+                        <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
+                    </a>
+                    <p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed mb-4">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
+                    <a href="mailto:support@toolimg.online" class="text-violet-600 dark:text-violet-400 font-medium hover:underline text-[11px]">support@toolimg.online</a>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5">Products</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="/tools/image-to-code/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Image to Code AI</a></li>
+                        <li><a href="/tools/handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Handwriting OCR</a></li>
+                        <li><a href="/tools/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">All Tools</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5">Company</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="https://toolimg.online/about.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">About Us</a></li>
+                        <li><a href="https://toolimg.online/contact.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Contact Us</a></li>
+                        <li><a href="/pricing/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5">Legal</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="https://toolimg.online/privacy-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="https://toolimg.online/terms.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="https://toolimg.online/refund-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Refund Policy</a></li>
+                        <li><a href="https://toolimg.online/disclaimer.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Disclaimer</a></li>
+                    </ul>
+                </div>
             </div>
-            <div>
-                <h4 class="font-bold text-slate-900 dark:text-white mb-5">Products</h4>
-                <ul class="space-y-3.5">
-                    <li><a href="/tools/image-to-code/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Image to Code AI</a></li>
-                    <li><a href="/tools/handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Handwriting OCR</a></li>
-                    <li><a href="/tools/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">All Tools</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-bold text-slate-900 dark:text-white mb-5">Company</h4>
-                <ul class="space-y-3.5">
-                    <li><a href="https://toolimg.online/about.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">About Us</a></li>
-                    <li><a href="https://toolimg.online/contact.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Contact Us</a></li>
-                    <li><a href="/pricing/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Pricing</a></li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="font-bold text-slate-900 dark:text-white mb-5">Legal</h4>
-                <ul class="space-y-3.5">
-                    <li><a href="https://toolimg.online/privacy-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a></li>
-                    <li><a href="https://toolimg.online/terms.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Terms of Service</a></li>
-                    <li><a href="https://toolimg.online/refund-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Refund Policy</a></li>
-                    <li><a href="https://toolimg.online/disclaimer.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Disclaimer</a></li>
-                </ul>
-            </div>
-        </div>
-        <div class="pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p class="text-[11px] text-slate-500 dark:text-slate-400">© 2026 ToolIMG. All rights reserved.</p>
+            <div class="pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[11px] text-slate-500 dark:text-slate-400">© 2026 ToolIMG. All rights reserved.</p>
             <div class="flex gap-4">
             </div>
         </div>
@@ -2701,7 +2715,7 @@
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-      import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      import { getFirestore, doc, getDoc, setDoc, onSnapshot, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
       
       const firebaseConfig = {
           apiKey: "AIzaSyCFyGzp7viV1tq25DAMnpKKSJpPngtVa14",
@@ -2858,8 +2872,199 @@
               });
           }
       });
+
+      window.adjustCustomCredits = function(amount) {
+          const input = document.getElementById('custom-credits-input');
+          if (input) {
+              let val = parseInt(input.value, 10) || 50;
+              val += amount;
+              if (val < 10) val = 10;
+              if (val > 1000) val = 1000;
+              input.value = val;
+              document.getElementById('custom-credits-price').textContent = '₹' + val;
+          }
+      };
+
+      window.validateCustomCredits = function() {
+          const input = document.getElementById('custom-credits-input');
+          if (input) {
+              let val = parseInt(input.value, 10);
+              if (isNaN(val) || val < 10) val = 10;
+              if (val > 1000) val = 1000;
+              document.getElementById('custom-credits-price').textContent = '₹' + val;
+          }
+      };
+
+      window.buyCreditsPack = async function() {
+          const user = auth.currentUser;
+          if (!user) {
+              const confirmLogin = confirm("We highly recommend logging in to secure your purchased credits. Would you like to log in now?");
+              if (confirmLogin) {
+                  handleLogin();
+                  return;
+              }
+          }
+
+          const creditsInput = document.getElementById('custom-credits-input');
+          const creditCount = parseInt(creditsInput.value, 10) || 50;
+          const amountInINR = creditCount; // ₹1 per credit
+
+          try {
+              const configResp = await fetch('/api/config');
+              const configData = await configResp.json();
+              const keyId = configData.razorpayKeyId;
+              
+              if (!keyId) {
+                  alert("Razorpay key ID is not configured on the server. Please check Settings > Secrets.");
+                  return;
+              }
+
+              const orderResp = await fetch('/api/create-order', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                      amount: amountInINR * 100, // paise
+                      currency: 'INR'
+                  })
+              });
+
+              const orderData = await orderResp.json();
+              if (orderData.error) throw new Error(orderData.error);
+
+              const options = {
+                  key: keyId,
+                  amount: orderData.amount,
+                  currency: orderData.currency,
+                  name: "ToolIMG",
+                  description: `Purchase of ${creditCount} Credits`,
+                  order_id: orderData.orderId,
+                  handler: async function(response) {
+                      const verifyResp = await fetch('/api/verify-payment', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({
+                              razorpay_order_id: response.razorpay_order_id,
+                              razorpay_payment_id: response.razorpay_payment_id,
+                              razorpay_signature: response.razorpay_signature
+                          })
+                      });
+
+                      const verifyData = await verifyResp.json();
+                      if (verifyData.success) {
+                          alert(`Payment successful! ${creditCount} credits have been added.`);
+                          if (user) {
+                              const userDocRef = doc(db, "users", user.uid);
+                              await updateDoc(userDocRef, {
+                                  credits: increment(creditCount)
+                              });
+                          } else {
+                              let guestCredits = parseInt(localStorage.getItem('guest_credits') || '0', 10);
+                              guestCredits += creditCount;
+                              localStorage.setItem('guest_credits', guestCredits.toString());
+                              location.reload();
+                          }
+                      } else {
+                          alert("Payment verification failed: " + verifyData.error);
+                      }
+                  },
+                  prefill: {
+                      name: user ? (user.displayName || '') : '',
+                      email: user ? (user.email || '') : ''
+                  },
+                  theme: {
+                      color: "#7c3aed"
+                  }
+              };
+
+              const rzp = new Razorpay(options);
+              rzp.open();
+
+          } catch (err) {
+              console.error(err);
+              alert("Payment process failed: " + err.message);
+          }
+      };
+
+      window.buyProPlan = async function() {
+          const user = auth.currentUser;
+          if (!user) {
+              alert("Please log in to upgrade to Pro plan.");
+              handleLogin();
+              return;
+          }
+
+          try {
+              const configResp = await fetch('/api/config');
+              const configData = await configResp.json();
+              const keyId = configData.razorpayKeyId;
+              
+              if (!keyId) {
+                  alert("Razorpay key ID is not configured on the server. Please check Settings > Secrets.");
+                  return;
+              }
+
+              const orderResp = await fetch('/api/create-order', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                      amount: 1500 * 100, // ₹1500 in paise
+                      currency: 'INR'
+                  })
+              });
+
+              const orderData = await orderResp.json();
+              if (orderData.error) throw new Error(orderData.error);
+
+              const options = {
+                  key: keyId,
+                  amount: orderData.amount,
+                  currency: orderData.currency,
+                  name: "ToolIMG Pro Plan",
+                  description: "Monthly subscription or access upgrade",
+                  order_id: orderData.orderId,
+                  handler: async function(response) {
+                      const verifyResp = await fetch('/api/verify-payment', {
+                          method: 'POST',
+                          headers: { 'Content-Type': 'application/json' },
+                          body: JSON.stringify({
+                              razorpay_order_id: response.razorpay_order_id,
+                              razorpay_payment_id: response.razorpay_payment_id,
+                              razorpay_signature: response.razorpay_signature
+                          })
+                      });
+
+                      const verifyData = await verifyResp.json();
+                      if (verifyData.success) {
+                          alert("Payment successful! You are now Pro!");
+                          const userDocRef = doc(db, "users", user.uid);
+                          await updateDoc(userDocRef, {
+                              credits: increment(10000), // Unlimited/Large Credits
+                              plan: 'pro'
+                          });
+                      } else {
+                          alert("Payment verification failed: " + verifyData.error);
+                      }
+                  },
+                  prefill: {
+                      name: user.displayName || '',
+                      email: user.email || ''
+                  },
+                  theme: {
+                      color: "#7c3aed"
+                  }
+              };
+
+              const rzp = new Razorpay(options);
+              rzp.open();
+
+          } catch (err) {
+              console.error(err);
+              alert("Payment process failed: " + err.message);
+          }
+      };
     </script>
 
+    
 <script>
     function updateThemeUI(theme) {
         ['light', 'dark', 'system'].forEach(t => {

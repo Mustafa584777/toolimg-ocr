@@ -4,9 +4,132 @@ import { GoogleGenAI, Type } from '@google/genai';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
+import admin from 'firebase-admin';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+let firebaseAdminApp: any = null;
+let firestoreDb: any = null;
+
+function getFirebaseDb() {
+  if (!firestoreDb) {
+    try {
+      if (!admin.apps.length) {
+        firebaseAdminApp = admin.initializeApp({
+          projectId: "gen-lang-client-0844549707"
+        });
+      } else {
+        firebaseAdminApp = admin.app();
+      }
+      firestoreDb = admin.firestore("ai-studio-toolimg-a40860b9-3db9-4eab-a65f-f070e159a9b3");
+    } catch (error: any) {
+      console.error("Firebase Admin initialization failed.", error);
+      throw error;
+    }
+  }
+  return firestoreDb;
+}
+
+async function verifyAndConsumeCredit(req: express.Request, toolName: 'image-to-code' | 'handwriting-to-text'): Promise<{ decrement: () => Promise<void>, credits: number }> {
+  const db = getFirebaseDb();
+  const authHeader = req.headers.authorization;
+  const idToken = authHeader && authHeader.startsWith('Bearer ') ? authHeader.split('Bearer ')[1] : null;
+  const guestId = req.headers['x-guest-id'] as string;
+  const toolField = toolName === 'image-to-code' ? 'creditsUsed_imageToCode' : 'creditsUsed_handwritingToText';
+
+  if (idToken && idToken !== 'null' && idToken !== 'undefined' && idToken.trim() !== '') {
+    try {
+      const decodedToken = await admin.auth().verifyIdToken(idToken);
+      const userDocRef = db.collection('users').doc(decodedToken.uid);
+      const userDoc = await userDocRef.get();
+      let credits = 5;
+      if (!userDoc.exists) {
+        await userDocRef.set({
+          email: decodedToken.email || '',
+          displayName: decodedToken.name || '',
+          credits: 5,
+          creditsUsed_imageToCode: 0,
+          creditsUsed_handwritingToText: 0,
+          createdAt: new Date().toISOString()
+        });
+      } else {
+        credits = userDoc.data()?.credits ?? 0;
+      }
+
+      if (credits < 1) {
+        throw new Error("INSUFFICIENT_CREDITS");
+      }
+
+      return {
+        credits,
+        decrement: async () => {
+          await userDocRef.update({
+            credits: admin.firestore.FieldValue.increment(-1),
+            [toolField]: admin.firestore.FieldValue.increment(1)
+          });
+        }
+      };
+    } catch (err: any) {
+      if (err.message === "INSUFFICIENT_CREDITS") {
+        throw err;
+      }
+      console.error("Token verification failed, falling back to guest check if ID is present", err);
+    }
+  }
+
+  // Handle guest fallback
+  if (!guestId || guestId === 'null' || guestId === 'undefined') {
+    throw new Error("IDENTIFICATION_REQUIRED");
+  }
+
+  const guestDocRef = db.collection('guests').doc(guestId);
+  const guestDoc = await guestDocRef.get();
+  let credits = 5;
+  if (!guestDoc.exists) {
+    await guestDocRef.set({
+      credits: 5,
+      creditsUsed_imageToCode: 0,
+      creditsUsed_handwritingToText: 0,
+      createdAt: new Date().toISOString()
+    });
+  } else {
+    credits = guestDoc.data()?.credits ?? 0;
+  }
+
+  if (credits < 1) {
+    throw new Error("GUEST_EXHAUSTED");
+  }
+
+  return {
+    credits,
+    decrement: async () => {
+      await guestDocRef.update({
+        credits: admin.firestore.FieldValue.increment(-1),
+        [toolField]: admin.firestore.FieldValue.increment(1)
+      });
+    }
+  };
+}
+
+let aiClient: GoogleGenAI | null = null;
+function getAIClient() {
+  if (!aiClient) {
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      throw new Error('GEMINI_API_KEY is not configured on the server. Please configure it in Settings > Secrets.');
+    }
+    aiClient = new GoogleGenAI({
+      apiKey: apiKey,
+      httpOptions: {
+        headers: {
+          'User-Agent': 'aistudio-build',
+        }
+      }
+    });
+  }
+  return aiClient;
+}
 
 const app = express();
 const port = 3000;
@@ -148,21 +271,6 @@ app.post('/api/razorpay/order', createOrderHandler);
 app.post('/api/verify-payment', verifyPaymentHandler);
 app.post('/api/razorpay/verify', verifyPaymentHandler);
 
-// Initialize Gemini Client
-const apiKey = process.env.GEMINI_API_KEY;
-if (!apiKey) {
-  console.warn('Warning: GEMINI_API_KEY environment variable is missing.');
-}
-
-const ai = new GoogleGenAI({
-  apiKey: apiKey,
-  httpOptions: {
-    headers: {
-      'User-Agent': 'aistudio-build',
-    }
-  }
-});
-
 // Helper function to retry Gemini API calls with exponential backoff and model fallback
 async function generateContentWithRetryAndFallback(aiClient: any, params: any) {
   let attempt = 0;
@@ -206,8 +314,9 @@ async function generateContentWithRetryAndFallback(aiClient: any, params: any) {
   }
 }
 
-// Image to Code Generation Endpoint
+    // Image to Code Generation Endpoint
 app.post('/api/ocr', async (req: express.Request, res: express.Response) => {
+  let creditSession: { decrement: () => Promise<void>, credits: number } | null = null;
   try {
     const { base64Data, fileName = 'mockup.png', mimeType = 'image/png', framework = 'html-tailwind', styleTheme = 'modern-dark', customPrompt = '', interactivity = 'interactive' } = req.body;
 
@@ -215,8 +324,24 @@ app.post('/api/ocr', async (req: express.Request, res: express.Response) => {
       return res.status(400).json({ error: 'No image data provided' });
     }
 
-    if (!apiKey) {
+    if (!process.env.GEMINI_API_KEY) {
       return res.status(500).json({ error: 'GEMINI_API_KEY is not configured on the server. Please configure it in Settings > Secrets.' });
+    }
+
+    // Verify credits before initiating expensive Gemini operations
+    try {
+      creditSession = await verifyAndConsumeCredit(req, 'image-to-code');
+    } catch (creditErr: any) {
+      if (creditErr.message === "INSUFFICIENT_CREDITS") {
+        return res.status(403).json({ error: "Sufficient credits are required to run this tool. Please purchase credits on the pricing page." });
+      }
+      if (creditErr.message === "GUEST_EXHAUSTED") {
+        return res.status(403).json({ error: "You have exhausted your 5 free guest credits. Please log in or buy credits to continue." });
+      }
+      if (creditErr.message === "IDENTIFICATION_REQUIRED") {
+        return res.status(400).json({ error: "Authorization or Guest Identification is required." });
+      }
+      throw creditErr;
     }
 
     const systemInstruction = `
@@ -300,7 +425,7 @@ Source filename: ${fileName}`;
     const textPart = { text: promptText };
 
     // Call Gemini API with robust retry and fallback mechanism
-    const response = await generateContentWithRetryAndFallback(ai, {
+    const response = await generateContentWithRetryAndFallback(getAIClient(), {
       model: 'gemini-3.5-flash',
       contents: { parts: [imagePart, textPart] },
       config: {
@@ -316,12 +441,102 @@ Source filename: ${fileName}`;
     }
 
     const parsedResult = JSON.parse(resultText);
+    if (creditSession) {
+      await creditSession.decrement();
+    }
     res.json(parsedResult);
   } catch (error: any) {
     console.error('Error converting image to code:', error);
     res.status(500).json({ error: error.message || 'Failed to convert image to code' });
   }
 });
+
+
+// Handwriting to Text Generation Endpoint
+app.post('/api/handwriting', async (req: express.Request, res: express.Response) => {
+  let creditSession: { decrement: () => Promise<void>, credits: number } | null = null;
+  try {
+    const { base64Data, fileName = 'handwriting.png', mimeType = 'image/png' } = req.body;
+    if (!base64Data) {
+      return res.status(400).json({ error: 'No image data provided' });
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: 'GEMINI_API_KEY is not configured on the server.' });
+    }
+
+    // Verify credits before initiating expensive Gemini operations
+    try {
+      creditSession = await verifyAndConsumeCredit(req, 'handwriting-to-text');
+    } catch (creditErr: any) {
+      if (creditErr.message === "INSUFFICIENT_CREDITS") {
+        return res.status(403).json({ error: "Sufficient credits are required to run this tool. Please purchase credits on the pricing page." });
+      }
+      if (creditErr.message === "GUEST_EXHAUSTED") {
+        return res.status(403).json({ error: "You have exhausted your 5 free guest credits. Please log in or buy credits to continue." });
+      }
+      if (creditErr.message === "IDENTIFICATION_REQUIRED") {
+        return res.status(400).json({ error: "Authorization or Guest Identification is required." });
+      }
+      throw creditErr;
+    }
+
+    const systemInstruction = `You are a highly accurate handwriting recognition AI.
+Extract all text from the provided image accurately. Preserve formatting, line breaks, and spelling as best as possible.
+Respond with a JSON object.`;
+
+    const responseSchema = {
+      type: Type.OBJECT,
+      properties: {
+        htmlCode: { type: Type.STRING }, // Reusing the same response schema to match frontend parsing
+        frameworkCode: { type: Type.STRING },
+        markdownSummary: { type: Type.STRING },
+        designAnalysis: {
+          type: Type.OBJECT,
+          properties: {
+            colors: { type: Type.ARRAY, items: { type: Type.STRING } },
+            typography: { type: Type.STRING },
+            layout: { type: Type.STRING },
+            componentsIdentified: { type: Type.ARRAY, items: { type: Type.STRING } }
+          },
+          required: ['colors', 'typography', 'layout', 'componentsIdentified']
+        }
+      },
+      required: ['htmlCode', 'frameworkCode', 'markdownSummary', 'designAnalysis']
+    };
+
+    const ai = getAIClient();
+    const imagePart = {
+      inlineData: { mimeType: mimeType || 'image/png', data: base64Data }
+    };
+    
+    const textPart = { text: "Transcribe the handwriting in this image into text and put the result in the markdownSummary field. For htmlCode and frameworkCode, you can just return the raw text as well." };
+
+    const response = await generateContentWithRetryAndFallback(ai, {
+      model: 'gemini-3.5-flash',
+      contents: { parts: [imagePart, textPart] },
+      config: {
+        systemInstruction,
+        responseMimeType: 'application/json',
+        responseSchema
+      }
+    });
+
+    const resultText = response.text;
+    if (!resultText) throw new Error('No response from Gemini API');
+    
+    const parsedResult = JSON.parse(resultText);
+    if (creditSession) {
+      await creditSession.decrement();
+    }
+    res.json(parsedResult);
+  } catch (error: any) {
+    console.error('Error converting handwriting to text:', error);
+    res.status(500).json({ error: error.message || 'Failed to convert' });
+  }
+});
+
 
 // Serve frontend in dev / prod
 if (process.env.NODE_ENV === 'production') {
@@ -343,3 +558,4 @@ if (process.env.NODE_ENV === 'production') {
 app.listen(port, '0.0.0.0', () => {
   console.log(`Server is running at http://0.0.0.0:${port}`);
 });
+

@@ -3,10 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ToolIMG - AI Tools that just work</title>
+    <title>Handwriting to Text Converter AI - ToolIMG</title>
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-            <style>
+        <style>
+        * { font-family: "Poppins", sans-serif !important; }
+        body { font-family: "Poppins", sans-serif; background-color: #fafafa; }
+        .dark body { background-color: #0f172a; color: #f8fafc; }
+        @media (max-width: 768px) { html { font-size: 12px; } }
+        @media (min-width: 769px) { html { font-size: 16px; } }
+    </style>
+        <style>
         * { font-family: "Poppins", sans-serif !important; }
         body { font-family: 'Poppins', sans-serif; background-color: #fafafa; }
         .dark body { background-color: #0f172a; color: #f8fafc; }
@@ -20,16 +27,9 @@
         }
     </style>
 
-    <!-- Tailwind CSS -->
-        
+    <meta name="description" content="Free AI-powered handwriting to text converter. Instantly digitize handwritten notes, documents, and sketches into copyable text.">
     
     
-    
-    
-
-
-
-    <!-- Google Fonts -->
     
     
 
@@ -2443,7 +2443,7 @@
         
         <!-- Desktop Nav -->
         <nav class="hidden md:flex items-center gap-8">
-            <a href="/" class="text-[15px] font-medium text-violet-600 dark:text-violet-400 transition">Home</a>
+            <a href="/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Home</a>
             <a href="/tools/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Tools</a>
             <a href="/dashboard/" id="dashboard-nav" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition hidden">Dashboard</a>
             <a href="/pricing/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Pricing</a>
@@ -2491,7 +2491,7 @@
             </button>
         </div>
         <div class="px-3 py-3 flex flex-col gap-1">
-            <a href="/" class="px-4 py-3.5 text-[15px] font-medium text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 rounded-xl transition flex items-center">Home</a>
+            <a href="/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Home</a>
             <a href="/tools/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Tools</a>
             <a href="/dashboard/" id="mobile-dashboard-nav" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center hidden">Dashboard</a>
             <a href="/pricing/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Pricing</a>
@@ -2585,71 +2585,147 @@
 <!-- End Navbar -->
 
     <!-- Main Content -->
-    <main class="flex-grow flex flex-col items-center justify-center w-full px-6 py-20 text-center relative overflow-hidden">
-    <!-- Clean background gradient -->
-    <div class="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-violet-100/50 via-white to-white dark:from-violet-900/20 dark:via-slate-950 dark:to-slate-950 -z-10"></div>
-    
-    <div class="max-w-4xl mx-auto space-y-8 relative z-10">
-        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-violet-100/50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-sm font-medium mb-4 ring-1 ring-inset ring-violet-200 dark:ring-violet-800/50">
-            <span class="flex h-2 w-2 rounded-full bg-violet-600 dark:bg-violet-400"></span>
-            Next-gen AI Utilities
+    <main class="flex-grow max-w-5xl mx-auto w-full px-6 py-12 flex flex-col">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+                Handwriting to <span class="text-violet-600 dark:text-violet-400">Text AI</span>
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto">Digitize handwritten notes, letters, and documents instantly using advanced vision models.</p>
         </div>
-        
-        <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-slate-900 dark:text-white leading-tight">
-            Build Faster with <br/>
-            <span class="text-violet-600 dark:text-violet-400">ToolIMG AI</span>
-        </h1>
-        
-        <p class="text-lg md:text-xl font-semibold text-violet-600 dark:text-violet-400 max-w-2xl mx-auto tracking-wide">
-            Your ultimate destination for all the OCR tools you need
-        </p>
-        
-        <p class="text-base md:text-lg text-slate-600 dark:text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Convert designs to code and extract text from handwriting with unparalleled accuracy. Experience the future of AI-powered developer tools.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
-            <a href="/tools/" class="px-8 py-4 bg-violet-600 hover:bg-violet-700 text-white rounded-2xl font-bold transition shadow-lg shadow-violet-200 dark:shadow-violet-900/20 w-full sm:w-auto text-lg">
-                Explore Tools
-            </a>
-            <a href="/pricing/" class="px-8 py-4 bg-white dark:bg-slate-900 text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:border-slate-300 dark:hover:border-slate-600 rounded-2xl font-bold transition w-full sm:w-auto text-lg">
-                View Pricing
-            </a>
-        </div>
-    </div>
-    
-    <!-- Premium Features Grid -->
-    <div class="max-w-6xl mx-auto mt-32 grid grid-cols-1 md:grid-cols-3 gap-8 text-left z-10 w-full">
-        <div class="p-8 rounded-3xl bg-white/60 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 backdrop-blur-md transition hover:-translate-y-1 hover:shadow-xl hover:shadow-violet-100/50 dark:hover:shadow-violet-900/20">
-            <div class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-6">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Image to Code AI</h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Turn any UI mockup, screenshot, or wireframe into production-ready HTML, Tailwind, and React code instantly.</p>
-        </div>
-        
-        <div class="p-8 rounded-3xl bg-white/60 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 backdrop-blur-md transition hover:-translate-y-1 hover:shadow-xl hover:shadow-violet-100/50 dark:hover:shadow-violet-900/20">
-            <div class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-6">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Handwriting OCR</h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Digitize messy handwritten notes, vintage documents, and whiteboard sketches with unparalleled precision.</p>
-        </div>
-        
-        <div class="p-8 rounded-3xl bg-white/60 dark:bg-slate-900/40 border border-slate-100 dark:border-slate-800 backdrop-blur-md transition hover:-translate-y-1 hover:shadow-xl hover:shadow-violet-100/50 dark:hover:shadow-violet-900/20">
-            <div class="w-12 h-12 rounded-xl bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-6">
-                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-            </div>
-            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-3">Lightning Fast</h3>
-            <p class="text-slate-600 dark:text-slate-400 leading-relaxed">Powered by advanced multimodal models, our tools deliver results in seconds, streamlining your workflow.</p>
-        </div>
-    </div>
-</main>
-        
-        
-        
 
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start flex-grow">
+            <!-- Left Panel: Upload -->
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-8 flex flex-col shadow-sm">
+                <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Upload Image</h2>
+                
+                <div id="upload-zone" onclick="document.getElementById('file-input').click()" class="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-violet-500 hover:bg-violet-50/50 dark:hover:bg-violet-900/10 rounded-2xl p-6 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[250px] relative overflow-hidden group">
+                    <input type="file" id="file-input" class="hidden" accept="image/*" onchange="window.handleFileSelect(event)">
+                    
+                    <div id="upload-placeholder" class="flex flex-col items-center">
+                        <div class="w-16 h-16 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-full flex items-center justify-center mb-4">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                        </div>
+                        <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">Click to upload handwriting</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Supports JPG, PNG, WEBP</p>
+                    </div>
+                    
+                    <img id="image-preview" class="absolute inset-0 w-full h-full object-contain bg-slate-50 dark:bg-slate-950 hidden z-10 p-2" />
+                    <div id="image-overlay" class="absolute inset-0 bg-slate-900/60 hidden z-20 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                        <span class="bg-white text-slate-900 font-bold px-4 py-2 rounded-xl text-sm shadow-sm">Change Image</span>
+                    </div>
+                </div>
+
+                <button id="extract-btn" onclick="window.extractText()" disabled class="mt-6 w-full py-4 rounded-xl bg-violet-600 disabled:bg-slate-300 disabled:cursor-not-allowed hover:bg-violet-700 text-white font-bold text-lg transition flex items-center justify-center gap-2 shadow-sm">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    Extract Text
+                </button>
+            </div>
+
+            <!-- Right Panel: Result -->
+            <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 md:p-8 flex flex-col shadow-sm">
+                <div class="flex justify-between items-center mb-6">
+                    <div>
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white">Extracted Text</h2>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">Your digitized text will appear here.</p>
+                    </div>
+                    <button id="copy-btn" onclick="window.copyText()" class="hidden px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold transition border border-slate-200 dark:border-slate-700 shadow-sm flex items-center gap-2">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                        Copy
+                    </button>
+                </div>
+                
+                <div id="result-container" class="flex-grow bg-slate-50 dark:bg-slate-950 rounded-2xl border border-slate-200 dark:border-slate-800 p-5 overflow-auto relative text-slate-700 dark:text-slate-300 min-h-[300px]">
+                    <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500">
+                        <svg class="w-12 h-12 mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
+                        <p class="text-sm">Waiting for image...</p>
+                    </div>
+                    
+                    
+    <div id="loading-state" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm z-10 p-6 rounded-2xl transition-all duration-300">
+        <!-- Cute Coding Character & Engagement Graphic -->
+        <div class="relative flex flex-col items-center mb-8">
+            <!-- Stage Animated Illustration Container -->
+            <div class="w-24 h-24 bg-violet-50 dark:bg-violet-950/40 rounded-2xl flex items-center justify-center shadow-inner relative overflow-hidden border border-violet-100 dark:border-violet-900/30">
+                <!-- Outer decorative orbiting particles -->
+                <div class="absolute inset-0 border border-dashed border-violet-200 dark:border-violet-800/50 rounded-full animate-spin duration-10000"></div>
+                
+                <!-- Stage 1 Graphic: Reading Lens -->
+                <div id="anim-stage-1" class="absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-100 scale-100">
+                    <div class="relative">
+                        <!-- Scanning laser bar -->
+                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-violet-500 shadow-[0_0_8px_rgba(139,92,246,0.8)] animate-bounce"></div>
+                        <svg class="w-10 h-10 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0zM10 7v6m3-3H7"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Stage 2 Graphic: Brain Core Neural processing -->
+                <div id="anim-stage-2" class="absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75">
+                    <div class="relative">
+                        <span class="absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75 animate-ping"></span>
+                        <svg class="w-10 h-10 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0V21h2v-2.243a5 5 0 013.536 0z"></path>
+                        </svg>
+                    </div>
+                </div>
+                
+                <!-- Stage 3 Graphic: Success Code Output -->
+                <div id="anim-stage-3" class="absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75">
+                    <svg class="w-10 h-10 text-emerald-500 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </div>
+            </div>
+            <!-- Status Badge -->
+            <div id="loading-stage-badge" class="mt-3 px-2.5 py-0.5 text-xs font-semibold tracking-wide uppercase rounded-full bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">
+                Phase 1/3
+            </div>
+        </div>
+
+        <!-- Status Title -->
+        <h3 id="loading-status-title" class="text-lg font-bold text-slate-900 dark:text-white mb-1">Analyzing handwriting...</h3>
+        <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Running multimodal neural extractors</p>
+        
+        <!-- Horizontal Progress Bar Wrapper -->
+        <div class="w-full max-w-xs bg-slate-100 dark:bg-slate-800 rounded-full h-2 mb-8 overflow-hidden relative border border-slate-200/50 dark:border-slate-700/50">
+            <div id="horizontal-progress-bar" class="bg-violet-600 dark:bg-violet-500 h-full w-[10%] rounded-full transition-all duration-500 ease-out shadow-[0_0_8px_rgba(139,92,246,0.5)]"></div>
+        </div>
+        
+        <!-- Interactive Engagement Stage Cards -->
+        <div class="w-full max-w-xs space-y-2.5">
+            <div id="stage-1" class="flex items-center justify-between p-3 rounded-xl bg-violet-50/50 dark:bg-violet-950/20 border border-violet-100/50 dark:border-violet-900/20 text-sm font-medium text-violet-700 dark:text-violet-300 transition-all duration-300">
+                <div class="flex items-center gap-2.5">
+                    <span class="stage-num w-5 h-5 rounded-full bg-violet-600 text-white flex items-center justify-center text-[10px] font-bold">1</span>
+                    <span>Analyzing Image Details</span>
+                </div>
+                <div class="stage-status text-xs font-semibold">Active</div>
+            </div>
+            
+            <div id="stage-2" class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-transparent text-sm font-medium text-slate-400 dark:text-slate-600 transition-all duration-300">
+                <div class="flex items-center gap-2.5">
+                    <span class="stage-num w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 flex items-center justify-center text-[10px] font-bold">2</span>
+                    <span>Extracting Text Layout</span>
+                </div>
+                <div class="stage-status text-xs font-semibold">Pending</div>
+            </div>
+            
+            <div id="stage-3" class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-transparent text-sm font-medium text-slate-400 dark:text-slate-600 transition-all duration-300">
+                <div class="flex items-center gap-2.5">
+                    <span class="stage-num w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 flex items-center justify-center text-[10px] font-bold">3</span>
+                    <span>Generating Digitized Output</span>
+                </div>
+                <div class="stage-status text-xs font-semibold">Pending</div>
+            </div>
+        </div>
+    </div>
     
+    <div id="text-output" class="hidden prose dark:prose-invert text-slate-800 dark:text-slate-100 leading-relaxed font-sans max-w-none break-words whitespace-pre-wrap"></div>
+    
+            </div>
+        </div>
+    </main>
+
     <!-- Footer -->
 <footer class="bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 mt-auto pt-16 pb-8 transition-colors">
     <div class="max-w-[85vw] mx-auto px-4 sm:px-6">
@@ -2659,37 +2735,37 @@
                     <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG" class="h-8 object-contain">
                     <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
                 </a>
-                <p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed mb-4">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
-                <a href="mailto:support@toolimg.online" class="text-violet-600 dark:text-violet-400 font-medium hover:underline text-[11px]">support@toolimg.online</a>
+                <p class="text-slate-500 dark:text-slate-400 text-[15px] leading-relaxed mb-4">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
+                <a href="mailto:support@toolimg.online" class="text-violet-600 dark:text-violet-400 font-medium hover:underline text-[15px]">support@toolimg.online</a>
             </div>
             <div>
                 <h4 class="font-bold text-slate-900 dark:text-white mb-5">Products</h4>
                 <ul class="space-y-3.5">
-                    <li><a href="/tools/image-to-code/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Image to Code AI</a></li>
-                    <li><a href="/tools/handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Handwriting OCR</a></li>
-                    <li><a href="/tools/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">All Tools</a></li>
+                    <li><a href="/tools/image-to-code/" class="text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Image to Code AI</a></li>
+                    <li><a href="/tools/handwriting-to-text/" class="text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Handwriting OCR</a></li>
+                    <li><a href="/tools/" class="text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">All Tools</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="font-bold text-slate-900 dark:text-white mb-5">Company</h4>
                 <ul class="space-y-3.5">
-                    <li><a href="https://toolimg.online/about.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">About Us</a></li>
-                    <li><a href="https://toolimg.online/contact.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Contact Us</a></li>
-                    <li><a href="/pricing/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Pricing</a></li>
+                    <li><a href="https://toolimg.online/about.html" class="text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">About Us</a></li>
+                    <li><a href="https://toolimg.online/contact.html" class="text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Contact Us</a></li>
+                    <li><a href="/pricing/" class="text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Pricing</a></li>
                 </ul>
             </div>
             <div>
                 <h4 class="font-bold text-slate-900 dark:text-white mb-5">Legal</h4>
                 <ul class="space-y-3.5">
-                    <li><a href="https://toolimg.online/privacy-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a></li>
-                    <li><a href="https://toolimg.online/terms.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Terms of Service</a></li>
-                    <li><a href="https://toolimg.online/refund-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Refund Policy</a></li>
-                    <li><a href="https://toolimg.online/disclaimer.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Disclaimer</a></li>
+                    <li><a href="https://toolimg.online/privacy-policy.html" class="text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a></li>
+                    <li><a href="https://toolimg.online/terms.html" class="text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Terms of Service</a></li>
+                    <li><a href="https://toolimg.online/refund-policy.html" class="text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Refund Policy</a></li>
+                    <li><a href="https://toolimg.online/disclaimer.html" class="text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Disclaimer</a></li>
                 </ul>
             </div>
         </div>
         <div class="pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
-            <p class="text-[11px] text-slate-500 dark:text-slate-400">© 2026 ToolIMG. All rights reserved.</p>
+            <p class="text-[15px] text-slate-500 dark:text-slate-400">© 2026 ToolIMG. All rights reserved.</p>
             <div class="flex gap-4">
             </div>
         </div>
@@ -2701,7 +2777,6 @@
     <script type="module">
       import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-      import { getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
       
       const firebaseConfig = {
           apiKey: "AIzaSyCFyGzp7viV1tq25DAMnpKKSJpPngtVa14",
@@ -2715,9 +2790,8 @@
       
       const app = initializeApp(firebaseConfig);
       const auth = getAuth(app);
-      const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
       const provider = new GoogleAuthProvider();
-
+ 
       window.handleLogin = async function() {
           try {
               await signInWithPopup(auth, provider);
@@ -2725,7 +2799,7 @@
               console.error("Login failed", error);
           }
       };
-
+ 
       window.handleLogout = async function() {
           try {
               await signOut(auth);
@@ -2733,12 +2807,21 @@
               console.error("Logout failed", error);
           }
       };
+ 
+      window.getAuthToken = async function() {
+          const user = auth.currentUser;
+          if (user) {
+              return await user.getIdToken();
+          }
+          return null;
+      };
+
+      if (!localStorage.getItem('guest_id')) {
+          localStorage.setItem('guest_id', 'guest_' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
+      }
 
       if (localStorage.getItem('guest_credits') === null) {
           localStorage.setItem('guest_credits', '5');
-      }
-      if (!localStorage.getItem('guest_id')) {
-          localStorage.setItem('guest_id', 'guest_' + Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15));
       }
 
       function updateCreditsUI(credits, isGuest = false) {
@@ -2774,6 +2857,8 @@
           if (modalHwProgress) modalHwProgress.style.width = handwritingProgress + '%';
       }
 
+      import { getFirestore, doc, onSnapshot, setDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
       let unsubscribeCredits = null;
 
       onAuthStateChanged(auth, (user) => {
@@ -2981,6 +3066,265 @@
     });
 </script>
 
+<script>
+    let currentBase64 = null;
+    let extractedText = null;
+
+    window.handleFileSelect = function(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            const result = e.target.result;
+            currentBase64 = result.split(',')[1];
+            
+            document.getElementById('upload-placeholder').classList.add('hidden');
+            const preview = document.getElementById('image-preview');
+            preview.src = result;
+            preview.classList.remove('hidden');
+            
+            document.getElementById('image-overlay').classList.remove('hidden');
+            document.getElementById('extract-btn').disabled = false;
+            
+            document.getElementById('empty-state').classList.remove('hidden');
+            document.getElementById('text-output').classList.add('hidden');
+            document.getElementById('copy-btn').classList.add('hidden');
+        };
+        reader.readAsDataURL(file);
+    };
+
+    window.extractText = async function() {
+        if (!currentBase64) return;
+        
+        document.getElementById('empty-state').classList.add('hidden');
+        document.getElementById('text-output').classList.add('hidden');
+        document.getElementById('copy-btn').classList.add('hidden');
+        document.getElementById('loading-state').classList.remove('hidden');
+        startLoadingAnimation();
+        document.getElementById('extract-btn').disabled = true;
+
+        const payload = {
+            base64Data: currentBase64,
+            fileName: 'handwriting.png',
+            mimeType: 'image/png'
+        };
+
+        try {
+            const idToken = typeof window.getAuthToken === 'function' ? await window.getAuthToken() : null;
+            const guestId = localStorage.getItem('guest_id') || '';
+            
+            const headers = {
+                'Content-Type': 'application/json',
+                'X-Guest-ID': guestId
+            };
+            if (idToken) {
+                headers['Authorization'] = 'Bearer ' + idToken;
+            }
+
+            const response = await fetch('/api/handwriting', {
+                method: 'POST',
+                headers: headers,
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+            
+            if (response.status === 403 || response.status === 400 || data.error) {
+                throw new Error(data.error || "Request failed with status " + response.status);
+            }
+
+            // Sync guest credits locally if we are guest
+            if (!idToken) {
+                let guestCredits = parseInt(localStorage.getItem('guest_credits') || '5', 10);
+                if (guestCredits > 0) {
+                    guestCredits--;
+                    localStorage.setItem('guest_credits', guestCredits.toString());
+                    const creditsCount = document.getElementById('credits-count');
+                    if (creditsCount) {
+                        creditsCount.textContent = 'Guest: ' + guestCredits + ' Credits';
+                    }
+                }
+            }
+
+            // The transcribed text is returned in the markdownSummary field
+            extractedText = data.markdownSummary || data.frameworkCode || data.htmlCode || 'No text extracted';
+            
+            // Populate view
+            const textOutput = document.getElementById('text-output');
+            textOutput.textContent = extractedText;
+            textOutput.classList.remove('hidden');
+            
+            document.getElementById('copy-btn').classList.remove('hidden');
+            document.getElementById('loading-state').classList.add('hidden');
+            stopLoadingAnimation();
+
+        } catch (err) {
+            console.error(err);
+            alert("Error extracting text: " + err.message);
+            document.getElementById('loading-state').classList.add('hidden');
+            stopLoadingAnimation();
+            document.getElementById('empty-state').classList.remove('hidden');
+        } finally {
+            document.getElementById('extract-btn').disabled = false;
+        }
+    };
+
+    window.copyText = function() {
+        if (!extractedText) return;
+        navigator.clipboard.writeText(extractedText).then(() => {
+            alert("Copied to clipboard!");
+        });
+    };
+
+
+    let stageInterval;
+    function startLoadingAnimation() {
+        const progressBar = document.getElementById('horizontal-progress-bar');
+        const badge = document.getElementById('loading-stage-badge');
+        const title = document.getElementById('loading-status-title');
+        
+        const stage1 = document.getElementById('stage-1');
+        const stage2 = document.getElementById('stage-2');
+        const stage3 = document.getElementById('stage-3');
+        
+        const anim1 = document.getElementById('anim-stage-1');
+        const anim2 = document.getElementById('anim-stage-2');
+        const anim3 = document.getElementById('anim-stage-3');
+        
+        // Reset states
+        if (progressBar) progressBar.style.width = '10%';
+        if (badge) badge.textContent = 'Phase 1/3';
+        if (title) title.textContent = 'Analyzing handwriting...';
+        
+        const resetStageClasses = (el, num) => {
+            if (!el) return;
+            el.className = 'flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-transparent text-sm font-medium text-slate-400 dark:text-slate-600 transition-all duration-300';
+            el.querySelector('.stage-num').className = 'stage-num w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 flex items-center justify-center text-[10px] font-bold';
+            el.querySelector('.stage-num').textContent = num;
+            el.querySelector('.stage-status').className = 'stage-status text-xs font-semibold';
+            el.querySelector('.stage-status').textContent = 'Pending';
+        };
+        
+        resetStageClasses(stage2, '2');
+        resetStageClasses(stage3, '3');
+        
+        // Stage 1 active
+        if (stage1) {
+            stage1.className = 'flex items-center justify-between p-3 rounded-xl bg-violet-50/50 dark:bg-violet-950/20 border border-violet-100/50 dark:border-violet-900/20 text-sm font-medium text-violet-700 dark:text-violet-300 transition-all duration-300';
+            stage1.querySelector('.stage-num').className = 'stage-num w-5 h-5 rounded-full bg-violet-600 text-white flex items-center justify-center text-[10px] font-bold';
+            stage1.querySelector('.stage-num').textContent = '1';
+            stage1.querySelector('.stage-status').className = 'stage-status text-xs font-semibold text-violet-600 dark:text-violet-400 animate-pulse';
+            stage1.querySelector('.stage-status').textContent = 'Active';
+        }
+        
+        if (anim1) { anim1.classList.remove('opacity-0', 'scale-75'); anim1.classList.add('opacity-100', 'scale-100'); }
+        if (anim2) { anim2.classList.add('opacity-0', 'scale-75'); anim2.classList.remove('opacity-100', 'scale-100'); }
+        if (anim3) { anim3.classList.add('opacity-0', 'scale-75'); anim3.classList.remove('opacity-100', 'scale-100'); }
+
+        let currentStep = 0;
+        
+        const transitionToStep = (step) => {
+            if (step === 1) {
+                // Transition to stage 2
+                if (progressBar) progressBar.style.width = '55%';
+                if (badge) badge.textContent = 'Phase 2/3';
+                if (title) title.textContent = 'Extracting handwriting layout...';
+                
+                // Stage 1 complete
+                if (stage1) {
+                    stage1.className = 'flex items-center justify-between p-3 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/10 border border-emerald-100/30 dark:border-emerald-900/20 text-sm font-medium text-emerald-700 dark:text-emerald-400 transition-all duration-300';
+                    stage1.querySelector('.stage-num').className = 'stage-num w-5 h-5 rounded-full bg-emerald-505 text-white flex items-center justify-center text-[10px] font-bold';
+                    stage1.querySelector('.stage-num').innerHTML = '✓';
+                    stage1.querySelector('.stage-status').className = 'stage-status text-xs font-semibold text-emerald-600 dark:text-emerald-400';
+                    stage1.querySelector('.stage-status').textContent = 'Done';
+                }
+                
+                // Stage 2 active
+                if (stage2) {
+                    stage2.className = 'flex items-center justify-between p-3 rounded-xl bg-violet-50/50 dark:bg-violet-950/20 border border-violet-100/50 dark:border-violet-900/20 text-sm font-medium text-violet-700 dark:text-violet-300 transition-all duration-300';
+                    stage2.querySelector('.stage-num').className = 'stage-num w-5 h-5 rounded-full bg-violet-600 text-white flex items-center justify-center text-[10px] font-bold';
+                    stage2.querySelector('.stage-status').className = 'stage-status text-xs font-semibold text-violet-600 dark:text-violet-400 animate-pulse';
+                    stage2.querySelector('.stage-status').textContent = 'Active';
+                }
+                
+                if (anim1) { anim1.classList.add('opacity-0', 'scale-75'); anim1.classList.remove('opacity-100', 'scale-100'); }
+                if (anim2) { anim2.classList.remove('opacity-0', 'scale-75'); anim2.classList.add('opacity-100', 'scale-100'); }
+            } else if (step === 2) {
+                // Transition to stage 3
+                if (progressBar) progressBar.style.width = '90%';
+                if (badge) badge.textContent = 'Phase 3/3';
+                if (title) title.textContent = 'Generating digitized text...';
+                
+                // Stage 2 complete
+                if (stage2) {
+                    stage2.className = 'flex items-center justify-between p-3 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/10 border border-emerald-100/30 dark:border-emerald-900/20 text-sm font-medium text-emerald-700 dark:text-emerald-400 transition-all duration-300';
+                    stage2.querySelector('.stage-num').className = 'stage-num w-5 h-5 rounded-full bg-emerald-505 text-white flex items-center justify-center text-[10px] font-bold';
+                    stage2.querySelector('.stage-num').innerHTML = '✓';
+                    stage2.querySelector('.stage-status').className = 'stage-status text-xs font-semibold text-emerald-600 dark:text-emerald-400';
+                    stage2.querySelector('.stage-status').textContent = 'Done';
+                }
+                
+                // Stage 3 active
+                if (stage3) {
+                    stage3.className = 'flex items-center justify-between p-3 rounded-xl bg-violet-50/50 dark:bg-violet-950/20 border border-violet-100/50 dark:border-violet-900/20 text-sm font-medium text-violet-700 dark:text-violet-300 transition-all duration-300';
+                    stage3.querySelector('.stage-num').className = 'stage-num w-5 h-5 rounded-full bg-violet-600 text-white flex items-center justify-center text-[10px] font-bold';
+                    stage3.querySelector('.stage-status').className = 'stage-status text-xs font-semibold text-violet-600 dark:text-violet-400 animate-pulse';
+                    stage3.querySelector('.stage-status').textContent = 'Active';
+                }
+                
+                if (anim2) { anim2.classList.add('opacity-0', 'scale-75'); anim2.classList.remove('opacity-100', 'scale-100'); }
+                if (anim3) { anim3.classList.remove('opacity-0', 'scale-75'); anim3.classList.add('opacity-100', 'scale-100'); }
+            }
+        };
+        
+        stageInterval = setInterval(() => {
+            currentStep++;
+            if (currentStep <= 2) {
+                transitionToStep(currentStep);
+            }
+        }, 2200);
+    }
+    
+    function stopLoadingAnimation() {
+        if (stageInterval) clearInterval(stageInterval);
+        const progressBar = document.getElementById('horizontal-progress-bar');
+        const badge = document.getElementById('loading-stage-badge');
+        const title = document.getElementById('loading-status-title');
+        
+        const stage1 = document.getElementById('stage-1');
+        const stage2 = document.getElementById('stage-2');
+        const stage3 = document.getElementById('stage-3');
+        
+        const anim1 = document.getElementById('anim-stage-1');
+        const anim2 = document.getElementById('anim-stage-2');
+        const anim3 = document.getElementById('anim-stage-3');
+        
+        if (progressBar) progressBar.style.width = '100%';
+        if (badge) badge.textContent = 'Completed';
+        if (title) title.textContent = 'Digitization Success!';
+        
+        // Complete remaining stages on stop
+        const markDone = (el) => {
+            if (!el) return;
+            el.className = 'flex items-center justify-between p-3 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/10 border border-emerald-100/30 dark:border-emerald-900/20 text-sm font-medium text-emerald-700 dark:text-emerald-400 transition-all duration-300';
+            el.querySelector('.stage-num').className = 'stage-num w-5 h-5 rounded-full bg-emerald-500 text-white flex items-center justify-center text-[10px] font-bold';
+            el.querySelector('.stage-num').innerHTML = '✓';
+            el.querySelector('.stage-status').className = 'stage-status text-xs font-semibold text-emerald-600 dark:text-emerald-400';
+            el.querySelector('.stage-status').textContent = 'Done';
+        };
+        
+        markDone(stage1);
+        markDone(stage2);
+        markDone(stage3);
+        
+        if (anim1) { anim1.classList.add('opacity-0', 'scale-75'); anim1.classList.remove('opacity-100', 'scale-100'); }
+        if (anim2) { anim2.classList.add('opacity-0', 'scale-75'); anim2.classList.remove('opacity-100', 'scale-100'); }
+        if (anim3) { anim3.classList.remove('opacity-0', 'scale-75'); anim3.classList.add('opacity-100', 'scale-100'); }
+    }
+    
+
+</script>
 <!-- Interactive Stats Popup Modal -->
 <div id="stats-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
     <div id="stats-modal-backdrop" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
