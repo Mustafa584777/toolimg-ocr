@@ -2910,7 +2910,7 @@
           const amountInINR = creditCount; // ₹1 per credit
 
           try {
-              const configResp = await fetch('https://toolimg-ocr.vercel.app/api/config');
+              const configResp = await fetch('/api/config');
               const configData = await configResp.json();
               const keyId = configData.razorpayKeyId;
               
@@ -2919,7 +2919,7 @@
                   return;
               }
 
-              const orderResp = await fetch('https://toolimg-ocr.vercel.app/api/create-order', {
+              const orderResp = await fetch('/api/create-order', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({
@@ -2939,7 +2939,7 @@
                   description: `Purchase of ${creditCount} Credits`,
                   order_id: orderData.orderId,
                   handler: async function(response) {
-                      const verifyResp = await fetch('https://toolimg-ocr.vercel.app/api/verify-payment', {
+                      const verifyResp = await fetch('/api/verify-payment', {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
                           body: JSON.stringify({
@@ -2994,7 +2994,7 @@
           }
 
           try {
-              const configResp = await fetch('https://toolimg-ocr.vercel.app/api/config');
+              const configResp = await fetch('/api/config');
               const configData = await configResp.json();
               const keyId = configData.razorpayKeyId;
               
@@ -3003,7 +3003,7 @@
                   return;
               }
 
-              const orderResp = await fetch('https://toolimg-ocr.vercel.app/api/create-order', {
+              const orderResp = await fetch('/api/create-order', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({
@@ -3023,7 +3023,7 @@
                   description: "Monthly subscription or access upgrade",
                   order_id: orderData.orderId,
                   handler: async function(response) {
-                      const verifyResp = await fetch('https://toolimg-ocr.vercel.app/api/verify-payment', {
+                      const verifyResp = await fetch('/api/verify-payment', {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
                           body: JSON.stringify({

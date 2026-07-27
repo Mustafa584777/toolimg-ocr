@@ -4,7 +4,9 @@ import { GoogleGenAI, Type } from '@google/genai';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import fs from 'fs';
-import admin from 'firebase-admin';
+import { initializeApp, getApps, getApp } from 'firebase-admin/app';
+import { getFirestore, FieldValue } from 'firebase-admin/firestore';
+import { getAuth } from 'firebase-admin/auth';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -15,14 +17,14 @@ let firestoreDb: any = null;
 function getFirebaseDb() {
   if (!firestoreDb) {
     try {
-      if (!admin.apps.length) {
-        firebaseAdminApp = admin.initializeApp({
+      if (!getApps().length) {
+        firebaseAdminApp = initializeApp({
           projectId: "gen-lang-client-0844549707"
         });
       } else {
-        firebaseAdminApp = admin.app();
+        firebaseAdminApp = getApp();
       }
-      firestoreDb = admin.firestore("ai-studio-toolimg-a40860b9-3db9-4eab-a65f-f070e159a9b3");
+      firestoreDb = getFirestore(firebaseAdminApp, "ai-studio-toolimg-a40860b9-3db9-4eab-a65f-f070e159a9b3");
     } catch (error: any) {
       console.error("Firebase Admin initialization failed.", error);
       throw error;
@@ -40,7 +42,7 @@ async function verifyAndConsumeCredit(req: express.Request, toolName: 'image-to-
 
   if (idToken && idToken !== 'null' && idToken !== 'undefined' && idToken.trim() !== '') {
     try {
-      const decodedToken = await admin.auth().verifyIdToken(idToken);
+      const decodedToken = await getAuth(firebaseAdminApp).verifyIdToken(idToken);
       const userDocRef = db.collection('users').doc(decodedToken.uid);
       const userDoc = await userDocRef.get();
       let credits = 5;
@@ -65,8 +67,8 @@ async function verifyAndConsumeCredit(req: express.Request, toolName: 'image-to-
         credits,
         decrement: async () => {
           await userDocRef.update({
-            credits: admin.firestore.FieldValue.increment(-1),
-            [toolField]: admin.firestore.FieldValue.increment(1)
+            credits: FieldValue.increment(-1),
+            [toolField]: FieldValue.increment(1)
           });
         }
       };
@@ -105,8 +107,8 @@ async function verifyAndConsumeCredit(req: express.Request, toolName: 'image-to-
     credits,
     decrement: async () => {
       await guestDocRef.update({
-        credits: admin.firestore.FieldValue.increment(-1),
-        [toolField]: admin.firestore.FieldValue.increment(1)
+        credits: FieldValue.increment(-1),
+        [toolField]: FieldValue.increment(1)
       });
     }
   };
