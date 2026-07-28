@@ -40,6 +40,17 @@ function getAIClient() {
 const app = express();
 const port = 3000;
 
+// CORS middleware for express server
+app.use((req, res, next) => {
+  res.setHeader('Access-Control-Allow-Origin', '*');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+  res.setHeader('Access-Control-Allow-Headers', 'Content-Type, X-Guest-ID, Authorization, *');
+  if (req.method === 'OPTIONS') {
+    return res.status(200).end();
+  }
+  next();
+});
+
 // Increase payload limit for base64 images
 app.use(express.json({ limit: '50mb' }));
 
