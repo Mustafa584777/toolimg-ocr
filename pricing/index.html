@@ -2726,6 +2726,17 @@
       import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
       import { getFirestore, doc, getDoc, setDoc, onSnapshot, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
       
+      window.getApiUrl = function(endpoint) {
+          const host = window.location.hostname;
+          const isLocal = host === 'localhost' || host === '127.0.0.1' || host.includes('192.168.') || host.includes('0.0.0.0');
+          const isVercel = host.includes('vercel.app');
+          const isAIS = host.includes('run.app');
+          if (isLocal || isVercel || isAIS) {
+              return endpoint;
+          }
+          return 'https://toolimg-ocr.vercel.app' + endpoint;
+      };
+      
       const firebaseConfig = {
           apiKey: "AIzaSyCFyGzp7viV1tq25DAMnpKKSJpPngtVa14",
           authDomain: "gen-lang-client-0844549707.firebaseapp.com",
@@ -2919,7 +2930,7 @@
           const amountInINR = creditCount; // ₹1 per credit
 
           try {
-              const configResp = await fetch('/api/config');
+              const configResp = await fetch(getApiUrl('/api/config'));
               const configData = await configResp.json();
               const keyId = configData.razorpayKeyId;
               
@@ -2928,7 +2939,7 @@
                   return;
               }
 
-              const orderResp = await fetch('/api/create-order', {
+              const orderResp = await fetch(getApiUrl('/api/create-order'), {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({
@@ -2948,7 +2959,7 @@
                   description: `Purchase of ${creditCount} Credits`,
                   order_id: orderData.orderId,
                   handler: async function(response) {
-                      const verifyResp = await fetch('/api/verify-payment', {
+                      const verifyResp = await fetch(getApiUrl('/api/verify-payment'), {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
                           body: JSON.stringify({
@@ -3003,7 +3014,7 @@
           }
 
           try {
-              const configResp = await fetch('/api/config');
+              const configResp = await fetch(getApiUrl('/api/config'));
               const configData = await configResp.json();
               const keyId = configData.razorpayKeyId;
               
@@ -3012,7 +3023,7 @@
                   return;
               }
 
-              const orderResp = await fetch('/api/create-order', {
+              const orderResp = await fetch(getApiUrl('/api/create-order'), {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({
@@ -3032,7 +3043,7 @@
                   description: "Monthly subscription or access upgrade",
                   order_id: orderData.orderId,
                   handler: async function(response) {
-                      const verifyResp = await fetch('/api/verify-payment', {
+                      const verifyResp = await fetch(getApiUrl('/api/verify-payment'), {
                           method: 'POST',
                           headers: { 'Content-Type': 'application/json' },
                           body: JSON.stringify({

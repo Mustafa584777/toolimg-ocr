@@ -1,4 +1,15 @@
 
+function getApiUrl(endpoint) {
+    const host = window.location.hostname;
+    const isLocal = host === 'localhost' || host === '127.0.0.1' || host.includes('192.168.') || host.includes('0.0.0.0');
+    const isVercel = host.includes('vercel.app');
+    const isAIS = host.includes('run.app');
+    if (isLocal || isVercel || isAIS) {
+        return endpoint;
+    }
+    return 'https://toolimg-ocr.vercel.app' + endpoint;
+}
+
       tailwind.config = {
         theme: {
           extend: {
@@ -126,7 +137,7 @@
             };
 
             try {
-                const response = await fetch('/api/ocr', {
+                const response = await fetch(getApiUrl('/api/ocr'), {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify(payload)
