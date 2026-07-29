@@ -455,6 +455,95 @@ Respond with a JSON object.`;
 });
 
 
+// Hindi Handwriting to Text Generation Endpoint
+app.post('/api/hindi-handwriting', async (req: express.Request, res: express.Response) => {
+  let creditSession: { decrement: () => Promise<void>, credits: number } | null = null;
+  try {
+    const { base64Data, fileName = 'handwriting.png', mimeType = 'image/png' } = req.body;
+    if (!base64Data) {
+      return res.status(400).json({ error: 'No image data provided' });
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: 'GEMINI_API_KEY is not configured on the server.' });
+    }
+
+    // Verify credits before initiating expensive Gemini operations
+    try {
+      creditSession = await verifyAndConsumeCredit(req, 'handwriting-to-text');
+    } catch (creditErr: any) {
+      if (creditErr.message === "INSUFFICIENT_CREDITS") {
+        return res.status(403).json({ error: "Sufficient credits are required to run this tool. Please purchase credits on the pricing page." });
+      }
+      if (creditErr.message === "GUEST_EXHAUSTED") {
+        return res.status(403).json({ error: "You have exhausted your 5 free guest credits. Please log in or buy credits to continue." });
+      }
+      if (creditErr.message === "IDENTIFICATION_REQUIRED") {
+        return res.status(400).json({ error: "Authorization or Guest Identification is required." });
+      }
+      throw creditErr;
+    }
+
+    const systemInstruction = `You are an expert handwriting recognition AI specializing in Hindi (Devanagari script) and mixed Hindi-English (Hinglish) text.
+Your goal is to extract all handwritten text in Hindi/Devanagari from the provided image with the highest possible level of accuracy.
+- Accurately transcribe Devanagari characters, matras (vowels), half-letters, conjuncts (sanyuktakshtra), and punctuation.
+- If some words are written in English or mixed Hinglish, transcribe them accurately in their respective language/script.
+- Strictly preserve formatting, line breaks, paragraphs, list structures, and layout where possible.
+- Respond with a JSON object containing the transcribed Hindi text.`;
+
+    const responseSchema = {
+      type: Type.OBJECT,
+      properties: {
+        htmlCode: { type: Type.STRING }, // Reusing the same response schema to match frontend parsing
+        frameworkCode: { type: Type.STRING },
+        markdownSummary: { type: Type.STRING },
+        designAnalysis: {
+          type: Type.OBJECT,
+          properties: {
+            colors: { type: Type.ARRAY, items: { type: Type.STRING } },
+            typography: { type: Type.STRING },
+            layout: { type: Type.STRING },
+            componentsIdentified: { type: Type.ARRAY, items: { type: Type.STRING } }
+          },
+          required: ['colors', 'typography', 'layout', 'componentsIdentified']
+        }
+      },
+      required: ['htmlCode', 'frameworkCode', 'markdownSummary', 'designAnalysis']
+    };
+
+    const ai = getAIClient();
+    const imagePart = {
+      inlineData: { mimeType: mimeType || 'image/png', data: base64Data }
+    };
+    
+    const textPart = { text: "Transcribe the Hindi handwriting (Devanagari script) in this image into text and put the final transcribed result in the markdownSummary field. For htmlCode and frameworkCode, you can just return the raw text as well." };
+
+    const response = await generateContentWithRetryAndFallback(ai, {
+      model: 'gemini-3.5-flash',
+      contents: { parts: [imagePart, textPart] },
+      config: {
+        systemInstruction,
+        responseMimeType: 'application/json',
+        responseSchema
+      }
+    });
+
+    const resultText = response.text;
+    if (!resultText) throw new Error('No response from Gemini API');
+    
+    const parsedResult = JSON.parse(resultText);
+    if (creditSession) {
+      await creditSession.decrement();
+    }
+    res.json(parsedResult);
+  } catch (error: any) {
+    console.error('Error converting Hindi handwriting to text:', error);
+    res.status(500).json({ error: error.message || 'Failed to convert' });
+  }
+});
+
+
 // Serve frontend in dev / prod
 if (process.env.NODE_ENV === 'production') {
   // Production static server

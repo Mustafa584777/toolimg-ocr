@@ -17,6 +17,7 @@ export default defineConfig(() => {
           main: resolve(__dirname, 'index.html'),
           imageToCode: resolve(__dirname, 'tools/image-to-code/index.html'),
           handwritingToText: resolve(__dirname, 'tools/handwriting-to-text/index.html'),
+          hindiHandwritingToText: resolve(__dirname, 'tools/hindi-handwriting-to-text/index.html'),
           toolsArchive: resolve(__dirname, 'tools/index.html'),
           pricing: resolve(__dirname, 'pricing/index.html'),
           dashboard: resolve(__dirname, 'dashboard/index.html')
