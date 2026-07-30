@@ -1,0 +1,1261 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+    if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark')
+    } else {
+        document.documentElement.classList.remove('dark')
+    }
+    </script>
+    <script>
+    // Universal circular JSON safety polyfill to prevent platform logging and 3rd party crashes
+    (function() {
+        const originalStringify = JSON.stringify;
+        JSON.stringify = function(value, replacer, space) {
+            const seen = new WeakSet();
+            try {
+                return originalStringify(value, function(key, val) {
+                    if (typeof val === 'object' && val !== null) {
+                        if (val instanceof HTMLElement || val === window || val === document) {
+                            return '[DOM Element]';
+                        }
+                        if (seen.has(val)) {
+                            return '[Circular]';
+                        }
+                        seen.add(val);
+                    }
+                    if (replacer) {
+                        return replacer(key, val);
+                    }
+                    return val;
+                }, space);
+            } catch (err) {
+                return '{"error":"Circular structure handled"}';
+            }
+        };
+    })();
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3PK1RHDJ2S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3PK1RHDJ2S');
+    </script>
+    
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Use our Html to image generator online free to convert custom HTML and Tailwind CSS snippets into gorgeous, high-quality PNG, JPEG, and SVG images instantly.">
+    
+    <link rel="alternate" hreflang="en" href="https://toolimg.online/tools/html-to-image/" />
+    <link rel="alternate" hreflang="es" href="https://toolimg.online/es/tools/html-to-image/" />
+    <link rel="alternate" hreflang="fr" href="https://toolimg.online/fr/tools/html-to-image/" />
+    <link rel="alternate" hreflang="de" href="https://toolimg.online/de/tools/html-to-image/" />
+    <link rel="alternate" hreflang="ru" href="https://toolimg.online/ru/tools/html-to-image/" />
+    <link rel="alternate" hreflang="ar" href="https://toolimg.online/ar/tools/html-to-image/" />
+    <link rel="alternate" hreflang="x-default" href="https://toolimg.online/tools/html-to-image/" />
+    
+    <title>HTML to Image Generator Online Free - Convert Code to Image | ToolIMG</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <style>
+        * { font-family: "Poppins", sans-serif !important; }
+        body { font-family: 'Poppins', sans-serif; background-color: #fafafa; }
+        .dark body { background-color: #0f172a; color: #f8fafc; }
+        
+        @media (max-width: 768px) {
+            html { font-size: 12px; }
+        }
+        @media (min-width: 769px) {
+            html { font-size: 16px; }
+        }
+
+        /* Dotted grid background preset */
+        .pattern-dots {
+            background-image: radial-gradient(#e2e8f0 1.5px, transparent 1.5px);
+            background-size: 16px 16px;
+        }
+        .dark .pattern-dots {
+            background-image: radial-gradient(#334155 1.5px, transparent 1.5px);
+            background-size: 16px 16px;
+        }
+
+        /* Line grid background preset */
+        .pattern-grid {
+            background-image: linear-gradient(to right, #f1f5f9 1px, transparent 1px),
+                              linear-gradient(to bottom, #f1f5f9 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+        .dark .pattern-grid {
+            background-image: linear-gradient(to right, #1e293b 1px, transparent 1px),
+                              linear-gradient(to bottom, #1e293b 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+    </style>
+
+    <!-- Pre-compiled Tailwind classes injected for reference -->
+    <link rel="stylesheet" href="/output.css">
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 min-h-screen flex flex-col transition-colors duration-300">
+
+    <!-- Navbar -->
+    <header class="w-full max-w-[85vw] mx-auto px-4 sm:px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-md border border-slate-100 dark:border-slate-800 sticky top-4 z-40 shadow-sm rounded-2xl mb-8 transition-colors">
+        <div class="flex items-center gap-2 w-full justify-between">
+            <a href="/" class="flex items-center gap-2">
+                <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG" class="h-8 object-contain">
+                <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Home</a>
+                <a href="/tools/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Tools</a>
+                <a href="/pricing/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Pricing</a>
+            </nav>
+            
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <button id="lang-menu-btn" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition flex items-center justify-center" aria-label="Select Language">
+                        <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M5 8l6 6"></path>
+                            <path d="M4 14l6-6 2-3"></path>
+                            <path d="M2 5h12"></path>
+                            <path d="M7 2h1"></path>
+                            <path d="M22 22l-5-10-5 10"></path>
+                            <path d="M14 18h6"></path>
+                        </svg>
+                    </button>
+                    <div id="lang-popover" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl shadow-lg flex-col z-50 overflow-hidden">
+                        <div class="py-2">
+                            <button type="button" onclick="switchLang('en')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">English</button>
+                            <button type="button" onclick="switchLang('es')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Español</button>
+                            <button type="button" onclick="switchLang('fr')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Français</button>
+                            <button type="button" onclick="switchLang('de')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Deutsch</button>
+                            <button type="button" onclick="switchLang('ru')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Русский</button>
+                            <button type="button" onclick="switchLang('ar')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">العربية</button>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="theme-btn" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
+                    <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Workspace -->
+    <main class="flex-grow w-full max-w-[85vw] mx-auto px-4 sm:px-6 mb-16">
+        
+        <!-- Header Hero Section -->
+        <div class="text-center max-w-3xl mx-auto mb-10">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-semibold bg-violet-100 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 mb-4 ring-1 ring-inset ring-violet-200 dark:ring-violet-800/50">
+                <span class="w-1.5 h-1.5 rounded-full bg-violet-600 dark:bg-violet-400 animate-pulse"></span>
+                Free Online Developer Tool
+            </span>
+            <h1 class="text-3xl md:text-5xl font-extrabold tracking-tight text-slate-900 dark:text-white mb-4">
+                HTML to Image Generator
+            </h1>
+            <p class="text-slate-600 dark:text-slate-400 text-lg leading-relaxed">
+                Render and export raw HTML, Tailwind CSS code, or custom UI elements into gorgeous high-definition images. Perfect for social shares, documentation, or code showcase.
+            </p>
+        </div>
+
+        <!-- Interactive Playground Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start mb-16" id="playground">
+            
+            <!-- Left Side Controls & Code Editor (7 columns) -->
+            <div class="lg:col-span-5 flex flex-col gap-6">
+                
+                <!-- Code Editor Box -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xl overflow-hidden">
+                    <div class="flex items-center justify-between px-6 py-4 bg-slate-50 dark:bg-slate-900/50 border-b border-slate-100 dark:border-slate-800">
+                        <div class="flex items-center gap-2">
+                            <span class="w-3 h-3 rounded-full bg-rose-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-amber-500"></span>
+                            <span class="w-3 h-3 rounded-full bg-emerald-500"></span>
+                            <span class="ml-2 font-bold text-sm text-slate-600 dark:text-slate-400">editor.html</span>
+                        </div>
+                        
+                        <!-- Presets dropdown -->
+                        <div class="flex items-center gap-2">
+                            <label for="preset-select" class="text-xs text-slate-400 font-medium">Preset:</label>
+                            <select id="preset-select" class="text-xs bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-violet-500">
+                                <option value="testimonial">Testimonial Card</option>
+                                <option value="code-snippet">Mac Code Window</option>
+                                <option value="saas-badge">SaaS CTA Banner</option>
+                                <option value="stats-card">Metric Widget</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="relative">
+                        <textarea id="code-textarea" class="notranslate w-full h-80 p-5 font-mono text-[13px] leading-relaxed bg-slate-950 text-slate-100 border-none focus:outline-none focus:ring-0 resize-y" placeholder="Write or paste your HTML and inline CSS / Tailwind classes here..."></textarea>
+                    </div>
+                    
+                    <div class="flex items-center justify-between px-6 py-3 bg-slate-50 dark:bg-slate-900/50 border-t border-slate-100 dark:border-slate-800">
+                        <span class="text-xs text-slate-400 font-mono" id="char-counter">0 chars</span>
+                        <div class="flex gap-2">
+                            <button id="clear-btn" class="px-3 py-1.5 text-xs font-semibold text-rose-600 hover:bg-rose-50 dark:hover:bg-rose-950/30 rounded-lg transition">
+                                Clear
+                            </button>
+                            <button id="beautify-btn" class="px-3 py-1.5 text-xs font-semibold text-violet-600 hover:bg-violet-50 dark:hover:bg-violet-950/30 rounded-lg transition">
+                                Format HTML
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings & Customization Box -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xl p-6">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-5 flex items-center gap-2">
+                        <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path></svg>
+                        Canvas & Layout Customizer
+                    </h2>
+
+                    <div class="space-y-5">
+                        
+                        <!-- Background style selector -->
+                        <div>
+                            <span class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2.5">Canvas Background</span>
+                            <div class="grid grid-cols-4 gap-2">
+                                <button type="button" data-bg="gradient" class="bg-btn px-3 py-2 text-xs font-medium border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition active bg-violet-600 text-white border-violet-600">Gradient</button>
+                                <button type="button" data-bg="solid" class="bg-btn px-3 py-2 text-xs font-medium border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition text-slate-600 dark:text-slate-300">Solid</button>
+                                <button type="button" data-bg="pattern" class="bg-btn px-3 py-2 text-xs font-medium border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition text-slate-600 dark:text-slate-300">Grid</button>
+                                <button type="button" data-bg="transparent" class="bg-btn px-3 py-2 text-xs font-medium border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition text-slate-600 dark:text-slate-300">None</button>
+                            </div>
+                        </div>
+
+                        <!-- Gradient Preset Selection or Color Pickers -->
+                        <div id="gradient-presets-container" class="space-y-3">
+                            <span class="block text-xs font-semibold text-slate-400 uppercase tracking-wider">Select Gradient Backdrop</span>
+                            <div class="flex gap-2 flex-wrap" id="gradient-swatches">
+                                <button data-grad="linear-gradient(135deg, #667eea 0%, #764ba2 100%)" class="grad-swatch w-8 h-8 rounded-full border-2 border-white ring-2 ring-violet-500/50 cursor-pointer" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%)"></button>
+                                <button data-grad="linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%, #fecfef 100%)" class="grad-swatch w-8 h-8 rounded-full border-2 border-transparent hover:scale-105 transition cursor-pointer" style="background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%)"></button>
+                                <button data-grad="linear-gradient(135deg, #f093fb 0%, #f5576c 100%)" class="grad-swatch w-8 h-8 rounded-full border-2 border-transparent hover:scale-105 transition cursor-pointer" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%)"></button>
+                                <button data-grad="linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)" class="grad-swatch w-8 h-8 rounded-full border-2 border-transparent hover:scale-105 transition cursor-pointer" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)"></button>
+                                <button data-grad="linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)" class="grad-swatch w-8 h-8 rounded-full border-2 border-transparent hover:scale-105 transition cursor-pointer" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)"></button>
+                                <button data-grad="linear-gradient(135deg, #fa709a 0%, #fee140 100%)" class="grad-swatch w-8 h-8 rounded-full border-2 border-transparent hover:scale-105 transition cursor-pointer" style="background: linear-gradient(135deg, #fa709a 0%, #fee140 100%)"></button>
+                                <button data-grad="linear-gradient(135deg, #30cfd0 0%, #330867 100%)" class="grad-swatch w-8 h-8 rounded-full border-2 border-transparent hover:scale-105 transition cursor-pointer" style="background: linear-gradient(135deg, #30cfd0 0%, #330867 100%)"></button>
+                            </div>
+                        </div>
+
+                        <div id="solid-color-container" class="hidden">
+                            <span class="block text-xs font-semibold text-slate-400 uppercase tracking-wider mb-2">Choose Color</span>
+                            <div class="flex items-center gap-3">
+                                <input type="color" id="solid-color-picker" value="#f4f4f5" class="w-10 h-10 border-0 rounded-lg cursor-pointer">
+                                <input type="text" id="solid-hex-input" value="#f4f4f5" class="bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 text-sm rounded-lg px-3 py-1.5 focus:outline-none w-28 uppercase">
+                            </div>
+                        </div>
+
+                        <!-- Padding Slider -->
+                        <div>
+                            <div class="flex justify-between text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">
+                                <span>Canvas Padding</span>
+                                <span id="padding-val" class="font-mono text-violet-600 dark:text-violet-400">48px</span>
+                            </div>
+                            <input type="range" id="padding-slider" min="0" max="120" step="8" value="48" class="w-full h-1.5 bg-slate-100 dark:bg-slate-800 rounded-lg appearance-none cursor-pointer accent-violet-600">
+                        </div>
+
+                        <!-- Aspect Ratio & Export scale controls side by side -->
+                        <div class="grid grid-cols-2 gap-4">
+                            <div>
+                                <span class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Export Ratio</span>
+                                <select id="ratio-select" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-700 dark:text-slate-300 focus:outline-none">
+                                    <option value="auto">Auto (Fit Content)</option>
+                                    <option value="1:1">Square (1:1)</option>
+                                    <option value="16:9">Twitter/X landscape (16:9)</option>
+                                    <option value="4:3">Standard Desktop (4:3)</option>
+                                </select>
+                            </div>
+                            <div>
+                                <span class="block text-sm font-semibold text-slate-700 dark:text-slate-300 mb-2">Image Resolution</span>
+                                <select id="scale-select" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-xl px-3 py-2.5 text-sm text-slate-700 dark:text-slate-300 focus:outline-none">
+                                    <option value="1">Standard (1x)</option>
+                                    <option value="2" selected>HD Crisp (2x)</option>
+                                    <option value="3">Ultra Sharp (3x)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Side Live Rendering Preview (7 columns) -->
+            <div class="lg:col-span-7 flex flex-col gap-6">
+                
+                <!-- Frame Wrapper Panel -->
+                <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800 shadow-xl overflow-hidden p-6">
+                    <div class="flex items-center justify-between mb-5 border-b border-slate-50 dark:border-slate-800 pb-3">
+                        <h2 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                            <span class="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
+                            Live Canvas Stage
+                        </h2>
+                        
+                        <div class="flex gap-2">
+                            <button id="reset-stage-btn" class="p-1.5 text-xs text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 rounded-lg hover:bg-slate-50 dark:hover:bg-slate-800 transition" title="Reset Layout View">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 1121.21 15H19M9 9H4v5"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Rendering Container Wrapper -->
+                    <div class="overflow-auto bg-slate-100 dark:bg-slate-950 p-4 rounded-2xl flex justify-center items-center min-h-[420px]" id="preview-outer-wrap">
+                        
+                        <!-- Target Node to render into Image (with dynamic style applications) -->
+                        <div id="render-target" class="notranslate transition-all duration-200 flex items-center justify-center relative shadow-lg" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); padding: 48px; border-radius: 24px;">
+                            
+                            <!-- Dotted background mesh (absolute inside target) -->
+                            <div id="pattern-layer" class="absolute inset-0 hidden pointer-events-none rounded-[inherit]"></div>
+                            
+                            <!-- Outer rendering box container containing custom HTML -->
+                            <div id="render-content-box" class="notranslate relative z-10 transition-all">
+                                <!-- Dynamic code injected here -->
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- Action Export Controls Block -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 mt-6">
+                        
+                        <div class="sm:col-span-2">
+                            <button id="download-btn" class="w-full py-3.5 bg-violet-600 hover:bg-violet-700 text-white rounded-xl font-bold transition flex items-center justify-center gap-2 shadow-lg shadow-violet-200 dark:shadow-violet-950">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                                Download Image
+                            </button>
+                        </div>
+
+                        <div>
+                            <button id="copy-clipboard-btn" class="w-full py-3.5 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-xl font-bold transition flex items-center justify-center gap-2">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                                Copy PNG
+                            </button>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- SEO Editorial Content, Use-cases, FAQs Section -->
+        <section class="mt-20 border-t border-slate-100 dark:border-slate-800 pt-16 max-w-4xl mx-auto">
+            
+            <!-- Context Block -->
+            <div class="mb-14">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white mb-6">
+                    What is our <span class="text-violet-600 dark:text-violet-400">Html to image generator online free</span>?
+                </h2>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-4 text-base">
+                    Generating beautiful snapshots of code is essential for modern web creators. Standard screenshot utilities lack options to customize paddings, gradient backdrops, and retina crisp resolutions. Our robust **Html to image generator online free** is designed precisely to bridge this gap. 
+                </p>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed text-base">
+                    By simply inputting raw markup coupled with Tailwind utility presets, you can output pristine design cards instantly. It runs purely client-side inside your browser meaning your private code data is never transferred to external servers, providing an ultra-safe environment to create **HTML code to image free** content.
+                </p>
+            </div>
+
+            <!-- Features Grid -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-16">
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-50 dark:border-slate-800">
+                    <div class="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Real-time Rendering Engine</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Watch your layouts, components, and gradient structures render on-the-fly as you edit elements inside our clean interface.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-50 dark:border-slate-800">
+                    <div class="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9.813 15.904L9 21l8.904-8.904m-8.904 3.808L14.73 10.73M11.5 5.5A1.5 1.5 0 1010 7l1.5-1.5z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Crisp HD Retina Output</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Say goodbye to blurry pixelated canvas exports. Choose from 1x, 2x, or 3x high-resolution multiplier modes for professional-grade design assets.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-50 dark:border-slate-800">
+                    <div class="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Stunning Backdrop Sliders</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Customize borders, roundings, paddings, shadows, and stunning abstract gradients to frame your codes with Twitter-ready aesthetics.
+                    </p>
+                </div>
+
+                <div class="p-6 rounded-2xl bg-white dark:bg-slate-900 border border-slate-50 dark:border-slate-800">
+                    <div class="w-10 h-10 rounded-xl bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-4">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 11V7a4 4 0 118 0m-4 8v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2z"></path></svg>
+                    </div>
+                    <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">100% Secure & Client-Side</h3>
+                    <p class="text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                        Your input data and code assets are rendered locally using standard browser modules, guaranteeing complete security and offline utility.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Use Cases Section -->
+            <div class="mb-16">
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Popular Use Cases</h3>
+                <div class="space-y-4">
+                    <div class="flex gap-4">
+                        <div class="text-violet-600 font-bold text-lg">01.</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white mb-1">Social Media Content Creation</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Create visual updates for Twitter, LinkedIn, and Instagram containing testimonial widgets, feedback lists, or custom profile templates.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-violet-600 font-bold text-lg">02.</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white mb-1">Interactive Code Mockup Demonstrations</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Present developers and clients beautiful mockups of UI cards, responsive layouts, or button groupings formatted inside elegant outer backdrops.</p>
+                        </div>
+                    </div>
+                    <div class="flex gap-4">
+                        <div class="text-violet-600 font-bold text-lg">03.</div>
+                        <div>
+                            <h4 class="font-bold text-slate-900 dark:text-white mb-1">Asset Generation & Documentation</h4>
+                            <p class="text-slate-600 dark:text-slate-400 text-sm">Rapidly extract visual design components, static layouts, and charts to document UI structures cleanly inside software project repositories.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- How To Guide -->
+            <div class="mb-16 p-8 bg-slate-50 dark:bg-slate-900 rounded-3xl border border-slate-100 dark:border-slate-800">
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-5">
+                    How to Convert **HTML code to image free**?
+                </h3>
+                <ol class="space-y-4 text-slate-600 dark:text-slate-400 text-sm list-decimal list-inside">
+                    <li>Input or paste your custom raw HTML and Tailwind classes inside the visual code editor.</li>
+                    <li>Tailor the canvas backdrop choosing from stunning linear gradient templates, solid background fills, or simple transparent layouts.</li>
+                    <li>Adjust the border rounding, outer container shadow levels, or canvas padding margins using the layout slider.</li>
+                    <li>Verify the live preview on the rendering canvas stage for real-time adjustments.</li>
+                    <li>Click the <strong>Download Image</strong> button to export your design as crisp HD PNG, or copy it directly into your clipboard.</li>
+                </ol>
+            </div>
+
+            <!-- Collapsible FAQs Accordion Section -->
+            <div class="mb-16" id="faq-section">
+                <h3 class="text-2xl font-bold text-slate-900 dark:text-white mb-6">Frequently Asked Questions</h3>
+                <div class="space-y-4">
+                    
+                    <!-- FAQ 1 -->
+                    <div class="faq-item border border-slate-100 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 overflow-hidden transition-all duration-300">
+                        <button class="faq-trigger w-full px-6 py-5 text-left flex justify-between items-center font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+                            <span>How does this **Html to image generator online free** handle custom styles?</span>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform duration-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                            <div class="px-6 pb-5 pt-1 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                Our tool renders standard inline HTML, embedded style attributes, and also supports standard precompiled classes (such as full Tailwind CSS layers). Any utility declarations or custom classes you input will process instantly.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 2 -->
+                    <div class="faq-item border border-slate-100 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 overflow-hidden transition-all duration-300">
+                        <button class="faq-trigger w-full px-6 py-5 text-left flex justify-between items-center font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+                            <span>Is there a resolution limit on exported design images?</span>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform duration-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                            <div class="px-6 pb-5 pt-1 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                Not at all! In addition to standard resolution exporting, you can choose 2x and 3x HD export options in our customization dashboard. This forces the rendering canvas to output high-resolution retina-crisp design snaps.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 3 -->
+                    <div class="faq-item border border-slate-100 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 overflow-hidden transition-all duration-300">
+                        <button class="faq-trigger w-full px-6 py-5 text-left flex justify-between items-center font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+                            <span>Can I safely generate transparent **HTML code to image free**?</span>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform duration-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                            <div class="px-6 pb-5 pt-1 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                Yes! By choosing "None" or selecting transparent canvas settings, you can export design layouts containing clean transparent pixels. These look magnificent when overlaid on other graphics or presentation slides.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- FAQ 4 -->
+                    <div class="faq-item border border-slate-100 dark:border-slate-800 rounded-2xl bg-white dark:bg-slate-900 overflow-hidden transition-all duration-300">
+                        <button class="faq-trigger w-full px-6 py-5 text-left flex justify-between items-center font-bold text-slate-800 dark:text-slate-200 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition">
+                            <span>Are there external costs or limits associated with the generator?</span>
+                            <svg class="w-5 h-5 text-slate-400 transform transition-transform duration-300 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        </button>
+                        <div class="faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out">
+                            <div class="px-6 pb-5 pt-1 text-slate-600 dark:text-slate-400 text-sm leading-relaxed">
+                                No, this service is 100% free with unlimited export iterations. It runs entirely within your browser locally, consuming no external server resources, allowing instant conversion without registration limits.
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </section>
+
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 mt-auto pt-16 pb-8 transition-colors">
+        <div class="max-w-[85vw] mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="md:col-span-1">
+                    <a href="/" class="flex items-center gap-2 mb-4">
+                        <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG" class="h-8 object-contain">
+                        <span class="font-bold text-sm md:text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
+                    </a>
+                    <p class="text-slate-500 dark:text-slate-400 text-[11px] md:text-[15px] leading-relaxed mb-4">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
+                    <a href="mailto:support@toolimg.online" class="text-violet-600 dark:text-violet-400 font-medium hover:underline text-[11px] md:text-[15px]">support@toolimg.online</a>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-[11px] md:text-base">Products</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="/tools/image-to-code/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Image to Code AI</a></li>
+                        <li><a href="/tools/handwriting-to-text/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">English Handwriting OCR</a></li>
+                        <li><a href="/tools/hindi-handwriting-to-text/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Hindi Handwriting OCR</a></li>
+                        <li><a href="/tools/html-to-image/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition font-semibold text-violet-600 dark:text-violet-400">HTML to Image Generator</a></li>
+                        <li><a href="/tools/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">All Tools</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-[11px] md:text-base">Company</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="https://toolimg.online/about.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">About Us</a></li>
+                        <li><a href="https://toolimg.online/contact.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Contact Us</a></li>
+                        <li><a href="/pricing/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-[11px] md:text-base">Legal</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="https://toolimg.online/privacy-policy.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="https://toolimg.online/terms.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="https://toolimg.online/refund-policy.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Refund Policy</a></li>
+                        <li><a href="https://toolimg.online/disclaimer.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[11px] md:text-[15px] text-slate-500 dark:text-slate-400">© 2026 ToolIMG. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Firebase Scripts -->
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      
+      const firebaseConfig = {
+          apiKey: "AIzaSyCFyGzp7viV1tq25DAMnpKKSJpPngtVa14",
+          authDomain: "gen-lang-client-0844549707.firebaseapp.com",
+          projectId: "gen-lang-client-0844549707",
+          firestoreDatabaseId: "ai-studio-toolimg-a40860b9-3db9-4eab-a65f-f070e159a9b3",
+          storageBucket: "gen-lang-client-0844549707.firebasestorage.app",
+          messagingSenderId: "845800015860",
+          appId: "1:845800015860:web:a6229be704605991785ba1"
+      };
+      
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
+      const provider = new GoogleAuthProvider();
+ 
+      window.handleLogin = async function() {
+          try {
+              await signInWithPopup(auth, provider);
+          } catch (error) {
+              console.error("Login failed", error.message || error);
+          }
+      };
+ 
+      window.handleLogout = async function() {
+          try {
+              await signOut(auth);
+          } catch (error) {
+              console.error("Logout failed", error.message || error);
+          }
+      };
+    </script>
+
+    <!-- Library Scripts -->
+    <!-- Modern html-to-image to support raw canvas conversion client-side -->
+    <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
+
+    <!-- Schema Markup JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "SoftwareApplication",
+      "name": "HTML to Image Generator",
+      "operatingSystem": "All",
+      "applicationCategory": "DeveloperApplication",
+      "offers": {
+        "@type": "Offer",
+        "price": "0.00",
+        "priceCurrency": "USD"
+      },
+      "featureList": [
+        "Real-time rendering of code snippets",
+        "Retina high-definition exports (1x, 2x, 3x options)",
+        "Stunning background gradient customizable frame",
+        "100% Client-side safe processing",
+        "Direct copy PNG to Clipboard utility"
+      ]
+    }
+    </script>
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      "mainEntity": [{
+        "@type": "Question",
+        "name": "How does this Html to image generator online free handle custom styles?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Our tool renders standard inline HTML, embedded style attributes, and also supports standard precompiled classes (such as full Tailwind CSS layers). Any utility declarations or custom classes you input will process instantly."
+        }
+      },{
+        "@type": "Question",
+        "name": "Is there a resolution limit on exported design images?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Not at all! In addition to standard resolution exporting, you can choose 2x and 3x HD export options in our customization dashboard. This forces the rendering canvas to output high-resolution retina-crisp design snaps."
+        }
+      },{
+        "@type": "Question",
+        "name": "Can I safely generate transparent HTML code to image free?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes! By choosing 'None' or selecting transparent canvas settings, you can export design layouts containing clean transparent pixels. These look magnificent when overlaid on other graphics or presentation slides."
+        }
+      }]
+    }
+    </script>
+
+    <!-- Core Tool Interaction Scripts -->
+    <script>
+        const PRESETS = {
+            testimonial: `<div class="max-w-md bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-xl border border-slate-100 dark:border-slate-800 flex flex-col gap-4">
+    <div class="flex items-center gap-4">
+        <img class="w-12 h-12 rounded-full object-cover shadow-sm border border-slate-200" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&auto=format&fit=crop" alt="User Avatar">
+        <div>
+            <h4 class="text-base font-bold text-slate-900 dark:text-white">Sarah Jenkins</h4>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Frontend Lead at Stripe</p>
+        </div>
+    </div>
+    <div class="flex text-amber-400 gap-0.5">
+        <span class="text-lg">★</span><span class="text-lg">★</span><span class="text-lg">★</span><span class="text-lg">★</span><span class="text-lg">★</span>
+    </div>
+    <p class="text-sm text-slate-700 dark:text-slate-300 font-medium leading-relaxed">
+        "This tool is absolutely incredible! Converting my raw HTML codes directly into high-res images has simplified our social sharing process by 10x."
+    </p>
+    <div class="flex justify-between items-center mt-2 pt-4 border-t border-slate-100 dark:border-slate-800">
+        <span class="text-xs font-semibold text-violet-600 dark:text-violet-400 tracking-wider">VERIFIED DEVELOOP</span>
+        <span class="text-xs text-slate-400">July 30, 2026</span>
+    </div>
+</div>`,
+
+            "code-snippet": `<div class="w-96 bg-[#1e1e2e] text-[#cdd6f4] rounded-2xl shadow-2xl border border-slate-700/30 overflow-hidden font-mono">
+    <div class="flex items-center justify-between px-4 py-3 bg-[#11111b] border-b border-slate-800/80">
+        <div class="flex items-center gap-2">
+            <span class="w-3 h-3 rounded-full bg-[#f38ba8]"></span>
+            <span class="w-3 h-3 rounded-full bg-[#f9e2af]"></span>
+            <span class="w-3 h-3 rounded-full bg-[#a6e3a1]"></span>
+        </div>
+        <span class="text-xs text-[#a6adc8] font-semibold">index.js</span>
+    </div>
+    <div class="p-5 text-left text-xs leading-relaxed space-y-1 bg-[#1e1e2e]">
+        <div><span class="text-[#cba6f7]">const</span> <span class="text-[#f9e2af]">renderImage</span> = <span class="text-[#89b4fa]">(code) => {</span></div>
+        <div class="pl-4"><span class="text-[#f5e0dc]">console</span>.<span class="text-[#89b4fa]">log</span>(<span class="text-[#a6e3a1]">"Rendering HTML..."</span>);</div>
+        <div class="pl-4"><span class="text-[#cba6f7]">return</span> <span class="text-[#fab387]">new</span> <span class="text-[#89b4fa]">Image</span>();</div>
+        <div><span class="text-[#89b4fa]">};</span></div>
+        <div class="pt-2"><span class="text-[#a6adc8]">// Free HTML code to image tool</span></div>
+    </div>
+</div>`,
+
+            "saas-badge": `<div class="max-w-sm bg-gradient-to-br from-violet-600 to-indigo-700 rounded-3xl p-6 text-white text-center shadow-xl flex flex-col items-center gap-4">
+    <span class="px-2.5 py-1 text-[10px] uppercase font-extrabold tracking-wider bg-violet-500/50 rounded-full border border-violet-400/30">PRO PLAN FEATURES</span>
+    <h3 class="text-lg font-bold">Unleash Next-Gen UI Tools</h3>
+    <p class="text-xs text-violet-100 leading-relaxed">
+        Unlock premium vector conversions, bulk extractions, custom domain maps, and infinite monthly exports.
+    </p>
+    <button class="w-full py-2.5 bg-white text-violet-700 font-bold text-xs rounded-xl shadow hover:bg-violet-50 transition">
+        Upgrade Now
+    </button>
+</div>`,
+
+            "stats-card": `<div class="w-72 bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-100 dark:border-slate-800 shadow-lg flex flex-col gap-3">
+    <div class="flex items-center justify-between">
+        <span class="text-xs font-semibold text-slate-400 uppercase tracking-wider">Active Credits</span>
+        <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-emerald-50 text-emerald-600 dark:bg-emerald-950/50 dark:text-emerald-400">99.2% Uptime</span>
+    </div>
+    <div class="flex items-baseline gap-1.5">
+        <span class="text-2xl font-bold text-slate-900 dark:text-white">1,482</span>
+        <span class="text-xs font-semibold text-emerald-500">▲ +12%</span>
+    </div>
+    <div class="w-full bg-slate-100 dark:bg-slate-800 h-1.5 rounded-full overflow-hidden">
+        <div class="bg-violet-600 h-full rounded-full" style="width: 72%"></div>
+    </div>
+    <span class="text-[10px] text-slate-400">Refreshed: July 30, 2026</span>
+</div>`
+        };
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const codeTextarea = document.getElementById('code-textarea');
+            const renderContentBox = document.getElementById('render-content-box');
+            const charCounter = document.getElementById('char-counter');
+            const presetSelect = document.getElementById('preset-select');
+            const bgBtns = document.querySelectorAll('.bg-btn');
+            const gradSwatches = document.querySelectorAll('.grad-swatch');
+            const renderTarget = document.getElementById('render-target');
+            const paddingSlider = document.getElementById('padding-slider');
+            const paddingVal = document.getElementById('padding-val');
+            const scaleSelect = document.getElementById('scale-select');
+            const ratioSelect = document.getElementById('ratio-select');
+            const downloadBtn = document.getElementById('download-btn');
+            const copyClipboardBtn = document.getElementById('copy-clipboard-btn');
+            const patternLayer = document.getElementById('pattern-layer');
+            const clearBtn = document.getElementById('clear-btn');
+            const beautifyBtn = document.getElementById('beautify-btn');
+            
+            const gradientContainer = document.getElementById('gradient-presets-container');
+            const solidContainer = document.getElementById('solid-color-container');
+            const solidColorPicker = document.getElementById('solid-color-picker');
+            const solidHexInput = document.getElementById('solid-hex-input');
+
+            // Set default preset
+            codeTextarea.value = PRESETS.testimonial;
+            
+            function updatePreview() {
+                const code = codeTextarea.value;
+                renderContentBox.innerHTML = code;
+                charCounter.textContent = `${code.length} chars`;
+            }
+
+            // Real-time listen
+            codeTextarea.addEventListener('input', updatePreview);
+            
+            // Preset selector listener
+            presetSelect.addEventListener('change', () => {
+                const sel = presetSelect.value;
+                if (PRESETS[sel]) {
+                    codeTextarea.value = PRESETS[sel];
+                    updatePreview();
+                }
+            });
+
+            // Canvas Background Switcher
+            let activeBgType = 'gradient';
+            let activeGradient = 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)';
+
+            bgBtns.forEach(btn => {
+                btn.addEventListener('click', () => {
+                    bgBtns.forEach(b => b.className = 'bg-btn px-3 py-2 text-xs font-medium border border-slate-200 dark:border-slate-700 rounded-xl hover:bg-slate-50 dark:hover:bg-slate-800 transition text-slate-600 dark:text-slate-300');
+                    btn.className = 'bg-btn px-3 py-2 text-xs font-medium border border-violet-600 rounded-xl transition bg-violet-600 text-white font-bold';
+                    
+                    const bgType = btn.getAttribute('data-bg');
+                    activeBgType = bgType;
+
+                    gradientContainer.classList.add('hidden');
+                    solidContainer.classList.add('hidden');
+                    patternLayer.classList.add('hidden');
+                    patternLayer.className = 'absolute inset-0 pointer-events-none rounded-[inherit]';
+
+                    if (bgType === 'gradient') {
+                        gradientContainer.classList.remove('hidden');
+                        renderTarget.style.background = activeGradient;
+                    } else if (bgType === 'solid') {
+                        solidContainer.classList.remove('hidden');
+                        renderTarget.style.background = solidColorPicker.value;
+                    } else if (bgType === 'pattern') {
+                        patternLayer.classList.remove('hidden');
+                        patternLayer.classList.add('pattern-dots');
+                        renderTarget.style.background = '#f8fafc';
+                        if (document.documentElement.classList.contains('dark')) {
+                            renderTarget.style.background = '#020617';
+                        }
+                    } else if (bgType === 'transparent') {
+                        renderTarget.style.background = 'transparent';
+                    }
+                });
+            });
+
+            // Gradient swatch selections
+            gradSwatches.forEach(swatch => {
+                swatch.addEventListener('click', () => {
+                    gradSwatches.forEach(s => s.classList.replace('ring-violet-500/50', 'border-transparent'));
+                    gradSwatches.forEach(s => s.classList.add('border-transparent'));
+                    swatch.classList.replace('border-transparent', 'border-white');
+                    swatch.classList.add('ring-2', 'ring-violet-500/50');
+                    
+                    const gradValue = swatch.getAttribute('data-grad');
+                    activeGradient = gradValue;
+                    if (activeBgType === 'gradient') {
+                        renderTarget.style.background = gradValue;
+                    }
+                });
+            });
+
+            // Solid Color Pickers
+            solidColorPicker.addEventListener('input', () => {
+                const colorVal = solidColorPicker.value;
+                solidHexInput.value = colorVal;
+                if (activeBgType === 'solid') {
+                    renderTarget.style.background = colorVal;
+                }
+            });
+
+            solidHexInput.addEventListener('input', () => {
+                const val = solidHexInput.value;
+                if (val.match(/^#[0-9A-F]{6}$/i)) {
+                    solidColorPicker.value = val;
+                    if (activeBgType === 'solid') {
+                        renderTarget.style.background = val;
+                    }
+                }
+            });
+
+            // Padding Sliders
+            paddingSlider.addEventListener('input', () => {
+                const val = paddingSlider.value;
+                paddingVal.textContent = `${val}px`;
+                renderTarget.style.padding = `${val}px`;
+            });
+
+            // Ratio Adjuster
+            ratioSelect.addEventListener('change', () => {
+                const ratio = ratioSelect.value;
+                if (ratio === '1:1') {
+                    renderTarget.style.aspectRatio = '1 / 1';
+                    renderTarget.style.width = '520px';
+                } else if (ratio === '16:9') {
+                    renderTarget.style.aspectRatio = '16 / 9';
+                    renderTarget.style.width = '700px';
+                } else if (ratio === '4:3') {
+                    renderTarget.style.aspectRatio = '4 / 3';
+                    renderTarget.style.width = '580px';
+                } else {
+                    renderTarget.style.aspectRatio = 'auto';
+                    renderTarget.style.width = 'auto';
+                }
+            });
+
+            // Reset stage helper
+            document.getElementById('reset-stage-btn').addEventListener('click', () => {
+                paddingSlider.value = 48;
+                paddingVal.textContent = '48px';
+                renderTarget.style.padding = '48px';
+                ratioSelect.value = 'auto';
+                renderTarget.style.aspectRatio = 'auto';
+                renderTarget.style.width = 'auto';
+            });
+
+            // Clear Code Editor
+            clearBtn.addEventListener('click', () => {
+                codeTextarea.value = '';
+                updatePreview();
+            });
+
+            // Beautify/Format HTML helper
+            beautifyBtn.addEventListener('click', () => {
+                let text = codeTextarea.value;
+                // Basic regex formatting for demonstration of "Formating"
+                let formatted = text
+                    .replace(/(>)\s*(<)/g, '$1\n$2')
+                    .split('\n')
+                    .map(line => line.trim())
+                    .join('\n');
+                codeTextarea.value = formatted;
+                updatePreview();
+            });
+
+            // EXPORTING PROCESSES (USING HTML TO IMAGE)
+            downloadBtn.addEventListener('click', async () => {
+                downloadBtn.disabled = true;
+                const originalText = downloadBtn.innerHTML;
+                downloadBtn.innerHTML = `<span class="animate-pulse">Exporting...</span>`;
+                
+                try {
+                    const scale = parseInt(scaleSelect.value || '2', 10);
+                    const dataUrl = await htmlToImage.toPng(renderTarget, {
+                        pixelRatio: scale,
+                        style: {
+                            transform: 'scale(1)',
+                            transformOrigin: 'top left'
+                        }
+                    });
+                    
+                    const link = document.createElement('a');
+                    link.download = `toolimg-html-export-${Date.now()}.png`;
+                    link.href = dataUrl;
+                    link.click();
+                } catch (error) {
+                    console.error('Download export failed:', error);
+                    alert('Could not export layout to PNG image. Make sure there are no broken links.');
+                } finally {
+                    downloadBtn.disabled = false;
+                    downloadBtn.innerHTML = originalText;
+                }
+            });
+
+            // COPY TO CLIPBOARD AS BLOB
+            copyClipboardBtn.addEventListener('click', async () => {
+                copyClipboardBtn.disabled = true;
+                const originalText = copyClipboardBtn.innerHTML;
+                copyClipboardBtn.innerHTML = `<span class="text-xs">Copying...</span>`;
+                
+                try {
+                    const scale = parseInt(scaleSelect.value || '2', 10);
+                    const blob = await htmlToImage.toBlob(renderTarget, {
+                        pixelRatio: scale
+                    });
+                    
+                    await navigator.clipboard.write([
+                        new ClipboardItem({
+                            [blob.type]: blob
+                        })
+                    ]);
+                    
+                    copyClipboardBtn.innerHTML = `✓ Copied!`;
+                    setTimeout(() => {
+                        copyClipboardBtn.innerHTML = originalText;
+                        copyClipboardBtn.disabled = false;
+                    }, 2000);
+                } catch (error) {
+                    console.error('Clipboard copy failed:', error);
+                    alert('Clipboard write unsupported or failed. You can use Download PNG instead.');
+                    copyClipboardBtn.innerHTML = originalText;
+                    copyClipboardBtn.disabled = false;
+                }
+            });
+
+            // Load initial view
+            updatePreview();
+
+            // FAQ collapsible logic
+            const triggers = document.querySelectorAll('.faq-trigger');
+            triggers.forEach(trigger => {
+                trigger.addEventListener('click', () => {
+                    const item = trigger.closest('.faq-item');
+                    const content = item.querySelector('.faq-content');
+                    const icon = trigger.querySelector('svg');
+
+                    if (content.style.maxHeight && content.style.maxHeight !== '0px') {
+                        content.style.maxHeight = '0px';
+                        icon.style.transform = 'rotate(0deg)';
+                        item.classList.remove('ring-1', 'ring-violet-500/10');
+                    } else {
+                        // Collapse others
+                        document.querySelectorAll('.faq-content').forEach(c => {
+                            c.style.maxHeight = '0px';
+                            c.previousElementSibling.querySelector('svg').style.transform = 'rotate(0deg)';
+                            c.closest('.faq-item').classList.remove('ring-1', 'ring-violet-500/10');
+                        });
+                        content.style.maxHeight = content.scrollHeight + 'px';
+                        icon.style.transform = 'rotate(180deg)';
+                        item.classList.add('ring-1', 'ring-violet-500/10');
+                    }
+                });
+            });
+
+            // Navbar dropdown / lang select popup triggers
+            const langBtn = document.getElementById('lang-menu-btn');
+            const langPopover = document.getElementById('lang-popover');
+            if (langBtn && langPopover) {
+                langBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    langPopover.classList.toggle('hidden');
+                });
+                document.addEventListener('click', () => {
+                    langPopover.classList.add('hidden');
+                });
+            }
+
+            // Theme toggling triggers
+            const themeBtn = document.getElementById('theme-btn');
+            if (themeBtn) {
+                themeBtn.addEventListener('click', () => {
+                    if (document.documentElement.classList.contains('dark')) {
+                        document.documentElement.classList.remove('dark');
+                        localStorage.theme = 'light';
+                    } else {
+                        document.documentElement.classList.add('dark');
+                        localStorage.theme = 'dark';
+                    }
+                });
+            }
+        });
+    </script>
+
+    <!-- Google Translate integration -->
+<div id="google_translate_element" style="position: absolute; top: -100px; left: -100px; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none;"></div>
+<style>
+/* Hide Google Translate top bar, widget elements, and progress spinners completely */
+.skiptranslate, 
+.goog-te-banner-frame, 
+#goog-gt-tt, 
+.goog-te-balloon-frame, 
+.goog-te-menu-value, 
+.goog-te-gadget,
+.goog-te-spinner-pos,
+.goog-te-spinner,
+#google_translate_element,
+#google_translate_element img,
+.goog-te-gadget-icon,
+.goog-te-gadget-simple,
+.goog-te-banner,
+iframe[class*="skiptranslate"],
+iframe.skiptranslate,
+iframe[src*="translate.google.com"],
+div[class*="VIpgJd-y689mc"],
+div[class*="VIpgJd-ZVi9od"],
+[class*="VIpgJd-"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    width: 0 !important;
+}
+body {
+    top: 0px !important;
+    position: static !important;
+}
+.goog-tooltip, .goog-tooltip:hover {
+    display: none !important;
+}
+.goog-text-highlight {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+</style>
+<script type="text/javascript">
+window.googleTranslateElementInit = function() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,es,fr,de,ru,ar',
+        autoDisplay: false
+    }, 'google_translate_element');
+};
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+function switchLang(lang) {
+    const prevLang = localStorage.getItem('selected_lang') || 'en';
+    localStorage.setItem('prev_lang', prevLang);
+    localStorage.setItem('selected_lang', lang);
+    
+    // Helper to clear cookies
+    const clearCookie = (name, domain) => {
+        let cookieStr = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        if (domain) {
+            cookieStr += " domain=" + domain + ";";
+        }
+        document.cookie = cookieStr;
+        document.cookie = cookieStr + " SameSite=None; Secure;";
+    };
+
+    // Clear all potential variants of googtrans cookie to prevent stale state
+    clearCookie('googtrans');
+    clearCookie('googtrans', window.location.hostname);
+    clearCookie('googtrans', '.' + window.location.hostname);
+    const parts = window.location.hostname.split('.');
+    if (parts.length > 2) {
+        const mainDomain = parts.slice(-2).join('.');
+        clearCookie('googtrans', mainDomain);
+        clearCookie('googtrans', '.' + mainDomain);
+    }
+
+    if (lang !== 'en') {
+        const setCookie = (value, domain) => {
+            let base = "googtrans=" + value + "; path=/; SameSite=None; Secure;";
+            if (domain) {
+                base += " domain=" + domain + ";";
+            }
+            document.cookie = base;
+        };
+        
+        setCookie('/en/' + lang);
+        setCookie('/en/' + lang, window.location.hostname);
+        setCookie('/en/' + lang, '.' + window.location.hostname);
+        if (parts.length > 2) {
+            const mainDomain = parts.slice(-2).join('.');
+            setCookie('/en/' + lang, mainDomain);
+            setCookie('/en/' + lang, '.' + mainDomain);
+        }
+    }
+
+    // Programmatically select and dispatch change to Google Translate combo box if present
+    const select = document.querySelector('#google_translate_element select') || document.querySelector('.goog-te-combo');
+    if (select) {
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+    }
+
+    // Reload the page to ensure the translation is cleanly applied
+    window.location.reload();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Set notranslate class on language popover to keep original language names constant
+    const langPopover = document.getElementById('lang-popover');
+    if (langPopover) {
+        langPopover.classList.add('notranslate');
+        const savedLangVal = localStorage.getItem('selected_lang') || 'en';
+        const buttons = langPopover.querySelectorAll('button[onclick]');
+        buttons.forEach(btn => {
+            const onclickValue = btn.getAttribute('onclick') || '';
+            if (onclickValue.includes(`'${savedLangVal}'`) || onclickValue.includes(`"${savedLangVal}"`)) {
+                btn.classList.add('text-violet-600', 'dark:text-violet-400', 'font-semibold');
+                btn.classList.remove('text-slate-700', 'dark:text-slate-300');
+            } else {
+                btn.classList.remove('text-violet-600', 'dark:text-violet-400', 'font-semibold');
+                btn.classList.add('text-slate-700', 'dark:text-slate-300');
+            }
+        });
+    }
+
+    // 2. Mobile Menu Modal Toggle Logic
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileCloseBtn = document.getElementById('mobile-menu-close');
+    const mobileModal = document.getElementById('mobile-menu-modal');
+    const mobileBackdrop = document.getElementById('mobile-menu-backdrop');
+    const mobileContent = document.getElementById('mobile-menu-content');
+    
+    function openMobileMenu() {
+        if (!mobileModal) return;
+        mobileModal.classList.remove('hidden');
+        mobileModal.classList.add('flex');
+        void mobileModal.offsetWidth; // trigger reflow
+        if (mobileBackdrop) {
+            mobileBackdrop.classList.remove('opacity-0');
+            mobileBackdrop.classList.add('opacity-100');
+        }
+        if (mobileContent) {
+            mobileContent.classList.remove('scale-95', 'opacity-0');
+            mobileContent.classList.add('scale-100', 'opacity-100');
+        }
+    }
+    
+    function closeMobileMenu() {
+        if (!mobileModal) return;
+        if (mobileBackdrop) {
+            mobileBackdrop.classList.remove('opacity-100');
+            mobileBackdrop.classList.add('opacity-0');
+        }
+        if (mobileContent) {
+            mobileContent.classList.remove('scale-100', 'opacity-100');
+            mobileContent.classList.add('scale-95', 'opacity-0');
+        }
+        setTimeout(() => {
+            mobileModal.classList.add('hidden');
+            mobileModal.classList.remove('flex');
+        }, 200);
+    }
+    
+    if (mobileBtn) mobileBtn.addEventListener('click', openMobileMenu);
+    if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileMenu);
+    if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMobileMenu);
+
+    // 3. Dropdown toggling logic for Language Menu Button
+    const langBtn = document.getElementById('lang-menu-btn');
+    if (langBtn && langPopover) {
+        langBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (langPopover.classList.contains('hidden')) {
+                langPopover.classList.remove('hidden');
+                langPopover.classList.add('flex');
+            } else {
+                langPopover.classList.add('hidden');
+                langPopover.classList.remove('flex');
+            }
+        });
+        document.addEventListener('click', (e) => {
+            if (!langPopover.contains(e.target) && !langBtn.contains(e.target)) {
+                langPopover.classList.add('hidden');
+                langPopover.classList.remove('flex');
+            }
+        });
+    }
+
+    // 4. Translate Fading Toast/Overlay Logic
+    const savedLang = localStorage.getItem('selected_lang');
+    
+    if (savedLang && savedLang !== 'en') {
+        const translatingTexts = {
+            'en': 'Translating...',
+            'es': 'Traduciendo...',
+            'fr': 'Traduction...',
+            'de': 'Übersetzen...',
+            'ru': 'Перевод...',
+            'ar': 'جاري الترجمة...'
+        };
+        const activeText = translatingTexts[savedLang] || 'Translating...';
+
+        // Inject translation toast element dynamically just below the header on the right side
+        // Removed any fade or transform classes to avoid fading effect as requested
+        const toastHTML = `
+        <div id="translation-toast" class="notranslate fixed z-[99999] px-4 py-2 flex items-center gap-3" style="top: 85px; right: 30px; background: transparent !important; border: none !important; box-shadow: none !important;">
+            <div id="toast-loader" class="relative flex h-3 w-3 items-center justify-center">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75" style="background-color: #a78bfa !important;"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-violet-600" style="background-color: #7c3aed !important;"></span>
+            </div>
+            <span id="toast-text" class="text-[14px] font-bold tracking-wide flex items-center gap-1.5" style="color: #7c3aed !important;">
+                ${activeText}
+            </span>
+        </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', toastHTML);
+        
+        const toast = document.getElementById('translation-toast');
+        
+        if (toast) {
+            // Keep the translating toast visible for 3 seconds, then remove it instantly
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    }
+
+    // 5. Restore saved language on load safely
+    const savedLangVal = localStorage.getItem('selected_lang');
+    if (savedLangVal && savedLangVal !== 'en') {
+        let attempts = 0;
+        const interval = setInterval(() => {
+            attempts++;
+            const select = document.querySelector('#google_translate_element select') || document.querySelector('.goog-te-combo');
+            if (select) {
+                if (select.value !== savedLangVal) {
+                    select.value = savedLangVal;
+                    select.dispatchEvent(new Event('change'));
+                }
+                clearInterval(interval);
+            }
+            if (attempts > 50) clearInterval(interval);
+        }, 200);
+    }
+});
+</script>
+</body>
+</html>
+
+
