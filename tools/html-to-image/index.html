@@ -144,9 +144,54 @@
                     <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </button>
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition ml-1" aria-label="Toggle Menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
             </div>
         </div>
     </header>
+
+    <!-- Mobile Menu Modal -->
+    <div id="mobile-menu-modal" class="fixed inset-0 z-50 hidden flex-col items-center justify-center p-4">
+        <div id="mobile-menu-backdrop" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+        <div id="mobile-menu-content" class="relative w-full max-w-[340px] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-visible transition-all scale-95 opacity-0 duration-200 ease-out">
+            <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100 dark:border-slate-800">
+                <div class="flex items-center gap-3">
+                    <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG" class="h-6 object-contain">
+                    <span class="font-bold text-lg text-slate-900 dark:text-white tracking-tight">ToolIMG</span>
+                </div>
+                <button id="mobile-menu-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="px-3 py-3 flex flex-col gap-1">
+                <a href="/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Home</a>
+                <a href="/tools/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Tools</a>
+                <a href="/pricing/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Pricing</a>
+                
+                <div class="h-px bg-slate-100 dark:bg-slate-800 w-full my-2"></div>
+                
+                <!-- Theme Toggle -->
+                <div class="px-3 py-2 relative">
+                    <button id="theme-menu-btn" class="w-full px-4 py-3.5 flex justify-between items-center text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">
+                        <span>Theme</span>
+                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+                    <div id="theme-popover" class="absolute bottom-[100%] right-3 mb-2 w-48 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 p-2 hidden flex-col gap-1 z-50">
+                        <button onclick="setTheme('light')" id="theme-light-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-900 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">
+                            <span>Light</span>
+                            <svg class="w-4 h-4 text-violet-600 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button onclick="setTheme('dark')" id="theme-dark-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-900 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">
+                            <span>Dark</span>
+                            <svg class="w-4 h-4 text-violet-600 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Main Workspace -->
     <main class="flex-grow w-full max-w-[85vw] mx-auto px-4 sm:px-6 mb-16">
@@ -975,16 +1020,98 @@
                 });
             });
 
+            // Theme setting function
+            window.setTheme = function(theme) {
+                localStorage.theme = theme;
+                if (theme === 'dark') {
+                    document.documentElement.classList.add('dark');
+                } else {
+                    document.documentElement.classList.remove('dark');
+                }
+            };
+
+            // Mobile Menu Modal Toggle Logic
+            const mobileBtn = document.getElementById('mobile-menu-btn');
+            const mobileCloseBtn = document.getElementById('mobile-menu-close');
+            const mobileModal = document.getElementById('mobile-menu-modal');
+            const mobileBackdrop = document.getElementById('mobile-menu-backdrop');
+            const mobileContent = document.getElementById('mobile-menu-content');
+            
+            function openMobileMenu() {
+                if (!mobileModal) return;
+                mobileModal.classList.remove('hidden');
+                mobileModal.classList.add('flex');
+                void mobileModal.offsetWidth;
+                if (mobileBackdrop) {
+                    mobileBackdrop.classList.remove('opacity-0');
+                    mobileBackdrop.classList.add('opacity-100');
+                }
+                if (mobileContent) {
+                    mobileContent.classList.remove('scale-95', 'opacity-0');
+                    mobileContent.classList.add('scale-100', 'opacity-100');
+                }
+            }
+            
+            function closeMobileMenu() {
+                if (!mobileModal) return;
+                if (mobileBackdrop) {
+                    mobileBackdrop.classList.remove('opacity-100');
+                    mobileBackdrop.classList.add('opacity-0');
+                }
+                if (mobileContent) {
+                    mobileContent.classList.remove('scale-100', 'opacity-100');
+                    mobileContent.classList.add('scale-95', 'opacity-0');
+                }
+                setTimeout(() => {
+                    mobileModal.classList.add('hidden');
+                    mobileModal.classList.remove('flex');
+                }, 200);
+            }
+            
+            if (mobileBtn) mobileBtn.addEventListener('click', openMobileMenu);
+            if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileMenu);
+            if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMobileMenu);
+
+            const themeMenuBtn = document.getElementById('theme-menu-btn');
+            const themePopover = document.getElementById('theme-popover');
+            if (themeMenuBtn && themePopover) {
+                themeMenuBtn.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    if (themePopover.classList.contains('hidden')) {
+                        themePopover.classList.remove('hidden');
+                        themePopover.classList.add('flex');
+                    } else {
+                        themePopover.classList.add('hidden');
+                        themePopover.classList.remove('flex');
+                    }
+                });
+                document.addEventListener('click', (e) => {
+                    if (!themePopover.contains(e.target) && !themeMenuBtn.contains(e.target)) {
+                        themePopover.classList.add('hidden');
+                        themePopover.classList.remove('flex');
+                    }
+                });
+            }
+
             // Navbar dropdown / lang select popup triggers
             const langBtn = document.getElementById('lang-menu-btn');
             const langPopover = document.getElementById('lang-popover');
             if (langBtn && langPopover) {
                 langBtn.addEventListener('click', (e) => {
                     e.stopPropagation();
-                    langPopover.classList.toggle('hidden');
+                    if (langPopover.classList.contains('hidden')) {
+                        langPopover.classList.remove('hidden');
+                        langPopover.classList.add('flex');
+                    } else {
+                        langPopover.classList.add('hidden');
+                        langPopover.classList.remove('flex');
+                    }
                 });
-                document.addEventListener('click', () => {
-                    langPopover.classList.add('hidden');
+                document.addEventListener('click', (e) => {
+                    if (!langPopover.contains(e.target) && !langBtn.contains(e.target)) {
+                        langPopover.classList.add('hidden');
+                        langPopover.classList.remove('flex');
+                    }
                 });
             }
 
