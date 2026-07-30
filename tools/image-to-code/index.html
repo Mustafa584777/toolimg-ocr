@@ -2,6 +2,37 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
+<script>
+// Universal circular JSON safety polyfill to prevent platform logging and 3rd party crashes
+(function() {
+    const originalStringify = JSON.stringify;
+    JSON.stringify = function(value, replacer, space) {
+        const seen = new WeakSet();
+        try {
+            return originalStringify(value, function(key, val) {
+                if (typeof val === 'object' && val !== null) {
+                    // Check if it's a DOM element or window to avoid massive circular trees
+                    if (val instanceof HTMLElement || val === window || val === document) {
+                        return '[DOM Element]';
+                    }
+                    if (seen.has(val)) {
+                        return '[Circular]';
+                    }
+                    seen.add(val);
+                }
+                if (replacer) {
+                    return replacer(key, val);
+                }
+                return val;
+            }, space);
+        } catch (err) {
+            return '{"error":"Circular structure handled"}';
+        }
+    };
+})();
+</script>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-3PK1RHDJ2S"></script>
     <script>
@@ -13,7 +44,15 @@
     </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image To Code Converter AI Online Free - ToolIMG</title>
+    
+    <link rel="alternate" hreflang="en" href="https://toolimg.online/tools/image-to-code/" />
+    <link rel="alternate" hreflang="es" href="https://toolimg.online/es/tools/image-to-code/" />
+    <link rel="alternate" hreflang="fr" href="https://toolimg.online/fr/tools/image-to-code/" />
+    <link rel="alternate" hreflang="de" href="https://toolimg.online/de/tools/image-to-code/" />
+    <link rel="alternate" hreflang="ru" href="https://toolimg.online/ru/tools/image-to-code/" />
+    <link rel="alternate" hreflang="ar" href="https://toolimg.online/ar/tools/image-to-code/" />
+    <link rel="alternate" hreflang="x-default" href="https://toolimg.online/tools/image-to-code/" />
+<title>Image To Code Converter AI Online Free - ToolIMG</title>
     <meta name="description" content="Use the best Image To Code Converter AI Online Free tool by ToolIMG. Convert JPG, PNG images or PDFs to HTML, CSS, JavaScript, React, and Tailwind code instantly.">
 
     <!-- Schema Structured Data -->
@@ -2545,14 +2584,37 @@
             <a href="/pricing/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Pricing</a>
             
             <div class="relative">
-                <button id="theme-btn" class="p-2 text-slate-600 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition" aria-label="Toggle theme">
-                    <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                
+            <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </button>
             </div>
         </nav>
         
         <div class="flex items-center gap-3">
+            
+                        <div class="relative">
+                <button id="lang-menu-btn" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition flex items-center justify-center" aria-label="Select Language">
+                    <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5 8l6 6"></path>
+            <path d="M4 14l6-6 2-3"></path>
+            <path d="M2 5h12"></path>
+            <path d="M7 2h1"></path>
+            <path d="M22 22l-5-10-5 10"></path>
+            <path d="M14 18h6"></path>
+        </svg>
+                </button>
+                <div id="lang-popover" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-xl shadow-lg flex-col z-50 overflow-hidden">
+                    <div class="py-2">
+                        <button type="button" onclick="switchLang('en')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">English</button>
+                        <button type="button" onclick="switchLang('es')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Español</button>
+                        <button type="button" onclick="switchLang('fr')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Français</button>
+                        <button type="button" onclick="switchLang('de')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Deutsch</button>
+                        <button type="button" onclick="switchLang('ru')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Русский</button>
+                        <button type="button" onclick="switchLang('ar')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">العربية</button>
+                    </div>
+                </div>
+            </div>
             <div id="credits-display" class="hidden items-center gap-2 bg-violet-100/50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-xs font-semibold px-3 py-1.5 rounded-full ring-1 ring-inset ring-violet-200 dark:ring-violet-800/50 cursor-pointer hover:bg-violet-200/80 dark:hover:bg-violet-950 transition">
                 <svg class="w-3.5 h-3.5 text-violet-600 dark:text-violet-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
                 <span id="credits-count">5 Credits</span>
@@ -2629,41 +2691,7 @@
     </div>
 </div>
 <script>
-    document.addEventListener('DOMContentLoaded', () => {
-        const btn = document.getElementById('mobile-menu-btn');
-        const closeBtn = document.getElementById('mobile-menu-close');
-        const modal = document.getElementById('mobile-menu-modal');
-        const backdrop = document.getElementById('mobile-menu-backdrop');
-        const content = document.getElementById('mobile-menu-content');
-        
-        function openModal() {
-            if(!modal) return;
-            modal.classList.remove('hidden');
-            modal.classList.add('flex');
-            void modal.offsetWidth;
-            backdrop.classList.remove('opacity-0');
-            backdrop.classList.add('opacity-100');
-            content.classList.remove('scale-95', 'opacity-0');
-            content.classList.add('scale-100', 'opacity-100');
-        }
-        
-        function closeModal() {
-            if(!modal) return;
-            backdrop.classList.remove('opacity-100');
-            backdrop.classList.add('opacity-0');
-            content.classList.remove('scale-100', 'opacity-100');
-            content.classList.add('scale-95', 'opacity-0');
-            setTimeout(() => {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }, 200);
-        }
-        
-        if(btn) btn.addEventListener('click', openModal);
-        if(closeBtn) closeBtn.addEventListener('click', closeModal);
-        if(backdrop) backdrop.addEventListener('click', closeModal);
-    });
-</script>
+    </script>
 <!-- End Navbar -->
 
     <!-- Main Content -->
@@ -3090,10 +3118,10 @@
             document.getElementById('generate-btn').disabled = true;
 
             const payload = {
-                base64Data: currentBase64,
-                framework: selectedFramework || 'html-tailwind',
+                base64Data: String(currentBase64),
+                framework: String(selectedFramework || "html-tailwind"),
                 styleTheme: 'match-image',
-                customPrompt: document.getElementById('opt-prompt').value,
+                customPrompt: String(document.getElementById("opt-prompt").value),
                 interactivity: 'interactive'
             };
 
@@ -3531,8 +3559,8 @@
           if (modalHwProgress) modalHwProgress.style.width = handwritingProgress + '%';
       }
 
-      import { getFirestore, doc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-      const db = getFirestore(app, firebaseConfig.firestoreDatabaseId);
+      import { initializeFirestore, getFirestore, doc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      const db = initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId);
       
       window.consumeUserCredit = async function(toolName) {
           if (!auth.currentUser) return;
@@ -3968,5 +3996,268 @@
     </div>
 </div>
 
+
+
+
+<!-- Google Translate integration -->
+<div id="google_translate_element" style="position: absolute; top: -100px; left: -100px; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none;"></div>
+<style>
+/* Hide Google Translate top bar, widget elements, and progress spinners completely */
+.skiptranslate, 
+.goog-te-banner-frame, 
+#goog-gt-tt, 
+.goog-te-balloon-frame, 
+.goog-te-menu-value, 
+.goog-te-gadget,
+.goog-te-spinner-pos,
+.goog-te-spinner,
+#google_translate_element,
+#google_translate_element img,
+.goog-te-gadget-icon,
+.goog-te-gadget-simple,
+.goog-te-banner,
+iframe[class*="skiptranslate"],
+iframe.skiptranslate,
+iframe[src*="translate.google.com"],
+div[class*="VIpgJd-y689mc"],
+div[class*="VIpgJd-ZVi9od"],
+[class*="VIpgJd-"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    width: 0 !important;
+}
+body {
+    top: 0px !important;
+    position: static !important;
+}
+.goog-tooltip, .goog-tooltip:hover {
+    display: none !important;
+}
+.goog-text-highlight {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+</style>
+<script type="text/javascript">
+window.googleTranslateElementInit = function() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,es,fr,de,ru,ar',
+        autoDisplay: false
+    }, 'google_translate_element');
+};
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+function switchLang(lang) {
+    const prevLang = localStorage.getItem('selected_lang') || 'en';
+    localStorage.setItem('prev_lang', prevLang);
+    localStorage.setItem('selected_lang', lang);
+    
+    // Helper to clear cookies
+    const clearCookie = (name, domain) => {
+        let cookieStr = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        if (domain) {
+            cookieStr += " domain=" + domain + ";";
+        }
+        document.cookie = cookieStr;
+        document.cookie = cookieStr + " SameSite=None; Secure;";
+    };
+
+    // Clear all potential variants of googtrans cookie to prevent stale state
+    clearCookie('googtrans');
+    clearCookie('googtrans', window.location.hostname);
+    clearCookie('googtrans', '.' + window.location.hostname);
+    const parts = window.location.hostname.split('.');
+    if (parts.length > 2) {
+        const mainDomain = parts.slice(-2).join('.');
+        clearCookie('googtrans', mainDomain);
+        clearCookie('googtrans', '.' + mainDomain);
+    }
+
+    if (lang !== 'en') {
+        const setCookie = (value, domain) => {
+            let base = "googtrans=" + value + "; path=/; SameSite=None; Secure;";
+            if (domain) {
+                base += " domain=" + domain + ";";
+            }
+            document.cookie = base;
+        };
+        
+        setCookie('/en/' + lang);
+        setCookie('/en/' + lang, window.location.hostname);
+        setCookie('/en/' + lang, '.' + window.location.hostname);
+        if (parts.length > 2) {
+            const mainDomain = parts.slice(-2).join('.');
+            setCookie('/en/' + lang, mainDomain);
+            setCookie('/en/' + lang, '.' + mainDomain);
+        }
+    }
+
+    // Programmatically select and dispatch change to Google Translate combo box if present
+    const select = document.querySelector('#google_translate_element select') || document.querySelector('.goog-te-combo');
+    if (select) {
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+    }
+
+    // Reload the page to ensure the translation is cleanly applied
+    window.location.reload();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Set notranslate class on language popover to keep original language names constant
+    const langPopover = document.getElementById('lang-popover');
+    if (langPopover) {
+        langPopover.classList.add('notranslate');
+        const savedLangVal = localStorage.getItem('selected_lang') || 'en';
+        const buttons = langPopover.querySelectorAll('button[onclick]');
+        buttons.forEach(btn => {
+            const onclickValue = btn.getAttribute('onclick') || '';
+            if (onclickValue.includes(`'${savedLangVal}'`) || onclickValue.includes(`"${savedLangVal}"`)) {
+                btn.classList.add('text-violet-600', 'dark:text-violet-400', 'font-semibold');
+                btn.classList.remove('text-slate-700', 'dark:text-slate-300');
+            } else {
+                btn.classList.remove('text-violet-600', 'dark:text-violet-400', 'font-semibold');
+                btn.classList.add('text-slate-700', 'dark:text-slate-300');
+            }
+        });
+    }
+
+    // 2. Mobile Menu Modal Toggle Logic
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileCloseBtn = document.getElementById('mobile-menu-close');
+    const mobileModal = document.getElementById('mobile-menu-modal');
+    const mobileBackdrop = document.getElementById('mobile-menu-backdrop');
+    const mobileContent = document.getElementById('mobile-menu-content');
+    
+    function openMobileMenu() {
+        if (!mobileModal) return;
+        mobileModal.classList.remove('hidden');
+        mobileModal.classList.add('flex');
+        void mobileModal.offsetWidth; // trigger reflow
+        if (mobileBackdrop) {
+            mobileBackdrop.classList.remove('opacity-0');
+            mobileBackdrop.classList.add('opacity-100');
+        }
+        if (mobileContent) {
+            mobileContent.classList.remove('scale-95', 'opacity-0');
+            mobileContent.classList.add('scale-100', 'opacity-100');
+        }
+    }
+    
+    function closeMobileMenu() {
+        if (!mobileModal) return;
+        if (mobileBackdrop) {
+            mobileBackdrop.classList.remove('opacity-100');
+            mobileBackdrop.classList.add('opacity-0');
+        }
+        if (mobileContent) {
+            mobileContent.classList.remove('scale-100', 'opacity-100');
+            mobileContent.classList.add('scale-95', 'opacity-0');
+        }
+        setTimeout(() => {
+            mobileModal.classList.add('hidden');
+            mobileModal.classList.remove('flex');
+        }, 200);
+    }
+    
+    if (mobileBtn) mobileBtn.addEventListener('click', openMobileMenu);
+    if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileMenu);
+    if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMobileMenu);
+
+    // 3. Dropdown toggling logic for Language Menu Button
+    const langBtn = document.getElementById('lang-menu-btn');
+    if (langBtn && langPopover) {
+        langBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (langPopover.classList.contains('hidden')) {
+                langPopover.classList.remove('hidden');
+                langPopover.classList.add('flex');
+            } else {
+                langPopover.classList.add('hidden');
+                langPopover.classList.remove('flex');
+            }
+        });
+        document.addEventListener('click', (e) => {
+            if (!langPopover.contains(e.target) && !langBtn.contains(e.target)) {
+                langPopover.classList.add('hidden');
+                langPopover.classList.remove('flex');
+            }
+        });
+    }
+
+    // 4. Translate Fading Toast/Overlay Logic
+    const savedLang = localStorage.getItem('selected_lang');
+    
+    if (savedLang && savedLang !== 'en') {
+        const translatingTexts = {
+            'en': 'Translating...',
+            'es': 'Traduciendo...',
+            'fr': 'Traduction...',
+            'de': 'Übersetzen...',
+            'ru': 'Перевод...',
+            'ar': 'جاري الترجمة...'
+        };
+        const activeText = translatingTexts[savedLang] || 'Translating...';
+
+        // Inject translation toast element dynamically just below the header on the right side
+        // Removed any fade or transform classes to avoid fading effect as requested
+        const toastHTML = `
+        <div id="translation-toast" class="notranslate fixed z-[99999] px-4 py-2 flex items-center gap-3" style="top: 85px; right: 30px; background: transparent !important; border: none !important; box-shadow: none !important;">
+            <div id="toast-loader" class="relative flex h-3 w-3 items-center justify-center">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75" style="background-color: #a78bfa !important;"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-violet-600" style="background-color: #7c3aed !important;"></span>
+            </div>
+            <span id="toast-text" class="text-[14px] font-bold tracking-wide flex items-center gap-1.5" style="color: #7c3aed !important;">
+                ${activeText}
+            </span>
+        </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', toastHTML);
+        
+        const toast = document.getElementById('translation-toast');
+        
+        if (toast) {
+            // Keep the translating toast visible for 3 seconds, then remove it instantly
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    }
+
+    // 5. Restore saved language on load safely
+    const savedLangVal = localStorage.getItem('selected_lang');
+    if (savedLangVal && savedLangVal !== 'en') {
+        let attempts = 0;
+        const interval = setInterval(() => {
+            attempts++;
+            const select = document.querySelector('#google_translate_element select') || document.querySelector('.goog-te-combo');
+            if (select) {
+                if (select.value !== savedLangVal) {
+                    select.value = savedLangVal;
+                    select.dispatchEvent(new Event('change'));
+                }
+                clearInterval(interval);
+            }
+            if (attempts > 50) clearInterval(interval);
+        }, 200);
+    }
+});
+</script>
 </body>
 </html>
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,253 @@
+<!-- Google Translate integration -->
+<div id="google_translate_element" style="position: absolute; top: -100px; left: -100px; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none;"></div>
+<style>
+/* Hide Google Translate top bar, widget elements, and progress spinners completely */
+.skiptranslate, 
+.goog-te-banner-frame, 
+#goog-gt-tt, 
+.goog-te-balloon-frame, 
+.goog-te-menu-value, 
+.goog-te-gadget,
+.goog-te-spinner-pos,
+.goog-te-spinner,
+#google_translate_element,
+#google_translate_element img,
+.goog-te-gadget-icon,
+.goog-te-gadget-simple,
+.goog-te-banner,
+iframe[class*="skiptranslate"],
+iframe.skiptranslate,
+iframe[src*="translate.google.com"],
+div[class*="VIpgJd-y689mc"],
+div[class*="VIpgJd-ZVi9od"],
+[class*="VIpgJd-"] {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+    height: 0 !important;
+    width: 0 !important;
+}
+body {
+    top: 0px !important;
+    position: static !important;
+}
+.goog-tooltip, .goog-tooltip:hover {
+    display: none !important;
+}
+.goog-text-highlight {
+    background-color: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+}
+</style>
+<script type="text/javascript">
+window.googleTranslateElementInit = function() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,es,fr,de,ru,ar',
+        autoDisplay: false
+    }, 'google_translate_element');
+};
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+function switchLang(lang) {
+    const prevLang = localStorage.getItem('selected_lang') || 'en';
+    localStorage.setItem('prev_lang', prevLang);
+    localStorage.setItem('selected_lang', lang);
+    
+    // Helper to clear cookies
+    const clearCookie = (name, domain) => {
+        let cookieStr = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        if (domain) {
+            cookieStr += " domain=" + domain + ";";
+        }
+        document.cookie = cookieStr;
+        document.cookie = cookieStr + " SameSite=None; Secure;";
+    };
+
+    // Clear all potential variants of googtrans cookie to prevent stale state
+    clearCookie('googtrans');
+    clearCookie('googtrans', window.location.hostname);
+    clearCookie('googtrans', '.' + window.location.hostname);
+    const parts = window.location.hostname.split('.');
+    if (parts.length > 2) {
+        const mainDomain = parts.slice(-2).join('.');
+        clearCookie('googtrans', mainDomain);
+        clearCookie('googtrans', '.' + mainDomain);
+    }
+
+    if (lang !== 'en') {
+        const setCookie = (value, domain) => {
+            let base = "googtrans=" + value + "; path=/; SameSite=None; Secure;";
+            if (domain) {
+                base += " domain=" + domain + ";";
+            }
+            document.cookie = base;
+        };
+        
+        setCookie('/en/' + lang);
+        setCookie('/en/' + lang, window.location.hostname);
+        setCookie('/en/' + lang, '.' + window.location.hostname);
+        if (parts.length > 2) {
+            const mainDomain = parts.slice(-2).join('.');
+            setCookie('/en/' + lang, mainDomain);
+            setCookie('/en/' + lang, '.' + mainDomain);
+        }
+    }
+
+    // Programmatically select and dispatch change to Google Translate combo box if present
+    const select = document.querySelector('#google_translate_element select') || document.querySelector('.goog-te-combo');
+    if (select) {
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+    }
+
+    // Reload the page to ensure the translation is cleanly applied
+    window.location.reload();
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // 1. Set notranslate class on language popover to keep original language names constant
+    const langPopover = document.getElementById('lang-popover');
+    if (langPopover) {
+        langPopover.classList.add('notranslate');
+        const savedLangVal = localStorage.getItem('selected_lang') || 'en';
+        const buttons = langPopover.querySelectorAll('button[onclick]');
+        buttons.forEach(btn => {
+            const onclickValue = btn.getAttribute('onclick') || '';
+            if (onclickValue.includes(`'${savedLangVal}'`) || onclickValue.includes(`"${savedLangVal}"`)) {
+                btn.classList.add('text-violet-600', 'dark:text-violet-400', 'font-semibold');
+                btn.classList.remove('text-slate-700', 'dark:text-slate-300');
+            } else {
+                btn.classList.remove('text-violet-600', 'dark:text-violet-400', 'font-semibold');
+                btn.classList.add('text-slate-700', 'dark:text-slate-300');
+            }
+        });
+    }
+
+    // 2. Mobile Menu Modal Toggle Logic
+    const mobileBtn = document.getElementById('mobile-menu-btn');
+    const mobileCloseBtn = document.getElementById('mobile-menu-close');
+    const mobileModal = document.getElementById('mobile-menu-modal');
+    const mobileBackdrop = document.getElementById('mobile-menu-backdrop');
+    const mobileContent = document.getElementById('mobile-menu-content');
+    
+    function openMobileMenu() {
+        if (!mobileModal) return;
+        mobileModal.classList.remove('hidden');
+        mobileModal.classList.add('flex');
+        void mobileModal.offsetWidth; // trigger reflow
+        if (mobileBackdrop) {
+            mobileBackdrop.classList.remove('opacity-0');
+            mobileBackdrop.classList.add('opacity-100');
+        }
+        if (mobileContent) {
+            mobileContent.classList.remove('scale-95', 'opacity-0');
+            mobileContent.classList.add('scale-100', 'opacity-100');
+        }
+    }
+    
+    function closeMobileMenu() {
+        if (!mobileModal) return;
+        if (mobileBackdrop) {
+            mobileBackdrop.classList.remove('opacity-100');
+            mobileBackdrop.classList.add('opacity-0');
+        }
+        if (mobileContent) {
+            mobileContent.classList.remove('scale-100', 'opacity-100');
+            mobileContent.classList.add('scale-95', 'opacity-0');
+        }
+        setTimeout(() => {
+            mobileModal.classList.add('hidden');
+            mobileModal.classList.remove('flex');
+        }, 200);
+    }
+    
+    if (mobileBtn) mobileBtn.addEventListener('click', openMobileMenu);
+    if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileMenu);
+    if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMobileMenu);
+
+    // 3. Dropdown toggling logic for Language Menu Button
+    const langBtn = document.getElementById('lang-menu-btn');
+    if (langBtn && langPopover) {
+        langBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (langPopover.classList.contains('hidden')) {
+                langPopover.classList.remove('hidden');
+                langPopover.classList.add('flex');
+            } else {
+                langPopover.classList.add('hidden');
+                langPopover.classList.remove('flex');
+            }
+        });
+        document.addEventListener('click', (e) => {
+            if (!langPopover.contains(e.target) && !langBtn.contains(e.target)) {
+                langPopover.classList.add('hidden');
+                langPopover.classList.remove('flex');
+            }
+        });
+    }
+
+    // 4. Translate Fading Toast/Overlay Logic
+    const savedLang = localStorage.getItem('selected_lang');
+    
+    if (savedLang && savedLang !== 'en') {
+        const translatingTexts = {
+            'en': 'Translating...',
+            'es': 'Traduciendo...',
+            'fr': 'Traduction...',
+            'de': 'Übersetzen...',
+            'ru': 'Перевод...',
+            'ar': 'جاري الترجمة...'
+        };
+        const activeText = translatingTexts[savedLang] || 'Translating...';
+
+        // Inject translation toast element dynamically just below the header on the right side
+        // Removed any fade or transform classes to avoid fading effect as requested
+        const toastHTML = `
+        <div id="translation-toast" class="notranslate fixed z-[99999] px-4 py-2 flex items-center gap-3" style="top: 85px; right: 30px; background: transparent !important; border: none !important; box-shadow: none !important;">
+            <div id="toast-loader" class="relative flex h-3 w-3 items-center justify-center">
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75" style="background-color: #a78bfa !important;"></span>
+                <span class="relative inline-flex rounded-full h-2 w-2 bg-violet-600" style="background-color: #7c3aed !important;"></span>
+            </div>
+            <span id="toast-text" class="text-[14px] font-bold tracking-wide flex items-center gap-1.5" style="color: #7c3aed !important;">
+                ${activeText}
+            </span>
+        </div>
+        `;
+        document.body.insertAdjacentHTML('beforeend', toastHTML);
+        
+        const toast = document.getElementById('translation-toast');
+        
+        if (toast) {
+            // Keep the translating toast visible for 3 seconds, then remove it instantly
+            setTimeout(() => {
+                toast.remove();
+            }, 3000);
+        }
+    }
+
+    // 5. Restore saved language on load safely
+    const savedLangVal = localStorage.getItem('selected_lang');
+    if (savedLangVal && savedLangVal !== 'en') {
+        let attempts = 0;
+        const interval = setInterval(() => {
+            attempts++;
+            const select = document.querySelector('#google_translate_element select') || document.querySelector('.goog-te-combo');
+            if (select) {
+                if (select.value !== savedLangVal) {
+                    select.value = savedLangVal;
+                    select.dispatchEvent(new Event('change'));
+                }
+                clearInterval(interval);
+            }
+            if (attempts > 50) clearInterval(interval);
+        }, 200);
+    }
+});
+</script>
+</body>
+</html>

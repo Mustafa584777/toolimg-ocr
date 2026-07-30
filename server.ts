@@ -569,6 +569,18 @@ Your goal is to extract all handwritten text in Hindi/Devanagari from the provid
 
 
 // Serve frontend in dev / prod
+
+// Rewrite language prefixes for static assets
+app.use((req, res, next) => {
+  const langPrefixRegex = /^\/(es|fr|de|ru|ar)(\/|$)/;
+  if (langPrefixRegex.test(req.url)) {
+    // If it's an API route or something we don't want to rewrite, skip it
+    if (req.url.includes('/api/')) return next();
+    req.url = req.url.replace(langPrefixRegex, '/');
+  }
+  next();
+});
+
 if (process.env.NODE_ENV === 'production') {
   // Production static server
   app.use(express.static(path.join(__dirname, 'dist')));
