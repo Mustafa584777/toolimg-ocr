@@ -2651,8 +2651,22 @@
             <a href="/tools/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Tools</a>
             <a href="/dashboard/" id="mobile-dashboard-nav" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center hidden">Dashboard</a>
             <a href="/pricing/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Pricing</a>
-                <!-- Divider -->
-        <div class="h-px bg-slate-100 dark:bg-slate-800 w-full my-2"></div>
+            
+            <!-- Mobile Auth Section -->
+            <div id="mobile-auth-guest" class="flex flex-col gap-2 mt-2 px-3">
+                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Log in</button>
+                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-xl transition shadow-sm">Sign up</button>
+            </div>
+            <div id="mobile-auth-user" class="hidden flex-col gap-2 mt-2 px-3">
+                <div class="flex items-center gap-2 px-1 py-1">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="mobile-user-name" class="text-sm font-medium text-slate-700 dark:text-slate-300 truncate"></span>
+                </div>
+                <button onclick="handleLogout()" class="w-full py-2.5 text-center text-sm font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Logout</button>
+            </div>
+
+            <!-- Divider -->
+            <div class="h-px bg-slate-100 dark:bg-slate-800 w-full my-2"></div>
         <!-- Theme Toggle -->
         <div class="px-3 py-2 relative">
             <button id="theme-menu-btn" class="w-full px-4 py-3.5 flex justify-between items-center text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">
