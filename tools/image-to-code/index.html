@@ -2592,7 +2592,7 @@
         <div class="flex items-center gap-3">
             
                         <div class="relative">
-                <button id="lang-menu-btn" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition flex items-center justify-center" aria-label="Select Language">
+                <button id="lang-menu-btn" type="button" onclick="toggleLangMenu(event)" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition flex items-center justify-center" aria-label="Select Language">
                     <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 8l6 6"></path>
             <path d="M4 14l6-6 2-3"></path>
@@ -4066,6 +4066,19 @@ window.googleTranslateElementInit = function() {
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script>
+window.toggleLangMenu = function(e) {
+    if (e) e.stopPropagation();
+    const langPopover = document.getElementById('lang-popover');
+    if (!langPopover) return;
+    if (langPopover.classList.contains('hidden')) {
+        langPopover.classList.remove('hidden');
+        langPopover.classList.add('flex');
+    } else {
+        langPopover.classList.add('hidden');
+        langPopover.classList.remove('flex');
+    }
+};
+
 function switchLang(lang) {
     const prevLang = localStorage.getItem('selected_lang') || 'en';
     localStorage.setItem('prev_lang', prevLang);

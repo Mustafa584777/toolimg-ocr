@@ -63,8 +63,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     
     <style>
-        * { font-family: "Poppins", sans-serif !important; }
-        body { font-family: 'Poppins', sans-serif; background-color: #fafafa; }
+        body, button, input, select, textarea, nav, header, footer, a, span, p, h1, h2, h3, h4, h5, h6 { font-family: 'Poppins', sans-serif; }
+        body { background-color: #fafafa; }
         .dark body { background-color: #0f172a; color: #f8fafc; }
         
         @media (max-width: 768px) {
@@ -97,7 +97,8 @@
         }
     </style>
 
-    <!-- Pre-compiled Tailwind classes injected for reference -->
+    <!-- Tailwind CSS CDN for dynamic class compiling -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="/output.css">
 </head>
 <body class="bg-slate-50 dark:bg-slate-950 text-slate-800 min-h-screen flex flex-col transition-colors duration-300">
@@ -119,7 +120,7 @@
             
             <div class="flex items-center gap-3">
                 <div class="relative">
-                    <button id="lang-menu-btn" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition flex items-center justify-center" aria-label="Select Language">
+                    <button id="lang-menu-btn" type="button" onclick="toggleLangMenu(event)" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition flex items-center justify-center" aria-label="Select Language">
                         <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                             <path d="M5 8l6 6"></path>
                             <path d="M4 14l6-6 2-3"></path>
@@ -260,6 +261,7 @@
                             <label for="preset-select" class="text-xs text-slate-400 font-medium">Preset:</label>
                             <select id="preset-select" class="text-xs bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg px-2 py-1.5 font-semibold text-slate-700 dark:text-slate-300 focus:outline-none focus:ring-1 focus:ring-violet-500">
                                 <option value="testimonial">Testimonial Card</option>
+                                <option value="custom-css">Local CSS & Style Example</option>
                                 <option value="code-snippet">Mac Code Window</option>
                                 <option value="saas-badge">SaaS CTA Banner</option>
                                 <option value="stats-card">Metric Widget</option>
@@ -833,6 +835,49 @@
     <!-- Core Tool Interaction Scripts -->
     <script>
         const PRESETS = {
+            "custom-css": `<style>
+  .custom-card {
+    background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+    border-radius: 24px;
+    padding: 28px;
+    color: #ffffff;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    max-width: 420px;
+    font-family: system-ui, -apple-system, sans-serif;
+  }
+  .tag {
+    display: inline-block;
+    background: linear-gradient(90deg, #ec4899, #8b5cf6);
+    color: #ffffff;
+    font-size: 11px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 16px;
+  }
+  .card-title {
+    font-size: 22px;
+    font-weight: 800;
+    margin-bottom: 8px;
+    background: linear-gradient(to right, #ffffff, #a5b4fc);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+  .card-desc {
+    font-size: 14px;
+    color: #94a3b8;
+    line-height: 1.6;
+  }
+</style>
+<div class="custom-card">
+  <span class="tag">LOCAL CSS & STYLES</span>
+  <h3 class="card-title">Full Custom CSS Support</h3>
+  <p class="card-desc">Write embedded &lt;style&gt; blocks, inline CSS, keyframe animations, custom fonts, or Tailwind CSS classes. Everything renders instantly and exports accurately!</p>
+</div>`,
+
             testimonial: `<div class="max-w-md bg-white dark:bg-slate-900 rounded-3xl p-6 shadow-xl border border-slate-100 dark:border-slate-800 flex flex-col gap-4">
     <div class="flex items-center gap-4">
         <img class="w-12 h-12 rounded-full object-cover shadow-sm border border-slate-200" src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?q=80&w=256&auto=format&fit=crop" alt="User Avatar">
@@ -1397,6 +1442,19 @@ function switchLang(lang) {
     // Reload the page to ensure the translation is cleanly applied
     window.location.reload();
 }
+
+window.toggleLangMenu = function(e) {
+    if (e) e.stopPropagation();
+    const langPopover = document.getElementById('lang-popover');
+    if (!langPopover) return;
+    if (langPopover.classList.contains('hidden')) {
+        langPopover.classList.remove('hidden');
+        langPopover.classList.add('flex');
+    } else {
+        langPopover.classList.add('hidden');
+        langPopover.classList.remove('flex');
+    }
+};
 
 document.addEventListener('DOMContentLoaded', () => {
     // 1. Set notranslate class on language popover to keep original language names constant
