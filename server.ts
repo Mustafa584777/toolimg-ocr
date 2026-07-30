@@ -40,6 +40,30 @@ function getAIClient() {
 const app = express();
 const port = 3000;
 
+// Redirect middleware for www to non-www and http to https
+app.use((req, res, next) => {
+  const host = req.headers['x-forwarded-host'] || req.headers.host;
+  const protocol = req.headers['x-forwarded-proto'] || req.protocol;
+
+  let shouldRedirect = false;
+  let newHost = host;
+
+  if (host && host.includes('www.toolimg.online')) {
+    shouldRedirect = true;
+    newHost = 'toolimg.online';
+  }
+
+  if (protocol === 'http' && host && host.includes('toolimg.online')) {
+    shouldRedirect = true;
+  }
+
+  if (shouldRedirect) {
+    return res.redirect(301, `https://${newHost}${req.url}`);
+  }
+  
+  next();
+});
+
 // CORS middleware for express server
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
