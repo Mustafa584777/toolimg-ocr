@@ -2484,13 +2484,8 @@
             <a href="/dashboard/" id="dashboard-nav" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition hidden">Dashboard</a>
             <a href="/pricing/" class="px-4 py-1.5 text-[15px] font-bold bg-white text-violet-600 border border-violet-100 hover:border-violet-200 rounded-xl shadow-sm transition">Pricing</a>
             
-            <!-- History Button (Header) -->
-            <button id="header-history-btn" onclick="openHistoryDrawer()" class="p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition" aria-label="View History">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            </button>
-            
             <div class="relative">
-                <button id="theme-btn" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
+                <button id="theme-btn-desktop" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
                     <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </button>
@@ -2554,6 +2549,10 @@
                 </div>
             </div>
 
+            <button id="theme-btn" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
+                <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            </button>
             <!-- Mobile menu button -->
             <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition ml-1">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -2753,16 +2752,10 @@
     
     <!-- Firebase Scripts -->
     <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-      import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-      import { initializeFirestore, getFirestore, doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      import { auth, db, app } from "/assets/firebase-config.js";
+      import { signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
       
-      const configResponse = await fetch("/api/config");
-      const firebaseConfig = await configResponse.json();
-      
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
-      const db = initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId || "default");
       const provider = new GoogleAuthProvider();
 
       window.handleLogin = async function() {
@@ -2958,6 +2951,8 @@
         }
         updateThemeUI(theme);
     }
+    window.setTheme = setTheme;
+    window.updateThemeUI = updateThemeUI;
 
     let initialTheme = 'light';
     if (localStorage.theme === 'dark') {
@@ -2974,16 +2969,18 @@
     document.addEventListener('DOMContentLoaded', () => {
         updateThemeUI(initialTheme);
         
-        const themeBtn = document.getElementById('theme-btn');
-        if (themeBtn) {
-            themeBtn.addEventListener('click', () => {
-                if (document.documentElement.classList.contains('dark')) {
-                    setTheme('light');
-                } else {
-                    setTheme('dark');
-                }
-            });
-        }
+        const themeBtns = [document.getElementById('theme-btn'), document.getElementById('theme-btn-desktop')];
+        themeBtns.forEach(btn => {
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    if (document.documentElement.classList.contains('dark')) {
+                        setTheme('light');
+                    } else {
+                        setTheme('dark');
+                    }
+                });
+            }
+        });
         
         const mobileThemeBtn = document.getElementById('theme-menu-btn');
         const themePopover = document.getElementById('theme-popover');

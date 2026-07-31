@@ -125,14 +125,9 @@ const footerHTML = `
 const firebaseScriptsHTML = `
     <!-- Firebase Scripts -->
     <script type="module">
-      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-      import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { auth, db, app } from "/assets/firebase-config.js";
+      import { signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
       
-      const configResponse = await fetch("/api/config");
-      const firebaseConfig = await configResponse.json();
-      
-      const app = initializeApp(firebaseConfig);
-      const auth = getAuth(app);
       const provider = new GoogleAuthProvider();
 
       window.handleLogin = async function() {

@@ -1,20 +1,7 @@
 // assets/history.js - Centralized History Manager for ToolIMG
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { initializeFirestore, doc, collection, setDoc, getDocs, deleteDoc, query, orderBy, limit, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
-
-// Fetch config dynamically from server to keep keys out of the source code
-let firebaseConfig = {};
-try {
-    const response = await fetch('/api/config');
-    firebaseConfig = await response.json();
-} catch (error) {
-    console.error('Failed to load firebase config:', error);
-}
-
-export const app = initializeApp(firebaseConfig);
-export const auth = getAuth(app);
-export const db = initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId || 'default');
+import { auth, db } from '/assets/firebase-config.js';
+import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { doc, collection, setDoc, getDocs, deleteDoc, query, orderBy, limit, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const GUEST_HISTORY_KEY = 'toolimg_guest_history';
 
