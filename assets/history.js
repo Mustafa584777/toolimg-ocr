@@ -3,19 +3,18 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebas
 import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { initializeFirestore, doc, collection, setDoc, getDocs, deleteDoc, query, orderBy, limit, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
-const firebaseConfig = {
-    apiKey: "AIzaSyCFyGzp7viV1tq25DAMnpKKSJpPngtVa14",
-    authDomain: "gen-lang-client-0844549707.firebaseapp.com",
-    projectId: "gen-lang-client-0844549707",
-    firestoreDatabaseId: "ai-studio-toolimg-a40860b9-3db9-4eab-a65f-f070e159a9b3",
-    storageBucket: "gen-lang-client-0844549707.firebasestorage.app",
-    messagingSenderId: "845800015860",
-    appId: "1:845800015860:web:a6229be704605991785ba1"
-};
+// Fetch config dynamically from server to keep keys out of the source code
+let firebaseConfig = {};
+try {
+    const response = await fetch('/api/config');
+    firebaseConfig = await response.json();
+} catch (error) {
+    console.error('Failed to load firebase config:', error);
+}
 
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
-const db = initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId);
+export const app = initializeApp(firebaseConfig);
+export const auth = getAuth(app);
+export const db = initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId || 'default');
 
 const GUEST_HISTORY_KEY = 'toolimg_guest_history';
 

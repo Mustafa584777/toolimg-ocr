@@ -12,6 +12,7 @@ export default defineConfig(() => {
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
     build: {
+      target: 'esnext',
       rollupOptions: {
         input: {
           main: resolve(__dirname, 'index.html'),

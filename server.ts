@@ -81,17 +81,7 @@ app.use(express.json({ limit: '50mb' }));
 // Config Endpoint to serve Firebase config safely to frontend
 app.get('/api/config', (req, res) => {
   try {
-    const configPath = path.join(__dirname, 'firebase-applet-config.json');
-    if (fs.existsSync(configPath)) {
-      const configData = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-      return res.json({
-        ...configData,
-        razorpayKeyId: process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID || ''
-      });
-    }
-    
-    // Fallback to environment variables
-    return res.json({
+    const configData = {
       apiKey: process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || '',
       authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN || process.env.FIREBASE_AUTH_DOMAIN || '',
       projectId: process.env.VITE_FIREBASE_PROJECT_ID || process.env.FIREBASE_PROJECT_ID || '',
@@ -100,7 +90,20 @@ app.get('/api/config', (req, res) => {
       messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID || process.env.FIREBASE_MESSAGING_SENDER_ID || '',
       appId: process.env.VITE_FIREBASE_APP_ID || process.env.FIREBASE_APP_ID || '',
       razorpayKeyId: process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID || ''
-    });
+    };
+
+    // If any key is missing from environment, try to read from the JSON file as fallback
+    const configPath = path.join(__dirname, 'firebase-applet-config.json');
+    if (fs.existsSync(configPath) && (!configData.apiKey || !configData.projectId)) {
+      const fileConfig = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+      Object.assign(configData, fileConfig);
+      // Ensure Razorpay key is still present
+      if (!configData.razorpayKeyId) {
+        configData.razorpayKeyId = process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID || '';
+      }
+    }
+
+    res.json(configData);
   } catch (error: any) {
     console.error('Error reading config:', error);
     res.status(500).json({ error: 'Failed to read configuration' });
