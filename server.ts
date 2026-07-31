@@ -587,6 +587,26 @@ app.use((req, res, next) => {
 if (process.env.NODE_ENV === 'production') {
   // Production static server
   app.use(express.static(path.join(__dirname, 'dist')));
+  
+  // Explicitly serve output.css and style.css from root if they are requested directly
+  app.get('/output.css', (req, res) => {
+    const p = path.join(__dirname, 'dist', 'output.css');
+    if (fs.existsSync(p)) {
+      res.sendFile(p);
+    } else {
+      res.sendFile(path.join(__dirname, 'output.css'));
+    }
+  });
+  
+  app.get('/style.css', (req, res) => {
+    const p = path.join(__dirname, 'dist', 'style.css');
+    if (fs.existsSync(p)) {
+      res.sendFile(p);
+    } else {
+      res.sendFile(path.join(__dirname, 'style.css'));
+    }
+  });
+
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
   });

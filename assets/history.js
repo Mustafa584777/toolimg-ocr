@@ -192,14 +192,22 @@ export async function clearAllHistory() {
 }
 
 // Listen to auth state changes to trigger guest history sync automatically
-onAuthStateChanged(auth, (user) => {
-    if (user) {
-        syncGuestHistory(user);
-    }
-});
+if (auth) {
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            syncGuestHistory(user);
+        }
+    });
+} else {
+    console.warn("Firebase Auth is not initialized. Running in guest-only mode.");
+}
 
 // Trigger Google Auth from history UI
 export async function handleHistoryLogin() {
+    if (!auth) {
+        alert("Firebase Authentication is not configured or initialized on this domain. If this is toolimg.online, please make sure you have added the correct Firebase environment variables to your server, and registered 'toolimg.online' under Authorized Domains in the Firebase Console (Authentication > Settings > Authorized domains).");
+        return;
+    }
     try {
         const provider = new GoogleAuthProvider();
         await signInWithPopup(auth, provider);

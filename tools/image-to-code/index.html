@@ -2598,10 +2598,6 @@
             <a href="/dashboard/" id="dashboard-nav" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition hidden">Dashboard</a>
             <a href="/pricing/" class="px-4 py-1.5 text-[15px] font-bold bg-white text-violet-600 border border-violet-100 hover:border-violet-200 rounded-xl shadow-sm transition">Pricing</a>
             
-            <button onclick="openHistoryDrawer()" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition text-slate-500 dark:text-slate-400" aria-label="View History">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-            </button>
-            
         </nav>
         
         <div class="flex items-center gap-3">
@@ -3866,112 +3862,119 @@
           }
       };
 
-      onAuthStateChanged(auth, (user) => {
-          window.isLoggedIn = !!user;
-          if (typeof window.renderResultViews === 'function') {
-              window.renderResultViews();
-          }
-
-          const headerAuthGuest = document.getElementById('header-auth-guest');
-          const userMenu = document.getElementById('user-menu');
-          const userName = document.getElementById('user-name');
-          const userAvatar = document.getElementById('user-avatar');
-          const userFallback = document.getElementById('user-fallback');
-          const headerHistoryBtn = document.getElementById('header-history-btn');
-          
-          const mobileAuthGuest = document.getElementById('mobile-auth-guest');
-          const mobileAuthUser = document.getElementById('mobile-auth-user');
-          const mobileUserName = document.getElementById('mobile-user-name');
-
-          const dashboardNav = document.getElementById('dashboard-nav');
-          const mobileDashboardNav = document.getElementById('mobile-dashboard-nav');
-
-          if (unsubscribeCredits) {
-              unsubscribeCredits();
-              unsubscribeCredits = null;
-          }
-          
-          if (user) {
-              if(headerAuthGuest) {
-                  headerAuthGuest.style.display = 'none';
-                  headerAuthGuest.classList.add('hidden');
+      if (auth) {
+          onAuthStateChanged(auth, (user) => {
+              window.isLoggedIn = !!user;
+              if (typeof window.renderResultViews === 'function') {
+                  window.renderResultViews();
               }
-              if(userMenu) userMenu.style.display = 'flex';
-              if(userName) userName.textContent = user.displayName || user.email.split('@')[0];
-              if(headerHistoryBtn) headerHistoryBtn.classList.remove('hidden');
 
-              if (userAvatar) {
-                  if (user.photoURL) {
-                      userAvatar.src = user.photoURL;
-                      userAvatar.classList.remove('hidden');
-                      if(userFallback) userFallback.classList.add('hidden');
-                  } else {
-                      userAvatar.classList.add('hidden');
-                      if(userFallback) userFallback.classList.remove('hidden');
-                  }
+              const headerAuthGuest = document.getElementById('header-auth-guest');
+              const userMenu = document.getElementById('user-menu');
+              const userName = document.getElementById('user-name');
+              const userAvatar = document.getElementById('user-avatar');
+              const userFallback = document.getElementById('user-fallback');
+              const headerHistoryBtn = document.getElementById('header-history-btn');
+              
+              const mobileAuthGuest = document.getElementById('mobile-auth-guest');
+              const mobileAuthUser = document.getElementById('mobile-auth-user');
+              const mobileUserName = document.getElementById('mobile-user-name');
+
+              const dashboardNav = document.getElementById('dashboard-nav');
+              const mobileDashboardNav = document.getElementById('mobile-dashboard-nav');
+
+              if (unsubscribeCredits) {
+                  unsubscribeCredits();
+                  unsubscribeCredits = null;
               }
               
-              if(mobileAuthGuest) mobileAuthGuest.style.display = 'none';
-              if(mobileAuthUser) mobileAuthUser.style.display = 'flex';
-              if(mobileUserName) mobileUserName.textContent = user.displayName || user.email.split('@')[0];
+              if (user) {
+                  if(headerAuthGuest) {
+                      headerAuthGuest.style.display = 'none';
+                      headerAuthGuest.classList.add('hidden');
+                  }
+                  if(userMenu) userMenu.style.display = 'flex';
+                  if(userName) userName.textContent = user.displayName || user.email.split('@')[0];
+                  if(headerHistoryBtn) headerHistoryBtn.classList.remove('hidden');
 
-              if(dashboardNav) dashboardNav.classList.remove('hidden');
-              if(mobileDashboardNav) mobileDashboardNav.classList.remove('hidden');
+                  if (userAvatar) {
+                      if (user.photoURL) {
+                          userAvatar.src = user.photoURL;
+                          userAvatar.classList.remove('hidden');
+                          if(userFallback) userFallback.classList.add('hidden');
+                      } else {
+                          userAvatar.classList.add('hidden');
+                          if(userFallback) userFallback.classList.remove('hidden');
+                      }
+                  }
+                  
+                  if(mobileAuthGuest) mobileAuthGuest.style.display = 'none';
+                  if(mobileAuthUser) mobileAuthUser.style.display = 'flex';
+                  if(mobileUserName) mobileUserName.textContent = user.displayName || user.email.split('@')[0];
 
-              const userDocRef = doc(db, 'users', user.uid);
-              unsubscribeCredits = onSnapshot(userDocRef, async (docSnap) => {
-                  if (!docSnap.exists()) {
-                      await setDoc(userDocRef, {
-                          email: user.email,
-                          displayName: user.displayName || '',
-                          credits: 5,
-                          creditsUsed_imageToCode: 0,
-                          creditsUsed_handwritingToText: 0,
-                          createdAt: new Date().toISOString()
-                      });
+                  if(dashboardNav) dashboardNav.classList.remove('hidden');
+                  if(mobileDashboardNav) mobileDashboardNav.classList.remove('hidden');
+
+                  const userDocRef = doc(db, 'users', user.uid);
+                  unsubscribeCredits = onSnapshot(userDocRef, async (docSnap) => {
+                      if (!docSnap.exists()) {
+                          await setDoc(userDocRef, {
+                              email: user.email,
+                              displayName: user.displayName || '',
+                              credits: 5,
+                              creditsUsed_imageToCode: 0,
+                              creditsUsed_handwritingToText: 0,
+                              createdAt: new Date().toISOString()
+                          });
+                          updateCreditsUI(5, false);
+                          updateStatsUI(0, 0);
+                      } else {
+                          const data = docSnap.data();
+                          updateCreditsUI(data.credits || 0, false);
+                          updateStatsUI(data.creditsUsed_imageToCode || 0, data.creditsUsed_handwritingToText || 0);
+                      }
+                  }, (error) => {
+                      console.error("Error listening to user credits:", error.message || error);
                       updateCreditsUI(5, false);
                       updateStatsUI(0, 0);
-                  } else {
-                      const data = docSnap.data();
-                      updateCreditsUI(data.credits || 0, false);
-                      updateStatsUI(data.creditsUsed_imageToCode || 0, data.creditsUsed_handwritingToText || 0);
+                  });
+              } else {
+                  if(headerAuthGuest) {
+                      headerAuthGuest.style.display = 'flex';
+                      headerAuthGuest.classList.remove('hidden');
                   }
-              }, (error) => {
-                  console.error("Error listening to user credits:", error.message || error);
-                  updateCreditsUI(5, false);
+                  if(userMenu) userMenu.style.display = 'none';
+                  if(headerHistoryBtn) headerHistoryBtn.classList.remove('hidden');
+                  
+                  if(mobileAuthGuest) mobileAuthGuest.style.display = 'flex';
+                  if(mobileAuthUser) mobileAuthUser.style.display = 'none';
+
+                  if(dashboardNav) dashboardNav.classList.add('hidden');
+                  if(mobileDashboardNav) mobileDashboardNav.classList.add('hidden');
+
+                  let guestCredits = parseInt(localStorage.getItem('guest_credits') || '5', 10);
+                  updateCreditsUI(guestCredits, true);
                   updateStatsUI(0, 0);
-              });
-          } else {
-              if(headerAuthGuest) {
-                  headerAuthGuest.style.display = 'flex';
-                  headerAuthGuest.classList.remove('hidden');
+
+                  const guestId = localStorage.getItem('guest_id') || 'guest_unknown';
+                  const guestDocRef = doc(db, 'guests', guestId);
+                  unsubscribeCredits = onSnapshot(guestDocRef, (docSnap) => {
+                      if (docSnap.exists()) {
+                          const data = docSnap.data();
+                          updateCreditsUI(data.credits || 0, true);
+                          updateStatsUI(data.creditsUsed_imageToCode || 0, data.creditsUsed_handwritingToText || 0);
+                      }
+                  }, (error) => {
+                      console.error("Error listening to guest credits:", error.message || error);
+                  });
               }
-              if(userMenu) userMenu.style.display = 'none';
-              if(headerHistoryBtn) headerHistoryBtn.classList.remove('hidden');
-              
-              if(mobileAuthGuest) mobileAuthGuest.style.display = 'flex';
-              if(mobileAuthUser) mobileAuthUser.style.display = 'none';
-
-              if(dashboardNav) dashboardNav.classList.add('hidden');
-              if(mobileDashboardNav) mobileDashboardNav.classList.add('hidden');
-
-              let guestCredits = parseInt(localStorage.getItem('guest_credits') || '5', 10);
-              updateCreditsUI(guestCredits, true);
-              updateStatsUI(0, 0);
-
-              const guestId = localStorage.getItem('guest_id') || 'guest_unknown';
-              const guestDocRef = doc(db, 'guests', guestId);
-              unsubscribeCredits = onSnapshot(guestDocRef, (docSnap) => {
-                  if (docSnap.exists()) {
-                      const data = docSnap.data();
-                      updateCreditsUI(data.credits || 0, true);
-                      updateStatsUI(data.creditsUsed_imageToCode || 0, data.creditsUsed_handwritingToText || 0);
-                  }
-              }, (error) => {
-                  console.error("Error listening to guest credits:", error.message || error);
-              });
-          }
-      });
+          });
+      } else {
+          console.warn("Firebase Auth not initialized. Running in local-only guest mode.");
+          let guestCredits = parseInt(localStorage.getItem('guest_credits') || '5', 10);
+          updateCreditsUI(guestCredits, true);
+          updateStatsUI(0, 0);
+      }
     </script>
 
 <script>

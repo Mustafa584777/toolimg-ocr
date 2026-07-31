@@ -2578,7 +2578,7 @@
             </div>
             
             
-                <button id="theme-btn" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
+                <button id="theme-btn" class="md:hidden p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
                     <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </button>
@@ -2805,6 +2805,10 @@
       const provider = new GoogleAuthProvider();
 
       window.handleLogin = async function() {
+          if (!auth) {
+              alert("Firebase Authentication is not configured or initialized on this domain. If this is toolimg.online, please make sure you have added the correct Firebase environment variables to your server, and registered 'toolimg.online' under Authorized Domains in the Firebase Console (Authentication > Settings > Authorized domains).");
+              return;
+          }
           try {
               await signInWithPopup(auth, provider);
           } catch (error) {
@@ -2813,10 +2817,12 @@
                   return;
               }
               if (error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request') return; console.error("Login failed", error.message || String(error));
+              alert("Login failed: " + error.message + "\n\nIf this is an 'auth/unauthorized-domain' error, please add 'toolimg.online' to your Firebase Console > Authentication > Settings > Authorized Domains.");
           }
       };
 
       window.handleLogout = async function() {
+          if (!auth) return;
           try {
               await signOut(auth);
           } catch (error) {
@@ -2866,28 +2872,29 @@
 
       let unsubscribeCredits = null;
 
-      onAuthStateChanged(auth, (user) => {
-          const headerAuthGuest = document.getElementById('header-auth-guest');
-          const userMenu = document.getElementById('user-menu');
-          const userName = document.getElementById('user-name');
-          const userAvatar = document.getElementById('user-avatar');
-          const userFallback = document.getElementById('user-fallback');
-          const headerHistoryBtn = document.getElementById('header-history-btn');
+      if (auth) {
+          onAuthStateChanged(auth, (user) => {
+              const headerAuthGuest = document.getElementById('header-auth-guest');
+              const userMenu = document.getElementById('user-menu');
+              const userName = document.getElementById('user-name');
+              const userAvatar = document.getElementById('user-avatar');
+              const userFallback = document.getElementById('user-fallback');
+              const headerHistoryBtn = document.getElementById('header-history-btn');
 
-          const mobileAuthGuest = document.getElementById('mobile-auth-guest');
-          const mobileAuthUser = document.getElementById('mobile-auth-user');
-          const mobileUserName = document.getElementById('mobile-user-name');
+              const mobileAuthGuest = document.getElementById('mobile-auth-guest');
+              const mobileAuthUser = document.getElementById('mobile-auth-user');
+              const mobileUserName = document.getElementById('mobile-user-name');
 
-          const dashboardNav = document.getElementById('dashboard-nav');
-          const mobileDashboardNav = document.getElementById('mobile-dashboard-nav');
+              const dashboardNav = document.getElementById('dashboard-nav');
+              const mobileDashboardNav = document.getElementById('mobile-dashboard-nav');
 
-          if (unsubscribeCredits) {
-              unsubscribeCredits();
-              unsubscribeCredits = null;
-          }
-          
-          if (user) {
-              if(headerAuthGuest) {
+              if (unsubscribeCredits) {
+                  unsubscribeCredits();
+                  unsubscribeCredits = null;
+              }
+              
+              if (user) {
+                  if(headerAuthGuest) {
                   headerAuthGuest.style.display = 'none';
                   headerAuthGuest.classList.add('hidden');
               }
@@ -2971,6 +2978,12 @@
               });
           }
       });
+  } else {
+      console.warn("Firebase Auth not initialized. Running in local-only guest mode.");
+      let guestCredits = parseInt(localStorage.getItem('guest_credits') || '5', 10);
+      updateCreditsUI(guestCredits, true);
+      updateStatsUI(0, 0);
+  }
     </script>
 
 <script>
