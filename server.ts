@@ -42,6 +42,11 @@ const port = 3000;
 
 // Redirect middleware for www to non-www and http to https
 app.use((req, res, next) => {
+  // Never redirect API calls or configuration fallback requests
+  if (req.path.startsWith('/api/') || req.path === '/firebase-applet-config.json') {
+    return next();
+  }
+
   const host = req.headers['x-forwarded-host'] || req.headers.host;
   const protocol = req.headers['x-forwarded-proto'] || req.protocol;
 
@@ -107,6 +112,21 @@ app.get('/api/config', (req, res) => {
   } catch (error: any) {
     console.error('Error reading config:', error);
     res.status(500).json({ error: 'Failed to read configuration' });
+  }
+});
+
+// Explicit route to serve firebase-applet-config.json for static fallback
+app.get('/firebase-applet-config.json', (req, res) => {
+  try {
+    const configPath = path.join(__dirname, 'firebase-applet-config.json');
+    if (fs.existsSync(configPath)) {
+      res.setHeader('Content-Type', 'application/json');
+      res.sendFile(configPath);
+    } else {
+      res.status(404).json({ error: 'Configuration file not found' });
+    }
+  } catch (error: any) {
+    res.status(500).json({ error: 'Failed to serve configuration' });
   }
 });
 

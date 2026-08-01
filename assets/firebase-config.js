@@ -6,9 +6,24 @@ import { initializeFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/f
 let firebaseConfig = {};
 try {
     const response = await fetch('/api/config');
-    firebaseConfig = await response.json();
+    if (response.ok) {
+        firebaseConfig = await response.json();
+    } else {
+        throw new Error(`Server returned status ${response.status}`);
+    }
 } catch (error) {
-    console.error('Failed to load firebase config:', error);
+    console.error('Failed to load firebase config from /api/config, trying fallback:', error);
+    try {
+        const fallbackResponse = await fetch('/firebase-applet-config.json');
+        if (fallbackResponse.ok) {
+            firebaseConfig = await fallbackResponse.json();
+            console.log('Successfully loaded firebase config from fallback JSON');
+        } else {
+            throw new Error(`Fallback returned status ${fallbackResponse.status}`);
+        }
+    } catch (fallbackError) {
+        console.error('Failed to load firebase config from fallback JSON:', fallbackError);
+    }
 }
 
 export let app, auth, db;
