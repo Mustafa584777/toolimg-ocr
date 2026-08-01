@@ -20,6 +20,7 @@ export default defineConfig(() => {
           handwritingToText: resolve(__dirname, 'tools/handwriting-to-text/index.html'),
           hindiHandwritingToText: resolve(__dirname, 'tools/hindi-handwriting-to-text/index.html'),
           toolsArchive: resolve(__dirname, 'tools/index.html'),
+          htmlToImage: resolve(__dirname, 'tools/html-to-image/index.html'),
           pricing: resolve(__dirname, 'pricing/index.html'),
           dashboard: resolve(__dirname, 'dashboard/index.html')
         }

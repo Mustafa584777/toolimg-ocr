@@ -3,22 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="alternate" hreflang="en" href="https://toolimg.online/tools/image-to-code/" />
-    <link rel="alternate" hreflang="es" href="https://toolimg.online/es/tools/image-to-code/" />
-    <link rel="alternate" hreflang="fr" href="https://toolimg.online/fr/tools/image-to-code/" />
-    <link rel="alternate" hreflang="de" href="https://toolimg.online/de/tools/image-to-code/" />
-    <link rel="alternate" hreflang="ru" href="https://toolimg.online/ru/tools/image-to-code/" />
-    <link rel="alternate" hreflang="ar" href="https://toolimg.online/ar/tools/image-to-code/" />
-    <link rel="alternate" hreflang="x-default" href="https://toolimg.online/tools/image-to-code/" />
-    <title>Image To Code Converter AI Online Free - ToolIMG</title>
-    <meta name="description" content="Use the best Image To Code Converter AI Online Free tool by ToolIMG. Convert JPG, PNG images or PDFs to HTML, CSS, JavaScript, React, and Tailwind code instantly.">
+    <link rel="alternate" hreflang="en" href="https://toolimg.online/tools/html-to-image/" />
+    <link rel="alternate" hreflang="es" href="https://toolimg.online/es/tools/html-to-image/" />
+    <link rel="alternate" hreflang="fr" href="https://toolimg.online/fr/tools/html-to-image/" />
+    <link rel="alternate" hreflang="de" href="https://toolimg.online/de/tools/html-to-image/" />
+    <link rel="alternate" hreflang="ru" href="https://toolimg.online/ru/tools/html-to-image/" />
+    <link rel="alternate" hreflang="ar" href="https://toolimg.online/ar/tools/html-to-image/" />
+    <link rel="alternate" hreflang="x-default" href="https://toolimg.online/tools/html-to-image/" />
+    <title>HTML to Image Generator Online Free - ToolIMG</title>
+    <meta name="description" content="Use the best HTML to Image Generator Online Free tool by ToolIMG. Convert JPG, PNG images or PDFs to HTML, CSS, JavaScript, React, and Tailwind code instantly.">
 
     <!-- Schema Structured Data -->
     <script type="application/ld+json">
     {
       "@context": "https://schema.org",
       "@type": "SoftwareApplication",
-      "name": "ToolIMG Image to Code Converter AI",
+      "name": "ToolIMG HTML to Image Converter AI",
       "operatingSystem": "All",
       "applicationCategory": "DeveloperApplication",
       "offers": {
@@ -26,7 +26,7 @@
         "price": "0",
         "priceCurrency": "USD"
       },
-      "description": "The absolute best Image To Code Converter AI Online Free. Turn screenshots, wireframes, PDFs, and design mockups into beautiful and clean HTML, CSS, JavaScript, React, and Vue code instantly."
+      "description": "The absolute best HTML to Image Generator Online Free. Turn screenshots, wireframes, PDFs, and design mockups into beautiful and clean HTML, CSS, JavaScript, React, and Vue code instantly."
     }
     </script>
 
@@ -2516,7 +2516,7 @@
                 ✨ Next-Gen Image-to-Code Platform
             </span>
             <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">
-                AI Image to Code Generator
+                AI HTML to Image Generator
             </h1>
             <p class="text-slate-600 dark:text-slate-400 max-w-2xl mx-auto text-sm md:text-base leading-relaxed">
                 Transform layouts, wireframes, screenshots, or whiteboard sketches into pixel-perfect interactive code with production-ready styles instantly.
@@ -2524,207 +2524,42 @@
         </div>
 
         <!-- Interactive Grid -->
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch flex-grow">
-            
-            <!-- Left Panel: Upload, Prompts & Settings -->
-            <div class="lg:col-span-5 flex flex-col gap-6">
-                
-                <!-- Upload Container Card -->
-                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col">
-                    <div class="flex items-center justify-between mb-3">
-                        <h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">1. Upload Layout Image</h2>
-                        <span class="text-xs text-slate-400">Supports Paste (Ctrl+V)</span>
-                    </div>
-
-                    <!-- Drag & Drop Zone -->
-                    <div id="upload-zone" onclick="document.getElementById('file-input').click()" class="border-2 border-dashed border-slate-200 dark:border-slate-800 hover:border-violet-500 dark:hover:border-violet-500 hover:bg-violet-50/20 dark:hover:bg-violet-950/20 rounded-xl p-6 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[180px] relative overflow-hidden group">
-                        <input type="file" id="file-input" class="hidden" accept="image/png, image/jpeg, image/webp" onchange="handleFileSelect(event)">
-                        
-                        <div id="upload-placeholder" class="flex flex-col items-center">
-                            <div class="w-12 h-12 bg-violet-50 dark:bg-violet-950 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center mb-3">
-                                <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
-                            </div>
-                            <h3 class="font-bold text-slate-800 dark:text-slate-200 text-sm mb-1">Click or Drag Image Here</h3>
-                            <p class="text-xs text-slate-400">PNG, JPG, or WEBP up to 5MB</p>
-                        </div>
-                        <img id="image-preview" class="absolute inset-0 w-full h-full object-contain p-2 hidden bg-slate-50 dark:bg-slate-950" />
-                        <div id="image-overlay" class="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 hidden flex items-center justify-center transition">
-                            <span class="bg-white text-slate-900 font-bold px-3 py-1.5 rounded-lg text-xs shadow-sm">Replace Image</span>
-                        </div>
-                    </div>
-
-                    <!-- Quick Pre-built Sample Gallery -->
-                    <div class="mt-4">
-                        <span class="block text-xs font-bold text-slate-400 mb-2">Or, try with these interactive samples:</span>
-                        <div class="grid grid-cols-4 gap-2">
-                            <button onclick="loadSample('card')" class="px-2 py-1.5 text-xs font-semibold bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-lg hover:border-violet-500 hover:bg-violet-50 dark:hover:bg-violet-950/40 transition">Card</button>
-                            <button onclick="loadSample('login')" class="px-2 py-1.5 text-xs font-semibold bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-lg hover:border-violet-500 hover:bg-violet-50 dark:hover:bg-violet-950/40 transition">Login</button>
-                            <button onclick="loadSample('dashboard')" class="px-2 py-1.5 text-xs font-semibold bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-lg hover:border-violet-500 hover:bg-violet-50 dark:hover:bg-violet-950/40 transition">Metrics</button>
-                            <button onclick="loadSample('pricing')" class="px-2 py-1.5 text-xs font-semibold bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 rounded-lg hover:border-violet-500 hover:bg-violet-50 dark:hover:bg-violet-950/40 transition">Pricing</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Settings & Custom Options -->
-                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col gap-4">
-                    
-                    <!-- Framework Tabs -->
-                    <div>
-                        <span class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">2. Export Framework</span>
-                        <div class="grid grid-cols-3 gap-2">
-                            <button onclick="selectFramework('html-tailwind')" id="fw-html-tailwind" class="fw-tab px-3 py-2.5 rounded-xl border font-bold text-xs transition flex flex-col items-center justify-center gap-1">
-                                <span>HTML + Tailwind</span>
-                            </button>
-                            <button onclick="selectFramework('react-tailwind')" id="fw-react-tailwind" class="fw-tab px-3 py-2.5 rounded-xl border font-bold text-xs transition flex flex-col items-center justify-center gap-1">
-                                <span>React Component</span>
-                            </button>
-                            <button onclick="selectFramework('vue-tailwind')" id="fw-vue-tailwind" class="fw-tab px-3 py-2.5 rounded-xl border font-bold text-xs transition flex flex-col items-center justify-center gap-1">
-                                <span>Vue Template</span>
-                            </button>
-                        </div>
-                    </div>
-
-                    <!-- Style Preset Theme Selector -->
-                    <div>
-                        <span class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">3. Tone & Themes</span>
-                        <select id="theme-preset" class="w-full text-xs font-semibold px-3 py-2 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-1 focus:ring-violet-500 focus:outline-none">
-                            <option value="default">Match Original Mockup Style</option>
-                            <option value="modern-dark">Sophisticated Dark Luxury</option>
-                            <option value="minimalist-light">Minimalist Slate & High Contrast</option>
-                            <option value="neon-cyberpunk">Neon Cyberpunk Atmosphere</option>
-                            <option value="retro-windows">Classic Retro 90s OS Style</option>
-                        </select>
-                    </div>
-
-                    <!-- Custom Directions Prompt -->
-                    <div>
-                        <span class="block text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-2">4. Design Instructions (Optional)</span>
-                        <textarea id="custom-prompt" placeholder="Add specific requirements, e.g., 'Make all buttons have active ripple styles and make layout fluid with high padding.'" rows="3" class="w-full text-xs p-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl focus:ring-1 focus:ring-violet-500 focus:outline-none leading-relaxed resize-none"></textarea>
-                    </div>
-
-                    <!-- Action Trigger -->
-                    <button id="generate-btn" onclick="generateCode()" class="w-full py-3.5 px-4 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-2">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
-                        <span>Convert to Code</span>
-                    </button>
-                </div>
+        
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch flex-grow">
+    <!-- Left Panel: Code Input -->
+    <div class="lg:col-span-5 flex flex-col gap-6">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col flex-grow">
+            <div class="flex items-center justify-between mb-3">
+                <h2 class="text-sm font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">1. Enter HTML & CSS</h2>
+                <button onclick="loadSample()" class="text-xs text-violet-600 hover:underline">Load Sample</button>
             </div>
-
-            <!-- Right Panel: Sandbox Interactive Code Editor / Visual Preview -->
-            <div class="lg:col-span-7 flex flex-col">
-                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm flex flex-col flex-grow overflow-hidden min-h-[500px]">
-                    
-                    <!-- Sandbox Tab Controls -->
-                    <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 p-4">
-                        <div class="flex bg-slate-100 dark:bg-slate-950 p-1 rounded-xl">
-                            <button id="tab-visual" onclick="switchTab('visual')" class="tab-btn px-4 py-1.5 text-xs font-bold rounded-lg transition">Live Preview</button>
-                            <button id="tab-code" onclick="switchTab('code')" class="tab-btn px-4 py-1.5 text-xs font-bold rounded-lg transition">Code Editor</button>
-                            <button id="tab-design" onclick="switchTab('design')" class="tab-btn px-4 py-1.5 text-xs font-bold rounded-lg transition">Design Inspector</button>
-                        </div>
-
-                        <!-- Width Testing Controls (Visible when on Visual Tab) -->
-                        <div id="visual-width-controls" class="flex items-center gap-1.5">
-                            <button onclick="setPreviewWidth('100%')" class="p-1.5 text-xs bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 hover:border-violet-500 rounded-lg transition" title="Desktop Size">🖥️ Full</button>
-                            <button onclick="setPreviewWidth('768px')" class="p-1.5 text-xs bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 hover:border-violet-500 rounded-lg transition" title="Tablet Size">📟 Tablet</button>
-                            <button onclick="setPreviewWidth('375px')" class="p-1.5 text-xs bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 hover:border-violet-500 rounded-lg transition" title="Mobile Size">📱 Mobile</button>
-                            <button onclick="toggleFullScreen()" class="p-1.5 text-xs bg-slate-100 dark:bg-slate-800 rounded-lg transition" title="Full Screen Canvas">⛶ Immersive</button>
-                        </div>
-                        
-                        <!-- Actions (Visible when on Code Tab) -->
-                        <div id="code-actions-controls" class="hidden flex items-center gap-2">
-                            <button onclick="copyGeneratedCode()" class="px-3 py-1.5 text-xs font-bold bg-violet-50 dark:bg-violet-950/40 text-violet-600 hover:bg-violet-100 rounded-lg transition">Copy Code</button>
-                            <button onclick="downloadCodeFile()" class="px-3 py-1.5 text-xs font-bold bg-emerald-50 dark:bg-emerald-950/40 text-emerald-600 hover:bg-emerald-100 rounded-lg transition">Download</button>
-                        </div>
-                    </div>
-
-                    <!-- Sandbox Display Body -->
-                    <div class="flex-grow flex flex-col relative bg-slate-50/50 dark:bg-slate-950/40">
-                        
-                        <!-- Empty State -->
-                        <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center p-8 text-center bg-white dark:bg-slate-900 z-10 transition-all duration-300">
-                            <div class="w-16 h-16 text-slate-300 dark:text-slate-700 mb-4 animate-bounce">
-                                <svg class="w-full h-full" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M17.25 6.75L22.5 12l-5.25 5.25m-10.5 0L1.5 12l5.25-5.25m7.5-3l-4.5 16.5"></path></svg>
-                            </div>
-                            <h3 class="font-bold text-slate-800 dark:text-slate-200 mb-1">Interactive Code Studio</h3>
-                            <p class="text-xs text-slate-400 max-w-sm mb-4 leading-relaxed">Upload an image or load a sample mockup to run, compile, and explore code models dynamically in real-time.</p>
-                            <button onclick="loadSample('card')" class="px-4 py-2 bg-violet-600 text-white font-bold text-xs rounded-xl shadow-md transition">Quick Load Testimonial Card</button>
-                        </div>
-
-                        <!-- Progress Loading State -->
-                        <div id="loading-state" class="absolute inset-0 flex flex-col items-center justify-center p-8 bg-white/95 dark:bg-slate-900/95 z-20 hidden transition-all">
-                            <div class="w-12 h-12 border-4 border-violet-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-                            <h4 class="font-bold text-slate-800 dark:text-slate-200" id="progress-header">Analyzing design...</h4>
-                            <p class="text-xs text-slate-400 mt-1 max-w-xs text-center leading-relaxed" id="progress-sub">Our vision models are parsing alignments, grids, element styling, and fonts.</p>
-                            
-                            <!-- Progression Log -->
-                            <div class="w-full max-w-xs bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-3.5 mt-6 text-[11px] font-mono text-slate-500 space-y-2">
-                                <div id="log-step-1" class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span> <span>Reviewing screenshot details</span></div>
-                                <div id="log-step-2" class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span> <span>Parsing color palette rules</span></div>
-                                <div id="log-step-3" class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span> <span>Extracting container grid schemas</span></div>
-                                <div id="log-step-4" class="flex items-center gap-2"><span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span> <span>Synthesizing structural markup</span></div>
-                            </div>
-                        </div>
-
-                        <!-- Tab 1: Live Render Frame View -->
-                        <div id="view-visual" class="flex-grow flex flex-col items-center justify-center p-4 relative hidden">
-                            <!-- Responsive Sizing Frame -->
-                            <div id="preview-frame-container" class="w-full h-full max-w-full flex justify-center items-center transition-all duration-300">
-                                <iframe id="render-iframe" src="about:blank" sandbox="allow-scripts allow-modals allow-same-origin" class="w-full h-full min-h-[420px] bg-white border border-slate-200 dark:border-slate-800 rounded-xl shadow-inner transition-all duration-300"></iframe>
-                            </div>
-                        </div>
-
-                        <!-- Tab 2: Code Editor Tab -->
-                        <div id="view-code" class="flex-grow flex flex-col p-4 hidden">
-                            <div class="flex-grow relative border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden bg-slate-950 font-mono text-xs text-slate-200 p-4">
-                                <div class="absolute top-2 right-2 flex items-center gap-2 z-10">
-                                    <span id="char-count" class="text-[10px] text-slate-500 bg-slate-900 px-2 py-0.5 rounded border border-slate-800">0 Characters</span>
-                                    <span id="code-tag" class="text-[10px] font-bold text-violet-400 bg-violet-950/80 px-2 py-0.5 rounded border border-violet-900">HTML</span>
-                                </div>
-                                <textarea id="code-textarea" readonly class="w-full h-full bg-transparent text-emerald-400 focus:outline-none resize-none overflow-auto font-mono text-[11px] leading-relaxed select-all" style="tab-size: 4; -moz-tab-size: 4;"></textarea>
-                            </div>
-                        </div>
-
-                        <!-- Tab 3: Design Analysis Tab -->
-                        <div id="view-design" class="flex-grow flex flex-col p-6 hidden space-y-6 overflow-y-auto max-h-[460px]">
-                            
-                            <!-- Colors Swatch Bento Grid -->
-                            <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
-                                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-3 flex items-center gap-1.5">
-                                    🎨 Extracted Color Palette
-                                </h3>
-                                <div id="design-colors" class="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                                    <div class="text-center p-3 text-xs text-slate-400 italic">No design analyzed yet.</div>
-                                </div>
-                            </div>
-
-                            <!-- Typography and Layout Pairings -->
-                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
-                                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">🔠 Font Strategy</h3>
-                                    <p id="design-typography" class="text-xs font-semibold text-slate-600 dark:text-slate-300 leading-relaxed">No data analyzed.</p>
-                                </div>
-                                <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
-                                    <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">📐 Layout Rules</h3>
-                                    <p id="design-layout" class="text-xs font-semibold text-slate-600 dark:text-slate-300 leading-relaxed">No data analyzed.</p>
-                                </div>
-                            </div>
-
-                            <!-- Mapped Component Outlines -->
-                            <div class="bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-4 rounded-xl">
-                                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-400 mb-2">🧩 Component Checklist</h3>
-                                <ul id="design-components" class="text-xs space-y-2 font-medium text-slate-600 dark:text-slate-300 list-disc list-inside">
-                                    <li class="italic text-slate-400 list-none">No data analyzed.</li>
-                                </ul>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
+            <textarea id="html-input" class="w-full flex-grow text-xs p-4 bg-slate-950 text-emerald-400 font-mono rounded-xl focus:ring-1 focus:ring-violet-500 focus:outline-none leading-relaxed resize-none h-[400px]" placeholder="<div>
+  <h1 class=&quot;text-blue-500&quot;>Hello World</h1>
+</div>" oninput="updatePreview()"></textarea>
         </div>
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm flex flex-col gap-4">
+            <button id="download-btn" onclick="downloadImage()" class="w-full py-3.5 px-4 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-bold rounded-xl shadow-lg transition transform active:scale-95 flex items-center justify-center gap-2">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                <span>Download HD Image</span>
+            </button>
+        </div>
+    </div>
+    <!-- Right Panel: Preview -->
+    <div class="lg:col-span-7 flex flex-col">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl shadow-sm flex flex-col flex-grow overflow-hidden min-h-[500px]">
+            <div class="flex items-center justify-between border-b border-slate-100 dark:border-slate-800 p-4 bg-slate-50 dark:bg-slate-900">
+                <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400">Live Preview</h3>
+            </div>
+            <div class="flex-grow flex items-center justify-center p-8 bg-slate-100 dark:bg-slate-950 relative overflow-auto">
+                <div id="preview-container" class="bg-white shadow-xl flex items-center justify-center overflow-hidden transition-all relative">
+                    <iframe id="preview-frame" class="w-full h-full border-0"></iframe>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Full Immersive View Modal -->
 
-        <!-- Full Immersive View Modal -->
         <div id="fullscreen-overlay" class="fixed inset-0 bg-slate-950 z-[99999] hidden flex flex-col">
             <div class="flex items-center justify-between px-6 py-4 bg-slate-900 border-b border-slate-800">
                 <div class="flex items-center gap-3">
@@ -2746,7 +2581,7 @@
     <section class="max-w-7xl mx-auto w-full px-6 py-16 border-t border-slate-100 dark:border-slate-800 transition-colors">
         <div class="mb-12">
             <h2 class="text-xl md:text-3xl font-extrabold text-slate-900 dark:text-white mb-4">
-                Advanced <span class="text-violet-600 dark:text-violet-400">Image to Code AI Conversion</span>
+                Advanced <span class="text-violet-600 dark:text-violet-400">HTML to Image AI Conversion</span>
             </h2>
             <div class="grid grid-cols-1 md:grid-cols-2 gap-8 text-xs md:text-sm text-slate-600 dark:text-slate-400 leading-relaxed">
                 <div>
@@ -2843,8 +2678,9 @@
     </div>
 
     <!-- Core App JS State & Interaction Controllers -->
-    <script>
-        window.TAILWIND_CSS_CACHE = `/*! tailwindcss v4.3.3 | MIT License | https://tailwindcss.com */
+    <script src="https://cdn.jsdelivr.net/npm/html-to-image@1.11.11/dist/html-to-image.min.js"></script>
+<script>
+    window.TAILWIND_CSS_CACHE = `/*! tailwindcss v4.3.3 | MIT License | https://tailwindcss.com */
 @layer properties;
 @layer theme, base, components, utilities;
 @layer theme {
@@ -5238,464 +5074,75 @@
   }
 }
 `;
-        let currentBase64 = null;
-        let selectedFramework = 'html-tailwind';
-        let generatedData = null;
-        let uploadFileName = 'editor.html';
+    const defaultSample = `<div style="padding: 40px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 20px; font-family: sans-serif; color: white; width: 400px; text-align: center; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+  <h2 style="margin: 0 0 10px 0; font-size: 28px;">Beautiful Image</h2>
+  <p style="opacity: 0.9; line-height: 1.5; margin-bottom: 20px;">Created from raw HTML and CSS instantly using ToolIMG.</p>
+  <button style="background: white; color: #764ba2; border: none; padding: 10px 20px; border-radius: 30px; font-weight: bold; cursor: pointer;">Awesome!</button>
+</div>`;
 
-        // High Quality Pre-baked Sample Design Collections
-        const SAMPLE_COLLECTIONS = {
-            card: {
-                html: `<div class="p-6 max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center gap-x-4 border border-slate-100">
-  <div class="shrink-0">
-    <span class="text-4xl">🎨</span>
-  </div>
-  <div>
-    <div class="text-xl font-medium text-black">Chic Product Card</div>
-    <p class="text-slate-500 text-sm">Crafted using clean, modular utility colors.</p>
-    <button class="mt-3 px-4 py-1.5 text-xs font-semibold text-white bg-violet-600 hover:bg-violet-700 rounded-lg transition">Buy Asset</button>
-  </div>
-</div>`,
-                analysis: {
-                    colors: ['#ffffff', '#7c3aed', '#64748b', '#0f172a'],
-                    typography: 'Inter Display / Poppins Core - sans-serif font weight 500',
-                    layout: 'Horizontal split pane, centered element shrink margins, fluid width bounds',
-                    components: ['Interactive Testimonial Card container', 'Rounded violet trigger button']
-                }
-            },
-            login: {
-                html: `<div class="w-full max-w-md p-6 bg-white rounded-2xl border border-slate-100 shadow-xl mx-auto">
-  <h2 class="text-2xl font-bold text-slate-900 mb-1">Welcome Back</h2>
-  <p class="text-slate-500 text-xs mb-6">Enter details to explore modern tools.</p>
-  <div class="space-y-4">
-    <div>
-      <label class="block text-xs font-semibold text-slate-500 mb-1.5">Email Address</label>
-      <input type="email" placeholder="name@domain.com" class="w-full text-xs p-3 border border-slate-200 rounded-xl focus:ring-1 focus:ring-violet-500 focus:outline-none">
-    </div>
-    <div>
-      <label class="block text-xs font-semibold text-slate-500 mb-1.5">Secret Key</label>
-      <input type="password" placeholder="••••••••••••" class="w-full text-xs p-3 border border-slate-200 rounded-xl focus:ring-1 focus:ring-violet-500 focus:outline-none">
-    </div>
-    <button class="w-full py-3 bg-violet-600 hover:bg-violet-700 text-white font-bold text-xs rounded-xl shadow-md transition">Unlock Account</button>
-  </div>
-</div>`,
-                analysis: {
-                    colors: ['#ffffff', '#0f172a', '#6d28d9', '#e2e8f0'],
-                    typography: 'Poppins Semibold - font tracking tight, input text size 14px',
-                    layout: 'Vertical flex box, stacked form containers with spacious padding rules',
-                    components: ['Sleek dual input fields', 'Gradient full-width action container']
-                }
-            },
-            dashboard: {
-                html: `<div class="max-w-xl mx-auto bg-slate-900 rounded-2xl border border-slate-800 p-6 shadow-2xl text-white">
-  <div class="flex justify-between items-center mb-6">
-    <h3 class="font-bold text-sm tracking-tight text-slate-400">Total Cloud Volume</h3>
-    <span class="text-[10px] font-extrabold text-emerald-400 bg-emerald-950 px-2 py-0.5 rounded-md border border-emerald-900">+12.4%</span>
-  </div>
-  <div class="text-4xl font-extrabold text-white mb-2">$84,923.41</div>
-  <p class="text-xs text-slate-500 leading-relaxed mb-6">Calculated dynamically against active cloud node instances.</p>
-  <div class="grid grid-cols-2 gap-4">
-    <div class="p-3 bg-slate-800/50 rounded-xl border border-slate-800">
-      <span class="block text-xs text-slate-500 mb-1">Active Clusters</span>
-      <span class="text-lg font-bold">148 Nodes</span>
-    </div>
-    <div class="p-3 bg-slate-800/50 rounded-xl border border-slate-800">
-      <span class="block text-xs text-slate-500 mb-1">Network Ping</span>
-      <span class="text-lg font-bold text-violet-400">1.2ms Avg</span>
-    </div>
-  </div>
-</div>`,
-                analysis: {
-                    colors: ['#0f172a', '#1e293b', '#34d399', '#a78bfa'],
-                    typography: 'JetBrains Mono / Inter Extra Bold Display typography scale',
-                    layout: 'Dual grid panel layout mapping metric groupings inside dark containers',
-                    components: ['Dashboard summary display card', 'Dual metadata visual indicators']
-                }
-            },
-            pricing: {
-                html: `<div class="max-w-md mx-auto bg-gradient-to-b from-violet-600 to-indigo-700 rounded-2xl p-6 text-white text-center shadow-xl">
-  <span class="text-[10px] font-bold tracking-widest uppercase bg-white/20 px-3 py-1 rounded-full mb-3 inline-block">Pro Package</span>
-  <h3 class="text-2xl font-bold mb-1">Corporate Tier</h3>
-  <div class="text-4xl font-extrabold mb-4">$49.99<span class="text-xs font-normal opacity-70"> /mo</span></div>
-  <p class="text-xs text-violet-100 leading-relaxed mb-6">Ideal for active engineering divisions requesting high-volume code synthesis models daily.</p>
-  <ul class="text-xs space-y-2 mb-6 text-left max-w-xs mx-auto">
-    <li class="flex items-center gap-2">✓ Unlimited AI Synthesis</li>
-    <li class="flex items-center gap-2">✓ Priority High-Speed Models</li>
-    <li class="flex items-center gap-2">✓ Custom API Access & Keys</li>
-  </ul>
-  <button class="w-full py-3 bg-white text-violet-700 hover:bg-violet-50 font-bold text-xs rounded-xl transition shadow-md">Deploy Corporate Nodes</button>
-</div>`,
-                analysis: {
-                    colors: ['#7c3aed', '#4f46e5', '#ffffff', '#ede9fe'],
-                    typography: 'Poppins Display paired with tight line tracking ratios',
-                    layout: 'Centered vertical card module displaying checklist bullets and white button',
-                    components: ['Corporate subscription card container', 'Interactive custom bullets list']
-                }
+    function loadSample() {
+        document.getElementById('html-input').value = defaultSample;
+        updatePreview();
+    }
+
+    window.loadSample = loadSample;
+
+    function updatePreview() {
+        const html = document.getElementById('html-input').value;
+        const frame = document.getElementById('preview-frame');
+        const doc = frame.contentDocument || frame.contentWindow.document;
+        doc.open();
+        doc.write('<html><head><style>' + window.TAILWIND_CSS_CACHE + '</style></head><body style="margin:0; display:inline-block;">' + html + '</body></html>');
+        doc.close();
+        
+        setTimeout(() => {
+            if(doc.body) {
+                frame.style.width = doc.body.scrollWidth + 'px';
+                frame.style.height = doc.body.scrollHeight + 'px';
             }
-        };
+        }, 300);
+    }
 
-        // Theme Toggle Controller
-        const themeBtn = document.getElementById('theme-btn');
+    window.updatePreview = updatePreview;
+
+    async function downloadImage() {
+        const frame = document.getElementById('preview-frame');
+        const doc = frame.contentDocument || frame.contentWindow.document;
+        const btn = document.getElementById('download-btn');
+        const originalText = btn.innerHTML;
+        btn.innerHTML = '<span class="animate-pulse">Rendering...</span>';
+        
+        try {
+            const dataUrl = await window.htmlToImage.toPng(doc.body, { quality: 1.0, pixelRatio: 2 });
+            const link = document.createElement('a');
+            link.download = 'toolimg-design.png';
+            link.href = dataUrl;
+            link.click();
+        } catch(e) {
+            console.error(e);
+            alert('Error generating image. Ensure your HTML does not have cross-origin images.');
+        } finally {
+            btn.innerHTML = originalText;
+        }
+    }
+
+    window.downloadImage = downloadImage;
+    
+    const themeBtn = document.getElementById('theme-btn');
+    if (themeBtn) {
         themeBtn.addEventListener('click', () => {
             const isDark = document.documentElement.classList.toggle('dark');
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         });
-        if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-            document.documentElement.classList.add('dark');
-        } else {
-            document.documentElement.classList.remove('dark');
-        }
-
-        // Clip-to-Upload Clipboard pasting support
-        window.addEventListener('paste', (e) => {
-            const items = e.clipboardData.items;
-            for (let i = 0; i < items.length; i++) {
-                if (items[i].type.indexOf('image') !== -1) {
-                    const blob = items[i].getAsFile();
-                    const reader = new FileReader();
-                    reader.onload = function(event) {
-                        currentBase64 = event.target.result;
-                        showImagePreview(currentBase64, blob.name || 'pasted-image.png');
-                    };
-                    reader.readAsDataURL(blob);
-                    break;
-                }
-            }
-        });
-
-        // Handle Drag & Drop events
-        const zone = document.getElementById('upload-zone');
-        ['dragenter', 'dragover'].forEach(name => {
-            zone.addEventListener(name, (e) => { e.preventDefault(); zone.classList.add('border-violet-500', 'bg-violet-50/20'); }, false);
-        });
-        ['dragleave', 'drop'].forEach(name => {
-            zone.addEventListener(name, (e) => { e.preventDefault(); zone.classList.remove('border-violet-500', 'bg-violet-50/20'); }, false);
-        });
-        zone.addEventListener('drop', (e) => {
-            const file = e.dataTransfer.files[0];
-            if (file && file.type.startsWith('image/')) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    currentBase64 = event.target.result;
-                    showImagePreview(currentBase64, file.name);
-                };
-                reader.readAsDataURL(file);
-            }
-        });
-
-        function handleFileSelect(e) {
-            const file = e.target.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function(event) {
-                    currentBase64 = event.target.result;
-                    showImagePreview(currentBase64, file.name);
-                };
-                reader.readAsDataURL(file);
-            }
-        }
-
-        function showImagePreview(base64, name) {
-            const img = document.getElementById('image-preview');
-            const overlay = document.getElementById('image-overlay');
-            const placeholder = document.getElementById('upload-placeholder');
-            img.src = base64;
-            img.classList.remove('hidden');
-            overlay.classList.remove('hidden');
-            placeholder.classList.add('opacity-0');
-            uploadFileName = name;
-        }
-
-        function selectFramework(fw) {
-            selectedFramework = fw;
-            document.querySelectorAll('.fw-tab').forEach(b => {
-                b.classList.remove('border-violet-600', 'bg-violet-50/40', 'text-violet-600', 'dark:border-violet-500', 'dark:bg-violet-950/20', 'dark:text-violet-400');
-                b.classList.add('border-slate-200', 'dark:border-slate-800', 'text-slate-600', 'dark:text-slate-400');
-            });
-            const selectedBtn = document.getElementById(`fw-${fw}`);
-            selectedBtn.classList.remove('border-slate-200', 'dark:border-slate-800', 'text-slate-600', 'dark:text-slate-400');
-            selectedBtn.classList.add('border-violet-600', 'bg-violet-50/40', 'text-violet-600', 'dark:border-violet-500', 'dark:bg-violet-950/20', 'dark:text-violet-400');
-            document.getElementById('code-tag').textContent = fw === 'html-tailwind' ? 'HTML' : fw === 'react-tailwind' ? 'JSX' : 'VUE';
-        }
-        selectFramework('html-tailwind');
-
-        function loadSample(key) {
-            const sample = SAMPLE_COLLECTIONS[key];
-            if (!sample) return;
-            
-            generatedData = {
-                htmlCode: sample.html,
-                frameworkCode: sample.html,
-                designAnalysis: sample.analysis,
-                markdownSummary: `Test template: ${key} details loaded dynamically.`
-            };
-
-            // Pre-fill fields for a realistic feel
-            document.getElementById('custom-prompt').value = `Load template: ${key}`;
-            
-            renderResultViews();
-            switchTab('visual');
-            document.getElementById('empty-state').classList.add('hidden');
-        }
-
-        function switchTab(tabId) {
-            const tabs = ['visual', 'code', 'design'];
-            tabs.forEach(t => {
-                const btn = document.getElementById(`tab-${t}`);
-                const view = document.getElementById(`view-${t}`);
-                if (t === tabId) {
-                    btn.classList.add('bg-white', 'dark:bg-slate-900', 'shadow-sm', 'text-slate-900', 'dark:text-white', 'border', 'border-slate-200/60', 'dark:border-slate-800');
-                    btn.classList.remove('text-slate-500', 'dark:text-slate-400', 'hover:bg-slate-50', 'dark:hover:bg-slate-900/50');
-                    view.classList.remove('hidden');
-                } else {
-                    btn.classList.remove('bg-white', 'dark:bg-slate-900', 'shadow-sm', 'text-slate-900', 'dark:text-white', 'border', 'border-slate-200/60', 'dark:border-slate-800');
-                    btn.classList.add('text-slate-500', 'dark:text-slate-400', 'hover:bg-slate-50', 'dark:hover:bg-slate-900/50');
-                    view.classList.add('hidden');
-                }
-            });
-
-            // Adjust sizing bar visibility
-            const widthsBar = document.getElementById('visual-width-controls');
-            const codeBar = document.getElementById('code-actions-controls');
-            if (tabId === 'visual') {
-                widthsBar.classList.remove('hidden');
-                codeBar.classList.add('hidden');
-            } else if (tabId === 'code') {
-                widthsBar.classList.add('hidden');
-                codeBar.classList.remove('hidden');
-            } else {
-                widthsBar.classList.add('hidden');
-                codeBar.classList.add('hidden');
-            }
-        }
-        switchTab('visual');
-
-        function setPreviewWidth(width) {
-            const container = document.getElementById('preview-frame-container');
-            container.style.maxWidth = width;
-        }
-
-        function toggleFullScreen() {
-            const overlay = document.getElementById('fullscreen-overlay');
-            const fullIframe = document.getElementById('fullscreen-iframe');
-            if (overlay.classList.contains('hidden')) {
-                overlay.classList.remove('hidden');
-                if (generatedData) {
-                    const rawHtml = generatedData.htmlCode || generatedData.frameworkCode;
-                    const finalCode = rawHtml.includes('https://cdn.tailwindcss.com') ? rawHtml : `<script src="https://cdn.tailwindcss.com"><\/script>\n${rawHtml}`;
-                    fullIframe.contentWindow.document.open();
-                    fullIframe.contentWindow.document.write(finalCode);
-                    fullIframe.contentWindow.document.close();
-                }
-            } else {
-                overlay.classList.add('hidden');
-            }
-        }
-
-        function renderResultViews() {
-            if (!generatedData) return;
-            
-            const rawHtml = generatedData.htmlCode || generatedData.frameworkCode;
-            const finalHtml = rawHtml.includes('https://cdn.tailwindcss.com') ? rawHtml : `<script src="https://cdn.tailwindcss.com"><\/script>\n${rawHtml}`;
-            
-            const iframe = document.getElementById('render-iframe');
-            iframe.contentWindow.document.open();
-            iframe.contentWindow.document.write(finalHtml);
-            iframe.contentWindow.document.close();
-
-            const text = generatedData.frameworkCode || generatedData.htmlCode;
-            document.getElementById('code-textarea').value = text;
-            document.getElementById('char-count').textContent = `${text.length} Characters`;
-
-            // Design analysis mapping
-            if (generatedData.designAnalysis) {
-                const da = generatedData.designAnalysis;
-                const colorsContainer = document.getElementById('design-colors');
-                if (da.colors && da.colors.length > 0) {
-                    colorsContainer.innerHTML = da.colors.map(c => `
-                        <div onclick="copyColorHex('${c}')" class="flex items-center gap-2 bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 p-2 rounded-xl cursor-pointer hover:border-violet-500 transition" title="Copy Color hex">
-                            <span class="w-6 h-6 rounded border border-slate-200" style="background-color: ${c}"></span>
-                            <span class="font-mono text-[10px] font-bold">${c}</span>
-                        </div>
-                    `).join('');
-                } else {
-                    colorsContainer.innerHTML = `<span class="italic text-slate-400 text-xs">No color mapping returned.</span>`;
-                }
-
-                document.getElementById('design-typography').textContent = da.typography || 'Matching mockup baseline fonts.';
-                document.getElementById('design-layout').textContent = da.layout || 'Horizontal stack layout panels.';
-
-                const compList = document.getElementById('design-components');
-                if (da.components && da.components.length > 0) {
-                    compList.innerHTML = da.components.map(c => `<li>${c}</li>`).join('');
-                } else {
-                    compList.innerHTML = `<li class="italic text-slate-400 list-none">No custom components cataloged.</li>`;
-                }
-            }
-        }
-
-        function copyColorHex(hex) {
-            navigator.clipboard.writeText(hex).then(() => {
-                showToast(`Copied ${hex} to clipboard!`);
-            });
-        }
-
-        function copyGeneratedCode() {
-            const text = document.getElementById('code-textarea').value;
-            if (!text) return;
-            navigator.clipboard.writeText(text).then(() => {
-                showToast("Code copied to clipboard!");
-            });
-        }
-
-        function downloadCodeFile() {
-            const text = document.getElementById('code-textarea').value;
-            if (!text) return;
-            const blob = new Blob([text], { type: 'text/html' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = uploadFileName.endsWith('.html') ? uploadFileName : `${uploadFileName}.html`;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-        }
-
-        function showToast(msg) {
-            let toast = document.getElementById('toolimg-toast');
-            if (!toast) {
-                toast = document.createElement('div');
-                toast.id = 'toolimg-toast';
-                toast.className = 'fixed bottom-6 right-6 z-[999999] bg-slate-900 text-white text-xs font-bold px-4 py-3 rounded-xl shadow-lg flex items-center gap-2 border border-slate-800';
-                document.body.appendChild(toast);
-            }
-            toast.textContent = msg;
-            toast.style.display = 'flex';
-            setTimeout(() => { toast.style.display = 'none'; }, 2500);
-        }
-
-        // Standard Utility for relative API base address
-        function getApiUrl(endpoint) {
-            const host = window.location.origin;
-            return host + endpoint;
-        }
-
-        // Action Trigger communicating with server-side proxy
-        async function generateCode() {
-            if (!currentBase64) {
-                alert("Please upload a design image first!");
-                return;
-            }
-
-            const btn = document.getElementById('generate-btn');
-            const emptyState = document.getElementById('empty-state');
-            const loadingState = document.getElementById('loading-state');
-
-            btn.disabled = true;
-            emptyState.classList.add('hidden');
-            loadingState.classList.remove('hidden');
-
-            const logSteps = [
-                { id: 'log-step-1', delay: 1500, label: 'Reviewing screenshot details...', isProgress: true },
-                { id: 'log-step-2', delay: 3500, label: 'Parsing color palette rules...', isProgress: true },
-                { id: 'log-step-3', delay: 6000, label: 'Extracting grid alignment components...', isProgress: true },
-                { id: 'log-step-4', delay: 8500, label: 'Synthesizing layout structure...', isProgress: true }
-            ];
-
-            logSteps.forEach(step => {
-                setTimeout(() => {
-                    const el = document.getElementById(step.id);
-                    if (el) {
-                        el.innerHTML = `✅ <span class="text-emerald-500 font-bold">${step.label}</span>`;
-                        document.getElementById('progress-header').textContent = step.label;
-                    }
-                }, step.delay);
-            });
-
-            try {
-                const cleanBase64 = currentBase64.replace(/^data:image\/\w+;base64,/, "");
-                const payload = {
-                    image: cleanBase64,
-                    framework: selectedFramework,
-                    prompt: document.getElementById('custom-prompt').value,
-                    fileName: uploadFileName
-                };
-
-                const idToken = typeof window.getAuthToken === 'function' ? await window.getAuthToken() : null;
-                const headers = {
-                    'Content-Type': 'application/json'
-                };
-                if (idToken) {
-                    headers['Authorization'] = 'Bearer ' + idToken;
-                }
-
-                const response = await fetch(getApiUrl('/api/ocr'), {
-                    method: 'POST',
-                    headers: headers,
-                    body: JSON.stringify(payload)
-                });
-
-                const data = await response.json();
-                if (response.status === 403 || response.status === 400 || data.error) {
-                    throw new Error(data.error || "Generation request failed.");
-                }
-
-                // Balance depletion sync with global modules
-                if (!idToken) {
-                    let guestCredits = parseInt(localStorage.getItem('guest_credits') || '5', 10);
-                    if (guestCredits > 0) {
-                        guestCredits--;
-                        localStorage.setItem('guest_credits', guestCredits.toString());
-                        window.userCreditBalance = guestCredits;
-                        if (typeof updateCreditsUI === 'function') updateCreditsUI(guestCredits, true);
-                    }
-                } else {
-                    if (typeof window.consumeUserCredit === 'function') {
-                        await window.consumeUserCredit('image-to-code');
-                    }
-                }
-
-                generatedData = data;
-
-                // Sync item directly to History modules
-                if (window.ToolIMGHistory && window.ToolIMGHistory.saveHistoryItem) {
-                    window.ToolIMGHistory.saveHistoryItem({
-                        toolId: 'image-to-code',
-                        toolName: 'Image to Code AI',
-                        title: `${payload.fileName || 'Layout'} (${payload.framework})`,
-                        content: data.frameworkCode || data.htmlCode || '',
-                        previewUrl: ''
-                    });
-                }
-
-                renderResultViews();
-                loadingState.classList.add('hidden');
-                switchTab('visual');
-
-                // Check and show credits modals if balances are exhausted
-                const remaining = typeof window.getCurrentCredits === 'function' ? window.getCurrentCredits() : 0;
-                if (remaining === 1) {
-                    if (typeof window.showLowCreditsModal === 'function') window.showLowCreditsModal();
-                } else if (remaining <= 0) {
-                    if (typeof window.showOutOfCreditsModal === 'function') window.showOutOfCreditsModal();
-                }
-
-            } catch (err) {
-                console.error(err);
-                alert("Error during synthesis: " + err.message);
-                loadingState.classList.add('hidden');
-                emptyState.classList.remove('hidden');
-            } finally {
-                btn.disabled = false;
-                // Reset progress indicators
-                logSteps.forEach(step => {
-                    const el = document.getElementById(step.id);
-                    if (el) el.innerHTML = `<span class="w-1.5 h-1.5 rounded-full bg-slate-300"></span> <span>${step.label.replace('...', '')}</span>`;
-                });
-            }
-        }
-    </script>
+    }
+    
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    }
+    
+    // Init
+    setTimeout(loadSample, 100);
+</script>
 
     <!-- Slide over module configurations -->
     <script type="module">
@@ -5704,7 +5151,7 @@
         window.closeHistoryDrawer = closeHistoryDrawer;
         
         document.addEventListener('DOMContentLoaded', () => {
-            initHistoryUI('image-to-code');
+            initHistoryUI('html-to-image');
         });
 
         window.handleLoadHistoryItem = function(item) {

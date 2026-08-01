@@ -9,6 +9,7 @@ const files = [
     'tools/image-to-code/index.html',
     'tools/handwriting-to-text/index.html',
     'tools/hindi-handwriting-to-text/index.html',
+    'tools/html-to-image/index.html',
 ];
 
 const blockPath = path.join(__dirname, 'translation-block.html');
