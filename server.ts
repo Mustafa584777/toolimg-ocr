@@ -586,38 +586,45 @@ app.use((req, res, next) => {
 
 if (process.env.NODE_ENV === 'production') {
   // Production static server
-  app.use(express.static(path.join(__dirname, 'dist')));
+  app.use(express.static(path.join(__dirname, 'dist/client')));
   
   // Explicitly serve output.css and style.css from root if they are requested directly
   app.get('/output.css', (req, res) => {
-    const p = path.join(__dirname, 'dist', 'output.css');
+    const p = path.join(__dirname, 'dist/client', 'output.css');
     if (fs.existsSync(p)) {
       res.sendFile(p);
     } else {
-      res.sendFile(path.join(__dirname, 'output.css'));
+      res.status(404).send('Not found');
     }
   });
   
   app.get('/style.css', (req, res) => {
-    const p = path.join(__dirname, 'dist', 'style.css');
+    const p = path.join(__dirname, 'dist/client', 'style.css');
     if (fs.existsSync(p)) {
       res.sendFile(p);
     } else {
-      res.sendFile(path.join(__dirname, 'style.css'));
+      res.status(404).send('Not found');
     }
   });
 
-  app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'dist', 'index.html'));
+  // Load Astro SSR handler dynamically
+  import('./dist/server/entry.mjs').then(({ handler }) => {
+    app.use(handler);
+  }).catch(err => {
+    console.error('Failed to load Astro SSR handler:', err);
+    app.get('*', (req, res) => res.status(500).send('Server Error: Astro build not found'));
   });
 } else {
-  // Vite Dev Server middleware
-  const { createServer: createViteServer } = await import('vite');
-  const vite = await createViteServer({
-    server: { middlewareMode: true },
-    appType: 'spa'
+  // Proxy to Astro Dev Server
+  import('http-proxy-middleware').then(({ createProxyMiddleware }) => {
+    app.use(createProxyMiddleware({ 
+      target: 'http://localhost:3001', 
+      changeOrigin: true,
+      ws: true
+    }));
+  }).catch(err => {
+    console.error('Failed to load proxy middleware:', err);
   });
-  app.use(vite.middlewares);
 }
 
 app.listen(port, '0.0.0.0', () => {

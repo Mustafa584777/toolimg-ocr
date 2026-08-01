@@ -4,17 +4,22 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "dev": "node --experimental-strip-types server.ts",
-    "build": "vite build && cp output.css dist/ && cp style.css dist/ 2>/dev/null || true",
-    "start": "node server.ts",
+    "dev": "concurrently \"astro dev --port 3001\" \"node --experimental-strip-types server.ts\"",
+    "build": "astro build",
+    "start": "NODE_ENV=production node server.ts",
     "clean": "rm -rf dist",
     "lint": "echo 'No linting required'"
   },
   "dependencies": {
+    "@astrojs/node": "^11.0.3",
     "@google/genai": "^2.10.0",
+    "astro": "^7.1.6",
+    "cheerio": "^1.2.0",
+    "concurrently": "^10.0.4",
     "dotenv": "^17.4.2",
     "express": "^5.2.1",
     "firebase-admin": "^14.2.0",
+    "http-proxy-middleware": "^4.2.0",
     "razorpay": "^2.9.6",
     "vite": "^6.2.3"
   },
