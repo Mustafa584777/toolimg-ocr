@@ -2637,24 +2637,18 @@
             </div>
 
             <!-- History Button (Header) -->
-            <button id="header-history-btn" onclick="openHistoryDrawer()" class="relative p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition" aria-label="View History">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
-                <span id="history-badge-count" class="hidden absolute top-0.5 right-0.5 w-4 h-4 bg-rose-500 text-white text-[9px] font-bold flex items-center justify-center rounded-full ring-2 ring-white dark:ring-slate-900">0</span>
-            </button>
+            
 
             <!-- Auth Controls -->
-            <div id="header-auth-guest" class="flex items-center">
-                <!-- Mobile Login Icon -->
-                <button onclick="handleLogin()" class="md:hidden p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition" aria-label="Login with Google">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.761H12.545z"/></svg>
-                </button>
-                <!-- Desktop Login Buttons -->
-                <div class="hidden md:flex items-center gap-3">
-                    <button id="login-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Log in</button>
-                    <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-xl transition shadow-sm">Sign up</button>
-                </div>
+            
             </div>
 
+            
+            <div id="header-auth-guest" class="hidden sm:flex items-center gap-2">
+                <button id="login-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Log in</button>
+                <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-xl transition shadow-sm">Sign up</button>
+            </div>
+        
             <div id="user-menu" class="hidden items-center">
                 <div class="flex items-center gap-2 sm:gap-3">
                     <div class="hidden md:flex flex-col items-end">
@@ -2702,8 +2696,8 @@
             
             <!-- Mobile Auth Section -->
             <div id="mobile-auth-guest" class="flex flex-col gap-2 mt-2 px-3">
-                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Log in</button>
-                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-xl transition shadow-sm">Sign up</button>
+                
+                
             </div>
             <div id="mobile-auth-user" class="hidden flex-col gap-2 mt-2 px-3">
                 <div class="flex items-center gap-2 px-1 py-1">
@@ -3227,7 +3221,41 @@
             </div>
         </section>
 
-    </main>
+    
+<!-- Below-Results History Section -->
+<section class="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mt-16 mb-24">
+    <div class="flex items-center justify-between mb-6">
+        <div>
+            <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                Recent Conversions & History
+            </h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Your generated results and media are automatically saved here.</p>
+        </div>
+    </div>
+
+    <div class="relative rounded-3xl overflow-hidden border border-slate-200 dark:border-slate-800 bg-white dark:bg-slate-900 p-6 shadow-sm">
+        <!-- Guest Blur Overlay if not logged in -->
+        <div id="history-blur-overlay" class="absolute inset-0 z-20 backdrop-blur-md bg-white/75 dark:bg-slate-900/85 flex flex-col items-center justify-center p-6 text-center transition-all duration-300 hidden">
+            <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-2xl flex items-center justify-center mb-3 shadow-inner">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 002-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1">Log in to View Your Conversion History</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 max-w-sm mb-4">Sign in with Google to automatically save, sync, and access your generated media and code history across all devices.</p>
+            <button onclick="handleLogin()" class="px-5 py-2.5 bg-violet-600 hover:bg-violet-700 text-white font-bold text-xs rounded-xl shadow-md transition flex items-center gap-2 cursor-pointer">
+                <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.761H12.545z"/></svg>
+                Sign in with Google
+            </button>
+        </div>
+
+        <div id="tool-history-list" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="text-slate-400 text-xs py-8 text-center col-span-full">Loading history...</div>
+        </div>
+    </div>
+</section>
+<!-- End History Section -->
+
+</main>
 
     <!-- Footer -->
 <!-- Footer -->
@@ -4483,6 +4511,95 @@ document.addEventListener('DOMContentLoaded', () => {
             if (emptyState) emptyState.classList.add('hidden');
         }
     };
+</script>
+
+
+<script type="module">
+    import { auth } from '/assets/firebase-config.js';
+    import { fetchHistoryItems, deleteHistoryItem } from '/assets/history.js';
+    import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+
+    async function renderToolHistory() {
+        const listEl = document.getElementById('tool-history-list');
+        const overlayEl = document.getElementById('history-blur-overlay');
+        if (!listEl) return;
+
+        const user = auth.currentUser;
+        if (!user) {
+            if (overlayEl) overlayEl.classList.remove('hidden');
+            listEl.innerHTML = `
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 space-y-2 opacity-50">
+                    <div class="h-32 bg-slate-200 dark:bg-slate-800 rounded-xl"></div>
+                    <div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-3/4"></div>
+                    <div class="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/2"></div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 space-y-2 opacity-50">
+                    <div class="h-32 bg-slate-200 dark:bg-slate-800 rounded-xl"></div>
+                    <div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-3/4"></div>
+                    <div class="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/2"></div>
+                </div>
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-950 border border-slate-100 dark:border-slate-800 space-y-2 opacity-50">
+                    <div class="h-32 bg-slate-200 dark:bg-slate-800 rounded-xl"></div>
+                    <div class="h-4 bg-slate-200 dark:bg-slate-800 rounded w-3/4"></div>
+                    <div class="h-3 bg-slate-200 dark:bg-slate-800 rounded w-1/2"></div>
+                </div>
+            `;
+            return;
+        }
+
+        if (overlayEl) overlayEl.classList.add('hidden');
+        try {
+            const items = await fetchHistoryItems({ toolId: 'handwriting-to-text' });
+            if (items.length === 0) {
+                listEl.innerHTML = `<div class="text-xs text-slate-400 py-12 text-center col-span-full">No conversion history yet. Generate something above and it will automatically appear here!</div>`;
+                return;
+            }
+
+            listEl.innerHTML = items.map(item => {
+                const previewHtml = item.previewUrl ? `<div class="w-full h-36 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 mb-3 border border-slate-200 dark:border-slate-800"><img src="${item.previewUrl}" alt="Preview" class="w-full h-full object-cover"></div>` : '';
+                const itemContent = typeof item.content === 'string' ? item.content : JSON.stringify(item.content);
+                return `
+                    <div class="group relative bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-violet-500 transition shadow-sm">
+                        <div>
+                            ${previewHtml}
+                            <div class="flex items-center justify-between mb-1">
+                                <span class="text-[10px] font-bold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/50 px-2 py-0.5 rounded">${item.toolName || 'Handwriting OCR'}</span>
+                                <span class="text-[10px] text-slate-400">${new Date(item.timestamp || Date.now()).toLocaleDateString()}</span>
+                            </div>
+                            <h4 class="text-xs font-bold text-slate-900 dark:text-white line-clamp-1 mb-1">${item.title || 'Converted Result'}</h4>
+                            <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 font-mono">${itemContent}</p>
+                        </div>
+                        <div class="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between">
+                            <button onclick="navigator.clipboard.writeText(decodeURIComponent(\`${encodeURIComponent(itemContent)}\`)); alert('Copied content to clipboard!');" class="text-xs font-bold text-violet-600 hover:text-violet-700 transition">Copy Code</button>
+                            <button onclick="window.deleteHistoryItem('${item.id}')" class="text-slate-400 hover:text-rose-500 transition p-1" title="Delete">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        } catch (err) {
+            console.error('Error loading history:', err);
+            listEl.innerHTML = `<div class="text-xs text-rose-500 py-8 text-center col-span-full">Failed to load history items.</div>`;
+        }
+    }
+
+    window.deleteHistoryItem = async function(id) {
+        await deleteHistoryItem(id);
+        renderToolHistory();
+    };
+
+    onAuthStateChanged(auth, (user) => {
+        renderToolHistory();
+    });
+
+    window.addEventListener('historyUpdated', () => {
+        renderToolHistory();
+    });
+
+    document.addEventListener('DOMContentLoaded', () => {
+        renderToolHistory();
+    });
 </script>
 
 </body>

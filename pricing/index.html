@@ -2540,18 +2540,15 @@
             </div>
 
             <!-- Auth Controls -->
-            <div id="header-auth-guest" class="flex items-center">
-                <!-- Mobile Login Icon -->
-                <button onclick="handleLogin()" class="md:hidden p-2 text-slate-500 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition" aria-label="Login with Google">
-                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.761H12.545z"/></svg>
-                </button>
-                <!-- Desktop Login Buttons -->
-                <div class="hidden md:flex items-center gap-3">
-                    <button id="login-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Log in</button>
-                    <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-xl transition shadow-sm">Sign up</button>
-                </div>
+            
             </div>
 
+            
+            <div id="header-auth-guest" class="hidden sm:flex items-center gap-2">
+                <button id="login-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Log in</button>
+                <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-xl transition shadow-sm">Sign up</button>
+            </div>
+        
             <div id="user-menu" class="hidden items-center">
                 <div class="flex items-center gap-2 sm:gap-3">
                     <div class="hidden md:flex flex-col items-end">
@@ -2598,8 +2595,8 @@
             
             <!-- Mobile Auth Section -->
             <div id="mobile-auth-guest" class="flex flex-col gap-2 mt-2 px-3">
-                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Log in</button>
-                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-xl transition shadow-sm">Sign up</button>
+                
+                
             </div>
             <div id="mobile-auth-user" class="hidden flex-col gap-2 mt-2 px-3">
                 <button onclick="handleLogout()" class="w-full py-2.5 text-center text-sm font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Logout</button>
