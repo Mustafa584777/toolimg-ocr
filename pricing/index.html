@@ -2549,17 +2549,29 @@
                 <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-xl transition shadow-sm">Sign up</button>
             </div>
         
-            <div id="user-menu" class="hidden items-center">
-                <div class="flex items-center gap-2 sm:gap-3">
-                    <div class="hidden md:flex flex-col items-end">
-                        <span id="user-name" class="text-xs font-bold text-slate-900 dark:text-white leading-none"></span>
-                        <button onclick="handleLogout()" class="text-[10px] text-slate-500 hover:text-rose-500 font-bold transition mt-0.5">Logout</button>
+                        <div id="user-menu" class="hidden relative items-center">
+                <button id="user-avatar-btn" type="button" onclick="toggleUserDropdown(event)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-full overflow-hidden border-2 border-violet-200 dark:border-violet-800 shadow-sm transition-transform active:scale-95 bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center text-violet-600 dark:text-violet-400 focus:outline-none cursor-pointer" aria-label="User Menu">
+                    <img id="user-avatar" src="" alt="User" class="w-full h-full object-cover hidden" referrerpolicy="no-referrer" crossorigin="anonymous">
+                    <div id="user-fallback" class="flex items-center justify-center">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                     </div>
-                    <button id="user-avatar-btn" class="w-8 h-8 rounded-full overflow-hidden border-2 border-white dark:border-slate-800 shadow-sm transition-transform active:scale-95 bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center text-violet-600 dark:text-violet-400">
-                        <img id="user-avatar" src="" alt="User" class="w-full h-full object-cover hidden" referrerpolicy="no-referrer" crossorigin="anonymous">
-                        <div id="user-fallback" class="flex items-center justify-center">
-                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
-                        </div>
+                </button>
+                <div id="user-dropdown" class="hidden absolute right-0 top-full mt-2 w-48 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-xl flex-col z-50 overflow-hidden py-1.5 transition-all">
+                    <div class="px-4 py-2 border-b border-slate-100 dark:border-slate-800">
+                        <p id="user-name" class="text-xs font-bold text-slate-900 dark:text-white truncate"></p>
+                    </div>
+                    <a href="/dashboard/" class="flex items-center gap-2.5 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 00-1-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        <span>Dashboard</span>
+                    </a>
+                    <button type="button" onclick="if(window.openHistoryDrawer){window.openHistoryDrawer();}toggleUserDropdown();" class="w-full text-left flex items-center gap-2.5 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition cursor-pointer">
+                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>History</span>
+                    </button>
+                    <div class="h-px bg-slate-100 dark:bg-slate-800 my-1"></div>
+                    <button type="button" onclick="handleLogout();toggleUserDropdown();" class="w-full text-left flex items-center gap-2.5 px-4 py-2 text-sm text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition cursor-pointer">
+                        <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                        <span>Logout</span>
                     </button>
                 </div>
             </div>
@@ -3425,6 +3437,30 @@ window.googleTranslateElementInit = function() {
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
 <script>
+window.toggleUserDropdown = function(e) {
+    if (e) e.stopPropagation();
+    const dropdown = document.getElementById('user-dropdown');
+    if (!dropdown) return;
+    if (dropdown.classList.contains('hidden')) {
+        dropdown.classList.remove('hidden');
+        dropdown.classList.add('flex');
+    } else {
+        dropdown.classList.add('hidden');
+        dropdown.classList.remove('flex');
+    }
+};
+
+document.addEventListener('click', function(e) {
+    const dropdown = document.getElementById('user-dropdown');
+    const avatarBtn = document.getElementById('user-avatar-btn');
+    if (dropdown && !dropdown.classList.contains('hidden')) {
+        if (!avatarBtn || (!avatarBtn.contains(e.target) && !dropdown.contains(e.target))) {
+            dropdown.classList.add('hidden');
+            dropdown.classList.remove('flex');
+        }
+    }
+});
+
 window.toggleLangMenu = function(e) {
     if (e) e.stopPropagation();
     const langPopover = document.getElementById('lang-popover');
