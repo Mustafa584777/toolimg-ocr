@@ -3786,7 +3786,15 @@ input[type="range"].tmg-slider {
       } catch (e) {
           console.error('Firebase initialization failed:', e);
       }
-    import { fetchHistoryItems, deleteHistoryItem } from '../../assets/history.js';
+    let fetchHistoryItems = null;
+    let deleteHistoryItem = null;
+    try {
+        const mod = await import('../../assets/history.js');
+        fetchHistoryItems = mod.fetchHistoryItems;
+        deleteHistoryItem = mod.deleteHistoryItem;
+    } catch (e) {
+        console.warn("Could not load history.js dynamically. Falling back to local/localStorage history storage.", e);
+    }
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     async function renderToolHistory() {
@@ -3794,7 +3802,7 @@ input[type="range"].tmg-slider {
         const overlayEl = document.getElementById('history-blur-overlay');
         if (!listEl) return;
 
-        const user = auth.currentUser;
+        const user = (typeof auth !== 'undefined' && auth) ? auth.currentUser : (window.auth ? window.auth.currentUser : null);
         if (!user) {
             if (overlayEl) overlayEl.classList.remove('hidden');
             // Show guest local history items if any, otherwise blurred placeholders
@@ -3837,7 +3845,13 @@ input[type="range"].tmg-slider {
 
         if (overlayEl) overlayEl.classList.add('hidden');
         try {
-            const items = await fetchHistoryItems({ toolId: 'html-to-image' });
+            let items = [];
+            if (typeof fetchHistoryItems === 'function') {
+                items = await fetchHistoryItems({ toolId: 'html-to-image' });
+            } else {
+                const allGuestItems = JSON.parse(localStorage.getItem('toolimg_guest_history') || '[]');
+                items = allGuestItems.filter(it => it.toolId === 'html-to-image');
+            }
             if (items.length === 0) {
                 listEl.innerHTML = `<div class="text-xs text-slate-400 py-12 text-center col-span-full">No conversion history yet. Generate something above and it will automatically appear here!</div>`;
                 return;
@@ -3873,7 +3887,16 @@ input[type="range"].tmg-slider {
     }
 
     window.deleteHistoryItem = async function(id) {
-        await deleteHistoryItem(id);
+        if (typeof deleteHistoryItem === 'function') {
+            await deleteHistoryItem(id);
+        } else {
+            try {
+                let existing = JSON.parse(localStorage.getItem('toolimg_guest_history') || '[]');
+                existing = existing.filter(it => it.id !== id);
+                localStorage.setItem('toolimg_guest_history', JSON.stringify(existing));
+                window.dispatchEvent(new CustomEvent('historyUpdated'));
+            } catch (e) {}
+        }
         renderToolHistory();
     };
 
@@ -4848,14 +4871,43 @@ input[type="range"].tmg-slider {
                     link.click();
 
                     // Save to History
+                    const historyItemData = {
+                        toolId: 'html-to-image',
+                        toolName: 'HTML to Image Converter',
+                        title: 'HTML Render Export',
+                        content: htmlInput ? htmlInput.value : '',
+                        previewUrl: ''
+                    };
                     if (window.ToolIMGHistory && window.ToolIMGHistory.saveHistoryItem) {
-                        window.ToolIMGHistory.saveHistoryItem({
-                            toolId: 'html-to-image',
-                            toolName: 'HTML to Image Converter',
-                            title: 'HTML Render Export',
-                            content: htmlInput ? htmlInput.value : '',
-                            previewUrl: ''
-                        });
+                        window.ToolIMGHistory.saveHistoryItem(historyItemData);
+                    } else {
+                        try {
+                            const guestId = localStorage.getItem('guest_id') || ('guest_' + Math.random().toString(36).substring(2, 10));
+                            if (!localStorage.getItem('guest_id')) {
+                                localStorage.setItem('guest_id', guestId);
+                            }
+                            const item = {
+                                id: 'hist_' + Date.now() + '_' + Math.random().toString(36).substring(2, 7),
+                                toolId: historyItemData.toolId,
+                                toolName: historyItemData.toolName,
+                                title: historyItemData.title,
+                                content: typeof historyItemData.content === 'string' && historyItemData.content.length > 100000 
+                                    ? historyItemData.content.substring(0, 100000) + '\n...[Truncated]' 
+                                    : historyItemData.content,
+                                previewUrl: historyItemData.previewUrl || '',
+                                metadata: {},
+                                createdAt: new Date().toISOString(),
+                                timestamp: Date.now(),
+                                guestId: guestId
+                            };
+                            const existing = JSON.parse(localStorage.getItem('toolimg_guest_history') || '[]');
+                            existing.unshift(item);
+                            if (existing.length > 50) existing.pop();
+                            localStorage.setItem('toolimg_guest_history', JSON.stringify(existing));
+                            window.dispatchEvent(new CustomEvent('historyUpdated', { detail: item }));
+                        } catch(err) {
+                            console.error('Fallback history saving failed:', err);
+                        }
                     }
 
                     // Post-export credit check for low (1) or zero (0) warning modal
@@ -5528,10 +5580,21 @@ document.addEventListener('DOMContentLoaded', () => {
 </script>
 
 <script type="module">
-    import { initHistoryUI, openHistoryDrawer, closeHistoryDrawer } from '../../assets/history-ui.js';
-    window.openHistoryDrawer = openHistoryDrawer;
-    window.closeHistoryDrawer = closeHistoryDrawer;
-    window.initHistoryUI = initHistoryUI;
+    let initHistoryUI = null;
+    let openHistoryDrawer = null;
+    let closeHistoryDrawer = null;
+    try {
+        const mod = await import('../../assets/history-ui.js');
+        initHistoryUI = mod.initHistoryUI;
+        openHistoryDrawer = mod.openHistoryDrawer;
+        closeHistoryDrawer = mod.closeHistoryDrawer;
+        
+        window.openHistoryDrawer = openHistoryDrawer;
+        window.closeHistoryDrawer = closeHistoryDrawer;
+        window.initHistoryUI = initHistoryUI;
+    } catch (e) {
+        console.warn('Could not load history-ui.js dynamically:', e);
+    }
     
     document.addEventListener('DOMContentLoaded', () => {
         try {
