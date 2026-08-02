@@ -2788,7 +2788,7 @@
     <!-- Firebase Scripts -->
     <script type="module">
       import { auth, db, app } from "/assets/firebase-config.js";
-      import { signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { signInWithPopup, signInWithRedirect, GoogleAuthProvider, signOut, onAuthStateChanged  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
       import { doc, getDoc, setDoc, onSnapshot, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
       
       window.getApiUrl = function(endpoint) {
@@ -2798,10 +2798,24 @@
       const provider = new GoogleAuthProvider();
 
       window.handleLogin = async function() {
+          if (!auth) {
+              alert("Firebase Authentication is not configured or initialized on this domain. Please make sure 'toolimg.online' is added to Authorized Domains in Firebase Console (Authentication > Settings > Authorized domains).");
+              return;
+          }
           try {
               await signInWithPopup(auth, provider);
           } catch (error) {
-              if (error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request') return; console.error("Login failed", error.message || error);
+              if (error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request') {
+                  console.log('User closed the login popup.');
+                  return;
+              }
+              console.warn("Popup login failed, trying redirect method:", error);
+              try {
+                  await signInWithRedirect(auth, provider);
+              } catch (redirectError) {
+                  console.error("Login failed via redirect as well:", redirectError);
+                  alert("Login failed: " + (redirectError.message || error.message || String(error)) + "\n\nPlease ensure 'toolimg.online' is added to Authorized Domains in Firebase Console (Authentication > Settings > Authorized domains).");
+              }
           }
       };
 
@@ -3152,6 +3166,26 @@
 
     
 <script>
+    
+    function updateThemeIcons() {
+        const isDark = document.documentElement.classList.contains('dark');
+        const themeBtns = [document.getElementById('theme-btn'), document.getElementById('theme-btn-desktop')];
+        themeBtns.forEach(btn => {
+            if (btn) {
+                const svgs = btn.querySelectorAll('svg');
+                if (svgs.length >= 2) {
+                    if (isDark) {
+                        svgs[0].classList.remove('hidden');
+                        svgs[1].classList.add('hidden');
+                    } else {
+                        svgs[0].classList.add('hidden');
+                        svgs[1].classList.remove('hidden');
+                    }
+                }
+            }
+        });
+    }
+            
     function updateThemeUI(theme) {
         ['light', 'dark', 'system'].forEach(t => {
             const btn = document.getElementById('theme-' + t + '-btn');
@@ -3187,6 +3221,7 @@
             }
         }
         updateThemeUI(theme);
+        updateThemeIcons();
     }
 
     let initialTheme = 'light';
@@ -3203,6 +3238,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         updateThemeUI(initialTheme);
+        updateThemeIcons();
         
         const themeBtns = [document.getElementById('theme-btn'), document.getElementById('theme-btn-desktop')];
         themeBtns.forEach(btn => {

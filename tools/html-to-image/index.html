@@ -4098,12 +4098,16 @@ input[type="range"].tmg-slider {
     <!-- Firebase Scripts -->
     <script type="module">
       import { auth, db, app } from "/assets/firebase-config.js";
-      import { signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { signInWithPopup, signInWithRedirect, GoogleAuthProvider, signOut, onAuthStateChanged  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
       import { doc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
       
       const provider = new GoogleAuthProvider();
 
       window.handleLogin = async function() {
+          if (!auth) {
+              alert("Firebase Authentication is not configured or initialized on this domain. Please make sure 'toolimg.online' is added to Authorized Domains in Firebase Console (Authentication > Settings > Authorized domains).");
+              return;
+          }
           try {
               await signInWithPopup(auth, provider);
           } catch (error) {
@@ -4111,7 +4115,13 @@ input[type="range"].tmg-slider {
                   console.log('User closed the login popup.');
                   return;
               }
-              if (error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request') return; console.error("Login failed", error.message || error);
+              console.warn("Popup login failed, trying redirect method:", error);
+              try {
+                  await signInWithRedirect(auth, provider);
+              } catch (redirectError) {
+                  console.error("Login failed via redirect as well:", redirectError);
+                  alert("Login failed: " + (redirectError.message || error.message || String(error)) + "\n\nPlease ensure 'toolimg.online' is added to Authorized Domains in Firebase Console (Authentication > Settings > Authorized domains).");
+              }
           }
       };
 
