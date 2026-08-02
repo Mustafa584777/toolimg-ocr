@@ -3762,7 +3762,7 @@ input[type="range"].tmg-slider {
 <script type="module">
     import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-      import { initializeFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      import { initializeFirestore, getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
       const firebaseConfig = {
         "apiKey": "AIzaSyCFyGzp7viV1tq25DAMnpKKSJpPngtVa14",
@@ -3778,7 +3778,11 @@ input[type="range"].tmg-slider {
       try {
           app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
           auth = getAuth(app);
-          db = initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId || 'default');
+          try {
+              db = initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId || 'default');
+          } catch (fErr) {
+              db = getFirestore(app);
+          }
       } catch (e) {
           console.error('Firebase initialization failed:', e);
       }
@@ -4275,7 +4279,7 @@ input[type="range"].tmg-slider {
     <script type="module">
       import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
       import { getAuth, signInWithPopup, signInWithRedirect, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-      import { initializeFirestore, doc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+      import { initializeFirestore, getFirestore, doc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
       const firebaseConfig = {
         "apiKey": "AIzaSyCFyGzp7viV1tq25DAMnpKKSJpPngtVa14",
@@ -4291,7 +4295,11 @@ input[type="range"].tmg-slider {
       try {
           app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
           auth = getAuth(app);
-          db = initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId || 'default');
+          try {
+              db = initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId || 'default');
+          } catch (fErr) {
+              db = getFirestore(app);
+          }
       } catch (e) {
           console.error('Firebase initialization failed:', e);
       }

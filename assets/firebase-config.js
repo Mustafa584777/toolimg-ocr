@@ -1,6 +1,6 @@
 import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
-import { initializeFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+import { initializeFirestore, getFirestore } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const firebaseConfig = {
   "apiKey": "AIzaSyCFyGzp7viV1tq25DAMnpKKSJpPngtVa14",
@@ -18,7 +18,12 @@ if (firebaseConfig && firebaseConfig.apiKey) {
     try {
         app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
         auth = getAuth(app);
-        db = initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId || 'default');
+        try {
+            db = initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId || 'default');
+        } catch (fErr) {
+            console.warn('initializeFirestore failed (probably already initialized), falling back to getFirestore:', fErr);
+            db = getFirestore(app);
+        }
     } catch (e) {
         console.error('Firebase initialization failed:', e);
     }
