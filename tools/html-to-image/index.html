@@ -3782,7 +3782,7 @@ input[type="range"].tmg-slider {
       } catch (e) {
           console.error('Firebase initialization failed:', e);
       }
-    import { fetchHistoryItems, deleteHistoryItem } from '/assets/history.js';
+    import { fetchHistoryItems, deleteHistoryItem } from '../../assets/history.js';
     import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
     async function renderToolHistory() {
@@ -3796,7 +3796,8 @@ input[type="range"].tmg-slider {
             // Show guest local history items if any, otherwise blurred placeholders
             let guestItems = [];
             try {
-                guestItems = JSON.parse(localStorage.getItem('guest_tool_history_html-to-image') || '[]');
+                const allGuestItems = JSON.parse(localStorage.getItem('toolimg_guest_history') || '[]');
+                guestItems = allGuestItems.filter(it => it.toolId === 'html-to-image');
             } catch(e) {}
 
             if (guestItems.length === 0) {
