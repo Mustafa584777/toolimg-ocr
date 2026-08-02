@@ -1,9 +1,17 @@
 // assets/history.js - Centralized History Manager for ToolIMG
-import { auth, db } from '/assets/firebase-config.js';
+import { auth as fbAuth, db as fbDb } from './firebase-config.js';
 import { signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 import { doc, collection, setDoc, getDocs, deleteDoc, query, orderBy, limit, getDoc } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 const GUEST_HISTORY_KEY = 'toolimg_guest_history';
+
+function getAuthObj() {
+    return fbAuth || window.auth || null;
+}
+
+function getDbObj() {
+    return fbDb || window.db || null;
+}
 
 // Toast Notification Helper
 export function showToast(message, type = 'info') {
@@ -59,10 +67,12 @@ export async function saveHistoryItem({ toolId, toolName, title, content, previe
         guestId: guestId
     };
 
-    const user = auth.currentUser;
-    if (user) {
+    const currentAuth = getAuthObj();
+    const currentDb = getDbObj();
+    const user = currentAuth ? currentAuth.currentUser : null;
+    if (user && currentDb) {
         try {
-            const historyRef = doc(db, 'users', user.uid, 'history', item.id);
+            const historyRef = doc(currentDb, 'users', user.uid, 'history', item.id);
             await setDoc(historyRef, {
                 ...item,
                 userId: user.uid
@@ -94,6 +104,8 @@ function saveToLocalStorage(item) {
 // 2. Sync Guest History on Login
 export async function syncGuestHistory(user) {
     if (!user) return;
+    const currentDb = getDbObj();
+    if (!currentDb) return;
     try {
         const guestItems = JSON.parse(localStorage.getItem(GUEST_HISTORY_KEY) || '[]');
         if (!guestItems || guestItems.length === 0) return;
@@ -101,7 +113,7 @@ export async function syncGuestHistory(user) {
         let syncedCount = 0;
         for (const item of guestItems) {
             if (item && item.id) {
-                const historyRef = doc(db, 'users', user.uid, 'history', item.id);
+                const historyRef = doc(currentDb, 'users', user.uid, 'history', item.id);
                 await setDoc(historyRef, {
                     ...item,
                     userId: user.uid,
@@ -123,12 +135,14 @@ export async function syncGuestHistory(user) {
 
 // 3. Fetch History Items
 export async function fetchHistoryItems({ toolId = null } = {}) {
-    const user = auth.currentUser;
+    const currentAuth = getAuthObj();
+    const currentDb = getDbObj();
+    const user = currentAuth ? currentAuth.currentUser : null;
     let items = [];
 
-    if (user) {
+    if (user && currentDb) {
         try {
-            const historyColRef = collection(db, 'users', user.uid, 'history');
+            const historyColRef = collection(currentDb, 'users', user.uid, 'history');
             const q = query(historyColRef, orderBy('timestamp', 'desc'), limit(100));
             const snapshot = await getDocs(q);
             snapshot.forEach(docSnap => {
@@ -151,10 +165,12 @@ export async function fetchHistoryItems({ toolId = null } = {}) {
 
 // 4. Delete History Item
 export async function deleteHistoryItem(itemId) {
-    const user = auth.currentUser;
-    if (user) {
+    const currentAuth = getAuthObj();
+    const currentDb = getDbObj();
+    const user = currentAuth ? currentAuth.currentUser : null;
+    if (user && currentDb) {
         try {
-            const itemRef = doc(db, 'users', user.uid, 'history', itemId);
+            const itemRef = doc(currentDb, 'users', user.uid, 'history', itemId);
             await deleteDoc(itemRef);
         } catch (err) {
             console.error('Error deleting item from Firestore:', err);
@@ -174,10 +190,12 @@ export async function deleteHistoryItem(itemId) {
 
 // 5. Clear All History
 export async function clearAllHistory() {
-    const user = auth.currentUser;
-    if (user) {
+    const currentAuth = getAuthObj();
+    const currentDb = getDbObj();
+    const user = currentAuth ? currentAuth.currentUser : null;
+    if (user && currentDb) {
         try {
-            const historyColRef = collection(db, 'users', user.uid, 'history');
+            const historyColRef = collection(currentDb, 'users', user.uid, 'history');
             const snapshot = await getDocs(historyColRef);
             const promises = snapshot.docs.map(d => deleteDoc(d.ref));
             await Promise.all(promises);
@@ -192,25 +210,27 @@ export async function clearAllHistory() {
 }
 
 // Listen to auth state changes to trigger guest history sync automatically
-if (auth) {
-    onAuthStateChanged(auth, (user) => {
+const initialAuth = getAuthObj();
+if (initialAuth) {
+    onAuthStateChanged(initialAuth, (user) => {
         if (user) {
             syncGuestHistory(user);
         }
     });
 } else {
-    console.warn("Firebase Auth is not initialized. Running in guest-only mode.");
+    console.warn("Firebase Auth is not initialized yet. Running in guest-only mode.");
 }
 
 // Trigger Google Auth from history UI
 export async function handleHistoryLogin() {
-    if (!auth) {
+    const currentAuth = getAuthObj();
+    if (!currentAuth) {
         alert("Firebase Authentication is not configured or initialized on this domain. If this is toolimg.online, please make sure you have added the correct Firebase environment variables to your server, and registered 'toolimg.online' under Authorized Domains in the Firebase Console (Authentication > Settings > Authorized domains).");
         return;
     }
     try {
         const provider = new GoogleAuthProvider();
-        await signInWithPopup(auth, provider);
+        await signInWithPopup(currentAuth, provider);
     } catch (err) {
         if (err.code === 'auth/popup-closed-by-user' || err.code === 'auth/cancelled-popup-request') {
             console.log('User closed the login popup.');
