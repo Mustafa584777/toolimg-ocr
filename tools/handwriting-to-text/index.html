@@ -2656,7 +2656,7 @@
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                     </div>
                 </button>
-                <div id="user-dropdown" class="hidden absolute right-0 top-[110%] sm:top-[120%] mt-2 w-48 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-2xl flex-col z-[100] overflow-hidden py-1.5 transition-all">
+                <div id="user-dropdown" class="hidden absolute right-0 top-full mt-3.5 w-48 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-2xl flex-col z-[100] overflow-hidden py-1.5 transition-all">
                     <div class="px-4 py-2 border-b border-slate-100 dark:border-slate-800">
                         <p id="user-name" class="text-xs font-bold text-slate-900 dark:text-white truncate"></p>
                     </div>
@@ -2668,12 +2668,91 @@
                         <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                         <span>History</span>
                     </button>
-                    <button type="button" onclick="handleLogout()" class="w-full text-left flex items-center gap-2.5 px-4 py-2 text-sm text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-900/20 transition cursor-pointer">
+                    <div class="h-px bg-slate-100 dark:bg-slate-800 my-1"></div>
+                    <button type="button" onclick="handleLogout();toggleUserDropdown();" class="w-full text-left flex items-center gap-2.5 px-4 py-2 text-sm text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition cursor-pointer">
                         <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
                         <span>Logout</span>
                     </button>
                 </div>
             </div>
+
+            <button id="theme-btn" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
+                    <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </button>
+                <!-- Mobile menu button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-lg transition ml-1">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </div>
+</header>
+<!-- Mobile Menu Modal -->
+<div id="mobile-menu-modal" class="fixed inset-0 z-50 hidden flex-col items-center justify-center p-4">
+    <div id="mobile-menu-backdrop" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+    <div id="mobile-menu-content" class="relative w-full max-w-[340px] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-visible transition-all scale-95 opacity-0 duration-200 ease-out">
+        <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100 dark:border-slate-800">
+            <div class="flex items-center gap-3">
+                <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG" class="h-6 object-contain">
+                <span class="font-bold text-lg text-slate-900 dark:text-white tracking-tight">ToolIMG</span>
+            </div>
+            <button id="mobile-menu-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800">
+                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+        </div>
+        <div class="px-3 py-3 flex flex-col gap-1">
+            <a href="/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Home</a>
+            <a href="/tools/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Tools</a>
+            <a href="/dashboard/" id="mobile-dashboard-nav" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center hidden">Dashboard</a>
+            <a href="/pricing/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Pricing</a>
+            
+            <!-- Mobile Auth Section -->
+            <div id="mobile-auth-guest" class="flex flex-col gap-2 mt-2 px-3">
+                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Log in</button>
+                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-xl transition shadow-sm">Sign up</button>
+            </div>
+            <div id="mobile-auth-user" class="hidden flex-col gap-2 mt-2 px-3">
+                <div class="flex items-center gap-2 px-1 py-1">
+                    <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                    <span id="mobile-user-name" class="text-sm font-medium text-slate-700 dark:text-slate-300 truncate"></span>
+                </div>
+                <button onclick="handleLogout()" class="w-full py-2.5 text-center text-sm font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Logout</button>
+            </div>
+            
+            <!-- Divider -->
+            <div class="h-px bg-slate-100 dark:bg-slate-800 w-full my-2"></div>
+        <!-- Theme Toggle -->
+        <div class="px-3 py-2 relative">
+            <button id="theme-menu-btn" class="w-full px-4 py-3.5 flex justify-between items-center text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">
+                <span>Theme</span>
+                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+            </button>
+            
+            <!-- Theme Dropdown Popover -->
+            <div id="theme-popover" class="absolute bottom-[100%] right-3 mb-2 w-48 bg-white dark:bg-slate-900 rounded-2xl shadow-xl border border-slate-100 dark:border-slate-800 p-2 hidden flex-col gap-1 z-50">
+                <button onclick="setTheme('light')" id="theme-light-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-900 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                        Light
+                    </div>
+                    <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </button>
+                <button onclick="setTheme('dark')" id="theme-dark-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        Dark
+                    </div>
+                    <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </button>
+                <button onclick="setTheme('system')" id="theme-system-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">
+                    <div class="flex items-center gap-3">
+                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                        System
+                    </div>
+                    <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                </button>
+            </div>
+        </div>
         </div>
     </div>
 </div>
@@ -3376,12 +3455,36 @@
     
     <!-- Firebase Scripts -->
     <script type="module">
-      import { auth, db, app } from "/assets/firebase-config.js";
-      import { signInWithPopup, signInWithRedirect, GoogleAuthProvider, signOut, onAuthStateChanged  } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getAuth, signInWithPopup, signInWithRedirect, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { initializeFirestore, doc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+      const firebaseConfig = {
+        "apiKey": "AIzaSyCFyGzp7viV1tq25DAMnpKKSJpPngtVa14",
+        "authDomain": "gen-lang-client-0844549707.firebaseapp.com",
+        "projectId": "gen-lang-client-0844549707",
+        "firestoreDatabaseId": "ai-studio-toolimg-a40860b9-3db9-4eab-a65f-f070e159a9b3",
+        "storageBucket": "gen-lang-client-0844549707.firebasestorage.app",
+        "messagingSenderId": "845800015860",
+        "appId": "1:845800015860:web:a6229be704605991785ba1"
+      };
+
+      let app, auth, db;
+      try {
+          app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+          auth = getAuth(app);
+          db = initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId || 'default');
+      } catch (e) {
+          console.error('Firebase initialization failed:', e);
+      }
       
       const provider = new GoogleAuthProvider();
  
-      
+      window.handleLogin = async function() {
+          if (!auth) {
+              alert("Firebase Authentication is not configured or initialized on this domain. Please make sure 'toolimg.online' is added to Authorized Domains in Firebase Console (Authentication > Settings > Authorized domains).");
+              return;
+          }
           try {
               await signInWithPopup(auth, provider);
           } catch (error) {
@@ -3399,7 +3502,10 @@
           }
       };
  
-       catch (error) {
+      window.handleLogout = async function() {
+          try {
+              await signOut(auth);
+          } catch (error) {
               console.error("Logout failed", error.message || error);
           }
       };
@@ -3513,8 +3619,6 @@
           if (modalHwCount) modalHwCount.textContent = handwritingUsed + ' Credits';
           if (modalHwProgress) modalHwProgress.style.width = handwritingProgress + '%';
       }
-
-      import { doc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
       window.consumeUserCredit = async function(toolName) {
           if (!auth.currentUser) return;
@@ -3637,6 +3741,25 @@
 
 <script>
     
+    function updateThemeIcons() {
+        const isDark = document.documentElement.classList.contains('dark');
+        const themeBtns = [document.getElementById('theme-btn'), document.getElementById('theme-btn-desktop')];
+        themeBtns.forEach(btn => {
+            if (btn) {
+                const svgs = btn.querySelectorAll('svg');
+                if (svgs.length >= 2) {
+                    if (isDark) {
+                        svgs[0].classList.remove('hidden');
+                        svgs[1].classList.add('hidden');
+                    } else {
+                        svgs[0].classList.add('hidden');
+                        svgs[1].classList.remove('hidden');
+                    }
+                }
+            }
+        });
+    }
+            
     function updateThemeUI(theme) {
         ['light', 'dark', 'system'].forEach(t => {
             const btn = document.getElementById('theme-' + t + '-btn');
@@ -3672,7 +3795,7 @@
             }
         }
         updateThemeUI(theme);
-        
+        updateThemeIcons();
     }
     window.setTheme = setTheme;
     window.updateThemeUI = updateThemeUI;
@@ -3691,7 +3814,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
         updateThemeUI(initialTheme);
-        
+        updateThemeIcons();
         
         const themeBtn = document.getElementById('theme-btn');
         if (themeBtn) {
@@ -3765,11 +3888,8 @@
 </script>
 
 <script>
-    // Set this to your Vercel URL if hosting frontend separately on Hostinger (e.g., "https://my-app.vercel.app")
-    const BACKEND_URL = "";
-
     function getApiUrl(endpoint) {
-        return BACKEND_URL ? BACKEND_URL + endpoint : endpoint;
+        return endpoint;
     }
 
     let currentBase64 = null;
@@ -4571,10 +4691,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
 <script type="module">
     import { initHistoryUI, openHistoryDrawer, closeHistoryDrawer } from '../../assets/history-ui.js';
-    window.initHistoryUI = initHistoryUI;
     window.openHistoryDrawer = openHistoryDrawer;
     window.closeHistoryDrawer = closeHistoryDrawer;
-    initHistoryUI('handwriting-to-text');
+    window.initHistoryUI = initHistoryUI;
+    
+    document.addEventListener('DOMContentLoaded', () => {
+        try {
+            if (typeof initHistoryUI === 'function') initHistoryUI('handwriting-to-text');
+        } catch(e) {
+            console.error('Failed to init history UI:', e);
+        }
+    });
 </script>
 <script>
     if (!window.openHistoryDrawer) {
@@ -4647,7 +4774,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-<script type="module" src="../../assets/auth-manager.js"></script>
 </body>
 </html>
 
