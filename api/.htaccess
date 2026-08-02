@@ -1,0 +1,19 @@
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /api/
+
+# Enable CORS headers
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "POST, GET, OPTIONS, DELETE, PUT"
+Header set Access-Control-Allow-Headers "Content-Type, X-Guest-ID, Authorization, *"
+
+# Return 200 OK directly for OPTIONS requests to avoid forwarding to PHP
+RewriteCond %{REQUEST_METHOD} OPTIONS
+RewriteRule ^.*$ - [R=200,L]
+
+# Route paths directly to their PHP handlers
+RewriteRule ^config/?$ config.php [L]
+RewriteRule ^ocr/?$ ocr.php [L]
+RewriteRule ^handwriting/?$ handwriting.php [L]
+RewriteRule ^hindi-handwriting/?$ hindi-handwriting.php [L]
+</IfModule>
