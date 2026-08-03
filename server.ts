@@ -42,6 +42,11 @@ const port = 3000;
 
 // Redirect middleware for www to non-www and http to https
 app.use((req, res, next) => {
+  // Never redirect API calls or configuration fallback requests
+  if (req.path.startsWith('/api/') || req.path === '/firebase-applet-config.json') {
+    return next();
+  }
+
   const host = req.headers['x-forwarded-host'] || req.headers.host;
   const protocol = req.headers['x-forwarded-proto'] || req.protocol;
 
@@ -81,17 +86,7 @@ app.use(express.json({ limit: '50mb' }));
 // Config Endpoint to serve Firebase config safely to frontend
 app.get('/api/config', (req, res) => {
   try {
-    const configPath = path.join(__dirname, 'firebase-applet-config.json');
-    if (fs.existsSync(configPath)) {
-      const configData = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-      return res.json({
-        ...configData,
-        razorpayKeyId: process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID || ''
-      });
-    }
-    
-    // Fallback to environment variables
-    return res.json({
+    const configData = {
       apiKey: process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || '',
       authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN || process.env.FIREBASE_AUTH_DOMAIN || '',
       projectId: process.env.VITE_FIREBASE_PROJECT_ID || process.env.FIREBASE_PROJECT_ID || '',
@@ -100,10 +95,38 @@ app.get('/api/config', (req, res) => {
       messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID || process.env.FIREBASE_MESSAGING_SENDER_ID || '',
       appId: process.env.VITE_FIREBASE_APP_ID || process.env.FIREBASE_APP_ID || '',
       razorpayKeyId: process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID || ''
-    });
+    };
+
+    // If any key is missing from environment, try to read from the JSON file as fallback
+    const configPath = path.join(__dirname, 'firebase-applet-config.json');
+    if (fs.existsSync(configPath) && (!configData.apiKey || !configData.projectId)) {
+      const fileConfig = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+      Object.assign(configData, fileConfig);
+      // Ensure Razorpay key is still present
+      if (!configData.razorpayKeyId) {
+        configData.razorpayKeyId = process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID || '';
+      }
+    }
+
+    res.json(configData);
   } catch (error: any) {
     console.error('Error reading config:', error);
     res.status(500).json({ error: 'Failed to read configuration' });
+  }
+});
+
+// Explicit route to serve firebase-applet-config.json for static fallback
+app.get('/firebase-applet-config.json', (req, res) => {
+  try {
+    const configPath = path.join(__dirname, 'firebase-applet-config.json');
+    if (fs.existsSync(configPath)) {
+      res.setHeader('Content-Type', 'application/json');
+      res.sendFile(configPath);
+    } else {
+      res.status(404).json({ error: 'Configuration file not found' });
+    }
+  } catch (error: any) {
+    res.status(500).json({ error: 'Failed to serve configuration' });
   }
 });
 
@@ -584,6 +607,26 @@ app.use((req, res, next) => {
 if (process.env.NODE_ENV === 'production') {
   // Production static server
   app.use(express.static(path.join(__dirname, 'dist')));
+  
+  // Explicitly serve output.css and style.css from root if they are requested directly
+  app.get('/output.css', (req, res) => {
+    const p = path.join(__dirname, 'dist', 'output.css');
+    if (fs.existsSync(p)) {
+      res.sendFile(p);
+    } else {
+      res.sendFile(path.join(__dirname, 'output.css'));
+    }
+  });
+  
+  app.get('/style.css', (req, res) => {
+    const p = path.join(__dirname, 'dist', 'style.css');
+    if (fs.existsSync(p)) {
+      res.sendFile(p);
+    } else {
+      res.sendFile(path.join(__dirname, 'style.css'));
+    }
+  });
+
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
   });
