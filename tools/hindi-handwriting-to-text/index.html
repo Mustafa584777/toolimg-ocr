@@ -2588,6 +2588,27 @@
     }
     </script>
 
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Poppins', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        svg { display: inline-block; vertical-align: middle; }
+        svg:not([width]):not([class*="w-"]) { width: 1.5rem; height: 1.5rem; }
+    </style>
+
 </head>
 <body class="hero-gradient text-slate-800 min-h-screen flex flex-col">
     <!-- Navbar -->

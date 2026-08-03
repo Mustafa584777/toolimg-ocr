@@ -591,6 +591,127 @@ Your goal is to extract all handwritten text in Hindi/Devanagari from the provid
 });
 
 
+// Image to Prompt Generator Endpoint
+app.post('/api/image-to-prompt', async (req: express.Request, res: express.Response) => {
+  let creditSession: { decrement: () => Promise<void>, credits: number } | null = null;
+  try {
+    const { base64Data, fileName = 'image.png', mimeType = 'image/png', targetGenerator = 'all', detailLevel = 'detailed', aspectRatio = '16:9', customInstructions = '' } = req.body;
+
+    if (!base64Data) {
+      return res.status(400).json({ error: 'No image data provided' });
+    }
+
+    if (!process.env.GEMINI_API_KEY) {
+      return res.status(500).json({ error: 'GEMINI_API_KEY is not configured on the server. Please configure it in Settings > Secrets.' });
+    }
+
+    try {
+      creditSession = await verifyAndConsumeCredit(req, 'image-to-code');
+    } catch (creditErr: any) {
+      if (creditErr.message === "INSUFFICIENT_CREDITS") {
+        return res.status(403).json({ error: "Sufficient credits are required to run this tool. Please purchase credits on the pricing page." });
+      }
+      if (creditErr.message === "GUEST_EXHAUSTED") {
+        return res.status(403).json({ error: "You have exhausted your 5 free guest credits. Please log in or buy credits to continue." });
+      }
+      if (creditErr.message === "IDENTIFICATION_REQUIRED") {
+        return res.status(400).json({ error: "Authorization or Guest Identification is required." });
+      }
+      throw creditErr;
+    }
+
+    const systemInstruction = `You are a world-class prompt engineer and AI vision expert specializing in analyzing visual artwork, photographs, graphic designs, 3D renders, and digital art to extract precise, highly descriptive AI image generator prompts.
+
+Analyze the uploaded image thoroughly, decomposing its subject, medium, composition, lighting, art style, mood, texture, camera specs, and color palette.
+
+Generate precise prompts tailored for:
+1. Midjourney (v6.1): Professional Midjourney style prompt with appropriate parameters like --ar ${aspectRatio} --v 6.1 --stylize 250
+2. Stable Diffusion / Flux: High quality positive prompt with detailed style tags, camera lens info, lighting, and a comprehensive negative prompt
+3. DALL-E 3 / Bing: Highly descriptive natural prose prompt
+4. Short Prompt: Punchy, concise 1-sentence prompt
+
+Respond ONLY with a JSON object adhering to the specified schema.`;
+
+    const responseSchema = {
+      type: Type.OBJECT,
+      properties: {
+        summary: { type: Type.STRING, description: "Detailed visual breakdown of the image subject, lighting, style, and atmosphere." },
+        subject: { type: Type.STRING, description: "Main focal subject and secondary elements." },
+        style: { type: Type.STRING, description: "Identified artistic medium, style, render engine, or photographic style." },
+        lightingAndMood: { type: Type.STRING, description: "Lighting setup, highlights, shadows, and emotional mood." },
+        colors: {
+          type: Type.ARRAY,
+          items: { type: Type.STRING },
+          description: "Dominant color names or hex palettes."
+        },
+        prompts: {
+          type: Type.OBJECT,
+          properties: {
+            midjourney: { type: Type.STRING, description: "Optimized Midjourney v6.1 prompt with parameters." },
+            stableDiffusion: { type: Type.STRING, description: "Optimized SDXL / Flux positive prompt with quality tokens." },
+            negativePrompt: { type: Type.STRING, description: "Negative prompt keywords to prevent defects." },
+            dalle: { type: Type.STRING, description: "Natural descriptive prompt for DALL-E 3." },
+            flux: { type: Type.STRING, description: "Flux.1 Dev/Schnell optimized detailed prompt." },
+            shortPrompt: { type: Type.STRING, description: "Short punchy 1-sentence prompt." }
+          },
+          required: ['midjourney', 'stableDiffusion', 'negativePrompt', 'dalle', 'flux', 'shortPrompt']
+        },
+        tags: {
+          type: Type.ARRAY,
+          items: { type: Type.STRING },
+          description: "10-15 key descriptor tags."
+        }
+      },
+      required: ['summary', 'subject', 'style', 'lightingAndMood', 'colors', 'prompts', 'tags']
+    };
+
+    const imagePart = {
+      inlineData: {
+        mimeType: mimeType || 'image/png',
+        data: base64Data
+      }
+    };
+
+    let promptText = `Analyze this image and generate detailed image-to-prompt descriptions for AI image generation.
+Target Generator Focus: ${targetGenerator}
+Detail Level: ${detailLevel}
+Preferred Aspect Ratio: --ar ${aspectRatio}
+Filename: ${fileName}`;
+
+    if (customInstructions && customInstructions.trim()) {
+      promptText += `\nAdditional user guidelines: "${customInstructions.trim()}"`;
+    }
+
+    const textPart = { text: promptText };
+
+    const ai = getAIClient();
+    const response = await generateContentWithRetryAndFallback(ai, {
+      model: 'gemini-3.5-flash',
+      contents: { parts: [imagePart, textPart] },
+      config: {
+        systemInstruction,
+        responseMimeType: 'application/json',
+        responseSchema
+      }
+    });
+
+    const resultText = response.text;
+    if (!resultText) {
+      throw new Error('No response from Gemini API');
+    }
+
+    const parsedResult = JSON.parse(resultText);
+    if (creditSession) {
+      await creditSession.decrement();
+    }
+    res.json(parsedResult);
+  } catch (error: any) {
+    console.error('Error generating prompt from image:', error);
+    res.status(500).json({ error: error.message || 'Failed to generate prompt from image' });
+  }
+});
+
+
 // Serve frontend in dev / prod
 
 // Rewrite language prefixes for static assets
