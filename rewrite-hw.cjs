@@ -29,7 +29,7 @@ const headerHTML = `
     <!-- Navbar -->
     <header class="w-full max-w-6xl mx-auto px-6 py-4 flex justify-between items-center bg-transparent">
         <a href="/" class="flex items-center gap-2">
-            <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG Logo" class="h-8 object-contain" onerror="this.src='data:image/svg+xml;utf8,<svg class=\\'w-7 h-7 text-violet-600\\' viewBox=\\'0 0 24 24\\' fill=\\'currentColor\\' xmlns=\\'http://www.w3.org/2000/svg\\'><path d=\\'M12 2L2 12h3v8h14v-8h3L12 2zm0 2.8L19.2 12H17v6H7v-6H4.8L12 4.8z\\'/></svg>'">
+            <img   alt="ToolIMG Logo" class="h-8 object-contain dark:invert" onerror="this.src='data:image/svg+xml;utf8,<svg class=\\'w-7 h-7 text-violet-600\\' viewBox=\\'0 0 24 24\\' fill=\\'currentColor\\' xmlns=\\'http://www.w3.org/2000/svg\\' src="/assets/logo.svg"><path d=\\'M12 2L2 12h3v8h14v-8h3L12 2zm0 2.8L19.2 12H17v6H7v-6H4.8L12 4.8z\\'/></svg>'">
             <span class="font-bold text-xl tracking-tight text-slate-800 hidden sm:block">ToolIMG</span>
         </a>
         
@@ -86,7 +86,7 @@ const footerHTML = `
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 <div class="md:col-span-1">
                     <a href="/" class="flex items-center gap-2 mb-4">
-                        <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG Logo" class="h-8 object-contain" onerror="this.src='data:image/svg+xml;utf8,<svg class=\\'w-7 h-7 text-violet-600\\' viewBox=\\'0 0 24 24\\' fill=\\'currentColor\\' xmlns=\\'http://www.w3.org/2000/svg\\'><path d=\\'M12 2L2 12h3v8h14v-8h3L12 2zm0 2.8L19.2 12H17v6H7v-6H4.8L12 4.8z\\'/></svg>'">
+                        <img   alt="ToolIMG Logo" class="h-8 object-contain dark:invert" onerror="this.src='data:image/svg+xml;utf8,<svg class=\\'w-7 h-7 text-violet-600\\' viewBox=\\'0 0 24 24\\' fill=\\'currentColor\\' xmlns=\\'http://www.w3.org/2000/svg\\' src="/assets/logo.svg"><path d=\\'M12 2L2 12h3v8h14v-8h3L12 2zm0 2.8L19.2 12H17v6H7v-6H4.8L12 4.8z\\'/></svg>'">
                         <span class="font-bold text-xl tracking-tight text-slate-800">ToolIMG</span>
                     </a>
                     <p class="text-slate-500 text-sm">Advanced AI vision tools designed for simplicity and efficiency. We extract code and text from your images instantly.</p>

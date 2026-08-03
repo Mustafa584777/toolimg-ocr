@@ -595,7 +595,7 @@ Your goal is to extract all handwritten text in Hindi/Devanagari from the provid
 app.post('/api/image-to-prompt', async (req: express.Request, res: express.Response) => {
   let creditSession: { decrement: () => Promise<void>, credits: number } | null = null;
   try {
-    const { base64Data, fileName = 'image.png', mimeType = 'image/png', targetGenerator = 'all', detailLevel = 'detailed', aspectRatio = '16:9', customInstructions = '' } = req.body;
+    const { base64Data, fileName = 'image.png', mimeType = 'image/png', targetGenerator = 'gemini', promptLength = 'normal', customInstructions = '' } = req.body;
 
     if (!base64Data) {
       return res.status(400).json({ error: 'No image data provided' });
@@ -625,10 +625,17 @@ app.post('/api/image-to-prompt', async (req: express.Request, res: express.Respo
 Analyze the uploaded image thoroughly, decomposing its subject, medium, composition, lighting, art style, mood, texture, camera specs, and color palette.
 
 Generate precise prompts tailored for:
-1. Midjourney (v6.1): Professional Midjourney style prompt with appropriate parameters like --ar ${aspectRatio} --v 6.1 --stylize 250
-2. Stable Diffusion / Flux: High quality positive prompt with detailed style tags, camera lens info, lighting, and a comprehensive negative prompt
-3. DALL-E 3 / Bing: Highly descriptive natural prose prompt
-4. Short Prompt: Punchy, concise 1-sentence prompt
+1. Gemini Vision: Prompt optimized specifically for Gemini models to reconstruct or replicate the design, elements, composition, style, and tone of the original image with maximum fidelity.
+2. ChatGPT (DALL-E 3): Prose-style prompt optimized for ChatGPT and DALL-E 3, using vivid, natural, highly descriptive language.
+3. Midjourney (v6.1): Professional Midjourney style prompt with parameters like --v 6.1 --stylize 250 and standard/optimal aspect ratio keywords.
+4. Stable Diffusion / Flux: High quality positive prompt with detailed style tags, camera lens info, lighting, and a comprehensive negative prompt.
+5. DALL-E 3 / Bing: Highly descriptive natural prose prompt.
+6. Short Prompt: Punchy, concise 1-sentence prompt.
+
+PROMPT LENGTH RESTRICTION:
+- If the requested prompt length is 'short', keep prompts concise, direct, and focused (around 15-30 words).
+- If the requested prompt length is 'normal', dynamically adjust the length based on the image complexity (around 50-150 words).
+- If the requested prompt length is 'detailed', provide rich, extensive, and highly descriptive prompts (up to 1000 words maximum). Under no circumstances exceed 1000 words.
 
 Respond ONLY with a JSON object adhering to the specified schema.`;
 
@@ -647,6 +654,8 @@ Respond ONLY with a JSON object adhering to the specified schema.`;
         prompts: {
           type: Type.OBJECT,
           properties: {
+            gemini: { type: Type.STRING, description: "Optimized prompt for Gemini Vision models to replicate the image." },
+            chatgpt: { type: Type.STRING, description: "Vivid, natural prose prompt optimized for ChatGPT & DALL-E 3." },
             midjourney: { type: Type.STRING, description: "Optimized Midjourney v6.1 prompt with parameters." },
             stableDiffusion: { type: Type.STRING, description: "Optimized SDXL / Flux positive prompt with quality tokens." },
             negativePrompt: { type: Type.STRING, description: "Negative prompt keywords to prevent defects." },
@@ -654,7 +663,7 @@ Respond ONLY with a JSON object adhering to the specified schema.`;
             flux: { type: Type.STRING, description: "Flux.1 Dev/Schnell optimized detailed prompt." },
             shortPrompt: { type: Type.STRING, description: "Short punchy 1-sentence prompt." }
           },
-          required: ['midjourney', 'stableDiffusion', 'negativePrompt', 'dalle', 'flux', 'shortPrompt']
+          required: ['gemini', 'chatgpt', 'midjourney', 'stableDiffusion', 'negativePrompt', 'dalle', 'flux', 'shortPrompt']
         },
         tags: {
           type: Type.ARRAY,
@@ -674,8 +683,7 @@ Respond ONLY with a JSON object adhering to the specified schema.`;
 
     let promptText = `Analyze this image and generate detailed image-to-prompt descriptions for AI image generation.
 Target Generator Focus: ${targetGenerator}
-Detail Level: ${detailLevel}
-Preferred Aspect Ratio: --ar ${aspectRatio}
+Requested Prompt Length: ${promptLength} (Please follow the length restrictions: 'short' = 15-30 words, 'normal' = 50-150 words, 'detailed' = up to 1000 words max).
 Filename: ${fileName}`;
 
     if (customInstructions && customInstructions.trim()) {
