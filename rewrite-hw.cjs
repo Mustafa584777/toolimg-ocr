@@ -29,7 +29,7 @@ const headerHTML = `
     <!-- Navbar -->
     <header class="w-full max-w-6xl mx-auto px-6 py-4 flex justify-between items-center bg-transparent">
         <a href="/" class="flex items-center gap-2">
-            <img   alt="ToolIMG Logo" class="h-8 object-contain dark:invert" onerror="this.src='data:image/svg+xml;utf8,<svg class=\\'w-7 h-7 text-violet-600\\' viewBox=\\'0 0 24 24\\' fill=\\'currentColor\\' xmlns=\\'http://www.w3.org/2000/svg\\' src="/assets/logo.svg"><path d=\\'M12 2L2 12h3v8h14v-8h3L12 2zm0 2.8L19.2 12H17v6H7v-6H4.8L12 4.8z\\'/></svg>'">
+            <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG Logo" class="h-8 object-contain" onerror="this.src='data:image/svg+xml;utf8,<svg class=\\'w-7 h-7 text-violet-600\\' viewBox=\\'0 0 24 24\\' fill=\\'currentColor\\' xmlns=\\'http://www.w3.org/2000/svg\\'><path d=\\'M12 2L2 12h3v8h14v-8h3L12 2zm0 2.8L19.2 12H17v6H7v-6H4.8L12 4.8z\\'/></svg>'">
             <span class="font-bold text-xl tracking-tight text-slate-800 hidden sm:block">ToolIMG</span>
         </a>
         
@@ -86,7 +86,7 @@ const footerHTML = `
             <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
                 <div class="md:col-span-1">
                     <a href="/" class="flex items-center gap-2 mb-4">
-                        <img   alt="ToolIMG Logo" class="h-8 object-contain dark:invert" onerror="this.src='data:image/svg+xml;utf8,<svg class=\\'w-7 h-7 text-violet-600\\' viewBox=\\'0 0 24 24\\' fill=\\'currentColor\\' xmlns=\\'http://www.w3.org/2000/svg\\' src="/assets/logo.svg"><path d=\\'M12 2L2 12h3v8h14v-8h3L12 2zm0 2.8L19.2 12H17v6H7v-6H4.8L12 4.8z\\'/></svg>'">
+                        <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG Logo" class="h-8 object-contain" onerror="this.src='data:image/svg+xml;utf8,<svg class=\\'w-7 h-7 text-violet-600\\' viewBox=\\'0 0 24 24\\' fill=\\'currentColor\\' xmlns=\\'http://www.w3.org/2000/svg\\'><path d=\\'M12 2L2 12h3v8h14v-8h3L12 2zm0 2.8L19.2 12H17v6H7v-6H4.8L12 4.8z\\'/></svg>'">
                         <span class="font-bold text-xl tracking-tight text-slate-800">ToolIMG</span>
                     </a>
                     <p class="text-slate-500 text-sm">Advanced AI vision tools designed for simplicity and efficiency. We extract code and text from your images instantly.</p>
@@ -125,9 +125,21 @@ const footerHTML = `
 const firebaseScriptsHTML = `
     <!-- Firebase Scripts -->
     <script type="module">
-      import { auth, db, app } from "/assets/firebase-config.js";
-      import { signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getAuth, signInWithPopup, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
       
+      const firebaseConfig = {
+          apiKey: "AIzaSyCFyGzp7viV1tq25DAMnpKKSJpPngtVa14",
+          authDomain: "gen-lang-client-0844549707.firebaseapp.com",
+          projectId: "gen-lang-client-0844549707",
+          firestoreDatabaseId: "ai-studio-toolimg-a40860b9-3db9-4eab-a65f-f070e159a9b3",
+          storageBucket: "gen-lang-client-0844549707.firebasestorage.app",
+          messagingSenderId: "845800015860",
+          appId: "1:845800015860:web:a6229be704605991785ba1"
+      };
+      
+      const app = initializeApp(firebaseConfig);
+      const auth = getAuth(app);
       const provider = new GoogleAuthProvider();
 
       window.handleLogin = async function() {

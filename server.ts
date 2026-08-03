@@ -42,11 +42,6 @@ const port = 3000;
 
 // Redirect middleware for www to non-www and http to https
 app.use((req, res, next) => {
-  // Never redirect API calls or configuration fallback requests
-  if (req.path.startsWith('/api/') || req.path === '/firebase-applet-config.json') {
-    return next();
-  }
-
   const host = req.headers['x-forwarded-host'] || req.headers.host;
   const protocol = req.headers['x-forwarded-proto'] || req.protocol;
 
@@ -86,7 +81,17 @@ app.use(express.json({ limit: '50mb' }));
 // Config Endpoint to serve Firebase config safely to frontend
 app.get('/api/config', (req, res) => {
   try {
-    const configData = {
+    const configPath = path.join(__dirname, 'firebase-applet-config.json');
+    if (fs.existsSync(configPath)) {
+      const configData = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
+      return res.json({
+        ...configData,
+        razorpayKeyId: process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID || ''
+      });
+    }
+    
+    // Fallback to environment variables
+    return res.json({
       apiKey: process.env.VITE_FIREBASE_API_KEY || process.env.FIREBASE_API_KEY || '',
       authDomain: process.env.VITE_FIREBASE_AUTH_DOMAIN || process.env.FIREBASE_AUTH_DOMAIN || '',
       projectId: process.env.VITE_FIREBASE_PROJECT_ID || process.env.FIREBASE_PROJECT_ID || '',
@@ -95,38 +100,10 @@ app.get('/api/config', (req, res) => {
       messagingSenderId: process.env.VITE_FIREBASE_MESSAGING_SENDER_ID || process.env.FIREBASE_MESSAGING_SENDER_ID || '',
       appId: process.env.VITE_FIREBASE_APP_ID || process.env.FIREBASE_APP_ID || '',
       razorpayKeyId: process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID || ''
-    };
-
-    // If any key is missing from environment, try to read from the JSON file as fallback
-    const configPath = path.join(__dirname, 'firebase-applet-config.json');
-    if (fs.existsSync(configPath) && (!configData.apiKey || !configData.projectId)) {
-      const fileConfig = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
-      Object.assign(configData, fileConfig);
-      // Ensure Razorpay key is still present
-      if (!configData.razorpayKeyId) {
-        configData.razorpayKeyId = process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID || '';
-      }
-    }
-
-    res.json(configData);
+    });
   } catch (error: any) {
     console.error('Error reading config:', error);
     res.status(500).json({ error: 'Failed to read configuration' });
-  }
-});
-
-// Explicit route to serve firebase-applet-config.json for static fallback
-app.get('/firebase-applet-config.json', (req, res) => {
-  try {
-    const configPath = path.join(__dirname, 'firebase-applet-config.json');
-    if (fs.existsSync(configPath)) {
-      res.setHeader('Content-Type', 'application/json');
-      res.sendFile(configPath);
-    } else {
-      res.status(404).json({ error: 'Configuration file not found' });
-    }
-  } catch (error: any) {
-    res.status(500).json({ error: 'Failed to serve configuration' });
   }
 });
 
@@ -591,135 +568,6 @@ Your goal is to extract all handwritten text in Hindi/Devanagari from the provid
 });
 
 
-// Image to Prompt Generator Endpoint
-app.post(['/api/image-to-prompt', '/api/gemini-image-to-prompt'], async (req: express.Request, res: express.Response) => {
-  let creditSession: { decrement: () => Promise<void>, credits: number } | null = null;
-  try {
-    const { base64Data, fileName = 'image.png', mimeType = 'image/png', targetGenerator = 'gemini', promptLength = 'normal', customInstructions = '' } = req.body;
-
-    if (!base64Data) {
-      return res.status(400).json({ error: 'No image data provided' });
-    }
-
-    if (!process.env.GEMINI_API_KEY) {
-      return res.status(500).json({ error: 'GEMINI_API_KEY is not configured on the server. Please configure it in Settings > Secrets.' });
-    }
-
-    try {
-      creditSession = await verifyAndConsumeCredit(req, 'image-to-code');
-    } catch (creditErr: any) {
-      if (creditErr.message === "INSUFFICIENT_CREDITS") {
-        return res.status(403).json({ error: "Sufficient credits are required to run this tool. Please purchase credits on the pricing page." });
-      }
-      if (creditErr.message === "GUEST_EXHAUSTED") {
-        return res.status(403).json({ error: "You have exhausted your 5 free guest credits. Please log in or buy credits to continue." });
-      }
-      if (creditErr.message === "IDENTIFICATION_REQUIRED") {
-        return res.status(400).json({ error: "Authorization or Guest Identification is required." });
-      }
-      throw creditErr;
-    }
-
-    const systemInstruction = `You are a world-class prompt engineer and AI vision expert specializing in analyzing visual artwork, photographs, graphic designs, 3D renders, and digital art to extract precise, highly descriptive AI image generator prompts.
-
-Analyze the uploaded image thoroughly, decomposing its subject, medium, composition, lighting, art style, mood, texture, camera specs, and color palette.
-
-Generate precise prompts tailored for:
-1. Gemini Vision: Prompt optimized specifically for Gemini models to reconstruct or replicate the design, elements, composition, style, and tone of the original image with maximum fidelity.
-2. ChatGPT (DALL-E 3): Prose-style prompt optimized for ChatGPT and DALL-E 3, using vivid, natural, highly descriptive language.
-3. Midjourney (v6.1): Professional Midjourney style prompt with parameters like --v 6.1 --stylize 250 and standard/optimal aspect ratio keywords.
-4. Stable Diffusion / Flux: High quality positive prompt with detailed style tags, camera lens info, lighting, and a comprehensive negative prompt.
-5. DALL-E 3 / Bing: Highly descriptive natural prose prompt.
-6. Short Prompt: Punchy, concise 1-sentence prompt.
-
-PROMPT LENGTH RESTRICTION:
-- If the requested prompt length is 'short', keep prompts concise, direct, and focused (around 15-30 words).
-- If the requested prompt length is 'normal', dynamically adjust the length based on the image complexity (around 50-150 words).
-- If the requested prompt length is 'detailed', provide rich, extensive, and highly descriptive prompts (up to 1000 words maximum). Under no circumstances exceed 1000 words.
-
-Respond ONLY with a JSON object adhering to the specified schema.`;
-
-    const responseSchema = {
-      type: Type.OBJECT,
-      properties: {
-        summary: { type: Type.STRING, description: "Detailed visual breakdown of the image subject, lighting, style, and atmosphere." },
-        subject: { type: Type.STRING, description: "Main focal subject and secondary elements." },
-        style: { type: Type.STRING, description: "Identified artistic medium, style, render engine, or photographic style." },
-        lightingAndMood: { type: Type.STRING, description: "Lighting setup, highlights, shadows, and emotional mood." },
-        colors: {
-          type: Type.ARRAY,
-          items: { type: Type.STRING },
-          description: "Dominant color names or hex palettes."
-        },
-        prompts: {
-          type: Type.OBJECT,
-          properties: {
-            gemini: { type: Type.STRING, description: "Optimized prompt for Gemini Vision models to replicate the image." },
-            chatgpt: { type: Type.STRING, description: "Vivid, natural prose prompt optimized for ChatGPT & DALL-E 3." },
-            midjourney: { type: Type.STRING, description: "Optimized Midjourney v6.1 prompt with parameters." },
-            stableDiffusion: { type: Type.STRING, description: "Optimized SDXL / Flux positive prompt with quality tokens." },
-            negativePrompt: { type: Type.STRING, description: "Negative prompt keywords to prevent defects." },
-            dalle: { type: Type.STRING, description: "Natural descriptive prompt for DALL-E 3." },
-            flux: { type: Type.STRING, description: "Flux.1 Dev/Schnell optimized detailed prompt." },
-            shortPrompt: { type: Type.STRING, description: "Short punchy 1-sentence prompt." }
-          },
-          required: ['gemini', 'chatgpt', 'midjourney', 'stableDiffusion', 'negativePrompt', 'dalle', 'flux', 'shortPrompt']
-        },
-        tags: {
-          type: Type.ARRAY,
-          items: { type: Type.STRING },
-          description: "10-15 key descriptor tags."
-        }
-      },
-      required: ['summary', 'subject', 'style', 'lightingAndMood', 'colors', 'prompts', 'tags']
-    };
-
-    const imagePart = {
-      inlineData: {
-        mimeType: mimeType || 'image/png',
-        data: base64Data
-      }
-    };
-
-    let promptText = `Analyze this image and generate detailed image-to-prompt descriptions for AI image generation.
-Target Generator Focus: ${targetGenerator}
-Requested Prompt Length: ${promptLength} (Please follow the length restrictions: 'short' = 15-30 words, 'normal' = 50-150 words, 'detailed' = up to 1000 words max).
-Filename: ${fileName}`;
-
-    if (customInstructions && customInstructions.trim()) {
-      promptText += `\nAdditional user guidelines: "${customInstructions.trim()}"`;
-    }
-
-    const textPart = { text: promptText };
-
-    const ai = getAIClient();
-    const response = await generateContentWithRetryAndFallback(ai, {
-      model: 'gemini-3.5-flash',
-      contents: { parts: [imagePart, textPart] },
-      config: {
-        systemInstruction,
-        responseMimeType: 'application/json',
-        responseSchema
-      }
-    });
-
-    const resultText = response.text;
-    if (!resultText) {
-      throw new Error('No response from Gemini API');
-    }
-
-    const parsedResult = JSON.parse(resultText);
-    if (creditSession) {
-      await creditSession.decrement();
-    }
-    res.json(parsedResult);
-  } catch (error: any) {
-    console.error('Error generating prompt from image:', error);
-    res.status(500).json({ error: error.message || 'Failed to generate prompt from image' });
-  }
-});
-
-
 // Serve frontend in dev / prod
 
 // Rewrite language prefixes for static assets
@@ -736,26 +584,6 @@ app.use((req, res, next) => {
 if (process.env.NODE_ENV === 'production') {
   // Production static server
   app.use(express.static(path.join(__dirname, 'dist')));
-  
-  // Explicitly serve output.css and style.css from root if they are requested directly
-  app.get('/output.css', (req, res) => {
-    const p = path.join(__dirname, 'dist', 'output.css');
-    if (fs.existsSync(p)) {
-      res.sendFile(p);
-    } else {
-      res.sendFile(path.join(__dirname, 'output.css'));
-    }
-  });
-  
-  app.get('/style.css', (req, res) => {
-    const p = path.join(__dirname, 'dist', 'style.css');
-    if (fs.existsSync(p)) {
-      res.sendFile(p);
-    } else {
-      res.sendFile(path.join(__dirname, 'style.css'));
-    }
-  });
-
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, 'dist', 'index.html'));
   });

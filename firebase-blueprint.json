@@ -23,31 +23,12 @@
         "creditsUsed_handwritingToText": { "type": "number" }
       },
       "required": ["credits"]
-    },
-    "History": {
-      "title": "Conversion History Item",
-      "description": "Saved conversion history for tools",
-      "type": "object",
-      "properties": {
-        "toolId": { "type": "string" },
-        "toolName": { "type": "string" },
-        "title": { "type": "string" },
-        "content": { "type": "string" },
-        "previewUrl": { "type": "string" },
-        "createdAt": { "type": "string" },
-        "userId": { "type": "string" }
-      },
-      "required": ["toolId", "toolName", "content", "createdAt"]
     }
   },
   "firestore": {
     "/users/{userId}": {
       "schema": "User",
       "description": "User profile documents"
-    },
-    "/users/{userId}/history/{historyId}": {
-      "schema": "History",
-      "description": "User history items"
     },
     "/guests/{guestId}": {
       "schema": "Guest",
