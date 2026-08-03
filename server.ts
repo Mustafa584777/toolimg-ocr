@@ -592,7 +592,7 @@ Your goal is to extract all handwritten text in Hindi/Devanagari from the provid
 
 
 // Image to Prompt Generator Endpoint
-app.post('/api/image-to-prompt', async (req: express.Request, res: express.Response) => {
+app.post(['/api/image-to-prompt', '/api/gemini-image-to-prompt'], async (req: express.Request, res: express.Response) => {
   let creditSession: { decrement: () => Promise<void>, credits: number } | null = null;
   try {
     const { base64Data, fileName = 'image.png', mimeType = 'image/png', targetGenerator = 'gemini', promptLength = 'normal', customInstructions = '' } = req.body;
