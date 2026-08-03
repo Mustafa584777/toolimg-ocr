@@ -591,6 +591,111 @@ Your goal is to extract all handwritten text in Hindi/Devanagari from the provid
 });
 
 
+// Gemini Image to Prompt Generator Endpoint
+app.post('/api/image-to-prompt', async (req: express.Request, res: express.Response) => {
+  let creditSession: { decrement: () => Promise<void>, credits: number } | null = null;
+  try {
+    const { base64Data, fileName = 'reference.png', mimeType = 'image/png', promptType = 'midjourney', customPrompt = '' } = req.body;
+    if (!base64Data) {
+      return res.status(400).json({ error: 'No image data provided' });
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: 'GEMINI_API_KEY is not configured on the server.' });
+    }
+
+    // Verify credits
+    try {
+      creditSession = await verifyAndConsumeCredit(req, 'image-to-code');
+    } catch (creditErr: any) {
+      if (creditErr.message === "INSUFFICIENT_CREDITS") {
+        return res.status(403).json({ error: "Sufficient credits are required to run this tool. Please purchase credits on the pricing page." });
+      }
+      if (creditErr.message === "GUEST_EXHAUSTED") {
+        return res.status(403).json({ error: "You have exhausted your 5 free guest credits. Please log in or buy credits to continue." });
+      }
+      if (creditErr.message === "IDENTIFICATION_REQUIRED") {
+        return res.status(400).json({ error: "Authorization or Guest Identification is required." });
+      }
+      throw creditErr;
+    }
+
+    const systemInstruction = `You are an expert AI prompt engineer specializing in reverse-engineering high-quality, professional image generation prompts (optimized for Midjourney, Stable Diffusion, DALL-E 3, and Adobe Firefly) from reference images.
+Analyze the provided image in detail, including subject, visual style, camera parameters (if photographic), artistic medium, color palette, lighting condition, framing composition, mood, and atmospheric texture.
+
+Generate an optimized prompt tailored for the specified target AI image generator: "${promptType}".
+
+Return a JSON response with the following structured format:
+{
+  "htmlCode": "A beautifully styled HTML element showing the prompt clearly.",
+  "frameworkCode": "The primary generated prompt text itself.",
+  "markdownSummary": "A highly detailed breakdown of the prompt:\n\n1. **Primary Prompt**: (optimized for the selected engine)\n2. **Style Descriptors**: details about medium, lighting, art style\n3. **Subject & Composition**: details about what's in the image and framing\n4. **Parameters & Modifiers**: (such as aspect ratio, negative prompt, or engine-specific flags like --v 6.0, --ar 16:9, highly-detailed)",
+  "designAnalysis": {
+    "colors": ["detected hex codes or prominent colors"],
+    "typography": "detected style (e.g., photograph, digital illustration, 3D render, watercolor, cinematic, vector art)",
+    "layout": "framing composition (e.g., extreme close-up, wide angle, eye-level, bokeh background, low angle, macro)",
+    "componentsIdentified": ["subjects found", "lighting types", "aesthetic modifiers", "camera settings/artist styles"]
+  }
+}`;
+
+    const responseSchema = {
+      type: Type.OBJECT,
+      properties: {
+        htmlCode: { type: Type.STRING },
+        frameworkCode: { type: Type.STRING },
+        markdownSummary: { type: Type.STRING },
+        designAnalysis: {
+          type: Type.OBJECT,
+          properties: {
+            colors: { type: Type.ARRAY, items: { type: Type.STRING } },
+            typography: { type: Type.STRING },
+            layout: { type: Type.STRING },
+            componentsIdentified: { type: Type.ARRAY, items: { type: Type.STRING } }
+          },
+          required: ['colors', 'typography', 'layout', 'componentsIdentified']
+        }
+      },
+      required: ['htmlCode', 'frameworkCode', 'markdownSummary', 'designAnalysis']
+    };
+
+    const ai = getAIClient();
+    const imagePart = {
+      inlineData: { mimeType: mimeType || 'image/png', data: base64Data }
+    };
+    
+    let promptText = `Analyze this image and reverse engineer an image generation prompt optimized for the engine: ${promptType}.`;
+    if (customPrompt && customPrompt.trim()) {
+      promptText += `\nAdditional user guidelines/adjustments: "${customPrompt}"`;
+    }
+
+    const textPart = { text: promptText };
+
+    const response = await generateContentWithRetryAndFallback(ai, {
+      model: 'gemini-3.5-flash',
+      contents: { parts: [imagePart, textPart] },
+      config: {
+        systemInstruction,
+        responseMimeType: 'application/json',
+        responseSchema
+      }
+    });
+
+    const resultText = response.text;
+    if (!resultText) throw new Error('No response from Gemini API');
+    
+    const parsedResult = JSON.parse(resultText);
+    if (creditSession) {
+      await creditSession.decrement();
+    }
+    res.json(parsedResult);
+  } catch (error: any) {
+    console.error('Error generating prompt from image:', error);
+    res.status(500).json({ error: error.message || 'Failed to convert' });
+  }
+});
+
+
 // Serve frontend in dev / prod
 
 // Rewrite language prefixes for static assets

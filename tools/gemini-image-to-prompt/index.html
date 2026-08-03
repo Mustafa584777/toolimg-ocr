@@ -1,0 +1,1421 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<script>
+// Universal circular JSON safety polyfill to prevent platform logging and 3rd party crashes
+(function() {
+    const originalStringify = JSON.stringify;
+    JSON.stringify = function(value, replacer, space) {
+        const seen = new WeakSet();
+        try {
+            return originalStringify(value, function(key, val) {
+                if (typeof val === 'object' && val !== null) {
+                    if (val instanceof HTMLElement || val === window || val === document) {
+                        return '[DOM Element]';
+                    }
+                    if (seen.has(val)) {
+                        return '[Circular]';
+                    }
+                    seen.add(val);
+                }
+                if (replacer) {
+                    return replacer(key, val);
+                }
+                return val;
+            }, space);
+        } catch (err) {
+            return '{"error":"Circular structure handled"}';
+        }
+    };
+})();
+</script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3PK1RHDJ2S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-3PK1RHDJ2S');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="alternate" hreflang="en" href="https://toolimg.online/tools/gemini-image-to-prompt/" />
+    <link rel="alternate" hreflang="es" href="https://toolimg.online/es/tools/gemini-image-to-prompt/" />
+    <link rel="alternate" hreflang="fr" href="https://toolimg.online/fr/tools/gemini-image-to-prompt/" />
+    <link rel="alternate" hreflang="de" href="https://toolimg.online/de/tools/gemini-image-to-prompt/" />
+    <link rel="alternate" hreflang="ru" href="https://toolimg.online/ru/tools/gemini-image-to-prompt/" />
+    <link rel="alternate" hreflang="ar" href="https://toolimg.online/ar/tools/gemini-image-to-prompt/" />
+    <link rel="alternate" hreflang="x-default" href="https://toolimg.online/tools/gemini-image-to-prompt/" />
+    <title>Gemini Image to Prompt Generator AI - Reverse Engineer Prompts | ToolIMG</title>
+    <meta name="description" content="Convert images to highly descriptive prompts for Midjourney, Stable Diffusion, DALL-E, and Adobe Firefly. Reverse engineer styles, composition, and aesthetics with Gemini AI.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: "Poppins", sans-serif !important; }
+        body { font-family: "Poppins", sans-serif; background-color: #fafafa; }
+        .dark body { background-color: #0f172a; color: #f8fafc; }
+        @media (max-width: 768px) { html { font-size: 12px; } }
+        @media (min-width: 769px) { html { font-size: 16px; } }
+        /* Universal Modal/Popup Z-Index Fix */
+        #history-drawer, 
+        #low-credits-modal, 
+        #out-of-credits-modal,
+        #login-modal,
+        #signup-modal,
+        [id$="-modal"],
+        .fixed.inset-0.z-\[100\],
+        .fixed.inset-0.z-\[1000\] {
+            z-index: 99999 !important;
+        }
+        
+        #toolimg-toast, #translation-toast {
+            z-index: 999999 !important;
+        }
+    </style>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.jsdelivr.com/npm/@tailwindcss/browser@4"></script>
+
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col transition-colors duration-300">
+
+    <!-- Header / Navbar -->
+    <header class="w-full max-w-[85vw] mx-auto pt-6 pb-2 transition-colors">
+        <div class="flex items-center justify-between">
+            <a href="/" class="flex items-center gap-3">
+                <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG" class="h-8 md:h-9 object-contain">
+                <span class="font-extrabold text-lg md:text-2xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
+            </a>
+
+            <!-- Desktop Nav Items -->
+            <nav class="hidden md:flex items-center gap-1.5 bg-white/80 dark:bg-slate-900/80 backdrop-blur-md px-2.5 py-1.5 rounded-full border border-slate-100 dark:border-slate-800 shadow-sm">
+                <a href="/" class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white rounded-full transition">Home</a>
+                <a href="/tools/" class="px-4 py-2 text-sm font-medium text-violet-600 dark:text-violet-400 bg-violet-50/50 dark:bg-violet-950/30 rounded-full">Tools</a>
+                <a href="/dashboard/" id="dashboard-nav" class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white rounded-full transition hidden">Dashboard</a>
+                <a href="/pricing/" class="px-4 py-2 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white rounded-full transition">Pricing</a>
+            </nav>
+
+            <div class="flex items-center gap-2.5">
+                <!-- Credits Display Widget -->
+                <button id="credits-display" class="hidden items-center gap-1.5 bg-violet-50 dark:bg-violet-950/40 border border-violet-100/60 dark:border-violet-900/30 text-violet-600 dark:text-violet-400 px-3.5 py-1.5 rounded-full text-xs font-bold shadow-sm hover:shadow transition cursor-pointer select-none">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span><span id="credits-count">5</span> Credits</span>
+                </button>
+
+                <!-- Language Selection Trigger -->
+                <button id="lang-menu-btn" onclick="toggleLangMenu(event)" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition text-slate-600 dark:text-slate-300 flex items-center gap-1" aria-label="Select Language">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3.6 9h16.8M3.6 15h16.8M11.5 3a17 17 0 000 18M12.5 3a17 17 0 010 18"></path></svg>
+                </button>
+
+                <!-- Language Dropdown Popover -->
+                <div id="lang-popover" class="absolute right-[15%] top-16 w-40 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-2xl p-1.5 hidden flex-col gap-0.5 z-[1000]">
+                    <button onclick="switchLang('en')" class="w-full flex items-center px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">English</button>
+                    <button onclick="switchLang('es')" class="w-full flex items-center px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Español</button>
+                    <button onclick="switchLang('fr')" class="w-full flex items-center px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Français</button>
+                    <button onclick="switchLang('de')" class="w-full flex items-center px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Deutsch</button>
+                    <button onclick="switchLang('ru')" class="w-full flex items-center px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Русский</button>
+                    <button onclick="switchLang('ar')" class="w-full flex items-center px-3 py-2 text-xs font-semibold text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">العربية</button>
+                </div>
+
+                <!-- History Icon Trigger -->
+                <button id="header-history-btn" onclick="if(window.openHistoryDrawer){window.openHistoryDrawer();}" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition text-slate-600 dark:text-slate-300 hidden" title="History">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </button>
+
+                <!-- Auth Widget: Guest vs User -->
+                <div id="header-auth-guest" class="hidden md:flex items-center gap-2">
+                    <button onclick="handleLogin()" class="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white rounded-full transition">Log in</button>
+                    <button onclick="handleLogin()" class="px-5 py-2 text-sm font-bold text-white bg-violet-600 hover:bg-violet-700 rounded-full transition shadow-sm hover:shadow">Sign up</button>
+                </div>
+
+                <div id="user-menu" class="hidden relative items-center gap-1.5">
+                    <button id="user-avatar-btn" onclick="toggleUserDropdown(event)" class="w-9 h-9 rounded-full bg-violet-100 text-violet-700 border-2 border-white dark:border-slate-800 overflow-hidden flex items-center justify-center cursor-pointer shadow-sm">
+                        <img id="user-avatar" class="w-full h-full object-cover hidden" alt="Avatar">
+                        <span id="user-fallback" class="font-bold text-sm uppercase">U</span>
+                    </button>
+                    <div id="user-dropdown" class="hidden absolute right-0 top-full mt-3.5 w-48 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-2xl shadow-2xl flex-col z-[100] overflow-hidden py-1.5 transition-all">
+                        <div class="px-4 py-2 border-b border-slate-100 dark:border-slate-800">
+                            <p id="user-name" class="text-xs font-bold text-slate-900 dark:text-white truncate"></p>
+                        </div>
+                        <a href="/dashboard/" class="flex items-center gap-2.5 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 00-1-1v-4a1 1 0 011-1h2a1 1 0 001 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                            <span>Dashboard</span>
+                        </a>
+                        <button type="button" onclick="if(window.openHistoryDrawer){window.openHistoryDrawer();}toggleUserDropdown();" class="w-full text-left flex items-center gap-2.5 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition cursor-pointer">
+                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>History</span>
+                        </button>
+                        <div class="h-px bg-slate-100 dark:bg-slate-800 my-1"></div>
+                        <button type="button" onclick="handleLogout();toggleUserDropdown();" class="w-full text-left flex items-center gap-2.5 px-4 py-2 text-sm text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition cursor-pointer">
+                            <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Theme Toggle Button -->
+                <button id="theme-btn" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
+                    <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </button>
+
+                <!-- Mobile Menu Icon -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition ml-1" aria-label="Menu">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Overlay Modal -->
+    <div id="mobile-menu-modal" class="fixed inset-0 z-50 hidden flex-col items-center justify-center p-4 animate-fade-in">
+        <div id="mobile-menu-backdrop" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0 duration-200"></div>
+        <div id="mobile-menu-content" class="relative w-full max-w-[340px] bg-white dark:bg-slate-900 rounded-3xl shadow-2xl overflow-visible transition-all scale-95 opacity-0 duration-200 ease-out p-6 border border-slate-100 dark:border-slate-800">
+            <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-4">
+                <div class="flex items-center gap-3">
+                    <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG" class="h-6 object-contain">
+                    <span class="font-bold text-lg text-slate-900 dark:text-white tracking-tight">ToolIMG</span>
+                </div>
+                <button id="mobile-menu-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="flex flex-col gap-1.5">
+                <a href="/" class="px-4 py-3 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Home</a>
+                <a href="/tools/" class="px-4 py-3 text-[15px] font-medium text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/20 rounded-xl transition flex items-center">Tools</a>
+                <a href="/dashboard/" id="mobile-dashboard-nav" class="px-4 py-3 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center hidden">Dashboard</a>
+                <a href="/pricing/" class="px-4 py-3 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition flex items-center">Pricing</a>
+                
+                <div class="h-px bg-slate-100 dark:bg-slate-800 w-full my-2"></div>
+
+                <!-- Mobile Auth Widget -->
+                <div id="mobile-auth-guest" class="flex flex-col gap-2 mt-1">
+                    <button onclick="handleLogin(); closeMobileMenu();" class="w-full py-2.5 text-center text-sm font-medium text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Log in</button>
+                    <button onclick="handleLogin(); closeMobileMenu();" class="w-full py-2.5 text-center text-sm font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-xl transition shadow-sm">Sign up</button>
+                </div>
+                <div id="mobile-auth-user" class="hidden flex-col gap-2 mt-1">
+                    <div class="flex items-center gap-2 px-3 py-1">
+                        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                        <span id="mobile-user-name" class="text-sm font-medium text-slate-700 dark:text-slate-300 truncate"></span>
+                    </div>
+                    <button onclick="handleLogout(); closeMobileMenu();" class="w-full py-2.5 text-center text-sm font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-xl transition">Logout</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-6 sm:px-8 lg:px-12 py-8 sm:py-12 flex flex-col">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4 leading-tight">
+                Gemini Image to Prompt Generator AI
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                Reverse engineer any photo, artwork, screenshot, or digital illustration into a pristine prompt for Midjourney, Stable Diffusion, DALL-E, or Firefly instantly.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-grow">
+            <!-- Left Column: Image Dropzone and Settings -->
+            <div class="lg:col-span-5 flex flex-col gap-6">
+                <!-- Dropzone Card -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-4">1. Reference Image</h2>
+                    <div id="upload-zone" onclick="document.getElementById('file-input').click()" 
+                         class="border-2 border-dashed border-slate-300 dark:border-slate-700 hover:border-violet-500 hover:bg-violet-50/50 dark:hover:bg-violet-900/10 rounded-2xl p-6 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[220px] relative overflow-hidden group">
+                        
+                        <input type="file" id="file-input" class="hidden" accept="image/png, image/jpeg, image/webp" onchange="handleFileSelect(event)">
+                        
+                        <div id="upload-placeholder" class="flex flex-col items-center">
+                            <div class="w-14 h-14 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-full flex items-center justify-center mb-3">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                            </div>
+                            <h3 class="font-bold text-slate-800 dark:text-slate-200 mb-1">Click to Upload Image</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Drag & drop or paste JPG, PNG, WEBP</p>
+                        </div>
+                        <img id="image-preview" class="absolute inset-0 w-full h-full object-contain hidden" alt="Reference Preview" />
+                        <div id="image-overlay" class="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 hidden flex items-center justify-center transition">
+                            <span class="bg-white text-slate-900 font-bold px-4 py-2 rounded-xl text-sm shadow-sm">Change Image</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Card -->
+                <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 shadow-sm">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-4">2. Options</h2>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <span class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">Target Image Engine</span>
+                            
+                            <div class="grid grid-cols-2 gap-2.5">
+                                <button onclick="selectEngine('midjourney')" data-engine="midjourney" class="engine-pill relative p-3 rounded-2xl border border-violet-600 dark:border-violet-400 bg-violet-50/50 dark:bg-violet-950/30 text-left cursor-pointer transition flex items-center justify-between">
+                                    <span class="text-xs font-bold text-slate-900 dark:text-white">Midjourney</span>
+                                    <div class="engine-check w-4.5 h-4.5 rounded-full bg-violet-600 text-white flex items-center justify-center shadow-sm">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                </button>
+
+                                <button onclick="selectEngine('stable-diffusion')" data-engine="stable-diffusion" class="engine-pill relative p-3 rounded-2xl border border-transparent bg-slate-50 dark:bg-slate-950 text-left cursor-pointer transition hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between">
+                                    <span class="text-xs font-bold text-slate-600 dark:text-slate-400">Stable Diffusion</span>
+                                    <div class="engine-check w-4.5 h-4.5 rounded-full bg-violet-600 text-white flex items-center justify-center shadow-sm hidden">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                </button>
+
+                                <button onclick="selectEngine('dalle')" data-engine="dalle" class="engine-pill relative p-3 rounded-2xl border border-transparent bg-slate-50 dark:bg-slate-950 text-left cursor-pointer transition hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between">
+                                    <span class="text-xs font-bold text-slate-600 dark:text-slate-400">DALL-E 3</span>
+                                    <div class="engine-check w-4.5 h-4.5 rounded-full bg-violet-600 text-white flex items-center justify-center shadow-sm hidden">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                </button>
+
+                                <button onclick="selectEngine('firefly')" data-engine="firefly" class="engine-pill relative p-3 rounded-2xl border border-transparent bg-slate-50 dark:bg-slate-950 text-left cursor-pointer transition hover:bg-slate-100 dark:hover:bg-slate-800 flex items-center justify-between">
+                                    <span class="text-xs font-bold text-slate-600 dark:text-slate-400">Adobe Firefly</span>
+                                    <div class="engine-check w-4.5 h-4.5 rounded-full bg-violet-600 text-white flex items-center justify-center shadow-sm hidden">
+                                        <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
+                                    </div>
+                                </button>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">Adjustments / Extra Guidelines (Optional)</label>
+                            <textarea id="opt-prompt" rows="2.5" placeholder="e.g. Focus on neon accents, change aspect ratio to wide aspect..." class="w-full bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white rounded-xl px-3.5 py-2.5 text-sm font-medium focus:outline-none focus:border-violet-500 focus:ring-1 focus:ring-violet-500"></textarea>
+                        </div>
+                    </div>
+
+                    <button id="generate-btn" onclick="generatePrompt()" disabled class="mt-6 w-full py-3.5 rounded-xl bg-violet-600 disabled:bg-slate-300 disabled:cursor-not-allowed hover:bg-violet-700 text-white font-bold text-base transition flex items-center justify-center gap-2 shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Reverse Engineer Prompt
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Column: Interactive Tab Output Area -->
+            <div class="lg:col-span-7 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-sm flex flex-col overflow-hidden">
+                <!-- Navigation Tabs -->
+                <div class="border-b border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 p-2 flex gap-2 shrink-0">
+                    <button id="tab-primary" onclick="switchTab('primary')" class="flex-1 py-2.5 text-sm font-bold rounded-xl bg-white dark:bg-slate-900 shadow-sm text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 transition">Image Prompt</button>
+                    <button id="tab-breakdown" onclick="switchTab('breakdown')" class="flex-1 py-2.5 text-sm font-bold rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition">Detailed Breakdown</button>
+                    <button id="tab-composition" onclick="switchTab('composition')" class="flex-1 py-2.5 text-sm font-bold rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition">Composition Analysis</button>
+                </div>
+
+                <!-- Result Main Frame -->
+                <div id="result-container" class="flex-grow p-5 md:p-6 relative min-h-[500px] flex flex-col justify-center">
+                    <!-- Empty State -->
+                    <div id="empty-state" class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 py-16">
+                        <svg class="w-14 h-14 mb-3.5 opacity-40 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <p class="text-sm font-semibold mb-1">No reference image provided.</p>
+                        <p class="text-xs text-slate-400 dark:text-slate-500">Upload an image and click Reverse Engineer to extract prompt tags.</p>
+                    </div>
+
+                    <!-- Multi-Phase Loading Overlay -->
+                    <div id="loading-state" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm z-10 p-6 rounded-2xl transition-all duration-300">
+                        <div class="relative flex flex-col items-center mb-8">
+                            <div class="w-24 h-24 bg-violet-50 dark:bg-violet-950/40 rounded-3xl flex items-center justify-center shadow-inner relative overflow-hidden border border-violet-100 dark:border-violet-900/30">
+                                <div class="absolute inset-0 border border-dashed border-violet-200 dark:border-violet-800/50 rounded-full animate-spin duration-10000"></div>
+                                
+                                <!-- Stage 1 Icon -->
+                                <div id="anim-stage-1" class="absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-100 scale-100">
+                                    <div class="relative">
+                                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-violet-500 shadow-[0_0_8px_rgba(139,92,246,0.8)] animate-bounce"></div>
+                                        <svg class="w-10 h-10 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                
+                                <!-- Stage 2 Icon -->
+                                <div id="anim-stage-2" class="absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75">
+                                    <div class="relative">
+                                        <span class="absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75 animate-ping"></span>
+                                        <svg class="w-10 h-10 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364.364l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                
+                                <!-- Stage 3 Icon -->
+                                <div id="anim-stage-3" class="absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75">
+                                    <svg class="w-10 h-10 text-emerald-500 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <!-- Phase Badge -->
+                            <div id="loading-stage-badge" class="mt-3 px-2.5 py-0.5 text-xs font-semibold tracking-wide uppercase rounded-full bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300 animate-pulse">
+                                Phase 1/3
+                            </div>
+                        </div>
+
+                        <!-- Animated Status Text -->
+                        <h3 id="loading-status-title" class="text-lg font-bold text-slate-900 dark:text-white mb-1">Scanning Visual Elements...</h3>
+                        <p id="loading-status-desc" class="text-xs text-slate-500 dark:text-slate-400 mb-6">Extracting lighting layers, subjects, colors, and camera modifiers</p>
+                        
+                        <div class="w-full max-w-xs bg-slate-100 dark:bg-slate-800 rounded-full h-2 mb-8 overflow-hidden relative">
+                            <div id="horizontal-progress-bar" class="bg-violet-600 dark:bg-violet-500 h-full w-[10%] rounded-full transition-all duration-500 ease-out"></div>
+                        </div>
+                        
+                        <!-- Progress Cards -->
+                        <div class="w-full max-w-xs space-y-2.5">
+                            <div id="stage-1" class="flex items-center justify-between p-3 rounded-xl bg-violet-50/50 dark:bg-violet-950/20 border border-violet-100/50 dark:border-violet-900/20 text-sm font-medium text-violet-700 dark:text-violet-300 transition-all duration-300">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="stage-num w-5 h-5 rounded-full bg-violet-600 text-white flex items-center justify-center text-[10px] font-bold">1</span>
+                                    <span>Scanning Artistic Medium</span>
+                                </div>
+                                <div class="stage-status text-xs font-semibold">Active</div>
+                            </div>
+                            
+                            <div id="stage-2" class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-transparent text-sm font-medium text-slate-400 dark:text-slate-600 transition-all duration-300">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="stage-num w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 flex items-center justify-center text-[10px] font-bold">2</span>
+                                    <span>Reverse Engineering Composition</span>
+                                </div>
+                                <div class="stage-status text-xs font-semibold">Pending</div>
+                            </div>
+                            
+                            <div id="stage-3" class="flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-transparent text-sm font-medium text-slate-400 dark:text-slate-600 transition-all duration-300">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="stage-num w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 flex items-center justify-center text-[10px] font-bold">3</span>
+                                    <span>Compiling Engine-specific Tags</span>
+                                </div>
+                                <div class="stage-status text-xs font-semibold">Pending</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Primary Prompt Tab Output -->
+                    <div id="view-primary" class="hidden flex-grow flex flex-col justify-between">
+                        <div class="relative bg-slate-50 dark:bg-slate-950 rounded-2xl p-6 border border-slate-200 dark:border-slate-800 min-h-[220px] flex items-center justify-center">
+                            <button id="copy-primary-btn" onclick="copyPrimaryPrompt()" class="absolute top-4 right-4 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 border border-slate-200 dark:border-slate-700 px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                                <svg class="w-4 h-4 text-violet-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                                <span id="copy-prompt-text">Copy Prompt</span>
+                            </button>
+                            <p id="primary-prompt-output" class="text-base md:text-lg text-slate-800 dark:text-slate-100 leading-relaxed font-semibold italic text-center select-all max-w-xl"></p>
+                        </div>
+                        <div class="mt-6 flex gap-3">
+                            <button onclick="navigator.clipboard.writeText(document.getElementById('primary-prompt-output').textContent); showToast('Prompt copied to clipboard!', 'success');" class="flex-1 py-3 text-center bg-violet-600 hover:bg-violet-700 text-white text-sm font-bold rounded-xl transition shadow-sm">Copy Prompt Code</button>
+                            <button onclick="resetTool()" class="px-5 py-3 text-center border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-bold rounded-xl transition">Clear Result</button>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Breakdown Tab Output -->
+                    <div id="view-breakdown" class="hidden flex-grow flex flex-col p-2 overflow-auto">
+                        <div class="prose dark:prose-invert max-w-none text-left leading-relaxed text-sm md:text-base space-y-4" id="breakdown-output"></div>
+                    </div>
+
+                    <!-- Composition Analysis Tab Output -->
+                    <div id="view-composition" class="hidden flex-grow flex flex-col gap-6 p-2 text-left">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Detected Prominent Colors</h4>
+                            <div id="prompt-colors" class="flex flex-wrap gap-3"></div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-4.5 rounded-2xl">
+                                <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1.5">Artistic Medium / Style</h5>
+                                <p id="prompt-style" class="text-sm font-semibold text-slate-800 dark:text-slate-100"></p>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 p-4.5 rounded-2xl">
+                                <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1.5">Framing Composition</h5>
+                                <p id="prompt-composition" class="text-sm font-semibold text-slate-800 dark:text-slate-100"></p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Extracted Subject Tags</h4>
+                            <ul id="prompt-tags" class="list-disc list-inside text-sm text-slate-700 dark:text-slate-300 space-y-1"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Section inside drawer -->
+        <div id="history-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white dark:bg-slate-900 border-l border-slate-100 dark:border-slate-800 shadow-2xl z-[9999] p-6 transform translate-x-full transition-transform duration-300 flex flex-col hidden">
+            <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100 dark:border-slate-800 shrink-0">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Conversion History
+                </h3>
+                <button onclick="closeHistoryDrawer()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div id="history-drawer-content" class="flex-grow overflow-y-auto pr-1 space-y-4">
+                <div id="tool-history-list" class="space-y-4"></div>
+            </div>
+            <div class="pt-4 border-t border-slate-100 dark:border-slate-800 mt-4 shrink-0 flex gap-3">
+                <button onclick="window.ToolIMGHistory.clearAllHistory();" class="flex-1 py-2.5 text-center text-xs font-bold text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/20 border border-rose-100 dark:border-rose-900/30 rounded-xl transition">Clear All</button>
+                <button onclick="closeHistoryDrawer()" class="flex-1 py-2.5 text-center text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 rounded-xl transition">Close</button>
+            </div>
+        </div>
+
+        <!-- SEO Content & Educational Guides -->
+        <section class="mt-20 pt-12 border-t border-slate-200 dark:border-slate-800">
+            <!-- 1. Key Benefits -->
+            <div class="mb-16">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+                    Advanced AI-Powered <span class="text-violet-600 dark:text-violet-400">Reverse Prompt Engineering</span>
+                </h2>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+                    Our free online Gemini Image to Prompt Generator AI decodes any graphic, drawing, portrait, or landscape, and translates it into highly effective prompt strings tailored for the world's most powerful text-to-image generators. Keep your visual styles cohesive with precise vocabulary modifiers.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21l5-1.5L19 14l-4.187-1.904M9.813 15.904L4.812 14.1l-1.312-3.1L9 11l4.187 3M9.813 15.904l5.001-1.9M4.812 14.1L3.5 11l5.5 1M4.812 14.1L9 11M3.5 11l5.5 1m0 0L14 14.1"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Engine-Specific Formats</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Generate prompts designed with the specific syntax, aspect ratio flags, and weights needed for Midjourney, DALL-E, or Stable Diffusion.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Artistic Palette Decoding</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Automatically detect specific color palettes, Hex codes, camera configurations, and lighting setups embedded in the visual.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-6 shadow-sm">
+                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-xl flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Adjust with Custom Input</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Fine-tune reverse-engineered parameters by adding manual instruction tweaks (e.g. "make it futuristic", "change to oil painting").
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Step by Step Guide -->
+            <div class="mb-16">
+                <h2 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-8">
+                    How to Convert Image to Prompt Code Free
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="flex flex-col items-start bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-full flex items-center justify-center mb-4 text-sm">1</div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Upload Artwork</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Drag your reference picture directly into our responsive upload container.</p>
+                    </div>
+
+                    <div class="flex flex-col items-start bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-full flex items-center justify-center mb-4 text-sm">2</div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Select Engine</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Choose your target image platform like Midjourney, DALL-E, or Stable Diffusion.</p>
+                    </div>
+
+                    <div class="flex flex-col items-start bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-full flex items-center justify-center mb-4 text-sm">3</div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Add Adjustments</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Optionally add custom text guidelines to change or fine-tune generated style tags.</p>
+                    </div>
+
+                    <div class="flex flex-col items-start bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-full flex items-center justify-center mb-4 text-sm">4</div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Copy Prompt</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Copy the structured prompts directly into Midjourney/DALL-E to reproduce aesthetics.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-950 border-t border-slate-100 dark:border-slate-800 mt-auto pt-16 pb-8 transition-colors">
+        <div class="max-w-[85vw] mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="md:col-span-1">
+                    <a href="/" class="flex items-center gap-2 mb-4">
+                        <img src="https://toolimg.online/blog/wp-content/uploads/2026/06/logo.png" alt="ToolIMG" class="h-8 object-contain">
+                        <span class="font-bold text-sm md:text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
+                    </a>
+                    <p class="text-slate-500 dark:text-slate-400 text-[11px] md:text-[15px] leading-relaxed mb-4">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
+                    <a href="mailto:support@toolimg.online" class="text-violet-600 dark:text-violet-400 font-medium hover:underline text-[11px] md:text-[15px]">support@toolimg.online</a>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-[11px] md:text-base">Products</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="/tools/image-to-code/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Image to Code AI</a></li>
+                        <li><a href="/tools/handwriting-to-text/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">English Handwriting OCR</a></li>
+                        <li><a href="/tools/hindi-handwriting-to-text/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Hindi Handwriting OCR</a></li>
+                        <li><a href="/tools/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">All Tools</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-[11px] md:text-base">Company</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="https://toolimg.online/about.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">About Us</a></li>
+                        <li><a href="https://toolimg.online/contact.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Contact Us</a></li>
+                        <li><a href="/pricing/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-[11px] md:text-base">Legal</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="https://toolimg.online/privacy-policy.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="https://toolimg.online/terms.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="https://toolimg.online/refund-policy.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Refund Policy</a></li>
+                        <li><a href="https://toolimg.online/disclaimer.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[11px] md:text-[15px] text-slate-500 dark:text-slate-400">© 2026 ToolIMG. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Stats Popup Modal -->
+    <div id="stats-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+        <div id="stats-modal-backdrop" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+        <div id="stats-modal-content" class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl shadow-2xl p-6 border border-slate-100 dark:border-slate-800 transition-all scale-95 opacity-0 duration-200 ease-out">
+            <div class="flex items-center justify-between mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    Credit Usage Stats
+                </h3>
+                <button id="stats-modal-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1.5 rounded-full hover:bg-slate-50 dark:hover:bg-slate-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <div class="space-y-6">
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Credits Balance</span>
+                        <span id="stats-remaining-balance" class="text-xs font-bold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 px-2.5 py-1 rounded-md">5 Credits</span>
+                    </div>
+                </div>
+                
+                <div class="pt-4 border-t border-slate-100 dark:border-slate-800 flex justify-between text-xs text-slate-500 items-center">
+                    <span>Remaining Balance</span>
+                    <a href="/pricing/" class="px-3 py-1.5 bg-violet-600 hover:bg-violet-700 text-white text-[11px] font-bold rounded-lg transition shadow-sm">Explore Plans</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Translate hidden container -->
+    <div id="google_translate_element" style="position: absolute; top: -100px; left: -100px; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none;"></div>
+    <style>
+    .skiptranslate, .goog-te-banner-frame, #goog-gt-tt, .goog-te-balloon-frame, .goog-te-menu-value, .goog-te-gadget, .goog-te-spinner-pos, .goog-te-spinner, #google_translate_element, iframe[class*="skiptranslate"], iframe.skiptranslate, iframe[src*="translate.google.com"], [class*="VIpgJd-"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+    body { top: 0px !important; position: static !important; }
+    </style>
+    <script type="text/javascript">
+    window.googleTranslateElementInit = function() {
+        new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'en,es,fr,de,ru,ar', autoDisplay: false }, 'google_translate_element');
+    };
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- Firebase SDK Imports -->
+    <script type="module">
+      import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getAuth, signInWithPopup, signInWithRedirect, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { initializeFirestore, getFirestore, doc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+      // Dynamically fetch Firebase Configuration from backend route /api/config
+      let app, auth, db;
+      try {
+          const res = await fetch('/api/config');
+          const firebaseConfig = await res.json();
+          app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+          auth = getAuth(app);
+          try {
+              db = initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId || 'default');
+          } catch (fErr) {
+              db = getFirestore(app);
+          }
+          window.auth = auth;
+          window.db = db;
+      } catch (e) {
+          console.error('Firebase initialization failed:', e);
+      }
+      
+      const provider = new GoogleAuthProvider();
+
+      window.handleLogin = async function() {
+          if (!auth) {
+              alert("Firebase Authentication is not configured or initialized on this domain.");
+              return;
+          }
+          try {
+              await signInWithPopup(auth, provider);
+          } catch (error) {
+              if (error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request') return;
+              try {
+                  await signInWithRedirect(auth, provider);
+              } catch (redirectError) {
+                  alert("Login failed: " + (redirectError.message || error.message));
+              }
+          }
+      };
+
+      window.handleLogout = async function() {
+          try {
+              await signOut(auth);
+          } catch (error) {
+              console.error("Logout failed", error);
+          }
+      };
+
+      if (!localStorage.getItem('guest_id')) {
+          localStorage.setItem('guest_id', 'guest_' + Math.random().toString(36).substring(2, 15));
+      }
+      if (localStorage.getItem('guest_credits') === null) {
+          localStorage.setItem('guest_credits', '5');
+      }
+
+      window.userCreditBalance = null;
+
+      function updateCreditsUI(credits, isGuest = false) {
+          window.userCreditBalance = Math.max(0, parseInt(credits || 0, 10));
+          const creditsDisplay = document.getElementById('credits-display');
+          const creditsCount = document.getElementById('credits-count');
+          if (creditsDisplay && creditsCount) {
+              creditsDisplay.classList.remove('hidden');
+              creditsDisplay.classList.add('flex');
+              creditsCount.textContent = credits;
+          }
+          const statsBalance = document.getElementById('stats-remaining-balance');
+          if (statsBalance) {
+              statsBalance.textContent = credits + ' Credits';
+          }
+      }
+
+      let unsubscribeCredits = null;
+
+      if (auth) {
+          onAuthStateChanged(auth, (user) => {
+              const headerAuthGuest = document.getElementById('header-auth-guest');
+              const userMenu = document.getElementById('user-menu');
+              const userName = document.getElementById('user-name');
+              const userAvatar = document.getElementById('user-avatar');
+              const userFallback = document.getElementById('user-fallback');
+              const headerHistoryBtn = document.getElementById('header-history-btn');
+              
+              const mobileAuthGuest = document.getElementById('mobile-auth-guest');
+              const mobileAuthUser = document.getElementById('mobile-auth-user');
+              const mobileUserName = document.getElementById('mobile-user-name');
+
+              const dashboardNav = document.getElementById('dashboard-nav');
+              const mobileDashboardNav = document.getElementById('mobile-dashboard-nav');
+
+              if (unsubscribeCredits) {
+                  unsubscribeCredits();
+                  unsubscribeCredits = null;
+              }
+              
+              if (user) {
+                  if (headerAuthGuest) {
+                      headerAuthGuest.classList.add('hidden');
+                  }
+                  if (userMenu) userMenu.style.display = 'flex';
+                  if (userName) userName.textContent = user.displayName || user.email.split('@')[0];
+                  if (headerHistoryBtn) headerHistoryBtn.classList.remove('hidden');
+
+                  if (userAvatar) {
+                      if (user.photoURL) {
+                          userAvatar.src = user.photoURL;
+                          userAvatar.classList.remove('hidden');
+                          if (userFallback) userFallback.classList.add('hidden');
+                      } else {
+                          userAvatar.classList.add('hidden');
+                          if (userFallback) userFallback.classList.remove('hidden');
+                      }
+                  }
+                  
+                  if (mobileAuthGuest) mobileAuthGuest.style.display = 'none';
+                  if (mobileAuthUser) mobileAuthUser.style.display = 'flex';
+                  if (mobileUserName) mobileUserName.textContent = user.displayName || user.email.split('@')[0];
+
+                  if (dashboardNav) dashboardNav.classList.remove('hidden');
+                  if (mobileDashboardNav) mobileDashboardNav.classList.remove('hidden');
+
+                  const userDocRef = doc(db, 'users', user.uid);
+                  unsubscribeCredits = onSnapshot(userDocRef, async (docSnap) => {
+                      if (!docSnap.exists()) {
+                          await setDoc(userDocRef, {
+                              email: user.email,
+                              displayName: user.displayName || '',
+                              credits: 5,
+                              createdAt: new Date().toISOString()
+                          });
+                          updateCreditsUI(5, false);
+                      } else {
+                          const data = docSnap.data();
+                          updateCreditsUI(data.credits || 0, false);
+                      }
+                  });
+              } else {
+                  if (headerAuthGuest) headerAuthGuest.classList.remove('hidden');
+                  if (userMenu) userMenu.style.display = 'none';
+                  if (headerHistoryBtn) headerHistoryBtn.classList.remove('hidden');
+                  
+                  if (mobileAuthGuest) mobileAuthGuest.style.display = 'flex';
+                  if (mobileAuthUser) mobileAuthUser.style.display = 'none';
+
+                  if (dashboardNav) dashboardNav.classList.add('hidden');
+                  if (mobileDashboardNav) mobileDashboardNav.classList.add('hidden');
+
+                  let guestCredits = parseInt(localStorage.getItem('guest_credits') || '5', 10);
+                  updateCreditsUI(guestCredits, true);
+              }
+          });
+      }
+    </script>
+
+    <!-- General Application UI Script -->
+    <script>
+      let selectedEngine = 'midjourney';
+      let uploadedBase64 = null;
+      let uploadedMimeType = null;
+      let uploadedFileName = null;
+
+      function selectEngine(engine) {
+          selectedEngine = engine;
+          document.querySelectorAll('.engine-pill').forEach(btn => {
+              if (btn.getAttribute('data-engine') === engine) {
+                  btn.classList.add('border-violet-600', 'dark:border-violet-400', 'bg-violet-50/50', 'dark:bg-violet-950/30', 'ring-1', 'ring-violet-500');
+                  btn.classList.remove('border-transparent', 'bg-slate-50', 'dark:bg-slate-950');
+                  btn.querySelector('.engine-check').classList.remove('hidden');
+                  btn.querySelector('span').className = 'text-xs font-bold text-slate-900 dark:text-white';
+              } else {
+                  btn.classList.remove('border-violet-600', 'dark:border-violet-400', 'bg-violet-50/50', 'dark:bg-violet-950/30', 'ring-1', 'ring-violet-500');
+                  btn.classList.add('border-transparent', 'bg-slate-50', 'dark:bg-slate-950');
+                  btn.querySelector('.engine-check').classList.add('hidden');
+                  btn.querySelector('span').className = 'text-xs font-bold text-slate-600 dark:text-slate-400';
+              }
+          });
+      }
+
+      function handleFileSelect(e) {
+          const file = e.target.files[0];
+          if (!file) return;
+          processImageFile(file);
+      }
+
+      function processImageFile(file) {
+          uploadedFileName = file.name;
+          uploadedMimeType = file.type;
+          
+          const reader = new FileReader();
+          reader.onload = function(event) {
+              uploadedBase64 = event.target.result.split(',')[1];
+              const previewImg = document.getElementById('image-preview');
+              previewImg.src = event.target.result;
+              previewImg.classList.remove('hidden');
+              document.getElementById('upload-placeholder').classList.add('hidden');
+              document.getElementById('image-overlay').classList.remove('hidden');
+              document.getElementById('generate-btn').disabled = false;
+          };
+          reader.readAsDataURL(file);
+      }
+
+      // Drag and Drop implementation
+      document.addEventListener('DOMContentLoaded', () => {
+          const dropzone = document.getElementById('upload-zone');
+          if (dropzone) {
+              dropzone.addEventListener('dragover', (e) => {
+                  e.preventDefault();
+                  dropzone.classList.add('border-violet-500', 'bg-violet-50/50', 'dark:bg-violet-900/15');
+              });
+              dropzone.addEventListener('dragleave', () => {
+                  dropzone.classList.remove('border-violet-500', 'bg-violet-50/50', 'dark:bg-violet-900/15');
+              });
+              dropzone.addEventListener('drop', (e) => {
+                  e.preventDefault();
+                  dropzone.classList.remove('border-violet-500', 'bg-violet-50/50', 'dark:bg-violet-900/15');
+                  const file = e.dataTransfer.files[0];
+                  if (file && file.type.startsWith('image/')) {
+                      processImageFile(file);
+                  }
+              });
+          }
+          
+          // Theme toggling initialization
+          updateThemeUI(localStorage.theme || 'light');
+          updateThemeIcons();
+
+          const themeBtn = document.getElementById('theme-btn');
+          if (themeBtn) {
+              themeBtn.addEventListener('click', () => {
+                  if (document.documentElement.classList.contains('dark')) {
+                      setTheme('light');
+                  } else {
+                      setTheme('dark');
+                  }
+              });
+          }
+          
+          // Stats modal close setup
+          const statsModal = document.getElementById('stats-modal');
+          const statsClose = document.getElementById('stats-modal-close');
+          const creditsDisplay = document.getElementById('credits-display');
+          
+          if (creditsDisplay) {
+              creditsDisplay.addEventListener('click', () => {
+                  if (statsModal) statsModal.classList.remove('hidden');
+              });
+          }
+          if (statsClose) {
+              statsClose.addEventListener('click', () => {
+                  if (statsModal) statsModal.classList.add('hidden');
+              });
+          }
+
+          // Language triggers
+          const mobileThemeBtn = document.getElementById('theme-menu-btn');
+          const themePopover = document.getElementById('theme-popover');
+          if (mobileThemeBtn && themePopover) {
+              mobileThemeBtn.addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  themePopover.classList.toggle('hidden');
+              });
+          }
+
+          // Mobile menu closing helper
+          const mobileCloseBtn = document.getElementById('mobile-menu-close');
+          const mobileModal = document.getElementById('mobile-menu-modal');
+          const mobileBtn = document.getElementById('mobile-menu-btn');
+          const mobileBackdrop = document.getElementById('mobile-menu-backdrop');
+          const mobileContent = document.getElementById('mobile-menu-content');
+
+          if (mobileBtn && mobileModal) {
+              mobileBtn.addEventListener('click', () => {
+                  mobileModal.classList.remove('hidden');
+                  mobileModal.classList.add('flex');
+                  setTimeout(() => {
+                      if (mobileBackdrop) mobileBackdrop.classList.add('opacity-100');
+                      if (mobileContent) mobileContent.classList.add('scale-100', 'opacity-100');
+                  }, 50);
+              });
+          }
+
+          window.closeMobileMenu = function() {
+              if (mobileBackdrop) mobileBackdrop.classList.remove('opacity-100');
+              if (mobileContent) mobileContent.classList.remove('scale-100', 'opacity-100');
+              setTimeout(() => {
+                  if (mobileModal) {
+                      mobileModal.classList.add('hidden');
+                      mobileModal.classList.remove('flex');
+                  }
+              }, 200);
+          };
+
+          if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', window.closeMobileMenu);
+          if (mobileBackdrop) mobileBackdrop.addEventListener('click', window.closeMobileMenu);
+      });
+
+      // Tab selector triggers
+      let activeTab = 'primary';
+      function switchTab(tabId) {
+          activeTab = tabId;
+          ['primary', 'breakdown', 'composition'].forEach(t => {
+              const btn = document.getElementById('tab-' + t);
+              const view = document.getElementById('view-' + t);
+              if (t === tabId) {
+                  if (btn) btn.className = 'flex-1 py-2.5 text-sm font-bold rounded-xl bg-white dark:bg-slate-900 shadow-sm text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 transition';
+                  if (view) view.classList.remove('hidden');
+              } else {
+                  if (btn) btn.className = 'flex-1 py-2.5 text-sm font-bold rounded-xl text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition';
+                  if (view) view.classList.add('hidden');
+              }
+          });
+      }
+
+      let stageInterval;
+      let progressInterval;
+      function startLoadingAnimation() {
+          if (stageInterval) clearInterval(stageInterval);
+          if (progressInterval) clearInterval(progressInterval);
+
+          const progressEl = document.getElementById('horizontal-progress-bar');
+          const badgeEl = document.getElementById('loading-stage-badge');
+          const titleEl = document.getElementById('loading-status-title');
+          const descEl = document.getElementById('loading-status-desc');
+          
+          const anim1 = document.getElementById('anim-stage-1');
+          const anim2 = document.getElementById('anim-stage-2');
+          const anim3 = document.getElementById('anim-stage-3');
+
+          const stage1 = document.getElementById('stage-1');
+          const stage2 = document.getElementById('stage-2');
+          const stage3 = document.getElementById('stage-3');
+
+          let currentProgress = 5;
+          if (progressEl) progressEl.style.width = '5%';
+
+          let maxAllowedProgress = 35;
+          progressInterval = setInterval(() => {
+              if (currentProgress < maxAllowedProgress) {
+                  currentProgress += (Math.random() * 3 + 1);
+                  if (progressEl) progressEl.style.width = currentProgress + '%';
+              }
+          }, 250);
+
+          const runStage = (stageNum) => {
+              if (stageNum === 1) {
+                  maxAllowedProgress = 35;
+                  if (badgeEl) badgeEl.innerText = "Phase 1/3";
+                  if (titleEl) titleEl.innerText = "Scanning Visual Elements...";
+                  if (descEl) descEl.innerText = "Extracting lighting layers, subjects, colors, and camera modifiers";
+                  if (anim1) anim1.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-100 scale-100';
+                  if (anim2) anim2.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75';
+                  if (anim3) anim3.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75';
+
+                  setStageState(stage1, 1, 'Active', 'violet');
+                  setStageState(stage2, 2, 'Pending', 'slate');
+                  setStageState(stage3, 3, 'Pending', 'slate');
+              } else if (stageNum === 2) {
+                  maxAllowedProgress = 70;
+                  if (badgeEl) badgeEl.innerText = "Phase 2/3";
+                  if (titleEl) titleEl.innerText = "Reverse Engineering Composition...";
+                  if (descEl) descEl.innerText = "Reconstructing framing, atmospheric mood, and depth of field parameters";
+                  if (anim1) anim1.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75';
+                  if (anim2) anim2.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-100 scale-100';
+                  if (anim3) anim3.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75';
+
+                  setStageState(stage1, 1, 'Completed', 'emerald');
+                  setStageState(stage2, 2, 'Active', 'violet');
+                  setStageState(stage3, 3, 'Pending', 'slate');
+              } else if (stageNum === 3) {
+                  maxAllowedProgress = 95;
+                  if (badgeEl) badgeEl.innerText = "Phase 3/3";
+                  if (titleEl) titleEl.innerText = "Compiling Engine-specific Tags...";
+                  if (descEl) descEl.innerText = "Formulating precise Midjourney/DALL-E prompt weights and triggers";
+                  if (anim1) anim1.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75';
+                  if (anim2) anim2.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75';
+                  if (anim3) anim3.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-100 scale-100';
+
+                  setStageState(stage1, 1, 'Completed', 'emerald');
+                  setStageState(stage2, 2, 'Completed', 'emerald');
+                  setStageState(stage3, 3, 'Active', 'violet');
+              }
+          };
+
+          function setStageState(element, num, status, type) {
+              if (!element) return;
+              const numBadge = element.querySelector('.stage-num');
+              const statusLabel = element.querySelector('.stage-status');
+
+              if (type === 'violet') {
+                  element.className = 'flex items-center justify-between p-3 rounded-xl bg-violet-50/50 dark:bg-violet-950/20 border border-violet-100/50 dark:border-violet-900/20 text-sm font-medium text-violet-700 dark:text-violet-300 transition-all duration-300';
+                  if (numBadge) {
+                      numBadge.className = 'stage-num w-5 h-5 rounded-full bg-violet-600 text-white flex items-center justify-center text-[10px] font-bold';
+                      numBadge.innerHTML = num;
+                  }
+              } else if (type === 'emerald') {
+                  element.className = 'flex items-center justify-between p-3 rounded-xl bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100/50 dark:border-emerald-900/20 text-sm font-medium text-emerald-700 dark:text-emerald-300 transition-all duration-300';
+                  if (numBadge) {
+                      numBadge.className = 'stage-num w-5 h-5 rounded-full bg-emerald-600 text-white flex items-center justify-center text-[10px] font-bold';
+                      numBadge.innerHTML = '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>';
+                  }
+              } else {
+                  element.className = 'flex items-center justify-between p-3 rounded-xl bg-slate-50 dark:bg-slate-900/40 border border-transparent text-sm font-medium text-slate-400 dark:text-slate-600 transition-all duration-300';
+                  if (numBadge) {
+                      numBadge.className = 'stage-num w-5 h-5 rounded-full bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 flex items-center justify-center text-[10px] font-bold';
+                      numBadge.innerHTML = num;
+                  }
+              }
+              if (statusLabel) statusLabel.innerText = status;
+          }
+
+          runStage(1);
+          let currentStage = 1;
+
+          stageInterval = setInterval(() => {
+              currentStage++;
+              if (currentStage <= 3) {
+                  runStage(currentStage);
+              } else {
+                  clearInterval(stageInterval);
+              }
+          }, 2000);
+
+          document.getElementById('loading-state').classList.remove('hidden');
+          document.getElementById('empty-state').classList.add('hidden');
+          document.getElementById('view-primary').classList.add('hidden');
+          document.getElementById('view-breakdown').classList.add('hidden');
+          document.getElementById('view-composition').classList.add('hidden');
+      }
+
+      function stopLoadingAnimation() {
+          if (stageInterval) clearInterval(stageInterval);
+          if (progressInterval) clearInterval(progressInterval);
+          
+          document.getElementById('loading-state').classList.add('hidden');
+      }
+
+      // Main Prompt extraction function
+      async function generatePrompt() {
+          if (!uploadedBase64) return;
+
+          // Consume client credit check
+          const credits = window.getCurrentCredits();
+          if (credits <= 0) {
+              window.showOutOfCreditsModal();
+              return;
+          }
+
+          startLoadingAnimation();
+
+          try {
+              const res = await fetch('/api/image-to-prompt', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                      base64Data: uploadedBase64,
+                      fileName: uploadedFileName,
+                      mimeType: uploadedMimeType,
+                      promptType: selectedEngine,
+                      customPrompt: document.getElementById('opt-prompt').value
+                  })
+              });
+
+              if (!res.ok) {
+                  const errorData = await res.json();
+                  throw new Error(errorData.error || 'Server error occurred');
+              }
+
+              const data = await res.json();
+              stopLoadingAnimation();
+
+              // Consume credit locally or fire Firestore update
+              if (typeof window.consumeUserCredit === 'function') {
+                  await window.consumeUserCredit('image-to-code'); // reuses generic consumer to update Firestore
+              } else {
+                  let current = parseInt(localStorage.getItem('guest_credits') || '5', 10);
+                  localStorage.setItem('guest_credits', Math.max(0, current - 1).toString());
+                  window.userCreditBalance = Math.max(0, current - 1);
+                  updateCreditsUI(Math.max(0, current - 1), true);
+              }
+
+              // Display Results
+              document.getElementById('primary-prompt-output').textContent = data.frameworkCode || '';
+              
+              // Render Markdown Breakdown beautifully
+              const breakdownContent = document.getElementById('breakdown-output');
+              breakdownContent.innerHTML = '';
+              if (data.markdownSummary) {
+                  // Simple markdown formatter to list cards
+                  const formatted = data.markdownSummary
+                      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                      .replace(/### (.*?)\n/g, '<h4 class="text-sm font-bold text-slate-800 dark:text-slate-100 uppercase mt-4 mb-1">$1</h4>')
+                      .replace(/## (.*?)\n/g, '<h3 class="text-base font-bold text-violet-600 mt-5 mb-2">$1</h3>')
+                      .replace(/# (.*?)\n/g, '<h2 class="text-lg font-extrabold text-slate-900 dark:text-white mb-3">$1</h2>')
+                      .replace(/\n/g, '<br/>');
+                  breakdownContent.innerHTML = `<div class="bg-slate-50 dark:bg-slate-950 p-5 rounded-2xl border border-slate-150 dark:border-slate-800/65">${formatted}</div>`;
+              }
+
+              // Render Color Preview Boxes
+              const colorsGrid = document.getElementById('prompt-colors');
+              colorsGrid.innerHTML = '';
+              if (data.designAnalysis && data.designAnalysis.colors) {
+                  data.designAnalysis.colors.forEach(col => {
+                      const container = document.createElement('div');
+                      container.className = 'flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-xs font-semibold text-slate-700 dark:text-slate-300 shadow-sm';
+                      const hex = col.startsWith('#') ? col : '#6366f1'; // fallback indicator
+                      container.innerHTML = `<span class="w-4 h-4 rounded-full" style="background-color: ${col}; border: 1px solid rgba(0,0,0,0.1)"></span><span>${col}</span>`;
+                      colorsGrid.appendChild(container);
+                  });
+              }
+
+              // Render composition details
+              document.getElementById('prompt-style').textContent = data.designAnalysis?.typography || 'Digital Painting';
+              document.getElementById('prompt-composition').textContent = data.designAnalysis?.layout || 'Cinematic, rule of thirds';
+              
+              // Render subject tags
+              const tagsList = document.getElementById('prompt-tags');
+              tagsList.innerHTML = '';
+              if (data.designAnalysis && data.designAnalysis.componentsIdentified) {
+                  data.designAnalysis.componentsIdentified.forEach(tag => {
+                      const li = document.createElement('li');
+                      li.className = 'text-sm font-medium text-slate-700 dark:text-slate-300';
+                      li.textContent = tag;
+                      tagsList.appendChild(li);
+                  });
+              }
+
+              // Save to centralized History manager
+              if (window.ToolIMGHistory && typeof window.ToolIMGHistory.saveHistoryItem === 'function') {
+                  const previewUrl = document.getElementById('image-preview').src;
+                  await window.ToolIMGHistory.saveHistoryItem({
+                      toolId: 'gemini-image-to-prompt',
+                      toolName: 'Gemini Image to Prompt',
+                      title: 'Prompt for ' + selectedEngine.toUpperCase(),
+                      content: data.frameworkCode,
+                      previewUrl: previewUrl,
+                      metadata: data.designAnalysis
+                  });
+              }
+
+              switchTab('primary');
+
+          } catch (e) {
+              stopLoadingAnimation();
+              showToast(e.message || 'Prompt extraction failed. Please try again.', 'error');
+              document.getElementById('empty-state').classList.remove('hidden');
+          }
+      }
+
+      function copyPrimaryPrompt() {
+          const txt = document.getElementById('primary-prompt-output').textContent;
+          if (!txt) return;
+          navigator.clipboard.writeText(txt);
+          const cBtn = document.getElementById('copy-prompt-text');
+          cBtn.innerText = "Copied!";
+          showToast("Prompt copied to clipboard!", "success");
+          setTimeout(() => {
+              cBtn.innerText = "Copy Prompt";
+          }, 2000);
+      }
+
+      function resetTool() {
+          document.getElementById('primary-prompt-output').textContent = '';
+          document.getElementById('opt-prompt').value = '';
+          uploadedBase64 = null;
+          uploadedMimeType = null;
+          uploadedFileName = null;
+          
+          document.getElementById('image-preview').classList.add('hidden');
+          document.getElementById('image-preview').src = '';
+          document.getElementById('upload-placeholder').classList.remove('hidden');
+          document.getElementById('image-overlay').classList.add('hidden');
+          document.getElementById('generate-btn').disabled = true;
+
+          document.getElementById('empty-state').classList.remove('hidden');
+          document.getElementById('view-primary').classList.add('hidden');
+          document.getElementById('view-breakdown').classList.add('hidden');
+          document.getElementById('view-composition').classList.add('hidden');
+      }
+
+      // History Drawer triggers
+      window.openHistoryDrawer = function() {
+          const drawer = document.getElementById('history-drawer');
+          if (drawer) {
+              drawer.classList.remove('hidden');
+              void drawer.offsetWidth;
+              drawer.classList.remove('translate-x-full');
+              if (typeof renderHistoryList === 'function') {
+                  renderHistoryList();
+              }
+          }
+      };
+
+      window.closeHistoryDrawer = function() {
+          const drawer = document.getElementById('history-drawer');
+          if (drawer) {
+              drawer.classList.add('translate-x-full');
+              setTimeout(() => drawer.classList.add('hidden'), 300);
+          }
+      };
+
+      async function renderHistoryList() {
+          const listEl = document.getElementById('tool-history-list');
+          if (!listEl) return;
+          listEl.innerHTML = `<div class="text-xs text-slate-400 py-12 text-center col-span-full">Loading history...</div>`;
+
+          try {
+              let items = [];
+              if (window.ToolIMGHistory && typeof window.ToolIMGHistory.fetchHistoryItems === 'function') {
+                  items = await window.ToolIMGHistory.fetchHistoryItems({ toolId: 'gemini-image-to-prompt' });
+              }
+              
+              if (items.length === 0) {
+                  listEl.innerHTML = `<div class="text-xs text-slate-400 py-12 text-center col-span-full">No conversion history yet. Reverse engineer some images to view items!</div>`;
+                  return;
+              }
+
+              listEl.innerHTML = items.map(item => `
+                  <div class="group relative bg-slate-50 dark:bg-slate-950 border border-slate-200/80 dark:border-slate-800 rounded-2xl p-4 flex flex-col justify-between hover:border-violet-500 transition shadow-sm">
+                      <div>
+                          ${item.previewUrl ? `<div class="w-full h-36 rounded-xl overflow-hidden bg-slate-100 dark:bg-slate-900 mb-3 border border-slate-200 dark:border-slate-800"><img src="${item.previewUrl}" alt="Preview" class="w-full h-full object-cover"></div>` : ''}
+                          <div class="flex items-center justify-between mb-1">
+                              <span class="text-[10px] font-bold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/50 px-2 py-0.5 rounded">${item.toolName}</span>
+                              <span class="text-[10px] text-slate-400">${new Date(item.timestamp).toLocaleDateString()}</span>
+                          </div>
+                          <h4 class="text-xs font-bold text-slate-900 dark:text-white line-clamp-1 mb-1">${item.title}</h4>
+                          <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 font-mono">${item.content}</p>
+                      </div>
+                      <div class="mt-4 pt-3 border-t border-slate-200/60 dark:border-slate-800 flex items-center justify-between">
+                          <button onclick="navigator.clipboard.writeText(decodeURIComponent('${encodeURIComponent(item.content)}')); showToast('Prompt copied to clipboard!', 'success');" class="text-xs font-bold text-violet-600 hover:text-violet-700 transition">Copy Prompt</button>
+                          <button onclick="window.ToolIMGHistory.deleteHistoryItem('${item.id}'); renderHistoryList();" class="text-slate-400 hover:text-rose-500 transition p-1" title="Delete">
+                              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                          </button>
+                      </div>
+                  </div>
+              `).join('');
+          } catch (e) {
+              console.error(e);
+              listEl.innerHTML = `<div class="text-xs text-rose-500 py-8 text-center col-span-full">Failed to load history items.</div>`;
+          }
+      }
+
+      window.addEventListener('historyUpdated', () => {
+          renderHistoryList();
+      });
+
+      // Language selection switcher helper
+      function switchLang(lang) {
+          localStorage.setItem('selected_lang', lang);
+          const parts = window.location.hostname.split('.');
+          const mainDomain = parts.length > 2 ? parts.slice(-2).join('.') : window.location.hostname;
+          
+          const clearCookie = (name, domain) => {
+              let str = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+              if (domain) str += " domain=" + domain + ";";
+              document.cookie = str;
+              document.cookie = str + " SameSite=None; Secure;";
+          };
+
+          clearCookie('googtrans');
+          clearCookie('googtrans', window.location.hostname);
+          clearCookie('googtrans', '.' + window.location.hostname);
+          clearCookie('googtrans', mainDomain);
+          clearCookie('googtrans', '.' + mainDomain);
+
+          if (lang !== 'en') {
+              const setCookie = (value, domain) => {
+                  let str = "googtrans=" + value + "; path=/; SameSite=None; Secure;";
+                  if (domain) str += " domain=" + domain + ";";
+                  document.cookie = str;
+              };
+              setCookie('/en/' + lang);
+              setCookie('/en/' + lang, window.location.hostname);
+              setCookie('/en/' + lang, '.' + window.location.hostname);
+              setCookie('/en/' + lang, mainDomain);
+              setCookie('/en/' + lang, '.' + mainDomain);
+          }
+
+          const select = document.querySelector('#google_translate_element select') || document.querySelector('.goog-te-combo');
+          if (select) {
+              select.value = lang;
+              select.dispatchEvent(new Event('change'));
+          }
+          window.location.reload();
+      }
+
+      function toggleLangMenu(e) {
+          if (e) e.stopPropagation();
+          const popover = document.getElementById('lang-popover');
+          popover.classList.toggle('hidden');
+      }
+
+      document.addEventListener('click', (e) => {
+          const popover = document.getElementById('lang-popover');
+          const btn = document.getElementById('lang-menu-btn');
+          if (popover && btn && !popover.contains(e.target) && !btn.contains(e.target)) {
+              popover.classList.add('hidden');
+          }
+          
+          const uDropdown = document.getElementById('user-dropdown');
+          const uBtn = document.getElementById('user-avatar-btn');
+          if (uDropdown && uBtn && !uDropdown.contains(e.target) && !uBtn.contains(e.target)) {
+              uDropdown.classList.add('hidden');
+          }
+      });
+
+      function toggleUserDropdown(e) {
+          if (e) e.stopPropagation();
+          const uDropdown = document.getElementById('user-dropdown');
+          uDropdown.classList.toggle('hidden');
+      }
+
+      // Theme toggle helpers
+      function setTheme(theme) {
+          localStorage.theme = theme;
+          if (theme === 'dark' || (theme === 'system' && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+          } else {
+              document.documentElement.classList.remove('dark');
+          }
+          updateThemeUI(theme);
+          updateThemeIcons();
+      }
+
+      function updateThemeIcons() {
+          const isDark = document.documentElement.classList.contains('dark');
+          const themeBtn = document.getElementById('theme-btn');
+          if (themeBtn) {
+              const svgs = themeBtn.querySelectorAll('svg');
+              if (svgs.length >= 2) {
+                  if (isDark) {
+                      svgs[0].classList.add('hidden');
+                      svgs[1].classList.remove('hidden');
+                  } else {
+                      svgs[0].classList.remove('hidden');
+                      svgs[1].classList.add('hidden');
+                  }
+              }
+          }
+      }
+
+      function updateThemeUI(theme) {
+          // generic indicator updater if present
+      }
+
+      // Centralized Toast Notifications
+      function showToast(message, type = 'info') {
+          if (window.ToolIMGHistory && typeof window.ToolIMGHistory.showToast === 'function') {
+              window.ToolIMGHistory.showToast(message, type);
+              return;
+          }
+          const toast = document.createElement('div');
+          toast.className = `fixed bottom-5 right-5 z-[99999] px-4 py-3 rounded-2xl shadow-xl text-sm font-semibold flex items-center gap-2 ${
+              type === 'error' ? 'bg-rose-600 text-white' : type === 'success' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-white'
+          }`;
+          toast.innerText = message;
+          document.body.appendChild(toast);
+          setTimeout(() => toast.remove(), 3000);
+      }
+    </script>
+
+    <!-- Low Credits & Out of Credits Modals -->
+    <div id="low-credits-modal" class="fixed inset-0 z-[99999] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm" onclick="window.closeLowCreditsModal()"></div>
+        <div class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl shadow-2xl p-6 border border-slate-100 dark:border-slate-800">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Low Credits Alert</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">You are running extremely low on credits. Please upgrade your plan or share our platform to claim a bonus credit pack.</p>
+            <div class="flex gap-3">
+                <button onclick="window.closeLowCreditsModal()" class="flex-1 py-2.5 text-xs font-bold text-slate-500 bg-slate-50 rounded-xl">Cancel</button>
+                <a href="/pricing/" class="flex-1 py-2.5 text-center text-xs font-bold text-white bg-violet-600 rounded-xl">Buy Credits</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="out-of-credits-modal" class="fixed inset-0 z-[99999] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm" onclick="window.closeOutOfCreditsModal()"></div>
+        <div class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl shadow-2xl p-6 border border-slate-100 dark:border-slate-800">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Credits Exhausted</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">You have run out of free guest credits. Claim bonus credits instantly by sharing our tools with friends or upgrade for unlimited queries.</p>
+            <div class="grid grid-cols-1 gap-2">
+                <button onclick="window.shareTool('whatsapp')" class="w-full py-2.5 bg-emerald-500 text-white rounded-xl text-xs font-bold">Share on WhatsApp (+5 Credits)</button>
+                <button onclick="window.shareTool('facebook')" class="w-full py-2.5 bg-blue-600 text-white rounded-xl text-xs font-bold">Share on Facebook (+5 Credits)</button>
+                <a href="/pricing/" class="w-full py-3 bg-violet-600 text-white rounded-xl text-xs font-bold text-center mt-2">View Pricing Plans</a>
+                <button onclick="window.closeOutOfCreditsModal()" class="w-full py-2 bg-slate-50 text-slate-400 rounded-xl text-xs font-bold">Maybe Later</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
