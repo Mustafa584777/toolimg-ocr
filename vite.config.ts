@@ -22,6 +22,8 @@ export default defineConfig(() => {
           toolsArchive: resolve(__dirname, 'tools/index.html'),
           geminiImageToPrompt: resolve(__dirname, 'tools/gemini-image-to-prompt/index.html'),
           htmlToImage: resolve(__dirname, 'tools/html-to-image/index.html'),
+          textToImage: resolve(__dirname, 'tools/text-to-image/index.html'),
+          textToImageGenerator: resolve(__dirname, 'tools/text-to-image-generator/index.html'),
           pricing: resolve(__dirname, 'pricing/index.html'),
           dashboard: resolve(__dirname, 'dashboard/index.html')
         }
