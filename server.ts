@@ -829,14 +829,34 @@ app.post('/api/text-to-image', async (req: express.Request, res: express.Respons
 
 // Serve frontend in dev / prod
 
-// Rewrite language prefixes for static assets
+// Rewrite language prefixes for static assets & handle logo requests
 app.use((req, res, next) => {
-  const langPrefixRegex = /^\/(es|fr|de|ru|ar)(\/|$)/;
+  // If it's an API route, skip language prefix strip
+  if (req.url.includes('/api/')) return next();
+
+  // Strip 2-letter language prefixes e.g. /hi/, /es/, /fr/, /de/, /ru/, /ar/, /zh/
+  const langPrefixRegex = /^\/([a-z]{2})(\/|$)/i;
   if (langPrefixRegex.test(req.url)) {
-    // If it's an API route or something we don't want to rewrite, skip it
-    if (req.url.includes('/api/')) return next();
     req.url = req.url.replace(langPrefixRegex, '/');
   }
+
+  // Intercept any logo.png request (e.g. /logo.png, /logo/logo.png, /hi/logo.png)
+  if (/\/logo(\/logo)?\.png$/i.test(req.url)) {
+    const logoPaths = [
+      path.resolve('dist/logo/logo.png'),
+      path.resolve('dist/logo.png'),
+      path.resolve('public/logo/logo.png'),
+      path.resolve('public/logo.png')
+    ];
+
+    let fileToServe = logoPaths.find(p => fs.existsSync(p));
+    if (fileToServe) {
+      res.setHeader('Content-Type', 'image/png');
+      res.setHeader('Cache-Control', 'public, max-age=86400');
+      return res.sendFile(fileToServe);
+    }
+  }
+
   next();
 });
 
