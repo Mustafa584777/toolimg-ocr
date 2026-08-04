@@ -42,13 +42,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <link rel="alternate" hreflang="en" href="https://toolimg.online/tools/text-to-image/" />
-    <link rel="alternate" hreflang="es" href="https://toolimg.online/es/tools/text-to-image/" />
-    <link rel="alternate" hreflang="fr" href="https://toolimg.online/fr/tools/text-to-image/" />
-    <link rel="alternate" hreflang="de" href="https://toolimg.online/de/tools/text-to-image/" />
-    <link rel="alternate" hreflang="ru" href="https://toolimg.online/ru/tools/text-to-image/" />
-    <link rel="alternate" hreflang="ar" href="https://toolimg.online/ar/tools/text-to-image/" />
-    <link rel="alternate" hreflang="x-default" href="https://toolimg.online/tools/text-to-image/" />
+    <link rel="alternate" hreflang="en" href="https://toolimg.online/tools/text-to-image-generator/" />
+    <link rel="alternate" hreflang="es" href="https://toolimg.online/es/tools/text-to-image-generator/" />
+    <link rel="alternate" hreflang="fr" href="https://toolimg.online/fr/tools/text-to-image-generator/" />
+    <link rel="alternate" hreflang="de" href="https://toolimg.online/de/tools/text-to-image-generator/" />
+    <link rel="alternate" hreflang="ru" href="https://toolimg.online/ru/tools/text-to-image-generator/" />
+    <link rel="alternate" hreflang="ar" href="https://toolimg.online/ar/tools/text-to-image-generator/" />
+    <link rel="alternate" hreflang="x-default" href="https://toolimg.online/tools/text-to-image-generator/" />
     <title>AI Text to Image Generator Free - Create High Quality AI Artwork | ToolIMG</title>
     <meta name="description" content="Generate stunning high-resolution AI art and pictures from simple text descriptions. Free online AI Text to Image tool powered by Gemini AI.">
 
@@ -559,6 +559,7 @@
                     <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-[11px] md:text-base">Products</h4>
                     <ul class="space-y-3.5">
                         <li><a href="/tools/image-to-code/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Image to Code AI</a></li>
+                        <li><a href="/tools/text-to-image-generator/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Text to Image Generator AI</a></li>
                         <li><a href="/tools/text-to-image/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Text to Image AI</a></li>
                         <li><a href="/tools/handwriting-to-text/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">English Handwriting OCR</a></li>
                         <li><a href="/tools/hindi-handwriting-to-text/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Hindi Handwriting OCR</a></li>
@@ -785,7 +786,7 @@
                   if (window.ToolIMGHistory && typeof window.ToolIMGHistory.saveConversion === 'function') {
                       window.ToolIMGHistory.saveConversion({
                           id: 'tti_' + Date.now(),
-                          tool: 'text-to-image',
+                          tool: 'text-to-image-generator',
                           title: (prompt || 'Reference Image Generation').substring(0, 40) + '...',
                           preview: data.imageUrl,
                           date: new Date().toISOString()
@@ -986,7 +987,7 @@
         window.closeHistoryDrawer = closeHistoryDrawer;
         document.addEventListener('DOMContentLoaded', () => {
             try {
-                initHistoryUI('text-to-image');
+                initHistoryUI('text-to-image-generator');
             } catch (e) {
                 console.error('Failed to init history UI:', e);
             }

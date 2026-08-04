@@ -700,7 +700,7 @@ Return a JSON response with the following structured format:
 app.post('/api/text-to-image', async (req: express.Request, res: express.Response) => {
   let creditSession: { decrement: () => Promise<void>, credits: number } | null = null;
   try {
-    const { prompt, aspectRatio = '1:1', stylePreset = 'none', negativePrompt = '' } = req.body;
+    const { prompt, aspectRatio = '1:1', stylePreset = 'none', negativePrompt = '', base64Image, mimeType } = req.body;
     if (!prompt || !prompt.trim()) {
       return res.status(400).json({ error: 'Prompt text is required' });
     }
@@ -726,8 +726,33 @@ app.post('/api/text-to-image', async (req: express.Request, res: express.Respons
       throw creditErr;
     }
 
-    // Enhance prompt based on style preset
+    // Enhance prompt based on reference image description if provided
     let finalPrompt = prompt.trim();
+    if (base64Image && mimeType) {
+      try {
+        const ai = getAIClient();
+        const imagePart = {
+          inlineData: { mimeType: mimeType || 'image/png', data: base64Image }
+        };
+        const descriptionResponse = await generateContentWithRetryAndFallback(ai, {
+          model: 'gemini-3.5-flash',
+          contents: {
+            parts: [
+              imagePart,
+              { text: "Describe the visual content, subjects, layout, composition, and style of this reference image in detail. Focus on elements that can be used to recreate a similar image. Respond with a descriptive paragraph." }
+            ]
+          }
+        });
+        const referenceDescription = descriptionResponse.text;
+        if (referenceDescription) {
+          finalPrompt = `Inspired by the style and composition of this reference image description: "${referenceDescription.trim()}", generate: ${finalPrompt}`;
+        }
+      } catch (err) {
+        console.error('Failed to describe reference image, falling back to prompt only:', err);
+      }
+    }
+
+    // Enhance prompt based on style preset
     if (stylePreset && stylePreset !== 'none') {
       const stylePrompts: Record<string, string> = {
         'photorealistic': 'Photorealistic, 8k resolution, ultra-detailed, studio lighting, hyper-realistic photography',
