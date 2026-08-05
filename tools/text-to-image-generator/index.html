@@ -600,6 +600,14 @@
 
     <!-- Page JavaScript Logic -->
     <script>
+      function getApiUrl(endpoint) {
+          const hostname = window.location.hostname;
+          if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.endsWith('.run.app')) {
+              return endpoint;
+          }
+          return 'https://ais-pre-evrfa65wiubcqn5xlwdv7y-261813730459.asia-east1.run.app' + endpoint;
+      }
+
       let selectedStyle = 'none';
       let selectedRatio = '1:1';
       let currentGeneratedImage = '';
@@ -743,7 +751,7 @@
           }
 
           try {
-              const res = await fetch('/api/text-to-image', {
+              const res = await fetch(getApiUrl('/api/text-to-image'), {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({
