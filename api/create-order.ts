@@ -8,7 +8,7 @@ function getRazorpayClient() {
     const keyId = process.env.RAZORPAY_KEY_ID || process.env.VITE_RAZORPAY_KEY_ID;
     const keySecret = process.env.RAZORPAY_KEY_SECRET;
     if (!keyId || !keySecret) {
-      throw new Error('Razorpay API keys (RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET) are missing. Please configure them in your Vercel Environment Variables.');
+      throw new Error('Razorpay API keys (RAZORPAY_KEY_ID and RAZORPAY_KEY_SECRET) are missing. Please configure them in your server environment variables.');
     }
     razorpayClient = new Razorpay({
       key_id: keyId,
@@ -64,7 +64,7 @@ export default async function handler(req: Request, res: Response) {
   } catch (error: any) {
     console.error('Razorpay Order Creation Error:', error);
     if (error.statusCode === 401 || (error.message && error.message.toLowerCase().includes('auth'))) {
-      return res.status(401).json({ error: 'Razorpay API credentials authentication failed. Please check your keys in Vercel settings.' });
+      return res.status(401).json({ error: 'Razorpay API credentials authentication failed. Please check your keys in environment settings.' });
     }
     res.status(500).json({ error: error.message || 'Failed to create Razorpay order' });
   }
