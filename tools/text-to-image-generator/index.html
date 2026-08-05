@@ -600,10 +600,6 @@
 
     <!-- Page JavaScript Logic -->
     <script>
-      function getApiUrl(endpoint) {
-          return endpoint;
-      }
-
       let selectedStyle = 'none';
       let selectedRatio = '1:1';
       let currentGeneratedImage = '';
@@ -747,7 +743,7 @@
           }
 
           try {
-              const res = await fetch(getApiUrl('/api/text-to-image'), {
+              const res = await fetch('/api/text-to-image', {
                   method: 'POST',
                   headers: { 'Content-Type': 'application/json' },
                   body: JSON.stringify({

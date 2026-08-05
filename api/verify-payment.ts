@@ -24,7 +24,7 @@ export default async function handler(req: Request, res: Response) {
 
     const secret = process.env.RAZORPAY_KEY_SECRET;
     if (!secret) {
-      return res.status(500).json({ error: 'Razorpay secret key is not configured in environment variables.' });
+      return res.status(500).json({ error: 'Razorpay secret key is not configured on Vercel.' });
     }
 
     const generatedSignature = crypto
