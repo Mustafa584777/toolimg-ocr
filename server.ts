@@ -42,6 +42,11 @@ const port = 3000;
 
 // Redirect middleware for www to non-www and http to https
 app.use((req, res, next) => {
+  // Never redirect API calls or configuration fallback requests
+  if (req.path.startsWith('/api/') || req.path === '/firebase-applet-config.json') {
+    return next();
+  }
+
   const host = req.headers['x-forwarded-host'] || req.headers.host;
   const protocol = req.headers['x-forwarded-proto'] || req.protocol;
 
@@ -107,6 +112,21 @@ app.get('/api/config', (req, res) => {
   } catch (error: any) {
     console.error('Error reading config:', error);
     res.status(500).json({ error: 'Failed to read configuration' });
+  }
+});
+
+// Explicit route to serve firebase-applet-config.json for static fallback
+app.get('/firebase-applet-config.json', (req, res) => {
+  try {
+    const configPath = path.join(__dirname, 'firebase-applet-config.json');
+    if (fs.existsSync(configPath)) {
+      res.setHeader('Content-Type', 'application/json');
+      res.sendFile(configPath);
+    } else {
+      res.status(404).json({ error: 'Configuration file not found' });
+    }
+  } catch (error: any) {
+    res.status(500).json({ error: 'Failed to serve configuration' });
   }
 });
 
@@ -571,16 +591,276 @@ Your goal is to extract all handwritten text in Hindi/Devanagari from the provid
 });
 
 
+// Gemini Image to Prompt Generator Endpoint
+app.post('/api/image-to-prompt', async (req: express.Request, res: express.Response) => {
+  let creditSession: { decrement: () => Promise<void>, credits: number } | null = null;
+  try {
+    const { base64Data, fileName = 'reference.png', mimeType = 'image/png', promptType = 'midjourney', customPrompt = '' } = req.body;
+    if (!base64Data) {
+      return res.status(400).json({ error: 'No image data provided' });
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: 'GEMINI_API_KEY is not configured on the server.' });
+    }
+
+    // Verify credits
+    try {
+      creditSession = await verifyAndConsumeCredit(req, 'image-to-code');
+    } catch (creditErr: any) {
+      if (creditErr.message === "INSUFFICIENT_CREDITS") {
+        return res.status(403).json({ error: "Sufficient credits are required to run this tool. Please purchase credits on the pricing page." });
+      }
+      if (creditErr.message === "GUEST_EXHAUSTED") {
+        return res.status(403).json({ error: "You have exhausted your 5 free guest credits. Please log in or buy credits to continue." });
+      }
+      if (creditErr.message === "IDENTIFICATION_REQUIRED") {
+        return res.status(400).json({ error: "Authorization or Guest Identification is required." });
+      }
+      throw creditErr;
+    }
+
+    const systemInstruction = `You are an expert AI prompt engineer specializing in reverse-engineering high-quality, professional image generation prompts (optimized for Midjourney, Stable Diffusion, DALL-E 3, and Adobe Firefly) from reference images.
+Analyze the provided image in detail, including subject, visual style, camera parameters (if photographic), artistic medium, color palette, lighting condition, framing composition, mood, and atmospheric texture.
+
+Generate an optimized prompt tailored for the specified target AI image generator: "${promptType}".
+
+Return a JSON response with the following structured format:
+{
+  "htmlCode": "A beautifully styled HTML element showing the prompt clearly.",
+  "frameworkCode": "The primary generated prompt text itself.",
+  "markdownSummary": "A highly detailed breakdown of the prompt:\n\n1. **Primary Prompt**: (optimized for the selected engine)\n2. **Style Descriptors**: details about medium, lighting, art style\n3. **Subject & Composition**: details about what's in the image and framing\n4. **Parameters & Modifiers**: (such as aspect ratio, negative prompt, or engine-specific flags like --v 6.0, --ar 16:9, highly-detailed)",
+  "designAnalysis": {
+    "colors": ["detected hex codes or prominent colors"],
+    "typography": "detected style (e.g., photograph, digital illustration, 3D render, watercolor, cinematic, vector art)",
+    "layout": "framing composition (e.g., extreme close-up, wide angle, eye-level, bokeh background, low angle, macro)",
+    "componentsIdentified": ["subjects found", "lighting types", "aesthetic modifiers", "camera settings/artist styles"]
+  }
+}`;
+
+    const responseSchema = {
+      type: Type.OBJECT,
+      properties: {
+        htmlCode: { type: Type.STRING },
+        frameworkCode: { type: Type.STRING },
+        markdownSummary: { type: Type.STRING },
+        designAnalysis: {
+          type: Type.OBJECT,
+          properties: {
+            colors: { type: Type.ARRAY, items: { type: Type.STRING } },
+            typography: { type: Type.STRING },
+            layout: { type: Type.STRING },
+            componentsIdentified: { type: Type.ARRAY, items: { type: Type.STRING } }
+          },
+          required: ['colors', 'typography', 'layout', 'componentsIdentified']
+        }
+      },
+      required: ['htmlCode', 'frameworkCode', 'markdownSummary', 'designAnalysis']
+    };
+
+    const ai = getAIClient();
+    const imagePart = {
+      inlineData: { mimeType: mimeType || 'image/png', data: base64Data }
+    };
+    
+    let promptText = `Analyze this image and reverse engineer an image generation prompt optimized for the engine: ${promptType}.`;
+    if (customPrompt && customPrompt.trim()) {
+      promptText += `\nAdditional user guidelines/adjustments: "${customPrompt}"`;
+    }
+
+    const textPart = { text: promptText };
+
+    const response = await generateContentWithRetryAndFallback(ai, {
+      model: 'gemini-3.5-flash',
+      contents: { parts: [imagePart, textPart] },
+      config: {
+        systemInstruction,
+        responseMimeType: 'application/json',
+        responseSchema
+      }
+    });
+
+    const resultText = response.text;
+    if (!resultText) throw new Error('No response from Gemini API');
+    
+    const parsedResult = JSON.parse(resultText);
+    if (creditSession) {
+      await creditSession.decrement();
+    }
+    res.json(parsedResult);
+  } catch (error: any) {
+    console.error('Error generating prompt from image:', error);
+    res.status(500).json({ error: error.message || 'Failed to convert' });
+  }
+});
+
+
+// AI Text to Image Generation Endpoint
+app.post('/api/text-to-image', async (req: express.Request, res: express.Response) => {
+  let creditSession: { decrement: () => Promise<void>, credits: number } | null = null;
+  try {
+    const { prompt, aspectRatio = '1:1', stylePreset = 'none', negativePrompt = '', base64Image, mimeType } = req.body;
+    if (!prompt || !prompt.trim()) {
+      return res.status(400).json({ error: 'Prompt text is required' });
+    }
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: 'GEMINI_API_KEY is not configured on the server. Please configure it in Settings > Secrets.' });
+    }
+
+    // Verify credits
+    try {
+      creditSession = await verifyAndConsumeCredit(req, 'image-to-code');
+    } catch (creditErr: any) {
+      if (creditErr.message === "INSUFFICIENT_CREDITS") {
+        return res.status(403).json({ error: "Sufficient credits are required to run this tool. Please purchase credits on the pricing page." });
+      }
+      if (creditErr.message === "GUEST_EXHAUSTED") {
+        return res.status(403).json({ error: "You have exhausted your 5 free guest credits. Please log in or buy credits to continue." });
+      }
+      if (creditErr.message === "IDENTIFICATION_REQUIRED") {
+        return res.status(400).json({ error: "Authorization or Guest Identification is required." });
+      }
+      throw creditErr;
+    }
+
+    // Enhance prompt based on reference image description if provided
+    let finalPrompt = prompt.trim();
+    if (base64Image && mimeType) {
+      try {
+        const ai = getAIClient();
+        const imagePart = {
+          inlineData: { mimeType: mimeType || 'image/png', data: base64Image }
+        };
+        const descriptionResponse = await generateContentWithRetryAndFallback(ai, {
+          model: 'gemini-3.5-flash',
+          contents: {
+            parts: [
+              imagePart,
+              { text: "Describe the visual content, subjects, layout, composition, and style of this reference image in detail. Focus on elements that can be used to recreate a similar image. Respond with a descriptive paragraph." }
+            ]
+          }
+        });
+        const referenceDescription = descriptionResponse.text;
+        if (referenceDescription) {
+          finalPrompt = `Inspired by the style and composition of this reference image description: "${referenceDescription.trim()}", generate: ${finalPrompt}`;
+        }
+      } catch (err) {
+        console.error('Failed to describe reference image, falling back to prompt only:', err);
+      }
+    }
+
+    // Enhance prompt based on style preset
+    if (stylePreset && stylePreset !== 'none') {
+      const stylePrompts: Record<string, string> = {
+        'photorealistic': 'Photorealistic, 8k resolution, ultra-detailed, studio lighting, hyper-realistic photography',
+        'digital-art': 'Vibrant digital art, detailed illustration, artstation trending, crisp digital painting',
+        '3d-render': 'Octane render 3d illustration, smooth textures, volumetric lighting, raytracing, highly detailed',
+        'anime': 'Anime style illustration, clean linework, vibrant colors, Studio Ghibli inspired aesthetic',
+        'watercolor': 'Soft watercolor painting, delicate brushstrokes, expressive ink washes, artistic paper texture',
+        'cyberpunk': 'Cyberpunk aesthetic, glowing neon lights, futuristic city vibes, dark rainy reflective streets',
+        'cinematic': 'Cinematic movie screenshot, 35mm lens, dramatic lighting, anamorphic lens flare, shallow depth of field',
+        'vector-art': 'Flat vector art illustration, clean geometry, bold outlines, modern graphic design'
+      };
+      if (stylePrompts[stylePreset]) {
+        finalPrompt += `, ${stylePrompts[stylePreset]}`;
+      }
+    }
+
+    if (negativePrompt && negativePrompt.trim()) {
+      finalPrompt += `. Avoid: ${negativePrompt.trim()}`;
+    }
+
+    const validAspectRatios = ['1:1', '3:4', '4:3', '9:16', '16:9'];
+    const validRatio = validAspectRatios.includes(aspectRatio) ? aspectRatio : '1:1';
+
+    const ai = getAIClient();
+    
+    // Call Gemini API image generation model
+    const response = await ai.models.generateContent({
+      model: 'gemini-3.1-flash-lite-image',
+      contents: {
+        parts: [
+          { text: finalPrompt }
+        ]
+      },
+      config: {
+        imageConfig: {
+          aspectRatio: validRatio
+        }
+      }
+    });
+
+    let imageUrl = '';
+    if (response.candidates?.[0]?.content?.parts) {
+      for (const part of response.candidates[0].content.parts) {
+        if (part.inlineData && part.inlineData.data) {
+          const mime = part.inlineData.mimeType || 'image/png';
+          imageUrl = `data:${mime};base64,${part.inlineData.data}`;
+          break;
+        }
+      }
+    }
+
+    if (!imageUrl) {
+      throw new Error('Image generation completed but no image data was returned by Gemini API.');
+    }
+
+    if (creditSession) {
+      await creditSession.decrement();
+    }
+
+    res.json({
+      success: true,
+      imageUrl,
+      prompt: prompt.trim(),
+      finalPrompt,
+      aspectRatio: validRatio,
+      stylePreset
+    });
+  } catch (error: any) {
+    console.error('Error generating image from text:', error);
+    res.status(500).json({ error: error.message || 'Failed to generate image from text prompt' });
+  }
+});
+
+
 // Serve frontend in dev / prod
 
-// Rewrite language prefixes for static assets
+// Rewrite language prefixes for static assets & handle logo requests
 app.use((req, res, next) => {
-  const langPrefixRegex = /^\/(es|fr|de|ru|ar)(\/|$)/;
+  // If it's an API route, skip language prefix strip
+  if (req.url.includes('/api/')) return next();
+
+  // Strip 2-letter language prefixes e.g. /hi/, /es/, /fr/, /de/, /ru/, /ar/, /zh/
+  const langPrefixRegex = /^\/([a-z]{2})(\/|$)/i;
   if (langPrefixRegex.test(req.url)) {
-    // If it's an API route or something we don't want to rewrite, skip it
-    if (req.url.includes('/api/')) return next();
     req.url = req.url.replace(langPrefixRegex, '/');
   }
+
+  // Intercept any logo request (e.g. /logo.png, /logo.jpg, /logo/logo.png, /logo/logo.jpg, /hi/logo.jpg)
+  if (/\/logo(\/logo)?\.(png|jpg|jpeg)$/i.test(req.url)) {
+    const logoPaths = [
+      path.resolve('dist/logo/logo.jpg'),
+      path.resolve('dist/logo.jpg'),
+      path.resolve('public/logo/logo.jpg'),
+      path.resolve('public/logo.jpg'),
+      path.resolve('dist/logo/logo.png'),
+      path.resolve('dist/logo.png'),
+      path.resolve('public/logo/logo.png'),
+      path.resolve('public/logo.png')
+    ];
+
+    let fileToServe = logoPaths.find(p => fs.existsSync(p));
+    if (fileToServe) {
+      res.setHeader('Content-Type', fileToServe.endsWith('.png') ? 'image/png' : 'image/jpeg');
+      res.setHeader('Cache-Control', 'public, max-age=86400');
+      return res.sendFile(fileToServe);
+    }
+  }
+
   next();
 });
 

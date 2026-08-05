@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+    (function() {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    })();
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3PK1RHDJ2S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3PK1RHDJ2S');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Privacy Policy - ToolIMG</title>
+    <link rel="canonical" href="https://toolimg.online/privacy-policy.html" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.com/npm/@tailwindcss/browser@4"></script>
+    <style>
+        * { font-family: "Poppins", sans-serif !important; }
+        body { font-family: 'Poppins', sans-serif; background-color: #fafafa; }
+        .dark body { background-color: #0f172a; color: #f8fafc; }
+        .dark .logo-img { filter: brightness(0) invert(1) !important; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col transition-colors">
+
+    <!-- Header / Navbar -->
+    <header class="w-full max-w-[85vw] mx-auto px-4 sm:px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-4 z-40 shadow-sm rounded-xl mb-8 transition-colors">
+        <div class="flex items-center gap-2 w-full justify-between">
+            <a href="/" class="flex items-center gap-2" style="display: flex !important; align-items: center !important; gap: 8px !important; text-decoration: none !important;">
+                <img src="https://toolimg.online/logo.jpg" alt="ToolIMG" class="logo-img h-8 object-contain" height="32" style="height: 32px !important; width: auto !important; object-fit: contain !important; display: block !important;" onerror="this.onerror=null; this.src='/logo.jpg';">
+                <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Home</a>
+                <a href="/tools/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Tools</a>
+                <a href="/dashboard/" id="dashboard-nav" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition hidden">Dashboard</a>
+                <a href="/pricing/" class="px-4 py-1.5 text-[15px] font-bold bg-violet-600 hover:bg-violet-700 text-white rounded-lg shadow-sm transition">Pricing</a>
+                
+                <div class="relative">
+                    <button id="theme-btn-desktop" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
+                        <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+                </div>
+            </nav>
+            
+            <div class="flex items-center gap-3">
+                <button id="theme-btn" class="md:hidden p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
+                    <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </button>
+                <div class="relative">
+                    <button id="lang-menu-btn" type="button" onclick="toggleLangMenu(event)" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition flex items-center justify-center" aria-label="Select Language">
+                        <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"></path><path d="M4 14l6-6 2-3"></path><path d="M2 5h12"></path><path d="M7 2h1"></path><path d="M22 22l-5-10-5 10"></path><path d="M14 18h6"></path></svg>
+                    </button>
+                    <div id="lang-popover" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-lg flex-col z-50 overflow-hidden">
+                        <div class="py-2">
+                            <button type="button" onclick="switchLang('en')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">English</button>
+                            <button type="button" onclick="switchLang('es')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Español</button>
+                            <button type="button" onclick="switchLang('fr')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Français</button>
+                            <button type="button" onclick="switchLang('de')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Deutsch</button>
+                            <button type="button" onclick="switchLang('ru')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Русский</button>
+                            <button type="button" onclick="switchLang('ar')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">العربية</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 sm:px-6 mb-16">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-sm transition-colors">
+            
+            <div class="text-center mb-8 border-b border-slate-100 dark:border-slate-800 pb-8">
+                <span class="inline-block px-4 py-1.5 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 font-semibold text-xs rounded-full mb-3">Privacy Notice</span>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-2">Privacy Policy</h1>
+                <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Last Updated: June 23, 2026</p>
+            </div>
+
+            <p class="text-slate-700 dark:text-slate-300 leading-relaxed mb-8 text-base">
+                At ToolImg (“we”, “us”, or “our”), your privacy is important to us. This Privacy Notice explains how we collect, use, and protect your information when you use our website at <a href="https://toolimg.online" class="text-violet-600 dark:text-violet-400 font-medium hover:underline">https://toolimg.online</a>.
+            </p>
+
+            <div class="space-y-8">
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">1. Information We Collect</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-3">We collect minimal information to provide and improve our services:</p>
+                    <ul class="list-disc list-inside space-y-1.5 text-sm text-slate-700 dark:text-slate-300 pl-2 mb-4">
+                        <li><strong>Usage Data:</strong> We automatically collect information about how you interact with our website, including pages visited, time spent, and referring URLs.</li>
+                        <li><strong>Device Information:</strong> We may collect information about your browser type, operating system, and device type for analytics purposes.</li>
+                        <li><strong>Cookies:</strong> We use cookies and similar tracking technologies. See Section 3 for more details.</li>
+                    </ul>
+
+                    <div class="bg-emerald-50 dark:bg-emerald-950/40 border-l-4 border-emerald-500 p-4 rounded-r-xl text-emerald-900 dark:text-emerald-200 text-xs sm:text-sm my-4 leading-relaxed">
+                        <strong class="font-bold text-emerald-950 dark:text-emerald-100 block mb-1">Important Client-Side Notice:</strong>
+                        Most of our image processing tools run entirely in your browser (client-side). Your images and files are never uploaded to our servers. They remain on your device at all times.
+                    </div>
+
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mt-3">
+                        <strong>Payment Data:</strong> If you purchase credits or a subscription, your billing information (such as name, email address, and payment details) is collected and processed by our payment partner, <strong>Razorpay</strong>, who acts as the payment processor. ToolImg does not directly store your payment card details. Please refer to Razorpay’s Privacy Policy for more information on how they handle your data.
+                    </p>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">2. How We Use Your Information</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-3">We use the information we collect to:</p>
+                    <ul class="list-disc list-inside space-y-1.5 text-sm text-slate-700 dark:text-slate-300 pl-2">
+                        <li>Provide, maintain, and improve our website and tools</li>
+                        <li>Analyze usage patterns to enhance user experience</li>
+                        <li>Detect, prevent, and address technical issues</li>
+                        <li>Display relevant advertisements (if applicable)</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">3. Cookies and Tracking Technologies</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-3">We use cookies and similar technologies for various purposes:</p>
+                    <ul class="list-disc list-inside space-y-1.5 text-sm text-slate-700 dark:text-slate-300 pl-2 mb-3">
+                        <li><strong>Essential Cookies:</strong> Required for the website to function properly.</li>
+                        <li><strong>Analytics Cookies:</strong> Help us understand how visitors interact with our website (e.g., Google Analytics).</li>
+                        <li><strong>Advertising Cookies:</strong> Used by our advertising partners to show you relevant ads.</li>
+                    </ul>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">You can control cookies through your browser settings. However, disabling certain cookies may affect website functionality.</p>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">4. Third-Party Services</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-3">We may use third-party services that collect, monitor, and analyze data:</p>
+                    <ul class="list-disc list-inside space-y-1.5 text-sm text-slate-700 dark:text-slate-300 pl-2 mb-3">
+                        <li><strong>Google Analytics:</strong> For website traffic analysis</li>
+                        <li><strong>Razorpay:</strong> For secure payment processing</li>
+                        <li><strong>Cloudflare (or similar):</strong> For security and performance</li>
+                    </ul>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">These third parties have their own privacy policies. We encourage you to review them.</p>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">5. Data Security</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">We implement appropriate security measures to protect your information. However, no method of transmission over the Internet is 100% secure, and we cannot guarantee absolute security.</p>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">6. Children’s Privacy</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">Our website is not intended for children under 13 years of age. We do not knowingly collect personal information from children under 13.</p>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">7. Your Rights</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-3">Depending on your location, you may have the right to:</p>
+                    <ul class="list-disc list-inside space-y-1.5 text-sm text-slate-700 dark:text-slate-300 pl-2">
+                        <li>Access the personal data we hold about you</li>
+                        <li>Request correction or deletion of your data</li>
+                        <li>Object to or restrict certain processing activities</li>
+                        <li>Withdraw consent where applicable</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">8. Changes to This Policy</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">We may update this Privacy Notice from time to time. We will notify you of any significant changes by posting the new policy on this page and updating the “Last Updated” date.</p>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">9. Contact Us</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">If you have any questions about this Privacy Notice, please contact us at our email address: <a href="mailto:support@toolimg.online" class="text-violet-600 dark:text-violet-400 font-medium hover:underline">support@toolimg.online</a></p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-950 mt-auto pt-16 pb-8 transition-colors border-t border-slate-100 dark:border-slate-800">
+        <div class="max-w-[85vw] mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="md:col-span-1">
+                    <a href="/" class="flex items-center gap-2 mb-4">
+                        <img src="https://toolimg.online/logo.jpg" alt="ToolIMG" class="logo-img h-8 object-contain" onerror="this.onerror=null; this.src='/logo.jpg';">
+                        <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
+                    </a>
+                    <p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed mb-4">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
+                    <a href="mailto:support@toolimg.online" class="text-violet-600 dark:text-violet-400 font-medium hover:underline text-[11px]">support@toolimg.online</a>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5">Products</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="/tools/image-to-code/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Image to Code AI</a></li>
+                        <li><a href="/tools/handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">English Handwriting OCR</a></li>
+                        <li><a href="/tools/hindi-handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition font-semibold text-violet-600 dark:text-violet-400">Hindi Handwriting OCR</a></li>
+                        <li><a href="/tools/html-to-image/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">HTML to Image</a></li>
+                        <li><a href="/tools/gemini-image-to-prompt/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Gemini Image to Prompt</a></li>
+                        <li><a href="/tools/text-to-image-generator/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">AI Text to Image Generator</a></li>
+                        <li><a href="/tools/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">All Tools</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5">Company</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="https://toolimg.online/about.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">About Us</a></li>
+                        <li><a href="https://toolimg.online/contact.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Contact Us</a></li>
+                        <li><a href="/pricing/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5">Legal</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="https://toolimg.online/privacy-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="https://toolimg.online/terms.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="https://toolimg.online/refund-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Refund Policy</a></li>
+                        <li><a href="https://toolimg.online/disclaimer.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[11px] text-slate-500 dark:text-slate-400">© 2026 ToolIMG. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    function toggleTheme() {
+        if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        } else {
+            document.documentElement.classList.add('dark');
+            localStorage.theme = 'dark';
+        }
+    }
+    const themeBtns = [document.getElementById('theme-btn'), document.getElementById('theme-btn-desktop')];
+    themeBtns.forEach(btn => { if(btn) btn.addEventListener('click', toggleTheme); });
+
+    function toggleLangMenu(e) {
+        if (e) e.stopPropagation();
+        const p = document.getElementById('lang-popover');
+        if (p) p.classList.toggle('hidden');
+    }
+    document.addEventListener('click', () => {
+        const p = document.getElementById('lang-popover');
+        if (p && !p.classList.contains('hidden')) p.classList.add('hidden');
+    });
+    function switchLang(lang) {
+        if (lang === 'en') window.location.href = '/privacy-policy.html';
+        else window.location.href = '/' + lang + '/privacy-policy.html';
+    }
+    </script>
+</body>
+</html>

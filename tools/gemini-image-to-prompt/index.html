@@ -1,0 +1,3971 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<script>
+// Universal circular JSON safety polyfill to prevent platform logging and 3rd party crashes
+(function() {
+    const originalStringify = JSON.stringify;
+    JSON.stringify = function(value, replacer, space) {
+        const seen = new WeakSet();
+        try {
+            return originalStringify(value, function(key, val) {
+                if (typeof val === 'object' && val !== null) {
+                    if (val instanceof HTMLElement || val === window || val === document) {
+                        return '[DOM Element]';
+                    }
+                    if (seen.has(val)) {
+                        return '[Circular]';
+                    }
+                    seen.add(val);
+                }
+                if (replacer) {
+                    return replacer(key, val);
+                }
+                return val;
+            }, space);
+        } catch (err) {
+            return '{"error":"Circular structure handled"}';
+        }
+    };
+})();
+</script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3PK1RHDJ2S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-3PK1RHDJ2S');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="alternate" hreflang="en" href="https://toolimg.online/tools/gemini-image-to-prompt/" />
+    <link rel="alternate" hreflang="es" href="https://toolimg.online/es/tools/gemini-image-to-prompt/" />
+    <link rel="alternate" hreflang="fr" href="https://toolimg.online/fr/tools/gemini-image-to-prompt/" />
+    <link rel="alternate" hreflang="de" href="https://toolimg.online/de/tools/gemini-image-to-prompt/" />
+    <link rel="alternate" hreflang="ru" href="https://toolimg.online/ru/tools/gemini-image-to-prompt/" />
+    <link rel="alternate" hreflang="ar" href="https://toolimg.online/ar/tools/gemini-image-to-prompt/" />
+    <link rel="alternate" hreflang="x-default" href="https://toolimg.online/tools/gemini-image-to-prompt/" />
+    <title>Gemini Image to Prompt Generator AI - Reverse Engineer Prompts | ToolIMG</title>
+    <meta name="description" content="Convert images to highly descriptive prompts for Midjourney, Stable Diffusion, DALL-E, and Adobe Firefly. Reverse engineer styles, composition, and aesthetics with Gemini AI.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: "Poppins", sans-serif !important; }
+        body { font-family: "Poppins", sans-serif; background-color: #fafafa; }
+        .dark body { background-color: #0f172a; color: #f8fafc; }
+        @media (max-width: 768px) { html { font-size: 12px; } }
+        @media (min-width: 769px) { html { font-size: 16px; } }
+        /* Universal Modal/Popup Z-Index Fix */
+        #history-drawer, 
+        #low-credits-modal, 
+        #out-of-credits-modal,
+        #login-modal,
+        #signup-modal,
+        [id$="-modal"],
+        .fixed.inset-0.z-\[100\],
+        .fixed.inset-0.z-\[1000\] {
+            z-index: 99999 !important;
+        }
+        
+        #toolimg-toast, #translation-toast {
+            z-index: 999999 !important;
+        }
+    </style>
+
+    <!-- Tailwind CSS CDN -->
+    
+<style>
+/* TAILWIND INJECTED CSS */
+/*! tailwindcss v4.3.3 | MIT License | https://tailwindcss.com */
+@layer properties;
+@layer theme, base, components, utilities;
+@layer theme {
+  :root, :host {
+    --font-sans: "Poppins", sans-serif;
+    --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
+      "Courier New", monospace;
+    --color-orange-400: oklch(75% 0.183 55.934);
+    --color-amber-400: oklch(82.8% 0.189 84.429);
+    --color-emerald-50: oklch(97.9% 0.021 166.113);
+    --color-emerald-100: oklch(95% 0.052 163.051);
+    --color-emerald-300: oklch(84.5% 0.143 164.978);
+    --color-emerald-400: oklch(76.5% 0.177 163.223);
+    --color-emerald-500: oklch(69.6% 0.17 162.48);
+    --color-emerald-600: oklch(59.6% 0.145 163.225);
+    --color-emerald-700: oklch(50.8% 0.118 165.612);
+    --color-emerald-900: oklch(37.8% 0.077 168.94);
+    --color-emerald-950: oklch(26.2% 0.051 172.552);
+    --color-indigo-50: oklch(96.2% 0.018 272.314);
+    --color-indigo-100: oklch(93% 0.034 272.788);
+    --color-indigo-400: oklch(67.3% 0.182 276.935);
+    --color-indigo-500: oklch(58.5% 0.233 277.117);
+    --color-indigo-600: oklch(51.1% 0.262 276.966);
+    --color-indigo-900: oklch(35.9% 0.144 278.697);
+    --color-violet-50: #f5f3ff;
+    --color-violet-100: #ede9fe;
+    --color-violet-200: #ddd6fe;
+    --color-violet-300: #c4b5fd;
+    --color-violet-400: #a78bfa;
+    --color-violet-500: #8b5cf6;
+    --color-violet-600: #7c3aed;
+    --color-violet-700: #6d28d9;
+    --color-violet-800: #5b21b6;
+    --color-violet-900: #4c1d95;
+    --color-violet-950: oklch(28.3% 0.141 291.089);
+    --color-slate-50: oklch(98.4% 0.003 247.858);
+    --color-slate-100: oklch(96.8% 0.007 247.896);
+    --color-slate-200: oklch(92.9% 0.013 255.508);
+    --color-slate-300: oklch(86.9% 0.022 252.894);
+    --color-slate-400: oklch(70.4% 0.04 256.788);
+    --color-slate-500: oklch(55.4% 0.046 257.417);
+    --color-slate-600: oklch(44.6% 0.043 257.281);
+    --color-slate-700: oklch(37.2% 0.044 257.287);
+    --color-slate-800: oklch(27.9% 0.041 260.031);
+    --color-slate-900: oklch(20.8% 0.042 265.755);
+    --color-slate-950: oklch(12.9% 0.042 264.695);
+    --color-black: #000;
+    --color-white: #fff;
+    --spacing: 0.25rem;
+    --container-xs: 20rem;
+    --container-md: 28rem;
+    --container-xl: 36rem;
+    --container-2xl: 42rem;
+    --container-3xl: 48rem;
+    --container-4xl: 56rem;
+    --container-5xl: 64rem;
+    --container-6xl: 72rem;
+    --container-7xl: 80rem;
+    --text-xs: 0.75rem;
+    --text-xs--line-height: calc(1 / 0.75);
+    --text-sm: 0.875rem;
+    --text-sm--line-height: calc(1.25 / 0.875);
+    --text-base: 1rem;
+    --text-base--line-height: calc(1.5 / 1);
+    --text-lg: 1.125rem;
+    --text-lg--line-height: calc(1.75 / 1.125);
+    --text-xl: 1.25rem;
+    --text-xl--line-height: calc(1.75 / 1.25);
+    --text-2xl: 1.5rem;
+    --text-2xl--line-height: calc(2 / 1.5);
+    --text-3xl: 1.875rem;
+    --text-3xl--line-height: calc(2.25 / 1.875);
+    --text-4xl: 2.25rem;
+    --text-4xl--line-height: calc(2.5 / 2.25);
+    --text-5xl: 3rem;
+    --text-5xl--line-height: 1;
+    --text-6xl: 3.75rem;
+    --text-6xl--line-height: 1;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+    --tracking-tight: -0.025em;
+    --tracking-wide: 0.025em;
+    --tracking-wider: 0.05em;
+    --leading-tight: 1.25;
+    --leading-relaxed: 1.625;
+    --radius-md: 0.375rem;
+    --radius-lg: 0.5rem;
+    --radius-xl: 0.75rem;
+    --radius-2xl: 1rem;
+    --radius-3xl: 1.5rem;
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+    --animate-spin: spin 1s linear infinite;
+    --animate-ping: ping 1s cubic-bezier(0, 0, 0.2, 1) infinite;
+    --animate-pulse: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+    --animate-bounce: bounce 1s infinite;
+    --blur-sm: 8px;
+    --blur-md: 12px;
+    --blur-xl: 24px;
+    --blur-2xl: 40px;
+    --default-transition-duration: 150ms;
+    --default-transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    --default-font-family: var(--font-sans);
+    --default-mono-font-family: var(--font-mono);
+  }
+}
+@layer base {
+  *, ::after, ::before, ::backdrop, ::file-selector-button {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    border: none !important;
+  }
+  html, :host {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    tab-size: 4;
+    font-family: var(--default-font-family, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");
+    font-feature-settings: var(--default-font-feature-settings, normal);
+    font-variation-settings: var(--default-font-variation-settings, normal);
+    -webkit-tap-highlight-color: transparent;
+  }
+  hr {
+    height: 0;
+    color: inherit;
+    border-top-width: 1px;
+  }
+  abbr:where([title]) {
+    -webkit-text-decoration: underline dotted;
+    text-decoration: underline dotted;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+  a {
+    color: inherit;
+    -webkit-text-decoration: inherit;
+    text-decoration: inherit;
+  }
+  b, strong {
+    font-weight: bolder;
+  }
+  code, kbd, samp, pre {
+    font-family: var(--default-mono-font-family, ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace);
+    font-feature-settings: var(--default-mono-font-feature-settings, normal);
+    font-variation-settings: var(--default-mono-font-variation-settings, normal);
+    font-size: 1em;
+  }
+  small {
+    font-size: 80%;
+  }
+  sub, sup {
+    font-size: 75%;
+    line-height: 0;
+    position: relative;
+    vertical-align: baseline;
+  }
+  sub {
+    bottom: -0.25em;
+  }
+  sup {
+    top: -0.5em;
+  }
+  table {
+    text-indent: 0;
+    border: none !important;
+    border: none !important;
+  }
+  :-moz-focusring:where(:not(iframe)) {
+    outline: auto;
+  }
+  progress {
+    vertical-align: baseline;
+  }
+  summary {
+    display: list-item;
+  }
+  ol, ul, menu {
+    list-style: none;
+  }
+  img, svg, video, canvas, audio, iframe, embed, object {
+    display: block;
+    vertical-align: middle;
+  }
+  img, video {
+    max-width: 100%;
+    height: auto;
+  }
+  button, input, select, optgroup, textarea, ::file-selector-button {
+    font: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    border: none !important;
+    background-color: transparent;
+    opacity: 1;
+  }
+  :where(select:is([multiple], [size])) optgroup {
+    font-weight: bolder;
+  }
+  :where(select:is([multiple], [size])) optgroup option {
+    padding-inline-start: 20px;
+  }
+  ::file-selector-button {
+    margin-inline-end: 4px;
+  }
+  ::placeholder {
+    opacity: 1;
+  }
+  @supports (not (-webkit-appearance: -apple-pay-button))  or (contain-intrinsic-size: 1px) {
+    ::placeholder {
+      color: currentcolor;
+      @supports (color: color-mix(in lab, red, red)) {
+        color: color-mix(in oklab, currentcolor 50%, transparent);
+      }
+    }
+  }
+  textarea {
+    resize: vertical;
+  }
+  ::-webkit-search-decoration {
+    -webkit-appearance: none;
+  }
+  ::-webkit-date-and-time-value {
+    min-height: 1lh;
+    text-align: inherit;
+  }
+  ::-webkit-datetime-edit {
+    display: inline-flex;
+  }
+  ::-webkit-datetime-edit-fields-wrapper {
+    padding: 0;
+  }
+  ::-webkit-datetime-edit, ::-webkit-datetime-edit-year-field, ::-webkit-datetime-edit-month-field, ::-webkit-datetime-edit-day-field, ::-webkit-datetime-edit-hour-field, ::-webkit-datetime-edit-minute-field, ::-webkit-datetime-edit-second-field, ::-webkit-datetime-edit-millisecond-field, ::-webkit-datetime-edit-meridiem-field {
+    padding-block: 0;
+  }
+  ::-webkit-calendar-picker-indicator {
+    line-height: 1;
+  }
+  :-moz-ui-invalid {
+    box-shadow: none;
+  }
+  button, input:where([type="button"], [type="reset"], [type="submit"]), ::file-selector-button {
+    appearance: button;
+  }
+  ::-webkit-inner-spin-button, ::-webkit-outer-spin-button {
+    height: auto;
+  }
+  [hidden]:where(:not([hidden="until-found"])) {
+    display: none !important;
+  }
+}
+@layer utilities {
+  .absolute {
+    position: absolute;
+  }
+  .fixed {
+    position: fixed;
+  }
+  .relative {
+    position: relative;
+  }
+  .static {
+    position: static;
+  }
+  .sticky {
+    position: sticky;
+  }
+  .inset-0 {
+    inset: 0px;
+  }
+  .-top-4 {
+    top: calc(var(--spacing) * -4);
+  }
+  .-top-10 {
+    top: calc(var(--spacing) * -10);
+  }
+  .top-0 {
+    top: 0px;
+  }
+  .top-3 {
+    top: calc(var(--spacing) * 3);
+  }
+  .top-3\.5 {
+    top: calc(var(--spacing) * 3.5);
+  }
+  .top-4 {
+    top: calc(var(--spacing) * 4);
+  }
+  .-right-10 {
+    right: calc(var(--spacing) * -10);
+  }
+  .right-3 {
+    right: calc(var(--spacing) * 3);
+  }
+  .right-4 {
+    right: calc(var(--spacing) * 4);
+  }
+  .right-8 {
+    right: calc(var(--spacing) * 8);
+  }
+  .-bottom-20 {
+    bottom: calc(var(--spacing) * -20);
+  }
+  .bottom-\[100\%\] {
+    bottom: 100%;
+  }
+  .-left-20 {
+    left: calc(var(--spacing) * -20);
+  }
+  .left-0 {
+    left: 0px;
+  }
+  .left-1 {
+    left: var(--spacing);
+  }
+  .left-1\/2 {
+    left: calc(1 / 2 * 100%);
+  }
+  .left-4 {
+    left: calc(var(--spacing) * 4);
+  }
+  .-z-10 {
+    z-index: calc(10 * -1);
+  }
+  .z-10 {
+    z-index: 10;
+  }
+  .z-20 {
+    z-index: 20;
+  }
+  .z-40 {
+    z-index: 40;
+  }
+  .z-50 {
+    z-index: 50;
+  }
+  .mx-auto {
+    margin-inline: auto;
+  }
+  .my-2 {
+    margin-block: calc(var(--spacing) * 2);
+  }
+  .mt-1 {
+    margin-top: var(--spacing);
+  }
+  .mt-2 {
+    margin-top: calc(var(--spacing) * 2);
+  }
+  .mt-3 {
+    margin-top: calc(var(--spacing) * 3);
+  }
+  .mt-4 {
+    margin-top: calc(var(--spacing) * 4);
+  }
+  .mt-6 {
+    margin-top: calc(var(--spacing) * 6);
+  }
+  .mt-16 {
+    margin-top: calc(var(--spacing) * 16);
+  }
+  .mt-32 {
+    margin-top: calc(var(--spacing) * 32);
+  }
+  .mt-auto {
+    margin-top: auto;
+  }
+  .mb-1 {
+    margin-bottom: var(--spacing);
+  }
+  .mb-2 {
+    margin-bottom: calc(var(--spacing) * 2);
+  }
+  .mb-3 {
+    margin-bottom: calc(var(--spacing) * 3);
+  }
+  .mb-4 {
+    margin-bottom: calc(var(--spacing) * 4);
+  }
+  .mb-5 {
+    margin-bottom: calc(var(--spacing) * 5);
+  }
+  .mb-6 {
+    margin-bottom: calc(var(--spacing) * 6);
+  }
+  .mb-8 {
+    margin-bottom: calc(var(--spacing) * 8);
+  }
+  .mb-10 {
+    margin-bottom: calc(var(--spacing) * 10);
+  }
+  .mb-12 {
+    margin-bottom: calc(var(--spacing) * 12);
+  }
+  .mb-16 {
+    margin-bottom: calc(var(--spacing) * 16);
+  }
+  .ml-1 {
+    margin-left: var(--spacing);
+  }
+  .ml-2 {
+    margin-left: calc(var(--spacing) * 2);
+  }
+  .block {
+    display: block;
+  }
+  .contents {
+    display: contents;
+  }
+  .flex {
+    display: flex;
+  }
+  .grid {
+    display: grid;
+  }
+  .hidden {
+    display: none;
+  }
+  .inline {
+    display: inline;
+  }
+  .inline-block {
+    display: inline-block;
+  }
+  .inline-flex {
+    display: inline-flex;
+  }
+  .table {
+    display: table;
+  }
+  .h-0 {
+    height: 0px;
+  }
+  .h-0\.5 {
+    height: calc(var(--spacing) * 0.5);
+  }
+  .h-2 {
+    height: calc(var(--spacing) * 2);
+  }
+  .h-2\.5 {
+    height: calc(var(--spacing) * 2.5);
+  }
+  .h-3 {
+    height: calc(var(--spacing) * 3);
+  }
+  .h-3\.5 {
+    height: calc(var(--spacing) * 3.5);
+  }
+  .h-4 {
+    height: calc(var(--spacing) * 4);
+  }
+  .h-5 {
+    height: calc(var(--spacing) * 5);
+  }
+  .h-6 {
+    height: calc(var(--spacing) * 6);
+  }
+  .h-7 {
+    height: calc(var(--spacing) * 7);
+  }
+  .h-8 {
+    height: calc(var(--spacing) * 8);
+  }
+  .h-10 {
+    height: calc(var(--spacing) * 10);
+  }
+  .h-12 {
+    height: calc(var(--spacing) * 12);
+  }
+  .h-14 {
+    height: calc(var(--spacing) * 14);
+  }
+  .h-16 {
+    height: calc(var(--spacing) * 16);
+  }
+  .h-24 {
+    height: calc(var(--spacing) * 24);
+  }
+  .h-40 {
+    height: calc(var(--spacing) * 40);
+  }
+  .h-64 {
+    height: calc(var(--spacing) * 64);
+  }
+  .h-full {
+    height: 100%;
+  }
+  .h-px {
+    height: 1px;
+  }
+  .min-h-\[200px\] {
+    min-height: 200px;
+  }
+  .min-h-\[250px\] {
+    min-height: 250px;
+  }
+  .min-h-\[300px\] {
+    min-height: 300px;
+  }
+  .min-h-\[500px\] {
+    min-height: 500px;
+  }
+  .min-h-screen {
+    min-height: 100vh;
+  }
+  .w-2 {
+    width: calc(var(--spacing) * 2);
+  }
+  .w-3 {
+    width: calc(var(--spacing) * 3);
+  }
+  .w-3\.5 {
+    width: calc(var(--spacing) * 3.5);
+  }
+  .w-4 {
+    width: calc(var(--spacing) * 4);
+  }
+  .w-5 {
+    width: calc(var(--spacing) * 5);
+  }
+  .w-6 {
+    width: calc(var(--spacing) * 6);
+  }
+  .w-7 {
+    width: calc(var(--spacing) * 7);
+  }
+  .w-8 {
+    width: calc(var(--spacing) * 8);
+  }
+  .w-10 {
+    width: calc(var(--spacing) * 10);
+  }
+  .w-12 {
+    width: calc(var(--spacing) * 12);
+  }
+  .w-14 {
+    width: calc(var(--spacing) * 14);
+  }
+  .w-16 {
+    width: calc(var(--spacing) * 16);
+  }
+  .w-20 {
+    width: calc(var(--spacing) * 20);
+  }
+  .w-24 {
+    width: calc(var(--spacing) * 24);
+  }
+  .w-40 {
+    width: calc(var(--spacing) * 40);
+  }
+  .w-48 {
+    width: calc(var(--spacing) * 48);
+  }
+  .w-64 {
+    width: calc(var(--spacing) * 64);
+  }
+  .w-\[10\%\] {
+    width: 10%;
+  }
+  .w-full {
+    width: 100%;
+  }
+  .max-w-2xl {
+    max-width: var(--container-2xl);
+  }
+  .max-w-3xl {
+    max-width: var(--container-3xl);
+  }
+  .max-w-4xl {
+    max-width: var(--container-4xl);
+  }
+  .max-w-5xl {
+    max-width: var(--container-5xl);
+  }
+  .max-w-6xl {
+    max-width: var(--container-6xl);
+  }
+  .max-w-7xl {
+    max-width: var(--container-7xl);
+  }
+  .max-w-\[85vw\] {
+    max-width: 85vw;
+  }
+  .max-w-\[150px\] {
+    max-width: 150px;
+  }
+  .max-w-\[340px\] {
+    max-width: 340px;
+  }
+  .max-w-md {
+    max-width: var(--container-md);
+  }
+  .max-w-none {
+    max-width: none;
+  }
+  .max-w-xl {
+    max-width: var(--container-xl);
+  }
+  .max-w-xs {
+    max-width: var(--container-xs);
+  }
+  .flex-1 {
+    flex: 1;
+  }
+  .shrink-0 {
+    flex-shrink: 0;
+  }
+  .flex-grow {
+    flex-grow: 1;
+  }
+  .-translate-x-1 {
+    --tw-translate-x: calc(var(--spacing) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .-translate-x-1\/2 {
+    --tw-translate-x: calc(calc(1 / 2 * 100%) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .-translate-y-1 {
+    --tw-translate-y: calc(var(--spacing) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .-translate-y-1\/2 {
+    --tw-translate-y: calc(calc(1 / 2 * 100%) * -1);
+    translate: var(--tw-translate-x) var(--tw-translate-y);
+  }
+  .scale-75 {
+    --tw-scale-x: 75%;
+    --tw-scale-y: 75%;
+    --tw-scale-z: 75%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+  .scale-95 {
+    --tw-scale-x: 95%;
+    --tw-scale-y: 95%;
+    --tw-scale-z: 95%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+  .scale-100 {
+    --tw-scale-x: 100%;
+    --tw-scale-y: 100%;
+    --tw-scale-z: 100%;
+    scale: var(--tw-scale-x) var(--tw-scale-y);
+  }
+  .transform {
+    transform: var(--tw-rotate-x,) var(--tw-rotate-y,) var(--tw-rotate-z,) var(--tw-skew-x,) var(--tw-skew-y,);
+  }
+  .animate-bounce {
+    animation: var(--animate-bounce);
+  }
+  .animate-ping {
+    animation: var(--animate-ping);
+  }
+  .animate-pulse {
+    animation: var(--animate-pulse);
+  }
+  .animate-spin {
+    animation: var(--animate-spin);
+  }
+  .cursor-pointer {
+    cursor: pointer;
+  }
+  .list-inside {
+    list-style-position: inside;
+  }
+  .list-disc {
+    list-style-type: disc;
+  }
+  .grid-cols-1 {
+    grid-template-columns: repeat(1, minmax(0, 1fr));
+  }
+  .flex-col {
+    flex-direction: column;
+  }
+  .flex-wrap {
+    flex-wrap: wrap;
+  }
+  .items-center {
+    align-items: center;
+  }
+  .items-start {
+    align-items: flex-start;
+  }
+  .justify-between {
+    justify-content: space-between;
+  }
+  .justify-center {
+    justify-content: center;
+  }
+  .gap-1 {
+    gap: var(--spacing);
+  }
+  .gap-2 {
+    gap: calc(var(--spacing) * 2);
+  }
+  .gap-2\.5 {
+    gap: calc(var(--spacing) * 2.5);
+  }
+  .gap-3 {
+    gap: calc(var(--spacing) * 3);
+  }
+  .gap-4 {
+    gap: calc(var(--spacing) * 4);
+  }
+  .gap-6 {
+    gap: calc(var(--spacing) * 6);
+  }
+  .gap-8 {
+    gap: calc(var(--spacing) * 8);
+  }
+  .gap-10 {
+    gap: calc(var(--spacing) * 10);
+  }
+  :where(.space-y-1 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(var(--spacing) * var(--tw-space-y-reverse));
+    margin-block-end: calc(var(--spacing) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  :where(.space-y-2 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 2) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 2) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  :where(.space-y-2\.5 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 2.5) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 2.5) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  :where(.space-y-3 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 3) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 3) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  :where(.space-y-3\.5 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 3.5) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 3.5) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  :where(.space-y-4 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 4) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 4) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  :where(.space-y-6 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 6) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 6) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  :where(.space-y-8 > :not(:last-child)) {
+    --tw-space-y-reverse: 0;
+    margin-block-start: calc(calc(var(--spacing) * 8) * var(--tw-space-y-reverse));
+    margin-block-end: calc(calc(var(--spacing) * 8) * calc(1 - var(--tw-space-y-reverse)));
+  }
+  .truncate {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+  .overflow-auto {
+    overflow: auto;
+  }
+  .overflow-hidden {
+    overflow: hidden;
+  }
+  .overflow-visible {
+    overflow: visible;
+  }
+  .overflow-x-auto {
+    overflow-x: auto;
+  }
+  .rounded {
+    border: none !important;
+  }
+  .rounded-[4px] {
+    border: none !important;
+  }
+  .rounded-[4px] {
+    border: none !important;
+  }
+  .rounded-[4px] {
+    border: none !important;
+  }
+  .rounded-[4px] {
+    border: none !important;
+  }
+  .rounded-[4px] {
+    border: none !important;
+  }
+  .rounded-[4px] {
+    border: none !important;
+  }
+  .border {
+    border: none !important;
+    border: none !important;
+  }
+  .border-0 {
+    border: none !important;
+    border: none !important;
+  }
+  .border-2 {
+    border: none !important;
+    border: none !important;
+  }
+  .border-4 {
+    border: none !important;
+    border: none !important;
+  }
+  .border-t {
+    border-top-style: var(--tw-border-style);
+    border-top-width: 1px;
+  }
+  .border-b {
+    border-bottom-style: var(--tw-border-style);
+    border-bottom-width: 1px;
+  }
+  .border-dashed {
+    --tw-border: none !important;
+    border: none !important;
+  }
+  .border-emerald-100 {
+    border: none !important;
+  }
+  .border-emerald-100\/30 {
+    border: none !important;
+    @supports (color: color-mix(in lab, red, red)) {
+      border: none !important;
+    }
+  }
+  .border-emerald-100\/50 {
+    border: none !important;
+    @supports (color: color-mix(in lab, red, red)) {
+      border: none !important;
+    }
+  }
+  .border-slate-100 {
+    border: none !important;
+  }
+  .border-slate-200 {
+    border: none !important;
+  }
+  .border-slate-200\/50 {
+    border: none !important;
+    @supports (color: color-mix(in lab, red, red)) {
+      border: none !important;
+    }
+  }
+  .border-slate-300 {
+    border: none !important;
+  }
+  .border-transparent {
+    border: none !important;
+  }
+  .border-violet-100 {
+    border: none !important;
+  }
+  .border-violet-100\/30 {
+    border: none !important;
+    @supports (color: color-mix(in lab, red, red)) {
+      border: none !important;
+    }
+  }
+  .border-violet-100\/50 {
+    border: none !important;
+    @supports (color: color-mix(in lab, red, red)) {
+      border: none !important;
+    }
+  }
+  .border-violet-200 {
+    border: none !important;
+  }
+  .border-violet-500 {
+    border: none !important;
+  }
+  .border-white {
+    border: none !important;
+  }
+  .border-white\/10 {
+    border: none !important;
+    @supports (color: color-mix(in lab, red, red)) {
+      border: none !important;
+    }
+  }
+  .border-white\/20 {
+    border: none !important;
+    @supports (color: color-mix(in lab, red, red)) {
+      border: none !important;
+    }
+  }
+  .border-t-violet-600 {
+    border-top-color: var(--color-violet-600);
+  }
+  .bg-emerald-50 {
+    background-color: var(--color-emerald-50);
+  }
+  .bg-emerald-50\/50 {
+    background-color: color-mix(in srgb, oklch(97.9% 0.021 166.113) 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-emerald-50) 50%, transparent);
+    }
+  }
+  .bg-emerald-500 {
+    background-color: var(--color-emerald-500);
+  }
+  .bg-emerald-500\/25 {
+    background-color: color-mix(in srgb, oklch(69.6% 0.17 162.48) 25%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-emerald-500) 25%, transparent);
+    }
+  }
+  .bg-emerald-600 {
+    background-color: var(--color-emerald-600);
+  }
+  .bg-indigo-50 {
+    background-color: var(--color-indigo-50);
+  }
+  .bg-indigo-100 {
+    background-color: var(--color-indigo-100);
+  }
+  .bg-indigo-100\/50 {
+    background-color: color-mix(in srgb, oklch(93% 0.034 272.788) 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-indigo-100) 50%, transparent);
+    }
+  }
+  .bg-indigo-500 {
+    background-color: var(--color-indigo-500);
+  }
+  .bg-indigo-500\/20 {
+    background-color: color-mix(in srgb, oklch(58.5% 0.233 277.117) 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-indigo-500) 20%, transparent);
+    }
+  }
+  .bg-indigo-600 {
+    background-color: var(--color-indigo-600);
+  }
+  .bg-slate-50 {
+    background-color: var(--color-slate-50);
+  }
+  .bg-slate-50\/90 {
+    background-color: color-mix(in srgb, oklch(98.4% 0.003 247.858) 90%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-slate-50) 90%, transparent);
+    }
+  }
+  .bg-slate-100 {
+    background-color: var(--color-slate-100);
+  }
+  .bg-slate-200 {
+    background-color: var(--color-slate-200);
+  }
+  .bg-slate-500 {
+    background-color: var(--color-slate-500);
+  }
+  .bg-slate-500\/20 {
+    background-color: color-mix(in srgb, oklch(55.4% 0.046 257.417) 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-slate-500) 20%, transparent);
+    }
+  }
+  .bg-slate-900 {
+    background-color: var(--color-slate-900);
+  }
+  .bg-slate-900\/40 {
+    background-color: color-mix(in srgb, oklch(20.8% 0.042 265.755) 40%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-slate-900) 40%, transparent);
+    }
+  }
+  .bg-slate-900\/50 {
+    background-color: color-mix(in srgb, oklch(20.8% 0.042 265.755) 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-slate-900) 50%, transparent);
+    }
+  }
+  .bg-slate-900\/60 {
+    background-color: color-mix(in srgb, oklch(20.8% 0.042 265.755) 60%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-slate-900) 60%, transparent);
+    }
+  }
+  .bg-transparent {
+    background-color: transparent;
+  }
+  .bg-violet-50 {
+    background-color: var(--color-violet-50);
+  }
+  .bg-violet-50\/50 {
+    background-color: color-mix(in srgb, #f5f3ff 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-violet-50) 50%, transparent);
+    }
+  }
+  .bg-violet-100 {
+    background-color: var(--color-violet-100);
+  }
+  .bg-violet-100\/50 {
+    background-color: color-mix(in srgb, #ede9fe 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-violet-100) 50%, transparent);
+    }
+  }
+  .bg-violet-400 {
+    background-color: var(--color-violet-400);
+  }
+  .bg-violet-500 {
+    background-color: var(--color-violet-500);
+  }
+  .bg-violet-600 {
+    background-color: var(--color-violet-600);
+  }
+  .bg-white {
+    background-color: var(--color-white);
+  }
+  .bg-white\/10 {
+    background-color: color-mix(in srgb, #fff 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 10%, transparent);
+    }
+  }
+  .bg-white\/20 {
+    background-color: color-mix(in srgb, #fff 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 20%, transparent);
+    }
+  }
+  .bg-white\/60 {
+    background-color: color-mix(in srgb, #fff 60%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 60%, transparent);
+    }
+  }
+  .bg-white\/80 {
+    background-color: color-mix(in srgb, #fff 80%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 80%, transparent);
+    }
+  }
+  .bg-white\/95 {
+    background-color: color-mix(in srgb, #fff 95%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 95%, transparent);
+    }
+  }
+  .bg-gradient-to-r {
+    --tw-gradient-position: to right in oklab;
+    background-image: linear-gradient(var(--tw-gradient-stops));
+  }
+  .bg-\[radial-gradient\(ellipse_at_top\,_var\(--tw-gradient-stops\)\)\] {
+    background-image: radial-gradient(ellipse at top, var(--tw-gradient-stops));
+  }
+  .from-amber-400 {
+    --tw-gradient-from: var(--color-amber-400);
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .from-violet-100 {
+    --tw-gradient-from: var(--color-violet-100);
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .from-violet-100\/50 {
+    --tw-gradient-from: color-mix(in srgb, #ede9fe 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-gradient-from: color-mix(in oklab, var(--color-violet-100) 50%, transparent);
+    }
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .from-violet-600 {
+    --tw-gradient-from: var(--color-violet-600);
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .via-white {
+    --tw-gradient-via: var(--color-white);
+    --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-via-stops);
+  }
+  .to-indigo-600 {
+    --tw-gradient-to: var(--color-indigo-600);
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .to-orange-400 {
+    --tw-gradient-to: var(--color-orange-400);
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .to-white {
+    --tw-gradient-to: var(--color-white);
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .object-contain {
+    object-fit: contain;
+  }
+  .p-1 {
+    padding: var(--spacing);
+  }
+  .p-1\.5 {
+    padding: calc(var(--spacing) * 1.5);
+  }
+  .p-2 {
+    padding: calc(var(--spacing) * 2);
+  }
+  .p-3 {
+    padding: calc(var(--spacing) * 3);
+  }
+  .p-3\.5 {
+    padding: calc(var(--spacing) * 3.5);
+  }
+  .p-4 {
+    padding: calc(var(--spacing) * 4);
+  }
+  .p-5 {
+    padding: calc(var(--spacing) * 5);
+  }
+  .p-6 {
+    padding: calc(var(--spacing) * 6);
+  }
+  .p-8 {
+    padding: calc(var(--spacing) * 8);
+  }
+  .px-1 {
+    padding-inline: var(--spacing);
+  }
+  .px-2 {
+    padding-inline: calc(var(--spacing) * 2);
+  }
+  .px-2\.5 {
+    padding-inline: calc(var(--spacing) * 2.5);
+  }
+  .px-3 {
+    padding-inline: calc(var(--spacing) * 3);
+  }
+  .px-3\.5 {
+    padding-inline: calc(var(--spacing) * 3.5);
+  }
+  .px-4 {
+    padding-inline: calc(var(--spacing) * 4);
+  }
+  .px-6 {
+    padding-inline: calc(var(--spacing) * 6);
+  }
+  .px-8 {
+    padding-inline: calc(var(--spacing) * 8);
+  }
+  .py-0 {
+    padding-block: 0px;
+  }
+  .py-0\.5 {
+    padding-block: calc(var(--spacing) * 0.5);
+  }
+  .py-1 {
+    padding-block: var(--spacing);
+  }
+  .py-1\.5 {
+    padding-block: calc(var(--spacing) * 1.5);
+  }
+  .py-2 {
+    padding-block: calc(var(--spacing) * 2);
+  }
+  .py-2\.5 {
+    padding-block: calc(var(--spacing) * 2.5);
+  }
+  .py-3 {
+    padding-block: calc(var(--spacing) * 3);
+  }
+  .py-3\.5 {
+    padding-block: calc(var(--spacing) * 3.5);
+  }
+  .py-4 {
+    padding-block: calc(var(--spacing) * 4);
+  }
+  .py-5 {
+    padding-block: calc(var(--spacing) * 5);
+  }
+  .py-12 {
+    padding-block: calc(var(--spacing) * 12);
+  }
+  .py-16 {
+    padding-block: calc(var(--spacing) * 16);
+  }
+  .py-20 {
+    padding-block: calc(var(--spacing) * 20);
+  }
+  .pt-4 {
+    padding-top: calc(var(--spacing) * 4);
+  }
+  .pt-8 {
+    padding-top: calc(var(--spacing) * 8);
+  }
+  .pt-16 {
+    padding-top: calc(var(--spacing) * 16);
+  }
+  .pr-4 {
+    padding-right: calc(var(--spacing) * 4);
+  }
+  .pb-2 {
+    padding-bottom: calc(var(--spacing) * 2);
+  }
+  .pb-4 {
+    padding-bottom: calc(var(--spacing) * 4);
+  }
+  .pb-6 {
+    padding-bottom: calc(var(--spacing) * 6);
+  }
+  .pb-8 {
+    padding-bottom: calc(var(--spacing) * 8);
+  }
+  .pl-12 {
+    padding-left: calc(var(--spacing) * 12);
+  }
+  .text-center {
+    text-align: center;
+  }
+  .text-left {
+    text-align: left;
+  }
+  .text-right {
+    text-align: right;
+  }
+  .font-mono {
+    font-family: var(--font-mono);
+  }
+  .font-sans {
+    font-family: var(--font-sans);
+  }
+  .text-2xl {
+    font-size: var(--text-2xl);
+    line-height: var(--tw-leading, var(--text-2xl--line-height));
+  }
+  .text-3xl {
+    font-size: var(--text-3xl);
+    line-height: var(--tw-leading, var(--text-3xl--line-height));
+  }
+  .text-4xl {
+    font-size: var(--text-4xl);
+    line-height: var(--tw-leading, var(--text-4xl--line-height));
+  }
+  .text-base {
+    font-size: var(--text-base);
+    line-height: var(--tw-leading, var(--text-base--line-height));
+  }
+  .text-lg {
+    font-size: var(--text-lg);
+    line-height: var(--tw-leading, var(--text-lg--line-height));
+  }
+  .text-sm {
+    font-size: var(--text-sm);
+    line-height: var(--tw-leading, var(--text-sm--line-height));
+  }
+  .text-xl {
+    font-size: var(--text-xl);
+    line-height: var(--tw-leading, var(--text-xl--line-height));
+  }
+  .text-xs {
+    font-size: var(--text-xs);
+    line-height: var(--tw-leading, var(--text-xs--line-height));
+  }
+  .text-\[10px\] {
+    font-size: 10px;
+  }
+  .text-\[11px\] {
+    font-size: 11px;
+  }
+  .text-\[15px\] {
+    font-size: 15px;
+  }
+  .leading-relaxed {
+    --tw-leading: var(--leading-relaxed);
+    line-height: var(--leading-relaxed);
+  }
+  .leading-tight {
+    --tw-leading: var(--leading-tight);
+    line-height: var(--leading-tight);
+  }
+  .font-bold {
+    --tw-font-weight: var(--font-weight-bold);
+    font-weight: var(--font-weight-bold);
+  }
+  .font-extrabold {
+    --tw-font-weight: var(--font-weight-extrabold);
+    font-weight: var(--font-weight-extrabold);
+  }
+  .font-medium {
+    --tw-font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-medium);
+  }
+  .font-semibold {
+    --tw-font-weight: var(--font-weight-semibold);
+    font-weight: var(--font-weight-semibold);
+  }
+  .tracking-tight {
+    --tw-tracking: var(--tracking-tight);
+    letter-spacing: var(--tracking-tight);
+  }
+  .tracking-wide {
+    --tw-tracking: var(--tracking-wide);
+    letter-spacing: var(--tracking-wide);
+  }
+  .tracking-wider {
+    --tw-tracking: var(--tracking-wider);
+    letter-spacing: var(--tracking-wider);
+  }
+  .break-words {
+    overflow-wrap: break-word;
+  }
+  .whitespace-nowrap {
+    white-space: nowrap;
+  }
+  .whitespace-pre-wrap {
+    white-space: pre-wrap;
+  }
+  .text-emerald-300 {
+    color: var(--color-emerald-300);
+  }
+  .text-emerald-500 {
+    color: var(--color-emerald-500);
+  }
+  .text-emerald-600 {
+    color: var(--color-emerald-600);
+  }
+  .text-emerald-700 {
+    color: var(--color-emerald-700);
+  }
+  .text-indigo-600 {
+    color: var(--color-indigo-600);
+  }
+  .text-slate-200 {
+    color: var(--color-slate-200);
+  }
+  .text-slate-300 {
+    color: var(--color-slate-300);
+  }
+  .text-slate-400 {
+    color: var(--color-slate-400);
+  }
+  .text-slate-500 {
+    color: var(--color-slate-500);
+  }
+  .text-slate-600 {
+    color: var(--color-slate-600);
+  }
+  .text-slate-700 {
+    color: var(--color-slate-700);
+  }
+  .text-slate-800 {
+    color: var(--color-slate-800);
+  }
+  .text-slate-900 {
+    color: var(--color-slate-900);
+  }
+  .text-violet-200 {
+    color: var(--color-violet-200);
+  }
+  .text-violet-300 {
+    color: var(--color-violet-300);
+  }
+  .text-violet-600 {
+    color: var(--color-violet-600);
+  }
+  .text-violet-700 {
+    color: var(--color-violet-700);
+  }
+  .text-violet-900 {
+    color: var(--color-violet-900);
+  }
+  .text-white {
+    color: var(--color-white);
+  }
+  .text-white\/70 {
+    color: color-mix(in srgb, #fff 70%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      color: color-mix(in oklab, var(--color-white) 70%, transparent);
+    }
+  }
+  .text-white\/80 {
+    color: color-mix(in srgb, #fff 80%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      color: color-mix(in oklab, var(--color-white) 80%, transparent);
+    }
+  }
+  .uppercase {
+    text-transform: uppercase;
+  }
+  .opacity-0 {
+    opacity: 0%;
+  }
+  .opacity-50 {
+    opacity: 50%;
+  }
+  .opacity-75 {
+    opacity: 75%;
+  }
+  .opacity-100 {
+    opacity: 100%;
+  }
+  .shadow-2xl {
+    --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-\[0_0_8px_rgba\(139\,92\,246\,0\.5\)\] {
+    --tw-shadow: 0 0 8px var(--tw-shadow-color, rgba(139,92,246,0.5));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-\[0_0_8px_rgba\(139\,92\,246\,0\.8\)\] {
+    --tw-shadow: 0 0 8px var(--tw-shadow-color, rgba(139,92,246,0.8));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-inner {
+    --tw-shadow: inset 0 2px 4px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.05));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-lg {
+    --tw-shadow: 0 10px 15px -3px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 4px 6px -4px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-md {
+    --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 2px 4px -2px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-sm {
+    --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-xl {
+    --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .ring-1 {
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-violet-200 {
+    --tw-shadow-color: #ddd6fe;
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-shadow-color: color-mix(in oklab, var(--color-violet-200) var(--tw-shadow-alpha), transparent);
+    }
+  }
+  .shadow-violet-500 {
+    --tw-shadow-color: #8b5cf6;
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-shadow-color: color-mix(in oklab, var(--color-violet-500) var(--tw-shadow-alpha), transparent);
+    }
+  }
+  .shadow-violet-500\/10 {
+    --tw-shadow-color: color-mix(in srgb, #8b5cf6 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-violet-500) 10%, transparent) var(--tw-shadow-alpha), transparent);
+    }
+  }
+  .shadow-violet-500\/20 {
+    --tw-shadow-color: color-mix(in srgb, #8b5cf6 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-violet-500) 20%, transparent) var(--tw-shadow-alpha), transparent);
+    }
+  }
+  .ring-violet-200 {
+    --tw-ring-color: var(--color-violet-200);
+  }
+  .blur-2xl {
+    --tw-blur: blur(var(--blur-2xl));
+    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
+  }
+  .blur-xl {
+    --tw-blur: blur(var(--blur-xl));
+    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
+  }
+  .filter {
+    filter: var(--tw-blur,) var(--tw-brightness,) var(--tw-contrast,) var(--tw-grayscale,) var(--tw-hue-rotate,) var(--tw-invert,) var(--tw-saturate,) var(--tw-sepia,) var(--tw-drop-shadow,);
+  }
+  .backdrop-blur-md {
+    --tw-backdrop-blur: blur(var(--blur-md));
+    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+  }
+  .backdrop-blur-sm {
+    --tw-backdrop-blur: blur(var(--blur-sm));
+    -webkit-backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+    backdrop-filter: var(--tw-backdrop-blur,) var(--tw-backdrop-brightness,) var(--tw-backdrop-contrast,) var(--tw-backdrop-grayscale,) var(--tw-backdrop-hue-rotate,) var(--tw-backdrop-invert,) var(--tw-backdrop-opacity,) var(--tw-backdrop-saturate,) var(--tw-backdrop-sepia,);
+  }
+  .transition {
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to, opacity, box-shadow, transform, translate, scale, rotate, filter, -webkit-backdrop-filter, backdrop-filter, display, content-visibility, overlay, pointer-events;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .transition-all {
+    transition-property: all;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .transition-colors {
+    transition-property: color, background-color, border-color, outline-color, text-decoration-color, fill, stroke, --tw-gradient-from, --tw-gradient-via, --tw-gradient-to;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .transition-opacity {
+    transition-property: opacity;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .transition-transform {
+    transition-property: transform, translate, scale, rotate;
+    transition-timing-function: var(--tw-ease, var(--default-transition-timing-function));
+    transition-duration: var(--tw-duration, var(--default-transition-duration));
+  }
+  .duration-200 {
+    --tw-duration: 200ms;
+    transition-duration: 200ms;
+  }
+  .duration-300 {
+    --tw-duration: 300ms;
+    transition-duration: 300ms;
+  }
+  .duration-500 {
+    --tw-duration: 500ms;
+    transition-duration: 500ms;
+  }
+  .duration-10000 {
+    --tw-duration: 10000ms;
+    transition-duration: 10000ms;
+  }
+  .ease-out {
+    --tw-ease: var(--ease-out);
+    transition-timing-function: var(--ease-out);
+  }
+  .outline-none {
+    --tw-outline-style: none;
+    outline-style: none;
+  }
+  .ring-inset {
+    --tw-ring-inset: inset;
+  }
+  @media (hover: hover) {
+    .group-hover\:translate-x-1:is(:where(.group):hover *) {
+      --tw-translate-x: var(--spacing);
+      translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
+    .group-hover\:scale-110:is(:where(.group):hover *) {
+      --tw-scale-x: 110%;
+      --tw-scale-y: 110%;
+      --tw-scale-z: 110%;
+      scale: var(--tw-scale-x) var(--tw-scale-y);
+    }
+    .group-hover\:text-indigo-600:is(:where(.group):hover *) {
+      color: var(--color-indigo-600);
+    }
+    .group-hover\:text-violet-600:is(:where(.group):hover *) {
+      color: var(--color-violet-600);
+    }
+    .group-hover\:opacity-100:is(:where(.group):hover *) {
+      opacity: 100%;
+    }
+    .hover\:-translate-y-1:hover {
+      --tw-translate-y: calc(var(--spacing) * -1);
+      translate: var(--tw-translate-x) var(--tw-translate-y);
+    }
+    .hover\:border-slate-300:hover {
+      border: none !important;
+    }
+    .hover\:border-violet-500:hover {
+      border: none !important;
+    }
+    .hover\:bg-slate-50:hover {
+      background-color: var(--color-slate-50);
+    }
+    .hover\:bg-slate-100:hover {
+      background-color: var(--color-slate-100);
+    }
+    .hover\:bg-slate-200:hover {
+      background-color: var(--color-slate-200);
+    }
+    .hover\:bg-violet-50\/50:hover {
+      background-color: color-mix(in srgb, #f5f3ff 50%, transparent);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:bg-violet-50\/50:hover {
+        background-color: color-mix(in oklab, var(--color-violet-50) 50%, transparent);
+      }
+    }
+    .hover\:bg-violet-200\/80:hover {
+      background-color: color-mix(in srgb, #ddd6fe 80%, transparent);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:bg-violet-200\/80:hover {
+        background-color: color-mix(in oklab, var(--color-violet-200) 80%, transparent);
+      }
+    }
+    .hover\:bg-violet-700:hover {
+      background-color: var(--color-violet-700);
+    }
+    .hover\:bg-white\/20:hover {
+      background-color: color-mix(in srgb, #fff 20%, transparent);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:bg-white\/20:hover {
+        background-color: color-mix(in oklab, var(--color-white) 20%, transparent);
+      }
+    }
+    .hover\:text-black:hover {
+      color: var(--color-black);
+    }
+    .hover\:text-slate-600:hover {
+      color: var(--color-slate-600);
+    }
+    .hover\:text-slate-700:hover {
+      color: var(--color-slate-700);
+    }
+    .hover\:text-slate-900:hover {
+      color: var(--color-slate-900);
+    }
+    .hover\:text-violet-600:hover {
+      color: var(--color-violet-600);
+    }
+    .hover\:underline:hover {
+      text-decoration-line: underline;
+    }
+    .hover\:shadow-xl:hover {
+      --tw-shadow: 0 20px 25px -5px var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 8px 10px -6px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+    }
+    .hover\:shadow-violet-100:hover {
+      --tw-shadow-color: #ede9fe;
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:shadow-violet-100:hover {
+        --tw-shadow-color: color-mix(in oklab, var(--color-violet-100) var(--tw-shadow-alpha), transparent);
+      }
+    }
+    .hover\:shadow-violet-100\/50:hover {
+      --tw-shadow-color: color-mix(in srgb, #ede9fe 50%, transparent);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:shadow-violet-100\/50:hover {
+        --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-violet-100) 50%, transparent) var(--tw-shadow-alpha), transparent);
+      }
+    }
+  }
+  .focus\:border-violet-500:focus {
+    border: none !important;
+  }
+  .focus\:ring-1:focus {
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .focus\:ring-2:focus {
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .focus\:ring-violet-500:focus {
+    --tw-ring-color: var(--color-violet-500);
+  }
+  .focus\:outline-none:focus {
+    --tw-outline-style: none;
+    outline-style: none;
+  }
+  .disabled\:cursor-not-allowed:disabled {
+    cursor: not-allowed;
+  }
+  .disabled\:bg-slate-300:disabled {
+    background-color: var(--color-slate-300);
+  }
+  @media (width >= 40rem) {
+    .sm\:block {
+      display: block;
+    }
+    .sm\:w-auto {
+      width: auto;
+    }
+    .sm\:flex-row {
+      flex-direction: row;
+    }
+    .sm\:items-center {
+      align-items: center;
+    }
+    .sm\:px-6 {
+      padding-inline: calc(var(--spacing) * 6);
+    }
+  }
+  @media (width >= 48rem) {
+    .md\:col-span-1 {
+      grid-column: span 1 / span 1;
+    }
+    .md\:flex {
+      display: flex;
+    }
+    .md\:hidden {
+      display: none;
+    }
+    .md\:w-96 {
+      width: calc(var(--spacing) * 96);
+    }
+    .md\:w-auto {
+      width: auto;
+    }
+    .md\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .md\:grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .md\:grid-cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+    .md\:flex-row {
+      flex-direction: row;
+    }
+    .md\:items-center {
+      align-items: center;
+    }
+    .md\:items-end {
+      align-items: flex-end;
+    }
+    .md\:p-8 {
+      padding: calc(var(--spacing) * 8);
+    }
+    .md\:p-12 {
+      padding: calc(var(--spacing) * 12);
+    }
+    .md\:pb-0 {
+      padding-bottom: 0px;
+    }
+    .md\:text-left {
+      text-align: left;
+    }
+    .md\:text-3xl {
+      font-size: var(--text-3xl);
+      line-height: var(--tw-leading, var(--text-3xl--line-height));
+    }
+    .md\:text-5xl {
+      font-size: var(--text-5xl);
+      line-height: var(--tw-leading, var(--text-5xl--line-height));
+    }
+    .md\:text-6xl {
+      font-size: var(--text-6xl);
+      line-height: var(--tw-leading, var(--text-6xl--line-height));
+    }
+    .md\:text-lg {
+      font-size: var(--text-lg);
+      line-height: var(--tw-leading, var(--text-lg--line-height));
+    }
+    .md\:text-xl {
+      font-size: var(--text-xl);
+      line-height: var(--tw-leading, var(--text-xl--line-height));
+    }
+  }
+  @media (width >= 64rem) {
+    .lg\:col-span-2 {
+      grid-column: span 2 / span 2;
+    }
+    .lg\:col-span-5 {
+      grid-column: span 5 / span 5;
+    }
+    .lg\:col-span-7 {
+      grid-column: span 7 / span 7;
+    }
+    .lg\:grid-cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+    .lg\:grid-cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+    .lg\:grid-cols-12 {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+  }
+  .dark\:block:is(.dark *) {
+    display: block;
+  }
+  .dark\:hidden:is(.dark *) {
+    display: none;
+  }
+  .dark\:border-emerald-900\/20:is(.dark *) {
+    border: none !important;
+    @supports (color: color-mix(in lab, red, red)) {
+      border: none !important;
+    }
+  }
+  .dark\:border-slate-700:is(.dark *) {
+    border: none !important;
+  }
+  .dark\:border-slate-700\/50:is(.dark *) {
+    border: none !important;
+    @supports (color: color-mix(in lab, red, red)) {
+      border: none !important;
+    }
+  }
+  .dark\:border-slate-800:is(.dark *) {
+    border: none !important;
+  }
+  .dark\:border-slate-800\/50:is(.dark *) {
+    border: none !important;
+    @supports (color: color-mix(in lab, red, red)) {
+      border: none !important;
+    }
+  }
+  .dark\:border-violet-800\/50:is(.dark *) {
+    border: none !important;
+    @supports (color: color-mix(in lab, red, red)) {
+      border: none !important;
+    }
+  }
+  .dark\:border-violet-900\/20:is(.dark *) {
+    border: none !important;
+    @supports (color: color-mix(in lab, red, red)) {
+      border: none !important;
+    }
+  }
+  .dark\:border-violet-900\/30:is(.dark *) {
+    border: none !important;
+    @supports (color: color-mix(in lab, red, red)) {
+      border: none !important;
+    }
+  }
+  .dark\:bg-black\/60:is(.dark *) {
+    background-color: color-mix(in srgb, #000 60%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-black) 60%, transparent);
+    }
+  }
+  .dark\:bg-emerald-950\/10:is(.dark *) {
+    background-color: color-mix(in srgb, oklch(26.2% 0.051 172.552) 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-emerald-950) 10%, transparent);
+    }
+  }
+  .dark\:bg-emerald-950\/20:is(.dark *) {
+    background-color: color-mix(in srgb, oklch(26.2% 0.051 172.552) 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-emerald-950) 20%, transparent);
+    }
+  }
+  .dark\:bg-indigo-900\/30:is(.dark *) {
+    background-color: color-mix(in srgb, oklch(35.9% 0.144 278.697) 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-indigo-900) 30%, transparent);
+    }
+  }
+  .dark\:bg-indigo-900\/50:is(.dark *) {
+    background-color: color-mix(in srgb, oklch(35.9% 0.144 278.697) 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-indigo-900) 50%, transparent);
+    }
+  }
+  .dark\:bg-slate-800:is(.dark *) {
+    background-color: var(--color-slate-800);
+  }
+  .dark\:bg-slate-900:is(.dark *) {
+    background-color: var(--color-slate-900);
+  }
+  .dark\:bg-slate-900\/40:is(.dark *) {
+    background-color: color-mix(in srgb, oklch(20.8% 0.042 265.755) 40%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-slate-900) 40%, transparent);
+    }
+  }
+  .dark\:bg-slate-900\/80:is(.dark *) {
+    background-color: color-mix(in srgb, oklch(20.8% 0.042 265.755) 80%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-slate-900) 80%, transparent);
+    }
+  }
+  .dark\:bg-slate-900\/95:is(.dark *) {
+    background-color: color-mix(in srgb, oklch(20.8% 0.042 265.755) 95%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-slate-900) 95%, transparent);
+    }
+  }
+  .dark\:bg-slate-950:is(.dark *) {
+    background-color: var(--color-slate-950);
+  }
+  .dark\:bg-violet-400:is(.dark *) {
+    background-color: var(--color-violet-400);
+  }
+  .dark\:bg-violet-500:is(.dark *) {
+    background-color: var(--color-violet-500);
+  }
+  .dark\:bg-violet-900\/20:is(.dark *) {
+    background-color: color-mix(in srgb, #4c1d95 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-violet-900) 20%, transparent);
+    }
+  }
+  .dark\:bg-violet-900\/30:is(.dark *) {
+    background-color: color-mix(in srgb, #4c1d95 30%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-violet-900) 30%, transparent);
+    }
+  }
+  .dark\:bg-violet-900\/40:is(.dark *) {
+    background-color: color-mix(in srgb, #4c1d95 40%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-violet-900) 40%, transparent);
+    }
+  }
+  .dark\:bg-violet-900\/50:is(.dark *) {
+    background-color: color-mix(in srgb, #4c1d95 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-violet-900) 50%, transparent);
+    }
+  }
+  .dark\:bg-violet-950\/20:is(.dark *) {
+    background-color: color-mix(in srgb, oklch(28.3% 0.141 291.089) 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-violet-950) 20%, transparent);
+    }
+  }
+  .dark\:bg-violet-950\/40:is(.dark *) {
+    background-color: color-mix(in srgb, oklch(28.3% 0.141 291.089) 40%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-violet-950) 40%, transparent);
+    }
+  }
+  .dark\:from-violet-900\/20:is(.dark *) {
+    --tw-gradient-from: color-mix(in srgb, #4c1d95 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-gradient-from: color-mix(in oklab, var(--color-violet-900) 20%, transparent);
+    }
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .dark\:via-slate-950:is(.dark *) {
+    --tw-gradient-via: var(--color-slate-950);
+    --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
+    --tw-gradient-stops: var(--tw-gradient-via-stops);
+  }
+  .dark\:to-slate-950:is(.dark *) {
+    --tw-gradient-to: var(--color-slate-950);
+    --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
+  }
+  .dark\:text-emerald-300:is(.dark *) {
+    color: var(--color-emerald-300);
+  }
+  .dark\:text-emerald-400:is(.dark *) {
+    color: var(--color-emerald-400);
+  }
+  .dark\:text-indigo-400:is(.dark *) {
+    color: var(--color-indigo-400);
+  }
+  .dark\:text-slate-100:is(.dark *) {
+    color: var(--color-slate-100);
+  }
+  .dark\:text-slate-200:is(.dark *) {
+    color: var(--color-slate-200);
+  }
+  .dark\:text-slate-300:is(.dark *) {
+    color: var(--color-slate-300);
+  }
+  .dark\:text-slate-400:is(.dark *) {
+    color: var(--color-slate-400);
+  }
+  .dark\:text-slate-500:is(.dark *) {
+    color: var(--color-slate-500);
+  }
+  .dark\:text-slate-600:is(.dark *) {
+    color: var(--color-slate-600);
+  }
+  .dark\:text-violet-300:is(.dark *) {
+    color: var(--color-violet-300);
+  }
+  .dark\:text-violet-400:is(.dark *) {
+    color: var(--color-violet-400);
+  }
+  .dark\:text-white:is(.dark *) {
+    color: var(--color-white);
+  }
+  .dark\:shadow-violet-900\/20:is(.dark *) {
+    --tw-shadow-color: color-mix(in srgb, #4c1d95 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-violet-900) 20%, transparent) var(--tw-shadow-alpha), transparent);
+    }
+  }
+  .dark\:ring-violet-800\/50:is(.dark *) {
+    --tw-ring-color: color-mix(in srgb, #5b21b6 50%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      --tw-ring-color: color-mix(in oklab, var(--color-violet-800) 50%, transparent);
+    }
+  }
+  @media (hover: hover) {
+    .dark\:group-hover\:text-indigo-400:is(.dark *):is(:where(.group):hover *) {
+      color: var(--color-indigo-400);
+    }
+    .dark\:group-hover\:text-violet-400:is(.dark *):is(:where(.group):hover *) {
+      color: var(--color-violet-400);
+    }
+    .dark\:hover\:border-slate-600:is(.dark *):hover {
+      border: none !important;
+    }
+    .dark\:hover\:border-violet-500:is(.dark *):hover {
+      border: none !important;
+    }
+    .dark\:hover\:bg-slate-700:is(.dark *):hover {
+      background-color: var(--color-slate-700);
+    }
+    .dark\:hover\:bg-slate-800:is(.dark *):hover {
+      background-color: var(--color-slate-800);
+    }
+    .dark\:hover\:bg-violet-900\/10:is(.dark *):hover {
+      background-color: color-mix(in srgb, #4c1d95 10%, transparent);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .dark\:hover\:bg-violet-900\/10:is(.dark *):hover {
+        background-color: color-mix(in oklab, var(--color-violet-900) 10%, transparent);
+      }
+    }
+    .dark\:hover\:bg-violet-950:is(.dark *):hover {
+      background-color: var(--color-violet-950);
+    }
+    .dark\:hover\:text-slate-300:is(.dark *):hover {
+      color: var(--color-slate-300);
+    }
+    .dark\:hover\:text-white:is(.dark *):hover {
+      color: var(--color-white);
+    }
+    .dark\:hover\:shadow-violet-900\/20:is(.dark *):hover {
+      --tw-shadow-color: color-mix(in srgb, #4c1d95 20%, transparent);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .dark\:hover\:shadow-violet-900\/20:is(.dark *):hover {
+        --tw-shadow-color: color-mix(in oklab, color-mix(in oklab, var(--color-violet-900) 20%, transparent) var(--tw-shadow-alpha), transparent);
+      }
+    }
+  }
+}
+@property --tw-translate-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-translate-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-scale-x {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-y {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-scale-z {
+  syntax: "*";
+  inherits: false;
+  initial-value: 1;
+}
+@property --tw-rotate-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-rotate-z {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-x {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-skew-y {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-space-y-reverse {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0;
+}
+@property --tw-border-style {
+  syntax: "*";
+  inherits: false;
+  initial-value: solid;
+}
+@property --tw-gradient-position {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-from {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-via {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-to {
+  syntax: "<color>";
+  inherits: false;
+  initial-value: #0000;
+}
+@property --tw-gradient-stops {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-via-stops {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-gradient-from-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 0%;
+}
+@property --tw-gradient-via-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+@property --tw-gradient-to-position {
+  syntax: "<length-percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-leading {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-font-weight {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-tracking {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-inset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-inset-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-ring-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-inset-ring-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-inset-ring-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-ring-inset {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ring-offset-width {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0px;
+}
+@property --tw-ring-offset-color {
+  syntax: "*";
+  inherits: false;
+  initial-value: #fff;
+}
+@property --tw-ring-offset-shadow {
+  syntax: "*";
+  inherits: false;
+  initial-value: 0 0 #0000;
+}
+@property --tw-blur {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-brightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-contrast {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-grayscale {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-invert {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-opacity {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-saturate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-sepia {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow-color {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-drop-shadow-alpha {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 100%;
+}
+@property --tw-drop-shadow-size {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-blur {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-brightness {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-contrast {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-grayscale {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-hue-rotate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-invert {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-opacity {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-saturate {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-backdrop-sepia {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-duration {
+  syntax: "*";
+  inherits: false;
+}
+@property --tw-ease {
+  syntax: "*";
+  inherits: false;
+}
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes ping {
+  75%, 100% {
+    transform: scale(2);
+    opacity: 0;
+  }
+}
+@keyframes pulse {
+  50% {
+    opacity: 0.5;
+  }
+}
+@keyframes bounce {
+  0%, 100% {
+    transform: translateY(-25%);
+    animation-timing-function: cubic-bezier(0.8, 0, 1, 1);
+  }
+  50% {
+    transform: none;
+    animation-timing-function: cubic-bezier(0, 0, 0.2, 1);
+  }
+}
+@layer properties {
+  @supports ((-webkit-hyphens: none) and (not (margin-trim: inline))) or ((-moz-orient: inline) and (not (color:rgb(from red r g b)))) {
+    *, ::before, ::after, ::backdrop {
+      --tw-translate-x: 0;
+      --tw-translate-y: 0;
+      --tw-translate-z: 0;
+      --tw-scale-x: 1;
+      --tw-scale-y: 1;
+      --tw-scale-z: 1;
+      --tw-rotate-x: initial;
+      --tw-rotate-y: initial;
+      --tw-rotate-z: initial;
+      --tw-skew-x: initial;
+      --tw-skew-y: initial;
+      --tw-space-y-reverse: 0;
+      --tw-border: none !important;
+      --tw-gradient-position: initial;
+      --tw-gradient-from: #0000;
+      --tw-gradient-via: #0000;
+      --tw-gradient-to: #0000;
+      --tw-gradient-stops: initial;
+      --tw-gradient-via-stops: initial;
+      --tw-gradient-from-position: 0%;
+      --tw-gradient-via-position: 50%;
+      --tw-gradient-to-position: 100%;
+      --tw-leading: initial;
+      --tw-font-weight: initial;
+      --tw-tracking: initial;
+      --tw-shadow: 0 0 #0000;
+      --tw-shadow-color: initial;
+      --tw-shadow-alpha: 100%;
+      --tw-inset-shadow: 0 0 #0000;
+      --tw-inset-shadow-color: initial;
+      --tw-inset-shadow-alpha: 100%;
+      --tw-ring-color: initial;
+      --tw-ring-shadow: 0 0 #0000;
+      --tw-inset-ring-color: initial;
+      --tw-inset-ring-shadow: 0 0 #0000;
+      --tw-ring-inset: initial;
+      --tw-ring-offset-width: 0px;
+      --tw-ring-offset-color: #fff;
+      --tw-ring-offset-shadow: 0 0 #0000;
+      --tw-blur: initial;
+      --tw-brightness: initial;
+      --tw-contrast: initial;
+      --tw-grayscale: initial;
+      --tw-hue-rotate: initial;
+      --tw-invert: initial;
+      --tw-opacity: initial;
+      --tw-saturate: initial;
+      --tw-sepia: initial;
+      --tw-drop-shadow: initial;
+      --tw-drop-shadow-color: initial;
+      --tw-drop-shadow-alpha: 100%;
+      --tw-drop-shadow-size: initial;
+      --tw-backdrop-blur: initial;
+      --tw-backdrop-brightness: initial;
+      --tw-backdrop-contrast: initial;
+      --tw-backdrop-grayscale: initial;
+      --tw-backdrop-hue-rotate: initial;
+      --tw-backdrop-invert: initial;
+      --tw-backdrop-opacity: initial;
+      --tw-backdrop-saturate: initial;
+      --tw-backdrop-sepia: initial;
+      --tw-duration: initial;
+      --tw-ease: initial;
+    }
+  }
+}
+
+</style>
+
+    <style>
+        .dark .logo-img {
+            filter: brightness(0) invert(1) !important;
+        }
+    </style>
+
+    <style id="custom-radius-border-override">
+        *, ::before, ::after {
+            border: none !important;
+            border-width: 0px !important;
+        }
+        [class*="rounded"], button, input, select, textarea, img, .card, div[class*="rounded"] {
+            border-radius: 4px !important;
+        }
+        .dark .logo-img {
+            filter: brightness(0) invert(1) !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col transition-colors duration-300">
+
+    <!-- Header / Navbar -->
+    <header class="w-full max-w-[85vw] mx-auto px-4 sm:px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-md dark: sticky top-4 z-40 shadow-sm rounded-[4px]-[4px] mb-8 transition-colors">
+        <div class="flex items-center gap-2 w-full justify-between">
+            <a href="/" class="flex items-center gap-2" style="display: flex !important; align-items: center !important; gap: 8px !important; text-decoration: none !important;">
+                <img src="https://toolimg.online/logo.jpg" alt="ToolIMG" class="logo-img h-8 object-contain" height="32" style="height: 32px !important; width: auto !important; object-fit: contain !important; display: block !important;" onerror="this.onerror=null; this.src='/logo.jpg';">
+                <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
+            </a>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Home</a>
+                <a href="/tools/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Tools</a>
+                <a href="/dashboard/" id="dashboard-nav" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition hidden">Dashboard</a>
+                <a href="/pricing/" class="px-4 py-1.5 text-[15px] font-bold bg-white text-violet-600 hover: rounded-[4px]-[4px] shadow-sm transition">Pricing</a>
+                
+                <div class="relative">
+                    <button id="theme-btn-desktop" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
+                        <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20" style="width: 20px !important; height: 20px !important;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20" style="width: 20px !important; height: 20px !important;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+                </div>
+            </nav>
+            
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <button id="lang-menu-btn" type="button" onclick="toggleLangMenu(event)" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition flex items-center justify-center" aria-label="Select Language">
+                        <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" style="width: 20px !important; height: 20px !important;">
+                            <path d="M5 8l6 6"></path>
+                            <path d="M4 14l6-6 2-3"></path>
+                            <path d="M2 5h12"></path>
+                            <path d="M7 2h1"></path>
+                            <path d="M22 22l-5-10-5 10"></path>
+                            <path d="M14 18h6"></path>
+                        </svg>
+                    </button>
+                    <div id="lang-popover" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] shadow-lg flex-col z-50 overflow-hidden">
+                        <div class="py-2">
+                            <button type="button" onclick="switchLang('en')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">English</button>
+                            <button type="button" onclick="switchLang('es')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Español</button>
+                            <button type="button" onclick="switchLang('fr')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Français</button>
+                            <button type="button" onclick="switchLang('de')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Deutsch</button>
+                            <button type="button" onclick="switchLang('ru')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Русский</button>
+                            <button type="button" onclick="switchLang('ar')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">العربية</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="credits-display" class="hidden items-center gap-[2px] bg-violet-100/50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-[11px] sm:text-xs font-bold px-2.5 py-1.5 rounded-[4px]-[4px] dark: cursor-pointer hover:bg-violet-200/80 dark:hover:bg-violet-950 transition">
+                    <svg class="w-3.5 h-3.5 text-violet-600 dark:text-violet-400 shrink-0" fill="currentColor" viewBox="0 0 24 24" style="width: 14px; height: 14px; display: block;"><path d="M6 3h12l4 6-10 13L2 9z"/></svg>
+                    <span id="credits-count" class="leading-none mt-[0.5px]">0</span>
+                </div>
+                <button id="header-history-btn" type="button" onclick="if(window.openHistoryDrawer){window.openHistoryDrawer();}" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition flex items-center justify-center text-slate-600 dark:text-slate-300" aria-label="History" title="Conversion History">
+                    <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" style="width: 20px !important; height: 20px !important;">
+                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </button>
+
+                <!-- Auth Controls -->
+                <div id="header-auth-guest" class="hidden md:flex items-center gap-2">
+                    <button id="login-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition">Log in</button>
+                    <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-[4px]-[4px] transition shadow-sm">Sign up</button>
+                </div>
+            
+                <div id="user-menu" class="hidden relative items-center">
+                    <button id="user-avatar-btn" type="button" onclick="toggleUserDropdown(event)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-[4px]-[4px] overflow-hidden dark: shadow-sm transition-transform active:scale-95 bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center text-violet-600 dark:text-violet-400 focus:outline-none cursor-pointer" aria-label="User Menu">
+                        <img id="user-avatar" src="" alt="User" class="w-full h-full object-cover hidden" referrerpolicy="no-referrer" crossorigin="anonymous">
+                        <div id="user-fallback" class="flex items-center justify-center">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        </div>
+                    </button>
+                    <div id="user-dropdown" class="hidden absolute right-0 top-full mt-3.5 w-48 bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] shadow-2xl flex-col z-[100] overflow-hidden py-1.5 transition-all">
+                        <div class="px-4 py-2 dark:">
+                            <p id="user-name" class="text-xs font-bold text-slate-900 dark:text-white truncate"></p>
+                        </div>
+                        <a href="/dashboard/" class="flex items-center gap-2.5 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2-2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 00-1-1v-4a1 1 0 011-1h2a1 1 0 001 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                            <span>Dashboard</span>
+                        </a>
+                        <button type="button" onclick="if(window.openHistoryDrawer){window.openHistoryDrawer();}toggleUserDropdown();" class="w-full text-left flex items-center gap-2.5 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition cursor-pointer">
+                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>History</span>
+                        </button>
+                        <div class="h-px bg-slate-100 dark:bg-slate-800 my-1"></div>
+                        <button type="button" onclick="handleLogout();toggleUserDropdown();" class="w-full text-left flex items-center gap-2.5 px-4 py-2 text-sm text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition cursor-pointer">
+                            <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button id="theme-btn" class="md:hidden p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
+                    <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </button>
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition ml-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Modal -->
+    <div id="mobile-menu-modal" class="fixed inset-0 z-50 hidden flex-col items-center justify-center p-4">
+        <div id="mobile-menu-backdrop" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+        <div id="mobile-menu-content" class="relative w-full max-w-[340px] bg-white dark:bg-slate-900 rounded-[4px]-[4px] shadow-2xl overflow-visible transition-all scale-95 opacity-0 duration-200 ease-out">
+            <div class="flex items-center justify-between px-6 py-5 dark:">
+                <div class="flex items-center gap-3">
+                    <img src="https://toolimg.online/logo.jpg" alt="ToolIMG" class="logo-img h-6 object-contain" onerror="this.onerror=null; this.src='/logo.jpg';">
+                    <span class="font-bold text-lg text-slate-900 dark:text-white tracking-tight">ToolIMG</span>
+                </div>
+                <button id="mobile-menu-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1 rounded-[4px]-[4px] hover:bg-slate-50 dark:hover:bg-slate-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="px-3 py-3 flex flex-col gap-1">
+                <a href="/" class="px-4 py-3.5 text-[15px] font-medium text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 rounded-[4px]-[4px] transition flex items-center">Home</a>
+                <a href="/tools/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition flex items-center">Tools</a>
+                <a href="/dashboard/" id="mobile-dashboard-nav" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition flex items-center hidden">Dashboard</a>
+                <a href="/pricing/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition flex items-center">Pricing</a>
+                <button type="button" onclick="if(window.openHistoryDrawer){window.openHistoryDrawer();}if(window.closeMobileMenu){window.closeMobileMenu();}" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition flex items-center gap-2.5 w-full text-left">
+                    <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>History</span>
+                </button>
+                
+                <!-- Mobile Auth Section -->
+                <div id="mobile-auth-guest" class="flex flex-col gap-2 mt-2 px-3">
+                    <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-slate-700 dark:text-slate-300 dark: hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition">Log in</button>
+                    <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-[4px]-[4px] transition shadow-sm">Sign up</button>
+                </div>
+                <div id="mobile-auth-user" class="hidden flex-col gap-2 mt-2 px-3">
+                    <button onclick="handleLogout()" class="w-full py-2.5 text-center text-sm font-medium text-slate-500 hover:text-rose-500 dark: hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition">Logout</button>
+                </div>
+                
+                <!-- Divider -->
+                <div class="h-px bg-slate-100 dark:bg-slate-800 w-full my-2"></div>
+                <!-- Theme Toggle -->
+                <div class="px-3 py-2 relative">
+                    <button id="theme-menu-btn" class="w-full px-4 py-3.5 flex justify-between items-center text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition">
+                        <span>Theme</span>
+                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+                    
+                    <!-- Theme Dropdown Popover -->
+                    <div id="theme-popover" class="absolute bottom-[100%] right-3 mb-2 w-48 bg-white dark:bg-slate-900 rounded-[4px]-[4px] shadow-xl dark: p-2 hidden flex-col gap-1 z-50">
+                        <button onclick="setTheme('light')" id="theme-light-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-900 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                                Light
+                            </div>
+                            <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button onclick="setTheme('dark')" id="theme-dark-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                                Dark
+                            </div>
+                            <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button onclick="setTheme('system')" id="theme-system-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                System
+                            </div>
+                            <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Grid -->
+    <main class="flex-grow max-w-7xl mx-auto w-full px-6 sm:px-8 lg:px-12 py-8 sm:py-12 flex flex-col">
+        <div class="text-center mb-10">
+            <h1 class="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4 leading-tight">
+                Gemini Image to Prompt Generator AI
+            </h1>
+            <p class="text-lg text-slate-600 dark:text-slate-400 max-w-3xl mx-auto leading-relaxed">
+                Reverse engineer any photo, artwork, screenshot, or digital illustration into a pristine prompt for Midjourney, Stable Diffusion, DALL-E, or Firefly instantly.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 flex-grow">
+            <!-- Left Column: Image Dropzone and Settings -->
+            <div class="lg:col-span-5 flex flex-col gap-6">
+                <!-- Dropzone Card -->
+                <div class="bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-6 shadow-sm">
+                    <div class="flex items-center justify-between mb-4">
+                        <h2 class="text-lg font-bold text-slate-900 dark:text-white">1. Reference Image</h2>
+                        <button type="button" onclick="if(window.openHistoryDrawer){window.openHistoryDrawer();}" class="flex items-center gap-1.5 px-3 py-1.5 text-xs font-semibold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 hover:bg-violet-100 dark:hover:bg-violet-900/50 rounded-[4px]-[4px] transition cursor-pointer">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>History</span>
+                        </button>
+                    </div>
+                    <div id="upload-zone" onclick="document.getElementById('file-input').click()" 
+                         class="dark: hover: hover:bg-violet-50/50 dark:hover:bg-violet-900/10 rounded-[4px]-[4px] p-6 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[220px] relative overflow-hidden group">
+                        
+                        <input type="file" id="file-input" class="hidden" accept="image/png, image/jpeg, image/webp" onchange="handleFileSelect(event)">
+                        
+                        <div id="upload-placeholder" class="flex flex-col items-center">
+                            <div class="w-14 h-14 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-[4px]-[4px] flex items-center justify-center mb-3">
+                                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path></svg>
+                            </div>
+                            <h3 class="font-bold text-slate-800 dark:text-slate-200 mb-1">Click to Upload Image</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400">Drag & drop or paste JPG, PNG, WEBP</p>
+                        </div>
+                        <img id="image-preview" class="absolute inset-0 w-full h-full object-contain hidden" alt="Reference Preview" />
+                        <div id="image-overlay" class="absolute inset-0 bg-slate-900/50 opacity-0 group-hover:opacity-100 hidden flex items-center justify-center transition">
+                            <span class="bg-white text-slate-900 font-bold px-4 py-2 rounded-[4px]-[4px] text-sm shadow-sm">Change Image</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Settings Card -->
+                <div class="bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-6 shadow-sm">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-4">2. Options</h2>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-xs font-bold uppercase tracking-wider text-slate-600 dark:text-slate-400 mb-2">Adjustments / Extra Guidelines (Optional)</label>
+                            <textarea id="opt-prompt" rows="4" placeholder="e.g. Focus on neon accents, change aspect ratio to wide aspect..." class="w-full bg-slate-50 dark:bg-slate-950 dark: text-slate-900 dark:text-white rounded-[4px]-[4px] px-3.5 py-2.5 text-sm font-medium focus:outline-none focus: focus: focus:"></textarea>
+                        </div>
+                    </div>
+
+                    <button id="generate-btn" onclick="generatePrompt()" disabled class="mt-6 w-full py-3.5 rounded-[4px]-[4px] bg-violet-600 disabled:bg-slate-300 disabled:cursor-not-allowed hover:bg-violet-700 text-white font-bold text-base transition flex items-center justify-center gap-2 shadow-sm">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        Reverse Engineer Prompt
+                    </button>
+                </div>
+            </div>
+
+            <!-- Right Column: Interactive Tab Output Area -->
+            <div class="lg:col-span-7 bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] shadow-sm flex flex-col overflow-hidden">
+                <!-- Navigation Tabs -->
+                <div class="dark: bg-slate-50 dark:bg-slate-950 p-2 flex gap-2 shrink-0">
+                    <button id="tab-primary" onclick="switchTab('primary')" class="flex-1 py-2.5 text-sm font-bold rounded-[4px]-[4px] bg-white dark:bg-slate-900 shadow-sm text-slate-900 dark:text-white dark: transition">Image Prompt</button>
+                    <button id="tab-breakdown" onclick="switchTab('breakdown')" class="flex-1 py-2.5 text-sm font-bold rounded-[4px]-[4px] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition">Detailed Breakdown</button>
+                    <button id="tab-composition" onclick="switchTab('composition')" class="flex-1 py-2.5 text-sm font-bold rounded-[4px]-[4px] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition">Composition Analysis</button>
+                </div>
+
+                <!-- Result Main Frame -->
+                <div id="result-container" class="flex-grow p-5 md:p-6 relative min-h-[500px] flex flex-col justify-center">
+                    <!-- Empty State -->
+                    <div id="empty-state" class="flex flex-col items-center justify-center text-slate-400 dark:text-slate-500 py-16">
+                        <svg class="w-14 h-14 mb-3.5 opacity-40 text-violet-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        <p class="text-sm font-semibold mb-1">No reference image provided.</p>
+                        <p class="text-xs text-slate-400 dark:text-slate-500">Upload an image and click Reverse Engineer to extract prompt tags.</p>
+                    </div>
+
+                    <!-- Multi-Phase Loading Overlay -->
+                    <div id="loading-state" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm z-10 p-6 rounded-[4px]-[4px] transition-all duration-300">
+                        <div class="relative flex flex-col items-center mb-8">
+                            <div class="w-24 h-24 bg-violet-50 dark:bg-violet-950/40 rounded-[4px]-[4px] flex items-center justify-center shadow-inner relative overflow-hidden dark:">
+                                <div class="absolute inset-0 dark: rounded-[4px]-[4px] animate-spin duration-10000"></div>
+                                
+                                <!-- Stage 1 Icon -->
+                                <div id="anim-stage-1" class="absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-100 scale-100">
+                                    <div class="relative">
+                                        <div class="absolute -top-4 left-1/2 -translate-x-1/2 w-12 h-0.5 bg-violet-500 shadow-[0_0_8px_rgba(139,92,246,0.8)] animate-bounce"></div>
+                                        <svg class="w-10 h-10 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                
+                                <!-- Stage 2 Icon -->
+                                <div id="anim-stage-2" class="absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75">
+                                    <div class="relative">
+                                        <span class="absolute inline-flex h-full w-full rounded-[4px]-[4px] bg-violet-400 opacity-75 animate-ping"></span>
+                                        <svg class="w-10 h-10 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364.364l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                
+                                <!-- Stage 3 Icon -->
+                                <div id="anim-stage-3" class="absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75">
+                                    <svg class="w-10 h-10 text-emerald-500 dark:text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                </div>
+                            </div>
+                            <!-- Phase Badge -->
+                            <div id="loading-stage-badge" class="mt-3 px-2.5 py-0.5 text-xs font-semibold tracking-wide uppercase rounded-[4px]-[4px] bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300 animate-pulse">
+                                Phase 1/3
+                            </div>
+                        </div>
+
+                        <!-- Animated Status Text -->
+                        <h3 id="loading-status-title" class="text-lg font-bold text-slate-900 dark:text-white mb-1">Scanning Visual Elements...</h3>
+                        <p id="loading-status-desc" class="text-xs text-slate-500 dark:text-slate-400 mb-6">Extracting lighting layers, subjects, colors, and camera modifiers</p>
+                        
+                        <div class="w-full max-w-xs bg-slate-100 dark:bg-slate-800 rounded-[4px]-[4px] h-2 mb-8 overflow-hidden relative">
+                            <div id="horizontal-progress-bar" class="bg-violet-600 dark:bg-violet-500 h-full w-[10%] rounded-[4px]-[4px] transition-all duration-500 ease-out"></div>
+                        </div>
+                        
+                        <!-- Progress Cards -->
+                        <div class="w-full max-w-xs space-y-2.5">
+                            <div id="stage-1" class="flex items-center justify-between p-3 rounded-[4px]-[4px] bg-violet-50/50 dark:bg-violet-950/20 dark: text-sm font-medium text-violet-700 dark:text-violet-300 transition-all duration-300">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="stage-num w-5 h-5 rounded-[4px]-[4px] bg-violet-600 text-white flex items-center justify-center text-[10px] font-bold">1</span>
+                                    <span>Scanning Artistic Medium</span>
+                                </div>
+                                <div class="stage-status text-xs font-semibold">Active</div>
+                            </div>
+                            
+                            <div id="stage-2" class="flex items-center justify-between p-3 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-900/40 text-sm font-medium text-slate-400 dark:text-slate-600 transition-all duration-300">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="stage-num w-5 h-5 rounded-[4px]-[4px] bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 flex items-center justify-center text-[10px] font-bold">2</span>
+                                    <span>Reverse Engineering Composition</span>
+                                </div>
+                                <div class="stage-status text-xs font-semibold">Pending</div>
+                            </div>
+                            
+                            <div id="stage-3" class="flex items-center justify-between p-3 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-900/40 text-sm font-medium text-slate-400 dark:text-slate-600 transition-all duration-300">
+                                <div class="flex items-center gap-2.5">
+                                    <span class="stage-num w-5 h-5 rounded-[4px]-[4px] bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 flex items-center justify-center text-[10px] font-bold">3</span>
+                                    <span>Compiling Engine-specific Tags</span>
+                                </div>
+                                <div class="stage-status text-xs font-semibold">Pending</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Primary Prompt Tab Output -->
+                    <div id="view-primary" class="hidden flex-grow flex flex-col justify-between">
+                        <div class="relative bg-slate-50 dark:bg-slate-950 rounded-[4px]-[4px] p-6 dark: min-h-[220px] flex items-center justify-center">
+                            <button id="copy-primary-btn" onclick="copyPrimaryPrompt()" class="absolute top-4 right-4 bg-white dark:bg-slate-900 hover:bg-slate-100 dark:hover:bg-slate-800 dark: px-4 py-2 rounded-[4px]-[4px] text-xs font-bold transition flex items-center gap-1.5 shadow-sm">
+                                <svg class="w-4 h-4 text-violet-500" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"></path></svg>
+                                <span id="copy-prompt-text">Copy Prompt</span>
+                            </button>
+                            <p id="primary-prompt-output" class="text-base md:text-lg text-slate-800 dark:text-slate-100 leading-relaxed font-semibold italic text-center select-all max-w-xl"></p>
+                        </div>
+                        <div class="mt-6 flex gap-3">
+                            <button onclick="navigator.clipboard.writeText(document.getElementById('primary-prompt-output').textContent); showToast('Prompt copied to clipboard!', 'success');" class="flex-1 py-3 text-center bg-violet-600 hover:bg-violet-700 text-white text-sm font-bold rounded-[4px]-[4px] transition shadow-sm">Copy Prompt Code</button>
+                            <button onclick="resetTool()" class="px-5 py-3 text-center dark: hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 text-sm font-bold rounded-[4px]-[4px] transition">Clear Result</button>
+                        </div>
+                    </div>
+
+                    <!-- Detailed Breakdown Tab Output -->
+                    <div id="view-breakdown" class="hidden flex-grow flex flex-col p-2 overflow-auto">
+                        <div class="prose dark:prose-invert max-w-none text-left leading-relaxed text-sm md:text-base space-y-4" id="breakdown-output"></div>
+                    </div>
+
+                    <!-- Composition Analysis Tab Output -->
+                    <div id="view-composition" class="hidden flex-grow flex flex-col gap-6 p-2 text-left">
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Detected Prominent Colors</h4>
+                            <div id="prompt-colors" class="flex flex-wrap gap-3"></div>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div class="bg-slate-50 dark:bg-slate-950 dark: p-4.5 rounded-[4px]-[4px]">
+                                <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1.5">Artistic Medium / Style</h5>
+                                <p id="prompt-style" class="text-sm font-semibold text-slate-800 dark:text-slate-100"></p>
+                            </div>
+                            <div class="bg-slate-50 dark:bg-slate-950 dark: p-4.5 rounded-[4px]-[4px]">
+                                <h5 class="text-xs font-bold text-slate-400 uppercase tracking-wide mb-1.5">Framing Composition</h5>
+                                <p id="prompt-composition" class="text-sm font-semibold text-slate-800 dark:text-slate-100"></p>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="text-xs font-bold uppercase tracking-wider text-slate-500 dark:text-slate-400 mb-3">Extracted Subject Tags</h4>
+                            <ul id="prompt-tags" class="list-disc list-inside text-sm text-slate-700 dark:text-slate-300 space-y-1"></ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Section inside drawer -->
+        <div id="history-drawer" class="fixed top-0 right-0 h-full w-full max-w-md bg-white dark:bg-slate-900 dark: shadow-2xl z-[9999] p-6 transform translate-x-full transition-transform duration-300 flex flex-col hidden">
+            <div class="flex items-center justify-between mb-6 pb-4 dark: shrink-0">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    Conversion History
+                </h3>
+                <button onclick="closeHistoryDrawer()" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1 rounded-[4px]-[4px] hover:bg-slate-50 dark:hover:bg-slate-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div id="history-drawer-content" class="flex-grow overflow-y-auto pr-1 space-y-4">
+                <div id="tool-history-list" class="space-y-4"></div>
+            </div>
+            <div class="pt-4 dark: mt-4 shrink-0 flex gap-3">
+                <button onclick="window.ToolIMGHistory.clearAllHistory();" class="flex-1 py-2.5 text-center text-xs font-bold text-rose-500 hover:bg-rose-50 dark:hover:bg-rose-950/20 dark: rounded-[4px]-[4px] transition">Clear All</button>
+                <button onclick="closeHistoryDrawer()" class="flex-1 py-2.5 text-center text-xs font-bold text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 rounded-[4px]-[4px] transition">Close</button>
+            </div>
+        </div>
+
+        <!-- SEO Content & Educational Guides -->
+        <section class="mt-20 pt-12 dark:">
+            <!-- 1. Key Benefits -->
+            <div class="mb-16">
+                <h2 class="text-2xl md:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+                    Advanced AI-Powered <span class="text-violet-600 dark:text-violet-400">Reverse Prompt Engineering</span>
+                </h2>
+                <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-8">
+                    Our free online Gemini Image to Prompt Generator AI decodes any graphic, drawing, portrait, or landscape, and translates it into highly effective prompt strings tailored for the world's most powerful text-to-image generators. Keep your visual styles cohesive with precise vocabulary modifiers.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-6 shadow-sm">
+                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-[4px]-[4px] flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9.813 15.904L9 21l5-1.5L19 14l-4.187-1.904M9.813 15.904L4.812 14.1l-1.312-3.1L9 11l4.187 3M9.813 15.904l5.001-1.9M4.812 14.1L3.5 11l5.5 1M4.812 14.1L9 11M3.5 11l5.5 1m0 0L14 14.1"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Engine-Specific Formats</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Generate prompts designed with the specific syntax, aspect ratio flags, and weights needed for Midjourney, DALL-E, or Stable Diffusion.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-6 shadow-sm">
+                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-[4px]-[4px] flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Artistic Palette Decoding</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Automatically detect specific color palettes, Hex codes, camera configurations, and lighting setups embedded in the visual.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-6 shadow-sm">
+                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-[4px]-[4px] flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Adjust with Custom Input</h3>
+                        <p class="text-sm text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Fine-tune reverse-engineered parameters by adding manual instruction tweaks (e.g. "make it futuristic", "change to oil painting").
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2. Step by Step Guide -->
+            <div class="mb-16">
+                <h2 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-8">
+                    How to Convert Image to Prompt Code Free
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="flex flex-col items-start bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-5 shadow-sm">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-[4px]-[4px] flex items-center justify-center mb-4 text-sm">1</div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Upload Artwork</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Drag your reference picture directly into our responsive upload container.</p>
+                    </div>
+
+                    <div class="flex flex-col items-start bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-5 shadow-sm">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-[4px]-[4px] flex items-center justify-center mb-4 text-sm">2</div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Select Engine</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Choose your target image platform like Midjourney, DALL-E, or Stable Diffusion.</p>
+                    </div>
+
+                    <div class="flex flex-col items-start bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-5 shadow-sm">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-[4px]-[4px] flex items-center justify-center mb-4 text-sm">3</div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Add Adjustments</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Optionally add custom text guidelines to change or fine-tune generated style tags.</p>
+                    </div>
+
+                    <div class="flex flex-col items-start bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-5 shadow-sm">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-[4px]-[4px] flex items-center justify-center mb-4 text-sm">4</div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Copy Prompt</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Copy the structured prompts directly into Midjourney/DALL-E to reproduce aesthetics.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-950 dark: mt-auto pt-16 pb-8 transition-colors">
+        <div class="max-w-[85vw] mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="md:col-span-1">
+                    <a href="/" class="flex items-center gap-2 mb-4">
+                        <img src="https://toolimg.online/logo.jpg" alt="ToolIMG" class="logo-img h-8 object-contain" onerror="this.onerror=null; this.src='/logo.jpg';">
+                        <span class="font-bold text-sm md:text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
+                    </a>
+                    <p class="text-slate-500 dark:text-slate-400 text-[11px] md:text-[15px] leading-relaxed mb-4">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
+                    <a href="mailto:support@toolimg.online" class="text-violet-600 dark:text-violet-400 font-medium hover:underline text-[11px] md:text-[15px]">support@toolimg.online</a>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-[11px] md:text-base">Products</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="/tools/image-to-code/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Image to Code AI</a></li>
+                        <li><a href="/tools/handwriting-to-text/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">English Handwriting OCR</a></li>
+                        <li><a href="/tools/hindi-handwriting-to-text/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Hindi Handwriting OCR</a></li>
+                        <li><a href="/tools/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">All Tools</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-[11px] md:text-base">Company</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="https://toolimg.online/about.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">About Us</a></li>
+                        <li><a href="https://toolimg.online/contact.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Contact Us</a></li>
+                        <li><a href="/pricing/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-[11px] md:text-base">Legal</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="https://toolimg.online/privacy-policy.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="https://toolimg.online/terms.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="https://toolimg.online/refund-policy.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Refund Policy</a></li>
+                        <li><a href="https://toolimg.online/disclaimer.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 dark: flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[11px] md:text-[15px] text-slate-500 dark:text-slate-400">© 2026 ToolIMG. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Interactive Stats Popup Modal -->
+    <div id="stats-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
+        <div id="stats-modal-backdrop" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+        <div id="stats-modal-content" class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-[4px]-[4px] shadow-2xl p-6 dark: transition-all scale-95 opacity-0 duration-200 ease-out">
+            <div class="flex items-center justify-between mb-6 pb-4 dark:">
+                <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                    <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                    Credit Usage Stats
+                </h3>
+                <button id="stats-modal-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1.5 rounded-[4px]-[4px] hover:bg-slate-50 dark:hover:bg-slate-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            
+            <div class="space-y-6">
+                <div>
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Credits Balance</span>
+                        <span id="stats-remaining-balance" class="text-xs font-bold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 px-2.5 py-1 rounded-[4px]-[4px]">5 Credits</span>
+                    </div>
+                </div>
+                
+                <div class="pt-4 dark: flex justify-between text-xs text-slate-500 items-center">
+                    <span>Remaining Balance</span>
+                    <a href="/pricing/" class="px-3 py-1.5 bg-violet-600 hover:bg-violet-700 text-white text-[11px] font-bold rounded-[4px]-[4px] transition shadow-sm">Explore Plans</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Google Translate hidden container -->
+    <div id="google_translate_element" style="position: absolute; top: -100px; left: -100px; width: 1px; height: 1px; overflow: hidden; opacity: 0; pointer-events: none;"></div>
+    <style>
+    .skiptranslate, .goog-te-banner-frame, #goog-gt-tt, .goog-te-balloon-frame, .goog-te-menu-value, .goog-te-gadget, .goog-te-spinner-pos, .goog-te-spinner, #google_translate_element, iframe[class*="skiptranslate"], iframe.skiptranslate, iframe[src*="translate.google.com"], [class*="VIpgJd-"] {
+        display: none !important;
+        visibility: hidden !important;
+        opacity: 0 !important;
+    }
+    body { top: 0px !important; position: static !important; }
+    </style>
+    <script type="text/javascript">
+    window.googleTranslateElementInit = function() {
+        new google.translate.TranslateElement({ pageLanguage: 'en', includedLanguages: 'en,es,fr,de,ru,ar', autoDisplay: false }, 'google_translate_element');
+    };
+    </script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- Firebase SDK Imports -->
+    <script type="module">
+      import { initializeApp, getApps, getApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+      import { getAuth, signInWithPopup, signInWithRedirect, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { initializeFirestore, getFirestore, doc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+      // Dynamically fetch Firebase Configuration from backend route /api/config
+      let app, auth, db;
+      try {
+          const res = await fetch('/api/config');
+          const firebaseConfig = await res.json();
+          app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
+          auth = getAuth(app);
+          try {
+              db = initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId || 'default');
+          } catch (fErr) {
+              db = getFirestore(app);
+          }
+          window.auth = auth;
+          window.db = db;
+      } catch (e) {
+          console.error('Firebase initialization failed:', e);
+      }
+      
+      const provider = new GoogleAuthProvider();
+
+      window.handleLogin = async function() {
+          if (!auth) {
+              alert("Firebase Authentication is not configured or initialized on this domain.");
+              return;
+          }
+          try {
+              await signInWithPopup(auth, provider);
+          } catch (error) {
+              if (error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request') return;
+              try {
+                  await signInWithRedirect(auth, provider);
+              } catch (redirectError) {
+                  alert("Login failed: " + (redirectError.message || error.message));
+              }
+          }
+      };
+
+      window.handleLogout = async function() {
+          try {
+              await signOut(auth);
+          } catch (error) {
+              console.error("Logout failed", error);
+          }
+      };
+
+      if (!localStorage.getItem('guest_id')) {
+          localStorage.setItem('guest_id', 'guest_' + Math.random().toString(36).substring(2, 15));
+      }
+      if (localStorage.getItem('guest_credits') === null) {
+          localStorage.setItem('guest_credits', '5');
+      }
+
+      window.userCreditBalance = null;
+
+      window.getCurrentCredits = function() {
+          if (window.userCreditBalance !== null && !isNaN(window.userCreditBalance)) {
+              return Math.max(0, parseInt(window.userCreditBalance, 10));
+          }
+          const guestCredits = localStorage.getItem('guest_credits');
+          return Math.max(0, parseInt(guestCredits || '5', 10));
+      };
+
+      window.showLowCreditsModal = function() {
+          const modal = document.getElementById('low-credits-modal');
+          if (modal) modal.classList.remove('hidden');
+      };
+
+      window.closeLowCreditsModal = function() {
+          const modal = document.getElementById('low-credits-modal');
+          if (modal) modal.classList.add('hidden');
+      };
+
+      window.showOutOfCreditsModal = function() {
+          const modal = document.getElementById('out-of-credits-modal');
+          if (modal) modal.classList.remove('hidden');
+      };
+
+      window.closeOutOfCreditsModal = function() {
+          const modal = document.getElementById('out-of-credits-modal');
+          if (modal) modal.classList.add('hidden');
+      };
+
+      window.shareTool = function(platform) {
+          const url = encodeURIComponent(window.location.origin);
+          const text = encodeURIComponent("Check out ToolIMG - Free AI Image to Prompt Generator!");
+          
+          if (platform === 'whatsapp') {
+              window.open(`https://api.whatsapp.com/send?text=${text}%20${url}`, '_blank');
+          } else if (platform === 'telegram') {
+              window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
+          } else if (platform === 'facebook') {
+              window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+          } else if (platform === 'linkedin') {
+              window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank');
+          } else if (platform === 'instagram') {
+              navigator.clipboard.writeText(window.location.origin);
+          }
+
+          let current = parseInt(localStorage.getItem('guest_credits') || '5', 10);
+          current += 5;
+          localStorage.setItem('guest_credits', current.toString());
+          window.userCreditBalance = current;
+          if (typeof updateCreditsUI === 'function') {
+              updateCreditsUI(current, true);
+          }
+      };
+
+      window.consumeUserCredit = async function(toolName) {
+          if (!auth.currentUser) return;
+          const current = typeof window.getCurrentCredits === 'function' ? window.getCurrentCredits() : 1;
+          if (current <= 0) return; // Prevent driving credits into negative!
+          const toolField = 'creditsUsed_imageToPrompt';
+          const userDocRef = doc(db, 'users', auth.currentUser.uid);
+          try {
+              await updateDoc(userDocRef, {
+                  credits: increment(-1),
+                  [toolField]: increment(1)
+              });
+          } catch(e) {
+              console.error("Failed to consume credit", e.message || e);
+          }
+      };
+
+      function updateCreditsUI(credits, isGuest = false) {
+          window.userCreditBalance = Math.max(0, parseInt(credits || 0, 10));
+          const creditsDisplay = document.getElementById('credits-display');
+          const creditsCount = document.getElementById('credits-count');
+          if (creditsDisplay && creditsCount) {
+              creditsDisplay.classList.remove('hidden');
+              creditsDisplay.classList.add('flex');
+              creditsCount.textContent = credits;
+          }
+          const statsBalance = document.getElementById('stats-remaining-balance');
+          if (statsBalance) {
+              statsBalance.textContent = credits + ' Credits';
+          }
+      }
+
+      let unsubscribeCredits = null;
+
+      if (auth) {
+          onAuthStateChanged(auth, (user) => {
+              const headerAuthGuest = document.getElementById('header-auth-guest');
+              const userMenu = document.getElementById('user-menu');
+              const userName = document.getElementById('user-name');
+              const userAvatar = document.getElementById('user-avatar');
+              const userFallback = document.getElementById('user-fallback');
+              const headerHistoryBtn = document.getElementById('header-history-btn');
+              
+              const mobileAuthGuest = document.getElementById('mobile-auth-guest');
+              const mobileAuthUser = document.getElementById('mobile-auth-user');
+              const mobileUserName = document.getElementById('mobile-user-name');
+
+              const dashboardNav = document.getElementById('dashboard-nav');
+              const mobileDashboardNav = document.getElementById('mobile-dashboard-nav');
+
+              if (unsubscribeCredits) {
+                  unsubscribeCredits();
+                  unsubscribeCredits = null;
+              }
+              
+              if (user) {
+                  if (headerAuthGuest) {
+                      headerAuthGuest.classList.add('hidden');
+                  }
+                  if (userMenu) userMenu.style.display = 'flex';
+                  if (userName) userName.textContent = user.displayName || user.email.split('@')[0];
+                  if (headerHistoryBtn) headerHistoryBtn.classList.remove('hidden');
+
+                  if (userAvatar) {
+                      if (user.photoURL) {
+                          userAvatar.src = user.photoURL;
+                          userAvatar.classList.remove('hidden');
+                          if (userFallback) userFallback.classList.add('hidden');
+                      } else {
+                          userAvatar.classList.add('hidden');
+                          if (userFallback) userFallback.classList.remove('hidden');
+                      }
+                  }
+                  
+                  if (mobileAuthGuest) mobileAuthGuest.style.display = 'none';
+                  if (mobileAuthUser) mobileAuthUser.style.display = 'flex';
+                  if (mobileUserName) mobileUserName.textContent = user.displayName || user.email.split('@')[0];
+
+                  if (dashboardNav) dashboardNav.classList.remove('hidden');
+                  if (mobileDashboardNav) mobileDashboardNav.classList.remove('hidden');
+
+                  const userDocRef = doc(db, 'users', user.uid);
+                  unsubscribeCredits = onSnapshot(userDocRef, async (docSnap) => {
+                      if (!docSnap.exists()) {
+                          await setDoc(userDocRef, {
+                              email: user.email,
+                              displayName: user.displayName || '',
+                              credits: 5,
+                              createdAt: new Date().toISOString()
+                          });
+                          updateCreditsUI(5, false);
+                      } else {
+                          const data = docSnap.data();
+                          updateCreditsUI(data.credits || 0, false);
+                      }
+                  });
+              } else {
+                  if (headerAuthGuest) { headerAuthGuest.style.display = ''; headerAuthGuest.classList.add('hidden', 'md:flex'); }
+                  if (userMenu) userMenu.style.display = 'none';
+                  if (headerHistoryBtn) headerHistoryBtn.classList.remove('hidden');
+                  
+                  if (mobileAuthGuest) mobileAuthGuest.style.display = 'flex';
+                  if (mobileAuthUser) mobileAuthUser.style.display = 'none';
+
+                  if (dashboardNav) dashboardNav.classList.add('hidden');
+                  if (mobileDashboardNav) mobileDashboardNav.classList.add('hidden');
+
+                  let guestCredits = parseInt(localStorage.getItem('guest_credits') || '5', 10);
+                  updateCreditsUI(guestCredits, true);
+              }
+          });
+      }
+    </script>
+
+    <!-- General Application UI Script -->
+    <script>
+      let selectedEngine = 'midjourney';
+      let uploadedBase64 = null;
+      let uploadedMimeType = null;
+      let uploadedFileName = null;
+
+      function selectEngine(engine) {
+          selectedEngine = engine;
+          document.querySelectorAll('.engine-pill').forEach(btn => {
+              if (btn.getAttribute('data-engine') === engine) {
+                  btn.classList.add('border-violet-600', 'dark:border-violet-400', 'bg-violet-50/50', 'dark:bg-violet-950/30', 'ring-1', 'ring-violet-500');
+                  btn.classList.remove('border-transparent', 'bg-slate-50', 'dark:bg-slate-950');
+                  btn.querySelector('.engine-check').classList.remove('hidden');
+                  btn.querySelector('span').className = 'text-xs font-bold text-slate-900 dark:text-white';
+              } else {
+                  btn.classList.remove('border-violet-600', 'dark:border-violet-400', 'bg-violet-50/50', 'dark:bg-violet-950/30', 'ring-1', 'ring-violet-500');
+                  btn.classList.add('border-transparent', 'bg-slate-50', 'dark:bg-slate-950');
+                  btn.querySelector('.engine-check').classList.add('hidden');
+                  btn.querySelector('span').className = 'text-xs font-bold text-slate-600 dark:text-slate-400';
+              }
+          });
+      }
+
+      function handleFileSelect(e) {
+          const file = e.target.files[0];
+          if (!file) return;
+          processImageFile(file);
+      }
+
+      function processImageFile(file) {
+          uploadedFileName = file.name;
+          uploadedMimeType = file.type;
+          
+          const reader = new FileReader();
+          reader.onload = function(event) {
+              uploadedBase64 = event.target.result.split(',')[1];
+              const previewImg = document.getElementById('image-preview');
+              previewImg.src = event.target.result;
+              previewImg.classList.remove('hidden');
+              document.getElementById('upload-placeholder').classList.add('hidden');
+              document.getElementById('image-overlay').classList.remove('hidden');
+              document.getElementById('generate-btn').disabled = false;
+          };
+          reader.readAsDataURL(file);
+      }
+
+      // Drag and Drop implementation
+      document.addEventListener('DOMContentLoaded', () => {
+          const dropzone = document.getElementById('upload-zone');
+          if (dropzone) {
+              dropzone.addEventListener('dragover', (e) => {
+                  e.preventDefault();
+                  dropzone.classList.add('border-violet-500', 'bg-violet-50/50', 'dark:bg-violet-900/15');
+              });
+              dropzone.addEventListener('dragleave', () => {
+                  dropzone.classList.remove('border-violet-500', 'bg-violet-50/50', 'dark:bg-violet-900/15');
+              });
+              dropzone.addEventListener('drop', (e) => {
+                  e.preventDefault();
+                  dropzone.classList.remove('border-violet-500', 'bg-violet-50/50', 'dark:bg-violet-900/15');
+                  const file = e.dataTransfer.files[0];
+                  if (file && file.type.startsWith('image/')) {
+                      processImageFile(file);
+                  }
+              });
+          }
+          
+          // Theme toggling initialization
+          updateThemeUI(localStorage.theme || 'light');
+          updateThemeIcons();
+
+          const themeBtns = [document.getElementById('theme-btn'), document.getElementById('theme-btn-desktop')];
+          themeBtns.forEach(btn => {
+              if (btn) {
+                  btn.addEventListener('click', () => {
+                      if (document.documentElement.classList.contains('dark')) {
+                          setTheme('light');
+                      } else {
+                          setTheme('dark');
+                      }
+                  });
+              }
+          });
+          
+          const mobileThemeBtn = document.getElementById('theme-menu-btn');
+          const themePopover = document.getElementById('theme-popover');
+          if (mobileThemeBtn && themePopover) {
+              mobileThemeBtn.addEventListener('click', (e) => {
+                  e.stopPropagation();
+                  if (themePopover.classList.contains('hidden')) {
+                      themePopover.classList.remove('hidden');
+                      themePopover.classList.add('flex');
+                  } else {
+                      themePopover.classList.add('hidden');
+                      themePopover.classList.remove('flex');
+                  }
+              });
+              document.addEventListener('click', (e) => {
+                  if (!themePopover.contains(e.target) && !mobileThemeBtn.contains(e.target)) {
+                      themePopover.classList.add('hidden');
+                      themePopover.classList.remove('flex');
+                  }
+              });
+          }
+          
+          // Stats modal close setup
+          const statsModal = document.getElementById('stats-modal');
+          const statsClose = document.getElementById('stats-modal-close');
+          const creditsDisplay = document.getElementById('credits-display');
+          
+          if (creditsDisplay) {
+              creditsDisplay.addEventListener('click', () => {
+                  if (statsModal) statsModal.classList.remove('hidden');
+              });
+          }
+          if (statsClose) {
+              statsClose.addEventListener('click', () => {
+                  if (statsModal) statsModal.classList.add('hidden');
+              });
+          }
+
+          // Mobile Menu Modal Toggle Logic
+          const mobileBtn = document.getElementById('mobile-menu-btn');
+          const mobileCloseBtn = document.getElementById('mobile-menu-close');
+          const mobileModal = document.getElementById('mobile-menu-modal');
+          const mobileBackdrop = document.getElementById('mobile-menu-backdrop');
+          const mobileContent = document.getElementById('mobile-menu-content');
+          
+          function openMobileMenu() {
+              if (!mobileModal) return;
+              mobileModal.classList.remove('hidden');
+              mobileModal.classList.add('flex');
+              void mobileModal.offsetWidth; // trigger reflow
+              if (mobileBackdrop) {
+                  mobileBackdrop.classList.remove('opacity-0');
+                  mobileBackdrop.classList.add('opacity-100');
+              }
+              if (mobileContent) {
+                  mobileContent.classList.remove('scale-95', 'opacity-0');
+                  mobileContent.classList.add('scale-100', 'opacity-100');
+              }
+          }
+          
+          window.closeMobileMenu = function closeMobileMenu() {
+              if (!mobileModal) return;
+              if (mobileBackdrop) {
+                  mobileBackdrop.classList.remove('opacity-100');
+                  mobileBackdrop.classList.add('opacity-0');
+              }
+              if (mobileContent) {
+                  mobileContent.classList.remove('scale-100', 'opacity-100');
+                  mobileContent.classList.add('scale-95', 'opacity-0');
+              }
+              setTimeout(() => {
+                  mobileModal.classList.add('hidden');
+                  mobileModal.classList.remove('flex');
+              }, 200);
+          }
+          
+          if (mobileBtn) mobileBtn.addEventListener('click', openMobileMenu);
+          if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileMenu);
+          if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMobileMenu);
+      });
+
+      // Tab selector triggers
+      let activeTab = 'primary';
+      function switchTab(tabId) {
+          activeTab = tabId;
+          ['primary', 'breakdown', 'composition'].forEach(t => {
+              const btn = document.getElementById('tab-' + t);
+              const view = document.getElementById('view-' + t);
+              if (t === tabId) {
+                  if (btn) btn.className = 'flex-1 py-2.5 text-sm font-bold rounded-[4px] bg-white dark:bg-slate-900 shadow-sm text-slate-900 dark:text-white border border-slate-200 dark:border-slate-800 transition';
+                  if (view) view.classList.remove('hidden');
+              } else {
+                  if (btn) btn.className = 'flex-1 py-2.5 text-sm font-bold rounded-[4px] text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition';
+                  if (view) view.classList.add('hidden');
+              }
+          });
+      }
+
+      let stageInterval;
+      let progressInterval;
+      function startLoadingAnimation() {
+          if (stageInterval) clearInterval(stageInterval);
+          if (progressInterval) clearInterval(progressInterval);
+
+          const progressEl = document.getElementById('horizontal-progress-bar');
+          const badgeEl = document.getElementById('loading-stage-badge');
+          const titleEl = document.getElementById('loading-status-title');
+          const descEl = document.getElementById('loading-status-desc');
+          
+          const anim1 = document.getElementById('anim-stage-1');
+          const anim2 = document.getElementById('anim-stage-2');
+          const anim3 = document.getElementById('anim-stage-3');
+
+          const stage1 = document.getElementById('stage-1');
+          const stage2 = document.getElementById('stage-2');
+          const stage3 = document.getElementById('stage-3');
+
+          let currentProgress = 5;
+          if (progressEl) progressEl.style.width = '5%';
+
+          let maxAllowedProgress = 35;
+          progressInterval = setInterval(() => {
+              if (currentProgress < maxAllowedProgress) {
+                  currentProgress += (Math.random() * 3 + 1);
+                  if (progressEl) progressEl.style.width = currentProgress + '%';
+              }
+          }, 250);
+
+          const runStage = (stageNum) => {
+              if (stageNum === 1) {
+                  maxAllowedProgress = 35;
+                  if (badgeEl) badgeEl.innerText = "Phase 1/3";
+                  if (titleEl) titleEl.innerText = "Scanning Visual Elements...";
+                  if (descEl) descEl.innerText = "Extracting lighting layers, subjects, colors, and camera modifiers";
+                  if (anim1) anim1.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-100 scale-100';
+                  if (anim2) anim2.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75';
+                  if (anim3) anim3.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75';
+
+                  setStageState(stage1, 1, 'Active', 'violet');
+                  setStageState(stage2, 2, 'Pending', 'slate');
+                  setStageState(stage3, 3, 'Pending', 'slate');
+              } else if (stageNum === 2) {
+                  maxAllowedProgress = 70;
+                  if (badgeEl) badgeEl.innerText = "Phase 2/3";
+                  if (titleEl) titleEl.innerText = "Reverse Engineering Composition...";
+                  if (descEl) descEl.innerText = "Reconstructing framing, atmospheric mood, and depth of field parameters";
+                  if (anim1) anim1.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75';
+                  if (anim2) anim2.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-100 scale-100';
+                  if (anim3) anim3.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75';
+
+                  setStageState(stage1, 1, 'Completed', 'emerald');
+                  setStageState(stage2, 2, 'Active', 'violet');
+                  setStageState(stage3, 3, 'Pending', 'slate');
+              } else if (stageNum === 3) {
+                  maxAllowedProgress = 95;
+                  if (badgeEl) badgeEl.innerText = "Phase 3/3";
+                  if (titleEl) titleEl.innerText = "Compiling Engine-specific Tags...";
+                  if (descEl) descEl.innerText = "Formulating precise Midjourney/DALL-E prompt weights and triggers";
+                  if (anim1) anim1.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75';
+                  if (anim2) anim2.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75';
+                  if (anim3) anim3.className = 'absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-100 scale-100';
+
+                  setStageState(stage1, 1, 'Completed', 'emerald');
+                  setStageState(stage2, 2, 'Completed', 'emerald');
+                  setStageState(stage3, 3, 'Active', 'violet');
+              }
+          };
+
+          function setStageState(element, num, status, type) {
+              if (!element) return;
+              const numBadge = element.querySelector('.stage-num');
+              const statusLabel = element.querySelector('.stage-status');
+
+              if (type === 'violet') {
+                  element.className = 'flex items-center justify-between p-3 rounded-[4px] bg-violet-50/50 dark:bg-violet-950/20 border border-violet-100/50 dark:border-violet-900/20 text-sm font-medium text-violet-700 dark:text-violet-300 transition-all duration-300';
+                  if (numBadge) {
+                      numBadge.className = 'stage-num w-5 h-5 rounded-[4px] bg-violet-600 text-white flex items-center justify-center text-[10px] font-bold';
+                      numBadge.innerHTML = num;
+                  }
+              } else if (type === 'emerald') {
+                  element.className = 'flex items-center justify-between p-3 rounded-[4px] bg-emerald-50/50 dark:bg-emerald-950/20 border border-emerald-100/50 dark:border-emerald-900/20 text-sm font-medium text-emerald-700 dark:text-emerald-300 transition-all duration-300';
+                  if (numBadge) {
+                      numBadge.className = 'stage-num w-5 h-5 rounded-[4px] bg-emerald-600 text-white flex items-center justify-center text-[10px] font-bold';
+                      numBadge.innerHTML = '<svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>';
+                  }
+              } else {
+                  element.className = 'flex items-center justify-between p-3 rounded-[4px] bg-slate-50 dark:bg-slate-900/40 border border-transparent text-sm font-medium text-slate-400 dark:text-slate-600 transition-all duration-300';
+                  if (numBadge) {
+                      numBadge.className = 'stage-num w-5 h-5 rounded-[4px] bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 flex items-center justify-center text-[10px] font-bold';
+                      numBadge.innerHTML = num;
+                  }
+              }
+              if (statusLabel) statusLabel.innerText = status;
+          }
+
+          runStage(1);
+          let currentStage = 1;
+
+          stageInterval = setInterval(() => {
+              currentStage++;
+              if (currentStage <= 3) {
+                  runStage(currentStage);
+              } else {
+                  clearInterval(stageInterval);
+              }
+          }, 2000);
+
+          document.getElementById('loading-state').classList.remove('hidden');
+          document.getElementById('empty-state').classList.add('hidden');
+          document.getElementById('view-primary').classList.add('hidden');
+          document.getElementById('view-breakdown').classList.add('hidden');
+          document.getElementById('view-composition').classList.add('hidden');
+      }
+
+      function stopLoadingAnimation() {
+          if (stageInterval) clearInterval(stageInterval);
+          if (progressInterval) clearInterval(progressInterval);
+          
+          document.getElementById('loading-state').classList.add('hidden');
+      }
+
+      // Main Prompt extraction function
+      async function generatePrompt() {
+          if (!uploadedBase64) return;
+
+          // Consume client credit check
+          const credits = window.getCurrentCredits();
+          if (credits <= 0) {
+              window.showOutOfCreditsModal();
+              return;
+          }
+
+          startLoadingAnimation();
+
+          try {
+              const res = await fetch('/api/image-to-prompt', {
+                  method: 'POST',
+                  headers: {
+                      'Content-Type': 'application/json'
+                  },
+                  body: JSON.stringify({
+                      base64Data: uploadedBase64,
+                      fileName: uploadedFileName,
+                      mimeType: uploadedMimeType,
+                      promptType: selectedEngine,
+                      customPrompt: document.getElementById('opt-prompt').value
+                  })
+              });
+
+              if (!res.ok) {
+                  const errorData = await res.json();
+                  throw new Error(errorData.error || 'Server error occurred');
+              }
+
+              const data = await res.json();
+              stopLoadingAnimation();
+
+              // Consume credit locally or fire Firestore update
+              if (typeof window.consumeUserCredit === 'function') {
+                  await window.consumeUserCredit('image-to-code'); // reuses generic consumer to update Firestore
+              } else {
+                  let current = parseInt(localStorage.getItem('guest_credits') || '5', 10);
+                  localStorage.setItem('guest_credits', Math.max(0, current - 1).toString());
+                  window.userCreditBalance = Math.max(0, current - 1);
+                  updateCreditsUI(Math.max(0, current - 1), true);
+              }
+
+              // Display Results
+              document.getElementById('primary-prompt-output').textContent = data.frameworkCode || '';
+              
+              // Render Markdown Breakdown beautifully
+              const breakdownContent = document.getElementById('breakdown-output');
+              breakdownContent.innerHTML = '';
+              if (data.markdownSummary) {
+                  // Simple markdown formatter to list cards
+                  const formatted = data.markdownSummary
+                      .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+                      .replace(/### (.*?)\n/g, '<h4 class="text-sm font-bold text-slate-800 dark:text-slate-100 uppercase mt-4 mb-1">$1</h4>')
+                      .replace(/## (.*?)\n/g, '<h3 class="text-base font-bold text-violet-600 mt-5 mb-2">$1</h3>')
+                      .replace(/# (.*?)\n/g, '<h2 class="text-lg font-extrabold text-slate-900 dark:text-white mb-3">$1</h2>')
+                      .replace(/\n/g, '<br/>');
+                  breakdownContent.innerHTML = `<div class="bg-slate-50 dark:bg-slate-950 p-5 rounded-[4px]-[4px] dark:">${formatted}</div>`;
+              }
+
+              // Render Color Preview Boxes
+              const colorsGrid = document.getElementById('prompt-colors');
+              colorsGrid.innerHTML = '';
+              if (data.designAnalysis && data.designAnalysis.colors) {
+                  data.designAnalysis.colors.forEach(col => {
+                      const container = document.createElement('div');
+                      container.className = 'flex items-center gap-1.5 px-3 py-1.5 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-[4px] text-xs font-semibold text-slate-700 dark:text-slate-300 shadow-sm';
+                      const hex = col.startsWith('#') ? col : '#6366f1'; // fallback indicator
+                      container.innerHTML = `<span class="w-4 h-4 rounded-[4px]-[4px]" style="background-color: ${col}; border: none !important"></span><span>${col}</span>`;
+                      colorsGrid.appendChild(container);
+                  });
+              }
+
+              // Render composition details
+              document.getElementById('prompt-style').textContent = data.designAnalysis?.typography || 'Digital Painting';
+              document.getElementById('prompt-composition').textContent = data.designAnalysis?.layout || 'Cinematic, rule of thirds';
+              
+              // Render subject tags
+              const tagsList = document.getElementById('prompt-tags');
+              tagsList.innerHTML = '';
+              if (data.designAnalysis && data.designAnalysis.componentsIdentified) {
+                  data.designAnalysis.componentsIdentified.forEach(tag => {
+                      const li = document.createElement('li');
+                      li.className = 'text-sm font-medium text-slate-700 dark:text-slate-300';
+                      li.textContent = tag;
+                      tagsList.appendChild(li);
+                  });
+              }
+
+              // Save to centralized History manager
+              if (window.ToolIMGHistory && typeof window.ToolIMGHistory.saveHistoryItem === 'function') {
+                  const previewUrl = document.getElementById('image-preview').src;
+                  await window.ToolIMGHistory.saveHistoryItem({
+                      toolId: 'gemini-image-to-prompt',
+                      toolName: 'Gemini Image to Prompt',
+                      title: 'Prompt for ' + selectedEngine.toUpperCase(),
+                      content: data.frameworkCode,
+                      previewUrl: previewUrl,
+                      metadata: data.designAnalysis
+                  });
+              }
+
+              switchTab('primary');
+
+          } catch (e) {
+              stopLoadingAnimation();
+              showToast(e.message || 'Prompt extraction failed. Please try again.', 'error');
+              document.getElementById('empty-state').classList.remove('hidden');
+          }
+      }
+
+      function copyPrimaryPrompt() {
+          const txt = document.getElementById('primary-prompt-output').textContent;
+          if (!txt) return;
+          navigator.clipboard.writeText(txt);
+          const cBtn = document.getElementById('copy-prompt-text');
+          cBtn.innerText = "Copied!";
+          showToast("Prompt copied to clipboard!", "success");
+          setTimeout(() => {
+              cBtn.innerText = "Copy Prompt";
+          }, 2000);
+      }
+
+      function resetTool() {
+          document.getElementById('primary-prompt-output').textContent = '';
+          document.getElementById('opt-prompt').value = '';
+          uploadedBase64 = null;
+          uploadedMimeType = null;
+          uploadedFileName = null;
+          
+          document.getElementById('image-preview').classList.add('hidden');
+          document.getElementById('image-preview').src = '';
+          document.getElementById('upload-placeholder').classList.remove('hidden');
+          document.getElementById('image-overlay').classList.add('hidden');
+          document.getElementById('generate-btn').disabled = true;
+
+          document.getElementById('empty-state').classList.remove('hidden');
+          document.getElementById('view-primary').classList.add('hidden');
+          document.getElementById('view-breakdown').classList.add('hidden');
+          document.getElementById('view-composition').classList.add('hidden');
+      }
+
+      // History Drawer triggers
+      window.openHistoryDrawer = function() {
+          const drawer = document.getElementById('history-drawer');
+          if (drawer) {
+              drawer.classList.remove('hidden');
+              void drawer.offsetWidth;
+              drawer.classList.remove('translate-x-full');
+              if (typeof renderHistoryList === 'function') {
+                  renderHistoryList();
+              }
+          }
+      };
+
+      window.closeHistoryDrawer = function() {
+          const drawer = document.getElementById('history-drawer');
+          if (drawer) {
+              drawer.classList.add('translate-x-full');
+              setTimeout(() => drawer.classList.add('hidden'), 300);
+          }
+      };
+
+      async function renderHistoryList() {
+          const listEl = document.getElementById('tool-history-list');
+          if (!listEl) return;
+          listEl.innerHTML = `<div class="text-xs text-slate-400 py-12 text-center col-span-full">Loading history...</div>`;
+
+          try {
+              let items = [];
+              if (window.ToolIMGHistory && typeof window.ToolIMGHistory.fetchHistoryItems === 'function') {
+                  items = await window.ToolIMGHistory.fetchHistoryItems({ toolId: 'gemini-image-to-prompt' });
+              }
+              
+              if (items.length === 0) {
+                  listEl.innerHTML = `<div class="text-xs text-slate-400 py-12 text-center col-span-full">No conversion history yet. Reverse engineer some images to view items!</div>`;
+                  return;
+              }
+
+              listEl.innerHTML = items.map(item => `
+                  <div class="group relative bg-slate-50 dark:bg-slate-950 dark: rounded-[4px]-[4px] p-4 flex flex-col justify-between hover: transition shadow-sm">
+                      <div>
+                          ${item.previewUrl ? `<div class="w-full h-36 rounded-[4px]-[4px] overflow-hidden bg-slate-100 dark:bg-slate-900 mb-3 dark:"><img src="${item.previewUrl}" alt="Preview" class="w-full h-full object-cover"></div>` : ''}
+                          <div class="flex items-center justify-between mb-1">
+                              <span class="text-[10px] font-bold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/50 px-2 py-0.5 rounded-[4px]">${item.toolName}</span>
+                              <span class="text-[10px] text-slate-400">${new Date(item.timestamp).toLocaleDateString()}</span>
+                          </div>
+                          <h4 class="text-xs font-bold text-slate-900 dark:text-white line-clamp-1 mb-1">${item.title}</h4>
+                          <p class="text-[11px] text-slate-500 dark:text-slate-400 line-clamp-2 font-mono">${item.content}</p>
+                      </div>
+                      <div class="mt-4 pt-3 dark: flex items-center justify-between">
+                          <button onclick="navigator.clipboard.writeText(decodeURIComponent('${encodeURIComponent(item.content)}')); showToast('Prompt copied to clipboard!', 'success');" class="text-xs font-bold text-violet-600 hover:text-violet-700 transition">Copy Prompt</button>
+                          <button onclick="window.ToolIMGHistory.deleteHistoryItem('${item.id}'); renderHistoryList();" class="text-slate-400 hover:text-rose-500 transition p-1" title="Delete">
+                              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"></path></svg>
+                          </button>
+                      </div>
+                  </div>
+              `).join('');
+          } catch (e) {
+              console.error(e);
+              listEl.innerHTML = `<div class="text-xs text-rose-500 py-8 text-center col-span-full">Failed to load history items.</div>`;
+          }
+      }
+
+      window.addEventListener('historyUpdated', () => {
+          renderHistoryList();
+      });
+
+      // Language selection switcher helper
+      function switchLang(lang) {
+          localStorage.setItem('selected_lang', lang);
+          const parts = window.location.hostname.split('.');
+          const mainDomain = parts.length > 2 ? parts.slice(-2).join('.') : window.location.hostname;
+          
+          const clearCookie = (name, domain) => {
+              let str = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+              if (domain) str += " domain=" + domain + ";";
+              document.cookie = str;
+              document.cookie = str + " SameSite=None; Secure;";
+          };
+
+          clearCookie('googtrans');
+          clearCookie('googtrans', window.location.hostname);
+          clearCookie('googtrans', '.' + window.location.hostname);
+          clearCookie('googtrans', mainDomain);
+          clearCookie('googtrans', '.' + mainDomain);
+
+          if (lang !== 'en') {
+              const setCookie = (value, domain) => {
+                  let str = "googtrans=" + value + "; path=/; SameSite=None; Secure;";
+                  if (domain) str += " domain=" + domain + ";";
+                  document.cookie = str;
+              };
+              setCookie('/en/' + lang);
+              setCookie('/en/' + lang, window.location.hostname);
+              setCookie('/en/' + lang, '.' + window.location.hostname);
+              setCookie('/en/' + lang, mainDomain);
+              setCookie('/en/' + lang, '.' + mainDomain);
+          }
+
+          const select = document.querySelector('#google_translate_element select') || document.querySelector('.goog-te-combo');
+          if (select) {
+              select.value = lang;
+              select.dispatchEvent(new Event('change'));
+          }
+          window.location.reload();
+      }
+
+      function toggleLangMenu(e) {
+          if (e) e.stopPropagation();
+          const popover = document.getElementById('lang-popover');
+          popover.classList.toggle('hidden');
+      }
+
+      document.addEventListener('click', (e) => {
+          const popover = document.getElementById('lang-popover');
+          const btn = document.getElementById('lang-menu-btn');
+          if (popover && btn && !popover.contains(e.target) && !btn.contains(e.target)) {
+              popover.classList.add('hidden');
+          }
+          
+          const uDropdown = document.getElementById('user-dropdown');
+          const uBtn = document.getElementById('user-avatar-btn');
+          if (uDropdown && uBtn && !uDropdown.contains(e.target) && !uBtn.contains(e.target)) {
+              uDropdown.classList.add('hidden');
+          }
+      });
+
+      function toggleUserDropdown(e) {
+          if (e) e.stopPropagation();
+          const uDropdown = document.getElementById('user-dropdown');
+          uDropdown.classList.toggle('hidden');
+      }
+
+      // Theme toggle helpers
+      function setTheme(theme) {
+          if (theme === 'system') {
+              localStorage.removeItem('theme');
+              if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                  document.documentElement.classList.add('dark');
+              } else {
+                  document.documentElement.classList.remove('dark'); localStorage.theme = 'light';;
+              }
+          } else {
+              localStorage.theme = theme;
+              if (theme === 'dark') {
+                  document.documentElement.classList.add('dark');
+              } else {
+                  document.documentElement.classList.remove('dark'); localStorage.theme = 'light';;
+              }
+          }
+          updateThemeUI(theme);
+          updateThemeIcons();
+      }
+
+      function updateThemeIcons() {
+          const isDark = document.documentElement.classList.contains('dark');
+          const themeBtns = [document.getElementById('theme-btn'), document.getElementById('theme-btn-desktop')];
+          themeBtns.forEach(btn => {
+              if (btn) {
+                  const svgs = btn.querySelectorAll('svg');
+                  if (svgs.length >= 2) {
+                      if (isDark) {
+                          svgs[0].classList.remove('hidden');
+                          svgs[1].classList.add('hidden');
+                      } else {
+                          svgs[0].classList.add('hidden');
+                          svgs[1].classList.remove('hidden');
+                      }
+                  }
+              }
+          });
+      }
+
+      function updateThemeUI(theme) {
+          ['light', 'dark', 'system'].forEach(t => {
+              const btn = document.getElementById('theme-' + t + '-btn');
+              if (btn) {
+                  const check = btn.querySelector('.check-icon');
+                  if (check) { if (t === theme) {
+                      check.classList.remove('hidden');
+                      btn.classList.add('bg-slate-50', 'dark:bg-slate-800', 'text-slate-900', 'dark:text-white');
+                      btn.classList.remove('text-slate-600', 'dark:text-slate-300');
+                  } else {
+                      check.classList.add('hidden');
+                      btn.classList.remove('bg-slate-50', 'dark:bg-slate-800', 'text-slate-900', 'dark:text-white');
+                      btn.classList.add('text-slate-600', 'dark:text-slate-300');
+                  } }
+              }
+          });
+      }
+
+      // Centralized Toast Notifications
+      function showToast(message, type = 'info') {
+          if (window.ToolIMGHistory && typeof window.ToolIMGHistory.showToast === 'function') {
+              window.ToolIMGHistory.showToast(message, type);
+              return;
+          }
+          const toast = document.createElement('div');
+          toast.className = `fixed bottom-5 right-5 z-[99999] px-4 py-3 rounded-[4px] shadow-xl text-sm font-semibold flex items-center gap-2 ${
+              type === 'error' ? 'bg-rose-600 text-white' : type === 'success' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-white'
+          }`;
+          toast.innerText = message;
+          document.body.appendChild(toast);
+          setTimeout(() => toast.remove(), 3000);
+      }
+    </script>
+
+    <!-- Low Credits & Out of Credits Modals -->
+    <div id="low-credits-modal" class="fixed inset-0 z-[99999] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm" onclick="window.closeLowCreditsModal()"></div>
+        <div class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-[4px]-[4px] shadow-2xl p-6 dark:">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Low Credits Alert</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">You are running extremely low on credits. Please upgrade your plan or share our platform to claim a bonus credit pack.</p>
+            <div class="flex gap-3">
+                <button onclick="window.closeLowCreditsModal()" class="flex-1 py-2.5 text-xs font-bold text-slate-500 bg-slate-50 rounded-[4px]-[4px]">Cancel</button>
+                <a href="/pricing/" class="flex-1 py-2.5 text-center text-xs font-bold text-white bg-violet-600 rounded-[4px]-[4px]">Buy Credits</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="out-of-credits-modal" class="fixed inset-0 z-[99999] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm" onclick="window.closeOutOfCreditsModal()"></div>
+        <div class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-[4px]-[4px] shadow-2xl p-6 dark:">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Credits Exhausted</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">You have run out of free guest credits. Claim bonus credits instantly by sharing our tools with friends or upgrade for unlimited queries.</p>
+            <div class="grid grid-cols-1 gap-2">
+                <button onclick="window.shareTool('whatsapp')" class="w-full py-2.5 bg-emerald-500 text-white rounded-[4px]-[4px] text-xs font-bold">Share on WhatsApp (+5 Credits)</button>
+                <button onclick="window.shareTool('facebook')" class="w-full py-2.5 bg-blue-600 text-white rounded-[4px]-[4px] text-xs font-bold">Share on Facebook (+5 Credits)</button>
+                <a href="/pricing/" class="w-full py-3 bg-violet-600 text-white rounded-[4px]-[4px] text-xs font-bold text-center mt-2">View Pricing Plans</a>
+                <button onclick="window.closeOutOfCreditsModal()" class="w-full py-2 bg-slate-50 text-slate-400 rounded-[4px]-[4px] text-xs font-bold">Maybe Later</button>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

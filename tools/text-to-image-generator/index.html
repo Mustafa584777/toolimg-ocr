@@ -1,0 +1,997 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<script>
+// Universal circular JSON safety polyfill to prevent platform logging and 3rd party crashes
+(function() {
+    const originalStringify = JSON.stringify;
+    JSON.stringify = function(value, replacer, space) {
+        const seen = new WeakSet();
+        try {
+            return originalStringify(value, function(key, val) {
+                if (typeof val === 'object' && val !== null) {
+                    if (val instanceof HTMLElement || val === window || val === document) {
+                        return '[DOM Element]';
+                    }
+                    if (seen.has(val)) {
+                        return '[Circular]';
+                    }
+                    seen.add(val);
+                }
+                if (replacer) {
+                    return replacer(key, val);
+                }
+                return val;
+            }, space);
+        } catch (err) {
+            return '{"error":"Circular structure handled"}';
+        }
+    };
+})();
+</script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3PK1RHDJ2S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3PK1RHDJ2S');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="alternate" hreflang="en" href="https://toolimg.online/tools/text-to-image-generator/" />
+    <link rel="alternate" hreflang="es" href="https://toolimg.online/es/tools/text-to-image-generator/" />
+    <link rel="alternate" hreflang="fr" href="https://toolimg.online/fr/tools/text-to-image-generator/" />
+    <link rel="alternate" hreflang="de" href="https://toolimg.online/de/tools/text-to-image-generator/" />
+    <link rel="alternate" hreflang="ru" href="https://toolimg.online/ru/tools/text-to-image-generator/" />
+    <link rel="alternate" hreflang="ar" href="https://toolimg.online/ar/tools/text-to-image-generator/" />
+    <link rel="alternate" hreflang="x-default" href="https://toolimg.online/tools/text-to-image-generator/" />
+    <title>AI Text to Image Generator Free - Create High Quality AI Artwork | ToolIMG</title>
+    <meta name="description" content="Generate stunning high-resolution AI art and pictures from simple text descriptions. Free online AI Text to Image tool powered by Gemini AI.">
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * { font-family: "Poppins", sans-serif !important; }
+        body { font-family: "Poppins", sans-serif; background-color: #fafafa; }
+        .dark body { background-color: #0f172a; color: #f8fafc; }
+        @media (max-width: 768px) { html { font-size: 12px; } }
+        @media (min-width: 769px) { html { font-size: 16px; } }
+        /* Universal Modal/Popup Z-Index Fix */
+        #history-drawer, 
+        #low-credits-modal, 
+        #out-of-credits-modal,
+        #login-modal,
+        #signup-modal,
+        [id$="-modal"],
+        .fixed.inset-0.z-\[100\],
+        .fixed.inset-0.z-\[1000\] {
+            z-index: 99999 !important;
+        }
+        
+        #toolimg-toast, #translation-toast {
+            z-index: 999999 !important;
+        }
+    </style>
+
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: {
+                        violet: {
+                            50: '#f5f3ff', 100: '#ede9fe', 200: '#ddd6fe', 300: '#c4b5fd',
+                            400: '#a78bfa', 500: '#8b5cf6', 600: '#7c3aed', 700: '#6d28d9',
+                            800: '#5b21b6', 900: '#4c1d95', 950: '#2e1065',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style id="custom-radius-border-override">
+        *, ::before, ::after {
+            border: none !important;
+            border-width: 0px !important;
+        }
+        [class*="rounded"], button, input, select, textarea, img, .card, div[class*="rounded"] {
+            border-radius: 4px !important;
+        }
+        .dark .logo-img {
+            filter: brightness(0) invert(1) !important;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col transition-colors duration-300">
+
+    <!-- Header / Navbar -->
+    <header class="w-full max-w-[85vw] mx-auto px-4 sm:px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-4 z-40 shadow-sm rounded-[4px] mb-8 transition-colors">
+        <div class="flex items-center gap-2 w-full justify-between">
+            <a href="/" class="flex items-center gap-2" style="display: flex !important; align-items: center !important; gap: 8px !important; text-decoration: none !important;">
+                <img src="https://toolimg.online/logo.jpg" alt="ToolIMG" class="logo-img h-8 object-contain" height="32" style="height: 32px !important; width: auto !important; object-fit: contain !important; display: block !important;" onerror="this.onerror=null; this.src='/logo.jpg';">
+                <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
+            </a>
+            
+            <!-- Desktop Nav -->
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Home</a>
+                <a href="/tools/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Tools</a>
+                <a href="/dashboard/" id="dashboard-nav" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition hidden">Dashboard</a>
+                <a href="/pricing/" class="px-4 py-1.5 text-[15px] font-bold bg-white text-violet-600 shadow-sm transition">Pricing</a>
+                
+                <div class="relative">
+                    <button id="theme-btn-desktop" onclick="toggleTheme()" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 transition text-slate-600 dark:text-slate-300 cursor-pointer" aria-label="Toggle Theme">
+                        <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20" style="width: 20px !important; height: 20px !important;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20" style="width: 20px !important; height: 20px !important;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+                </div>
+            </nav>
+            
+            <div class="flex items-center gap-3">
+                <div class="relative">
+                    <button id="lang-menu-btn" type="button" onclick="toggleLangMenu(event)" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 transition flex items-center justify-center" aria-label="Select Language">
+                        <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" style="width: 20px !important; height: 20px !important;">
+                            <path d="M5 8l6 6"></path>
+                            <path d="M4 14l6-6 2-3"></path>
+                            <path d="M2 5h12"></path>
+                            <path d="M7 2h1"></path>
+                            <path d="M22 22l-5-10-5 10"></path>
+                            <path d="M14 18h6"></path>
+                        </svg>
+                    </button>
+                    <div id="lang-popover" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-slate-900 shadow-lg flex-col z-50 overflow-hidden">
+                        <div class="py-2">
+                            <button type="button" onclick="switchLang('en')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">English</button>
+                            <button type="button" onclick="switchLang('es')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Español</button>
+                            <button type="button" onclick="switchLang('fr')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Français</button>
+                            <button type="button" onclick="switchLang('de')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Deutsch</button>
+                            <button type="button" onclick="switchLang('ru')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Русский</button>
+                            <button type="button" onclick="switchLang('ar')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">العربية</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="credits-display" class="hidden items-center gap-[2px] bg-violet-100/50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-[11px] sm:text-xs font-bold px-2.5 py-1.5 cursor-pointer hover:bg-violet-200/80 dark:hover:bg-violet-950 transition">
+                    <svg class="w-3.5 h-3.5 text-violet-600 dark:text-violet-400 shrink-0" fill="currentColor" viewBox="0 0 24 24" style="width: 14px; height: 14px; display: block;"><path d="M6 3h12l4 6-10 13L2 9z"/></svg>
+                    <span id="credits-count" class="leading-none mt-[0.5px]">0</span>
+                </div>
+                <button id="header-history-btn" type="button" onclick="if(window.openHistoryDrawer){window.openHistoryDrawer();}else{showToast('History loading...', 'info');}" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 transition flex items-center justify-center text-slate-600 dark:text-slate-300 cursor-pointer" aria-label="History" title="Conversion History">
+                    <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" style="width: 20px !important; height: 20px !important;">
+                        <path d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                </button>
+
+                <!-- Auth Controls -->
+                <div id="header-auth-guest" class="hidden md:flex items-center gap-2">
+                    <button id="login-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Log in</button>
+                    <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-white bg-violet-600 hover:bg-violet-700 transition shadow-sm">Sign up</button>
+                </div>
+            
+                <div id="user-menu" class="hidden relative items-center">
+                    <button id="user-avatar-btn" type="button" onclick="toggleUserDropdown(event)" class="w-8 h-8 sm:w-9 sm:h-9 overflow-hidden shadow-sm transition-transform active:scale-95 bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center text-violet-600 dark:text-violet-400 focus:outline-none cursor-pointer" aria-label="User Menu">
+                        <img id="user-avatar" src="" alt="User" class="w-full h-full object-cover hidden" referrerpolicy="no-referrer" crossorigin="anonymous">
+                        <div id="user-fallback" class="flex items-center justify-center">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                        </div>
+                    </button>
+                    <div id="user-dropdown" class="hidden absolute right-0 top-full mt-3.5 w-48 bg-white dark:bg-slate-900 shadow-2xl flex-col z-[100] overflow-hidden py-1.5 transition-all">
+                        <div class="px-4 py-2">
+                            <p id="user-name" class="text-xs font-bold text-slate-900 dark:text-white truncate"></p>
+                        </div>
+                        <a href="/dashboard/" class="flex items-center gap-2.5 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2-2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 00-1-1v-4a1 1 0 011-1h2a1 1 0 001 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                            <span>Dashboard</span>
+                        </a>
+                        <button type="button" onclick="if(window.openHistoryDrawer){window.openHistoryDrawer();}toggleUserDropdown();" class="w-full text-left flex items-center gap-2.5 px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition cursor-pointer">
+                            <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                            <span>History</span>
+                        </button>
+                        <div class="h-px bg-slate-100 dark:bg-slate-800 my-1"></div>
+                        <button type="button" onclick="handleLogout();toggleUserDropdown();" class="w-full text-left flex items-center gap-2.5 px-4 py-2 text-sm text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition cursor-pointer">
+                            <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                            <span>Logout</span>
+                        </button>
+                    </div>
+                </div>
+
+                <button id="theme-btn" onclick="toggleTheme()" class="md:hidden p-2 hover:bg-slate-50 dark:hover:bg-slate-800 transition text-slate-600 dark:text-slate-300 cursor-pointer" aria-label="Toggle Theme">
+                    <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </button>
+                <!-- Mobile menu button -->
+                <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition ml-1">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu Modal -->
+    <div id="mobile-menu-modal" class="fixed inset-0 z-50 hidden flex-col items-center justify-center p-4">
+        <div id="mobile-menu-backdrop" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+        <div id="mobile-menu-content" class="relative w-full max-w-[340px] bg-white dark:bg-slate-900 shadow-2xl overflow-visible transition-all scale-95 opacity-0 duration-200 ease-out">
+            <div class="flex items-center justify-between px-6 py-5">
+                <div class="flex items-center gap-3">
+                    <img src="https://toolimg.online/logo.jpg" alt="ToolIMG" class="logo-img h-6 object-contain" onerror="this.onerror=null; this.src='/logo.jpg';">
+                    <span class="font-bold text-lg text-slate-900 dark:text-white tracking-tight">ToolIMG</span>
+                </div>
+                <button id="mobile-menu-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1 hover:bg-slate-50 dark:hover:bg-slate-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
+            </div>
+            <div class="px-3 py-3 flex flex-col gap-1">
+                <a href="/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition flex items-center">Home</a>
+                <a href="/tools/" class="px-4 py-3.5 text-[15px] font-medium text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 transition flex items-center">Tools</a>
+                <a href="/dashboard/" id="mobile-dashboard-nav" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition flex items-center hidden">Dashboard</a>
+                <a href="/pricing/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition flex items-center">Pricing</a>
+                <button type="button" onclick="if(window.openHistoryDrawer){window.openHistoryDrawer();}if(window.closeMobileMenu){window.closeMobileMenu();}" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition flex items-center gap-2.5 w-full text-left">
+                    <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                    <span>History</span>
+                </button>
+                
+                <!-- Mobile Auth Section -->
+                <div id="mobile-auth-guest" class="flex flex-col gap-2 mt-2 px-3">
+                    <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Log in</button>
+                    <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-white bg-violet-600 hover:bg-violet-700 transition shadow-sm">Sign up</button>
+                </div>
+                <div id="mobile-auth-user" class="hidden flex-col gap-2 mt-2 px-3">
+                    <button onclick="handleLogout()" class="w-full py-2.5 text-center text-sm font-medium text-slate-500 hover:text-rose-500 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Logout</button>
+                </div>
+                
+                <!-- Divider -->
+                <div class="h-px bg-slate-100 dark:bg-slate-800 w-full my-2"></div>
+                <!-- Theme Toggle -->
+                <div class="px-3 py-2 relative">
+                    <button id="theme-menu-btn" class="w-full px-4 py-3.5 flex justify-between items-center text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+                        <span>Theme</span>
+                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+                    
+                    <!-- Theme Dropdown Popover -->
+                    <div id="theme-popover" class="absolute bottom-[100%] right-3 mb-2 w-48 bg-white dark:bg-slate-900 shadow-xl p-2 hidden flex-col gap-1 z-50">
+                        <button onclick="setTheme('light')" id="theme-light-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-900 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                                Light
+                            </div>
+                            <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button onclick="setTheme('dark')" id="theme-dark-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                                Dark
+                            </div>
+                            <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button onclick="setTheme('system')" id="theme-system-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 transition">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                System
+                            </div>
+                            <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content Container -->
+    <main class="flex-grow w-full max-w-[85vw] mx-auto px-4 sm:px-6">
+        <!-- Hero Title -->
+        <div class="text-center max-w-3xl mx-auto mb-10">
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 text-xs font-bold uppercase tracking-wider mb-3">
+                <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                AI Image Generation
+            </span>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+                AI Text to Image Generator
+            </h1>
+            <p class="text-slate-600 dark:text-slate-400 text-sm sm:text-base leading-relaxed">
+                Transform simple text descriptions and reference images into high-resolution artwork, realistic photos, 3D models, and digital illustrations instantly.
+            </p>
+        </div>
+
+        <!-- Generator Workspace Grid -->
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-16 items-start">
+            
+            <!-- Left Panel: Prompt Controls -->
+            <div class="lg:col-span-5 bg-white dark:bg-slate-900 p-6 shadow-sm border border-slate-100 dark:border-slate-800/80 flex flex-col gap-6">
+                <!-- Prompt Input -->
+                <div>
+                    <label for="prompt-input" class="block text-sm font-bold text-slate-900 dark:text-white mb-2 flex items-center justify-between">
+                        <span>Describe your Image</span>
+                        <span class="text-xs font-normal text-slate-400" id="char-count">0 / 1000</span>
+                    </label>
+                    <textarea id="prompt-input" rows="4" placeholder="e.g. A serene mountain lake at sunset with snow-capped peaks reflected in calm waters, photorealistic, 8k resolution..." class="w-full p-3.5 text-sm bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-violet-500 transition resize-none"></textarea>
+                </div>
+
+                <!-- Reference Image Upload (Optional) -->
+                <div>
+                    <label class="block text-sm font-bold text-slate-900 dark:text-white mb-2 flex items-center justify-between">
+                        <span>Reference Image (Optional)</span>
+                        <span class="text-xs text-slate-400">JPG, PNG, WEBP</span>
+                    </label>
+                    <div id="image-upload-box" class="relative border-2 border-dashed border-slate-200 dark:border-slate-800 rounded-[4px] p-4 text-center cursor-pointer hover:border-violet-500 dark:hover:border-violet-400 transition bg-slate-50/50 dark:bg-slate-800/30" onclick="document.getElementById('ref-image-input').click()">
+                        <input type="file" id="ref-image-input" accept="image/*" class="hidden" onchange="handleRefImageUpload(event)">
+                        
+                        <div id="upload-prompt-state" class="flex flex-col items-center justify-center gap-1.5 py-1">
+                            <svg class="w-6 h-6 text-slate-400 dark:text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
+                            </svg>
+                            <p class="text-xs font-medium text-slate-600 dark:text-slate-300">
+                                Upload image as reference
+                            </p>
+                            <p class="text-[11px] text-slate-400">Drag & drop or click to upload</p>
+                        </div>
+
+                        <div id="upload-preview-state" class="hidden relative items-center justify-between bg-white dark:bg-slate-900 p-2 rounded-[4px] border border-slate-200 dark:border-slate-800">
+                            <div class="flex items-center gap-3 truncate">
+                                <img id="ref-image-preview" src="" alt="Reference Preview" class="w-10 h-10 object-cover rounded-[4px] bg-slate-100 dark:bg-slate-800 shrink-0">
+                                <div class="truncate text-left">
+                                    <p id="ref-image-name" class="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate">image.jpg</p>
+                                    <p class="text-[10px] text-emerald-600 dark:text-emerald-400">Reference Image Loaded</p>
+                                </div>
+                            </div>
+                            <button type="button" onclick="removeRefImage(event)" class="p-1.5 text-slate-400 hover:text-rose-500 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-[4px] transition shrink-0" title="Remove image">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Style Selection -->
+                <div>
+                    <label class="block text-sm font-bold text-slate-900 dark:text-white mb-2">Artistic Style</label>
+                    <div class="grid grid-cols-3 gap-2" id="style-selector">
+                        <button type="button" data-style="none" onclick="selectStyle('none')" class="style-option active p-2.5 text-center text-xs font-medium border-2 border-violet-600 text-violet-600 bg-violet-50 dark:bg-violet-900/30 dark:text-violet-300 transition flex items-center justify-center gap-1.5 cursor-pointer">
+                            <svg class="w-4 h-4 text-violet-600 dark:text-violet-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M18.364 18.364A9 9 0 005.636 5.636m12.728 12.728A9 9 0 015.636 5.636m12.728 12.728L5.636 5.636"></path></svg>
+                            <span>None</span>
+                        </button>
+                        <button type="button" data-style="photorealistic" onclick="selectStyle('photorealistic')" class="style-option p-2.5 text-center text-xs font-medium text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center justify-center gap-1.5 cursor-pointer">
+                            <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+                            <span>Realistic</span>
+                        </button>
+                        <button type="button" data-style="digital-art" onclick="selectStyle('digital-art')" class="style-option p-2.5 text-center text-xs font-medium text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center justify-center gap-1.5 cursor-pointer">
+                            <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"></path></svg>
+                            <span>Digital Art</span>
+                        </button>
+                        <button type="button" data-style="3d-render" onclick="selectStyle('3d-render')" class="style-option p-2.5 text-center text-xs font-medium text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center justify-center gap-1.5 cursor-pointer">
+                            <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path></svg>
+                            <span>3D Render</span>
+                        </button>
+                        <button type="button" data-style="anime" onclick="selectStyle('anime')" class="style-option p-2.5 text-center text-xs font-medium text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center justify-center gap-1.5 cursor-pointer">
+                            <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                            <span>Anime</span>
+                        </button>
+                        <button type="button" data-style="watercolor" onclick="selectStyle('watercolor')" class="style-option p-2.5 text-center text-xs font-medium text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center justify-center gap-1.5 cursor-pointer">
+                            <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z"></path></svg>
+                            <span>Watercolor</span>
+                        </button>
+                        <button type="button" data-style="cyberpunk" onclick="selectStyle('cyberpunk')" class="style-option p-2.5 text-center text-xs font-medium text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center justify-center gap-1.5 cursor-pointer">
+                            <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5m0 0h4m-4 0V11m0 0l-2-2m2 2l2-2"></path></svg>
+                            <span>Cyberpunk</span>
+                        </button>
+                        <button type="button" data-style="cinematic" onclick="selectStyle('cinematic')" class="style-option p-2.5 text-center text-xs font-medium text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center justify-center gap-1.5 cursor-pointer">
+                            <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M7 4v16M17 4v16M3 8h4m10 0h4M3 12h18M3 16h4m10 0h4M4 20h16a1 1 0 001-1V5a1 1 0 00-1-1H4a1 1 0 00-1 1v14a1 1 0 001 1z"></path></svg>
+                            <span>Cinematic</span>
+                        </button>
+                        <button type="button" data-style="vector-art" onclick="selectStyle('vector-art')" class="style-option p-2.5 text-center text-xs font-medium text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center justify-center gap-1.5 cursor-pointer">
+                            <svg class="w-4 h-4 text-slate-400 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M11 4a2 2 0 114 0v1a2 2 0 01-2 2 2 2 0 01-2-2V4zm-6 8a2 2 0 114 0v1a2 2 0 01-2 2 2 2 0 01-2-2v-1zm12 0a2 2 0 114 0v1a2 2 0 01-2 2 2 2 0 01-2-2v-1zM4 20h16"></path></svg>
+                            <span>Vector Art</span>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Advanced Options (Negative Prompt Accordion) -->
+                <div>
+                    <button type="button" onclick="toggleAdvancedOptions()" class="text-xs font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-200 flex items-center gap-1 transition">
+                        <svg id="advanced-chevron" class="w-4 h-4 transition-transform duration-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                        <span>Advanced Options (Negative Prompt)</span>
+                    </button>
+                    <div id="advanced-panel" class="hidden mt-3">
+                        <label for="negative-prompt" class="block text-xs font-medium text-slate-600 dark:text-slate-400 mb-1">Avoid elements (Negative Prompt)</label>
+                        <input type="text" id="negative-prompt" placeholder="e.g. blurry, low quality, extra limbs, distorted text..." class="w-full p-2.5 text-xs bg-slate-50 dark:bg-slate-800 text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-violet-500">
+                    </div>
+                </div>
+
+                <!-- Generate Action Button -->
+                <button type="button" id="generate-btn" onclick="generateImage()" class="w-full py-4 bg-violet-600 hover:bg-violet-700 text-white font-bold text-base shadow-md transition flex items-center justify-center gap-2 cursor-pointer">
+                    <svg class="w-5 h-5 text-violet-200" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"></path></svg>
+                    <span>Generate Image</span>
+                </button>
+            </div>
+
+            <!-- Right Panel: Image Display & Actions -->
+            <div class="lg:col-span-7 bg-white dark:bg-slate-900 p-6 shadow-sm border border-slate-100 dark:border-slate-800/80 flex flex-col min-h-[500px] justify-between">
+                
+                <!-- Display Area -->
+                <div class="flex-grow flex flex-col items-center justify-center relative w-full bg-slate-50 dark:bg-slate-950/50 p-4 border border-dashed border-slate-200 dark:border-slate-800 overflow-hidden min-h-[380px]">
+                    
+                    <!-- Empty State Placeholder -->
+                    <div id="placeholder-state" class="flex flex-col items-center justify-center text-center p-8">
+                        <div class="w-16 h-16 bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-full flex items-center justify-center mb-4">
+                            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+                        </div>
+                        <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Ready to Create</h3>
+                        <p class="text-xs sm:text-sm text-slate-500 dark:text-slate-400 max-w-sm leading-relaxed mb-4">
+                            Enter your description on the left and click "Generate Image" to craft unique AI visuals.
+                        </p>
+                        <div class="flex flex-wrap gap-2 justify-center text-[11px] text-slate-400">
+                            <span>✨ 8K High Definition</span>
+                            <span>•</span>
+                            <span>⚡ Fast Gemini Model</span>
+                            <span>•</span>
+                            <span>📥 Commercial PNG Download</span>
+                        </div>
+                    </div>
+
+                    <!-- Loading State -->
+                    <div id="loading-state" class="hidden flex-col items-center justify-center text-center p-8">
+                        <div class="relative w-16 h-16 mb-4">
+                            <div class="absolute inset-0 border-4 border-violet-200 dark:border-violet-900 rounded-full"></div>
+                            <div class="absolute inset-0 border-4 border-violet-600 border-t-transparent rounded-full animate-spin"></div>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-1">Generating AI Image...</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 animate-pulse">Synthesizing pixels based on your text description</p>
+                    </div>
+
+                    <!-- Result Image State -->
+                    <div id="result-state" class="hidden flex-col items-center justify-center w-full h-full relative group">
+                        <img id="generated-img" src="" alt="Generated AI Artwork" class="max-h-[460px] w-auto object-contain shadow-md cursor-pointer transition-transform duration-200 hover:scale-[1.01]" onclick="openLightbox()">
+                    </div>
+                </div>
+
+                <!-- Result Action Bar (Hidden when empty) -->
+                <div id="result-actions" class="hidden flex-col sm:flex-row items-center justify-between gap-4 pt-6 border-t border-slate-100 dark:border-slate-800 mt-4">
+                    <div class="flex items-center gap-2 text-xs text-slate-500 dark:text-slate-400 truncate max-w-[280px]">
+                        <span id="meta-ratio" class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 font-mono font-bold">1:1</span>
+                        <span id="meta-style" class="px-2 py-0.5 bg-slate-100 dark:bg-slate-800 capitalize truncate">Style: None</span>
+                    </div>
+
+                    <div class="flex items-center gap-2 w-full sm:w-auto">
+                        <button type="button" onclick="copyPromptText()" class="flex-1 sm:flex-none px-3.5 py-2 text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 transition flex items-center justify-center gap-1.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
+                            <span>Copy Prompt</span>
+                        </button>
+                        <button type="button" onclick="downloadImage()" class="flex-1 sm:flex-none px-4 py-2 text-xs font-bold bg-violet-600 hover:bg-violet-700 text-white shadow-sm transition flex items-center justify-center gap-1.5">
+                            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"></path></svg>
+                            <span>Download PNG</span>
+                        </button>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- Features & FAQ Section -->
+        <section class="max-w-5xl mx-auto my-16">
+            <!-- Feature Highlights -->
+            <div class="mb-16">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8 text-center sm:text-left">
+                    Why Use ToolIMG AI Text to Image Generator?
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="bg-white dark:bg-slate-900 p-6 shadow-sm border border-slate-100 dark:border-slate-800">
+                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Advanced AI Generation</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Leverages state-of-the-art vision models to synthesize realistic textures, lighting effects, and precise subjects.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 p-6 shadow-sm border border-slate-100 dark:border-slate-800">
+                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"></path></svg>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Multiple Styles Presets</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Seamlessly pick standard presets for realistic photography, digital art, 3D renders, anime, or watercolor styles.
+                        </p>
+                    </div>
+
+                    <div class="bg-white dark:bg-slate-900 p-6 shadow-sm border border-slate-100 dark:border-slate-800">
+                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-4">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2"></path></svg>
+                        </div>
+                        <h3 class="text-base font-bold text-slate-900 dark:text-white mb-2">Instant Local History</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+                            Your generated images are stored locally in conversion history for easy retrieval and download anytime.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 4-Step How It Works -->
+            <div class="mb-16">
+                <h2 class="text-2xl font-bold text-slate-900 dark:text-white mb-8 text-center sm:text-left">
+                    How to Convert Text to Image Online Free
+                </h2>
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                    <div class="flex flex-col items-start bg-white dark:bg-slate-900 p-5 shadow-sm border border-slate-100 dark:border-slate-800">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold flex items-center justify-center mb-4 text-sm">1</div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Enter Description</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Type any imaginative prompt, scene description, or object you want to visualize.</p>
+                    </div>
+
+                    <div class="flex flex-col items-start bg-white dark:bg-slate-900 p-5 shadow-sm border border-slate-100 dark:border-slate-800">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold flex items-center justify-center mb-4 text-sm">2</div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Select Style</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Choose an artistic style preset or upload an optional reference image.</p>
+                    </div>
+
+                    <div class="flex flex-col items-start bg-white dark:bg-slate-900 p-5 shadow-sm border border-slate-100 dark:border-slate-800">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold flex items-center justify-center mb-4 text-sm">3</div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Click Generate</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Hit "Generate Image" to initiate AI processing in real-time.</p>
+                    </div>
+
+                    <div class="flex flex-col items-start bg-white dark:bg-slate-900 p-5 shadow-sm border border-slate-100 dark:border-slate-800">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold flex items-center justify-center mb-4 text-sm">4</div>
+                        <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Download Artwork</h3>
+                        <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Preview your generated picture and download it in high-resolution PNG format.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-950 mt-auto pt-16 pb-8 transition-colors border-t border-slate-100 dark:border-slate-900">
+        <div class="max-w-[85vw] mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="md:col-span-1">
+                    <a href="/" class="flex items-center gap-2 mb-4">
+                        <img src="https://toolimg.online/logo.jpg" alt="ToolIMG" class="logo-img h-8 object-contain" onerror="this.onerror=null; this.src='/logo.jpg';">
+                        <span class="font-bold text-sm md:text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
+                    </a>
+                    <p class="text-slate-500 dark:text-slate-400 text-[11px] md:text-[15px] leading-relaxed mb-4">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
+                    <a href="mailto:support@toolimg.online" class="text-violet-600 dark:text-violet-400 font-medium hover:underline text-[11px] md:text-[15px]">support@toolimg.online</a>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-[11px] md:text-base">Products</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="/tools/image-to-code/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Image to Code AI</a></li>
+                        <li><a href="/tools/text-to-image-generator/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Text to Image Generator AI</a></li>
+                        <li><a href="/tools/text-to-image/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Text to Image AI</a></li>
+                        <li><a href="/tools/handwriting-to-text/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">English Handwriting OCR</a></li>
+                        <li><a href="/tools/hindi-handwriting-to-text/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Hindi Handwriting OCR</a></li>
+                        <li><a href="/tools/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">All Tools</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-[11px] md:text-base">Company</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="https://toolimg.online/about.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">About Us</a></li>
+                        <li><a href="https://toolimg.online/contact.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Contact Us</a></li>
+                        <li><a href="/pricing/" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-[11px] md:text-base">Legal</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="https://toolimg.online/privacy-policy.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="https://toolimg.online/terms-and-conditions.html" class="text-[11px] md:text-[15px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-slate-100 dark:border-slate-800 pt-8 flex flex-col sm:flex-row justify-between items-center gap-4 text-xs text-slate-400">
+                <p>© 2026 ToolIMG. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Fullscreen Image Lightbox Modal -->
+    <div id="lightbox-modal" class="fixed inset-0 z-[99999] hidden items-center justify-center p-4 bg-black/90 backdrop-blur-md" onclick="closeLightbox()">
+        <button type="button" onclick="closeLightbox()" class="absolute top-6 right-6 text-white hover:text-slate-300 p-2 z-10">
+            <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </button>
+        <img id="lightbox-img" src="" alt="Full view" class="max-h-[90vh] max-w-[90vw] object-contain shadow-2xl">
+    </div>
+
+    <!-- Page JavaScript Logic -->
+    <script>
+      let selectedStyle = 'none';
+      let selectedRatio = '1:1';
+      let currentGeneratedImage = '';
+      let currentPrompt = '';
+
+      // Initialize page
+      document.addEventListener('DOMContentLoaded', () => {
+          // Character counter
+          const input = document.getElementById('prompt-input');
+          const counter = document.getElementById('char-count');
+          if (input && counter) {
+              input.addEventListener('input', () => {
+                  counter.innerText = `${input.value.length} / 1000`;
+              });
+          }
+
+          // Initial theme check
+          if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+              document.documentElement.classList.add('dark');
+          } else {
+              document.documentElement.classList.remove('dark');
+          }
+          updateThemeIcons();
+      });
+
+      let uploadedRefImage = null; // { base64: string, mimeType: string }
+
+      function handleRefImageUpload(e) {
+          const file = e.target.files ? e.target.files[0] : null;
+          if (!file) return;
+          if (!file.type.startsWith('image/')) {
+              showToast('Please upload a valid image file', 'error');
+              return;
+          }
+          if (file.size > 10 * 1024 * 1024) {
+              showToast('Image size should be less than 10MB', 'error');
+              return;
+          }
+
+          const reader = new FileReader();
+          reader.onload = (event) => {
+              const result = event.target.result;
+              const base64Data = result.split(',')[1];
+              uploadedRefImage = {
+                  base64: base64Data,
+                  mimeType: file.type
+              };
+
+              const previewImg = document.getElementById('ref-image-preview');
+              const nameEl = document.getElementById('ref-image-name');
+              const promptState = document.getElementById('upload-prompt-state');
+              const previewState = document.getElementById('upload-preview-state');
+
+              if (previewImg) previewImg.src = result;
+              if (nameEl) nameEl.innerText = file.name;
+              if (promptState) promptState.classList.add('hidden');
+              if (previewState) {
+                  previewState.classList.remove('hidden');
+                  previewState.classList.add('flex');
+              }
+          };
+          reader.readAsDataURL(file);
+      }
+
+      function removeRefImage(e) {
+          if (e) e.stopPropagation();
+          uploadedRefImage = null;
+          const input = document.getElementById('ref-image-input');
+          if (input) input.value = '';
+
+          const promptState = document.getElementById('upload-prompt-state');
+          const previewState = document.getElementById('upload-preview-state');
+          if (promptState) promptState.classList.remove('hidden');
+          if (previewState) {
+              previewState.classList.remove('flex');
+              previewState.classList.add('hidden');
+          }
+      }
+
+      function selectStyle(style) {
+          selectedStyle = style;
+          document.querySelectorAll('.style-option').forEach(btn => {
+              const svg = btn.querySelector('svg');
+              if (btn.dataset.style === style) {
+                  btn.className = 'style-option active p-2.5 text-center text-xs font-medium border-2 border-violet-600 text-violet-600 bg-violet-50 dark:bg-violet-900/30 dark:text-violet-300 transition flex items-center justify-center gap-1.5 cursor-pointer';
+                  if (svg) {
+                      svg.classList.remove('text-slate-400');
+                      svg.classList.add('text-violet-600', 'dark:text-violet-400');
+                  }
+              } else {
+                  btn.className = 'style-option p-2.5 text-center text-xs font-medium text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 transition flex items-center justify-center gap-1.5 cursor-pointer';
+                  if (svg) {
+                      svg.classList.remove('text-violet-600', 'dark:text-violet-400');
+                      svg.classList.add('text-slate-400');
+                  }
+              }
+          });
+      }
+
+      function selectRatio(ratio) {
+          selectedRatio = ratio;
+      }
+
+      function toggleAdvancedOptions() {
+          const panel = document.getElementById('advanced-panel');
+          const chevron = document.getElementById('advanced-chevron');
+          if (panel) {
+              panel.classList.toggle('hidden');
+              if (chevron) {
+                  chevron.classList.toggle('rotate-180');
+              }
+          }
+      }
+
+      async function generateImage() {
+          const promptInput = document.getElementById('prompt-input');
+          const prompt = promptInput ? promptInput.value.trim() : '';
+
+          if (!prompt && !uploadedRefImage) {
+              showToast('Please enter a description or upload a reference image', 'error');
+              return;
+          }
+
+          const generateBtn = document.getElementById('generate-btn');
+          const placeholderState = document.getElementById('placeholder-state');
+          const loadingState = document.getElementById('loading-state');
+          const resultState = document.getElementById('result-state');
+          const resultActions = document.getElementById('result-actions');
+          const negativePromptInput = document.getElementById('negative-prompt');
+
+          // Set Loading UI
+          placeholderState.classList.add('hidden');
+          resultState.classList.add('hidden');
+          resultActions.classList.add('hidden');
+          loadingState.classList.remove('hidden');
+          loadingState.classList.add('flex');
+
+          if (generateBtn) {
+              generateBtn.disabled = true;
+              generateBtn.classList.add('opacity-60', 'cursor-not-allowed');
+          }
+
+          try {
+              const res = await fetch('/api/text-to-image', {
+                  method: 'POST',
+                  headers: { 'Content-Type': 'application/json' },
+                  body: JSON.stringify({
+                      prompt: prompt || 'Detailed artwork based on the provided reference image',
+                      aspectRatio: selectedRatio || '1:1',
+                      stylePreset: selectedStyle,
+                      negativePrompt: negativePromptInput ? negativePromptInput.value.trim() : '',
+                      base64Image: uploadedRefImage ? uploadedRefImage.base64 : undefined,
+                      mimeType: uploadedRefImage ? uploadedRefImage.mimeType : undefined
+                  })
+              });
+
+              const data = await res.json();
+
+              if (!res.ok) {
+                  if (res.status === 403 && data.error && data.error.includes("credits")) {
+                      if (window.showOutOfCreditsModal) window.showOutOfCreditsModal();
+                      else showToast(data.error, 'error');
+                      return;
+                  }
+                  throw new Error(data.error || 'Failed to generate image');
+              }
+
+              if (data.imageUrl) {
+                  currentGeneratedImage = data.imageUrl;
+                  currentPrompt = data.prompt || prompt;
+
+                  const img = document.getElementById('generated-img');
+                  if (img) img.src = data.imageUrl;
+
+                  document.getElementById('meta-ratio').innerText = selectedRatio || '1:1';
+                  document.getElementById('meta-style').innerText = `Style: ${selectedStyle}`;
+
+                  loadingState.classList.remove('flex');
+                  loadingState.classList.add('hidden');
+                  resultState.classList.remove('hidden');
+                  resultState.classList.add('flex');
+                  resultActions.classList.remove('hidden');
+                  resultActions.classList.add('flex');
+
+                  // Save to History
+                  if (window.ToolIMGHistory && typeof window.ToolIMGHistory.saveConversion === 'function') {
+                      window.ToolIMGHistory.saveConversion({
+                          id: 'tti_' + Date.now(),
+                          tool: 'text-to-image-generator',
+                          title: (prompt || 'Reference Image Generation').substring(0, 40) + '...',
+                          preview: data.imageUrl,
+                          date: new Date().toISOString()
+                      });
+                  }
+
+                  showToast('Image generated successfully! ✨', 'success');
+              }
+          } catch (err) {
+              console.error(err);
+              showToast(err.message || 'Error generating image. Please try again.', 'error');
+              loadingState.classList.remove('flex');
+              loadingState.classList.add('hidden');
+              placeholderState.classList.remove('hidden');
+          } finally {
+              if (generateBtn) {
+                  generateBtn.disabled = false;
+                  generateBtn.classList.remove('opacity-60', 'cursor-not-allowed');
+              }
+          }
+      }
+
+      function downloadImage() {
+          if (!currentGeneratedImage) return;
+          const link = document.createElement('a');
+          link.href = currentGeneratedImage;
+          link.download = `toolimg-ai-${Date.now()}.png`;
+          document.body.appendChild(link);
+          link.click();
+          document.body.removeChild(link);
+          showToast('Image downloaded!', 'success');
+      }
+
+      function copyPromptText() {
+          if (!currentPrompt) return;
+          navigator.clipboard.writeText(currentPrompt).then(() => {
+              showToast('Prompt copied to clipboard!', 'success');
+          }).catch(() => {
+              showToast('Failed to copy prompt', 'error');
+          });
+      }
+
+      function openLightbox() {
+          if (!currentGeneratedImage) return;
+          const modal = document.getElementById('lightbox-modal');
+          const img = document.getElementById('lightbox-img');
+          if (modal && img) {
+              img.src = currentGeneratedImage;
+              modal.classList.remove('hidden');
+              modal.classList.add('flex');
+          }
+      }
+
+      function closeLightbox() {
+          const modal = document.getElementById('lightbox-modal');
+          if (modal) {
+              modal.classList.remove('flex');
+              modal.classList.add('hidden');
+          }
+      }
+
+      // Universal Script Helpers (Language, Theme, Auth)
+      function switchLang(lang) {
+          localStorage.setItem('selected_lang', lang);
+          window.location.reload();
+      }
+
+      function toggleLangMenu(e) {
+          if (e) e.stopPropagation();
+          const popover = document.getElementById('lang-popover');
+          if (popover) popover.classList.toggle('hidden');
+      }
+
+      function toggleUserDropdown(e) {
+          if (e) e.stopPropagation();
+          const uDropdown = document.getElementById('user-dropdown');
+          if (uDropdown) uDropdown.classList.toggle('hidden');
+      }
+
+      function setTheme(theme) {
+          if (theme === 'system') {
+              localStorage.removeItem('theme');
+              if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                  document.documentElement.classList.add('dark');
+              } else {
+                  document.documentElement.classList.remove('dark');
+              }
+          } else {
+              localStorage.theme = theme;
+              if (theme === 'dark') {
+                  document.documentElement.classList.add('dark');
+              } else {
+                  document.documentElement.classList.remove('dark');
+              }
+          }
+          updateThemeIcons();
+      }
+
+      function updateThemeIcons() {
+          const isDark = document.documentElement.classList.contains('dark');
+          const themeBtns = [document.getElementById('theme-btn'), document.getElementById('theme-btn-desktop')];
+          themeBtns.forEach(btn => {
+              if (btn) {
+                  const svgs = btn.querySelectorAll('svg');
+                  if (svgs.length >= 2) {
+                      if (isDark) {
+                          svgs[0].classList.remove('hidden');
+                          svgs[1].classList.add('hidden');
+                      } else {
+                          svgs[0].classList.add('hidden');
+                          svgs[1].classList.remove('hidden');
+                      }
+                  }
+              }
+          });
+      }
+
+      function showToast(message, type = 'info') {
+          const toast = document.createElement('div');
+          toast.className = `fixed bottom-5 right-5 z-[99999] px-4 py-3 rounded-[4px] shadow-xl text-sm font-semibold flex items-center gap-2 ${
+              type === 'error' ? 'bg-rose-600 text-white' : type === 'success' ? 'bg-emerald-600 text-white' : 'bg-slate-800 text-white'
+          }`;
+          toast.innerText = message;
+          document.body.appendChild(toast);
+          setTimeout(() => toast.remove(), 3000);
+      }
+
+      // Mobile Menu modal controls
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+      const mobileMenuModal = document.getElementById('mobile-menu-modal');
+      const mobileMenuClose = document.getElementById('mobile-menu-close');
+      const mobileMenuBackdrop = document.getElementById('mobile-menu-backdrop');
+      const mobileMenuContent = document.getElementById('mobile-menu-content');
+
+      if (mobileMenuBtn && mobileMenuModal) {
+          mobileMenuBtn.addEventListener('click', () => {
+              mobileMenuModal.classList.remove('hidden');
+              mobileMenuModal.classList.add('flex');
+              setTimeout(() => {
+                  if (mobileMenuBackdrop) mobileMenuBackdrop.classList.remove('opacity-0');
+                  if (mobileMenuContent) {
+                      mobileMenuContent.classList.remove('scale-95', 'opacity-0');
+                      mobileMenuContent.classList.add('scale-100', 'opacity-100');
+                  }
+              }, 10);
+          });
+      }
+
+      function closeMobileMenu() {
+          if (mobileMenuContent) {
+              mobileMenuContent.classList.remove('scale-100', 'opacity-100');
+              mobileMenuContent.classList.add('scale-95', 'opacity-0');
+          }
+          if (mobileMenuBackdrop) mobileMenuBackdrop.classList.add('opacity-0');
+          setTimeout(() => {
+              if (mobileMenuModal) {
+                  mobileMenuModal.classList.remove('flex');
+                  mobileMenuModal.classList.add('hidden');
+              }
+          }, 200);
+      }
+
+      if (mobileMenuClose) mobileMenuClose.addEventListener('click', closeMobileMenu);
+      if (mobileMenuBackdrop) mobileMenuBackdrop.addEventListener('click', closeMobileMenu);
+    </script>
+
+    <!-- Low Credits & Out of Credits Modals -->
+    <div id="low-credits-modal" class="fixed inset-0 z-[99999] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm" onclick="window.closeLowCreditsModal()"></div>
+        <div class="relative w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl p-6">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Low Credits Alert</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">You are running extremely low on credits. Please upgrade your plan or share our platform to claim a bonus credit pack.</p>
+            <div class="flex gap-3">
+                <button onclick="window.closeLowCreditsModal()" class="flex-1 py-2.5 text-xs font-bold text-slate-500 bg-slate-50">Cancel</button>
+                <a href="/pricing/" class="flex-1 py-2.5 text-center text-xs font-bold text-white bg-violet-600">Buy Credits</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="out-of-credits-modal" class="fixed inset-0 z-[99999] hidden items-center justify-center p-4">
+        <div class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm" onclick="window.closeOutOfCreditsModal()"></div>
+        <div class="relative w-full max-w-md bg-white dark:bg-slate-900 shadow-2xl p-6">
+            <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Credits Exhausted</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400 mb-6">You have run out of free guest credits. Claim bonus credits instantly by sharing our tools with friends or upgrade for unlimited queries.</p>
+            <div class="grid grid-cols-1 gap-2">
+                <button onclick="window.shareTool('whatsapp')" class="w-full py-2.5 bg-emerald-500 text-white text-xs font-bold">Share on WhatsApp (+5 Credits)</button>
+                <button onclick="window.shareTool('facebook')" class="w-full py-2.5 bg-blue-600 text-white text-xs font-bold">Share on Facebook (+5 Credits)</button>
+                <a href="/pricing/" class="w-full py-3 bg-violet-600 text-white text-xs font-bold text-center mt-2">View Pricing Plans</a>
+                <button onclick="window.closeOutOfCreditsModal()" class="w-full py-2 bg-slate-50 text-slate-400 text-xs font-bold">Maybe Later</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- History UI Module -->
+    <script type="module">
+        import { initHistoryUI, openHistoryDrawer, closeHistoryDrawer } from '/assets/history-ui.js';
+        window.openHistoryDrawer = openHistoryDrawer;
+        window.closeHistoryDrawer = closeHistoryDrawer;
+        document.addEventListener('DOMContentLoaded', () => {
+            try {
+                initHistoryUI('text-to-image-generator');
+            } catch (e) {
+                console.error('Failed to init history UI:', e);
+            }
+        });
+    </script>
+</body>
+</html>

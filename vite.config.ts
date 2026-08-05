@@ -20,8 +20,17 @@ export default defineConfig(() => {
           handwritingToText: resolve(__dirname, 'tools/handwriting-to-text/index.html'),
           hindiHandwritingToText: resolve(__dirname, 'tools/hindi-handwriting-to-text/index.html'),
           toolsArchive: resolve(__dirname, 'tools/index.html'),
+          geminiImageToPrompt: resolve(__dirname, 'tools/gemini-image-to-prompt/index.html'),
+          htmlToImage: resolve(__dirname, 'tools/html-to-image/index.html'),
+          textToImageGenerator: resolve(__dirname, 'tools/text-to-image-generator/index.html'),
           pricing: resolve(__dirname, 'pricing/index.html'),
-          dashboard: resolve(__dirname, 'dashboard/index.html')
+          dashboard: resolve(__dirname, 'dashboard/index.html'),
+          about: resolve(__dirname, 'about.html'),
+          contact: resolve(__dirname, 'contact.html'),
+          disclaimer: resolve(__dirname, 'disclaimer.html'),
+          privacyPolicy: resolve(__dirname, 'privacy-policy.html'),
+          refundPolicy: resolve(__dirname, 'refund-policy.html'),
+          terms: resolve(__dirname, 'terms.html')
         }
       }
     }
