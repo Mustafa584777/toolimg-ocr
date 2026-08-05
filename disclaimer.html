@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script>
+    (function() {
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            document.documentElement.classList.add('dark');
+        } else {
+            document.documentElement.classList.remove('dark');
+        }
+    })();
+    </script>
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3PK1RHDJ2S"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-3PK1RHDJ2S');
+    </script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Disclaimer - ToolIMG</title>
+    <link rel="canonical" href="https://toolimg.online/disclaimer.html" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.com/npm/@tailwindcss/browser@4"></script>
+    <style>
+        * { font-family: "Poppins", sans-serif !important; }
+        body { font-family: 'Poppins', sans-serif; background-color: #fafafa; }
+        .dark body { background-color: #0f172a; color: #f8fafc; }
+        .dark .logo-img { filter: brightness(0) invert(1) !important; }
+    </style>
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-800 dark:text-slate-200 min-h-screen flex flex-col transition-colors">
+
+    <!-- Header / Navbar -->
+    <header class="w-full max-w-[85vw] mx-auto px-4 sm:px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-md sticky top-4 z-40 shadow-sm rounded-xl mb-8 transition-colors">
+        <div class="flex items-center gap-2 w-full justify-between">
+            <a href="/" class="flex items-center gap-2" style="display: flex !important; align-items: center !important; gap: 8px !important; text-decoration: none !important;">
+                <img src="https://toolimg.online/logo.jpg" alt="ToolIMG" class="logo-img h-8 object-contain" height="32" style="height: 32px !important; width: auto !important; object-fit: contain !important; display: block !important;" onerror="this.onerror=null; this.src='/logo.jpg';">
+                <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
+            </a>
+            
+            <nav class="hidden md:flex items-center gap-8">
+                <a href="/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Home</a>
+                <a href="/tools/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Tools</a>
+                <a href="/dashboard/" id="dashboard-nav" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition hidden">Dashboard</a>
+                <a href="/pricing/" class="px-4 py-1.5 text-[15px] font-bold bg-violet-600 hover:bg-violet-700 text-white rounded-lg shadow-sm transition">Pricing</a>
+                
+                <div class="relative">
+                    <button id="theme-btn-desktop" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
+                        <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                        <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+                </div>
+            </nav>
+            
+            <div class="flex items-center gap-3">
+                <button id="theme-btn" class="md:hidden p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
+                    <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </button>
+                <div class="relative">
+                    <button id="lang-menu-btn" type="button" onclick="toggleLangMenu(event)" class="p-2 hover:bg-slate-100 dark:hover:bg-slate-800 rounded-lg transition flex items-center justify-center" aria-label="Select Language">
+                        <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 8l6 6"></path><path d="M4 14l6-6 2-3"></path><path d="M2 5h12"></path><path d="M7 2h1"></path><path d="M22 22l-5-10-5 10"></path><path d="M14 18h6"></path></svg>
+                    </button>
+                    <div id="lang-popover" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl shadow-lg flex-col z-50 overflow-hidden">
+                        <div class="py-2">
+                            <button type="button" onclick="switchLang('en')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">English</button>
+                            <button type="button" onclick="switchLang('es')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Español</button>
+                            <button type="button" onclick="switchLang('fr')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Français</button>
+                            <button type="button" onclick="switchLang('de')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Deutsch</button>
+                            <button type="button" onclick="switchLang('ru')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Русский</button>
+                            <button type="button" onclick="switchLang('ar')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">العربية</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="flex-grow w-full max-w-4xl mx-auto px-4 sm:px-6 mb-16">
+        <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl p-6 sm:p-10 shadow-sm transition-colors">
+            
+            <div class="text-center mb-8 border-b border-slate-100 dark:border-slate-800 pb-8">
+                <span class="inline-block px-4 py-1.5 bg-violet-50 dark:bg-violet-900/30 text-violet-600 dark:text-violet-400 font-semibold text-xs rounded-full mb-3">Legal Policy</span>
+                <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-2">Disclaimer</h1>
+                <p class="text-xs font-medium text-slate-500 dark:text-slate-400">Last Updated: June 23, 2026</p>
+            </div>
+
+            <div class="bg-violet-50 dark:bg-violet-950/40 border-l-4 border-violet-600 p-5 rounded-r-xl text-slate-800 dark:text-slate-200 text-sm leading-relaxed mb-8">
+                The information, tools, and services provided by ToolImg at <a href="https://toolimg.online" class="text-violet-600 dark:text-violet-400 font-semibold hover:underline">https://toolimg.online</a> are for general informational and educational purposes only. Please read this Disclaimer carefully before using our website.
+            </div>
+
+            <div class="space-y-8">
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">1. General Information Only</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-3">ToolImg provides online AI-powered image tools such as Multi-image OCR, Image to Code, Image to HTML, Handwriting to Text, and other image processing utilities. All content, results, and tools are offered for general use only and do not constitute professional advice of any kind, including but not limited to:</p>
+                    <ul class="list-disc list-inside space-y-1.5 text-sm text-slate-700 dark:text-slate-300 pl-2">
+                        <li>Legal advice</li>
+                        <li>Technical consulting</li>
+                        <li>Business or professional recommendations</li>
+                    </ul>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mt-3">You should consult a qualified professional for specific advice tailored to your situation.</p>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">2. No Warranties on Accuracy</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-3">While we strive to offer high-quality AI tools, we make no representations or warranties regarding the accuracy, completeness, or reliability of the results generated by our tools. This is especially important for:</p>
+                    <ul class="list-disc list-inside space-y-1.5 text-sm text-slate-700 dark:text-slate-300 pl-2">
+                        <li><strong>OCR and Handwriting to Text:</strong> Accuracy depends heavily on image quality, handwriting clarity, language, and lighting.</li>
+                        <li><strong>Image to Code / Image to HTML:</strong> Generated code may require manual review and editing.</li>
+                        <li>Any AI-powered conversions or extractions.</li>
+                    </ul>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mt-3">Results may contain errors, omissions, or inaccuracies. You are solely responsible for verifying and validating all outputs before using them.</p>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">3. Use at Your Own Risk</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-3">Your use of ToolImg and any results generated by our tools is entirely at your own risk. We are not liable for any loss, damage, or consequences (direct or indirect) that may arise from:</p>
+                    <ul class="list-disc list-inside space-y-1.5 text-sm text-slate-700 dark:text-slate-300 pl-2">
+                        <li>Inaccurate OCR or extracted text</li>
+                        <li>Incorrect or buggy generated code/HTML</li>
+                        <li>Misuse of processed results</li>
+                        <li>Any decisions or actions taken based on our tool outputs</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">4. Data Processing & File Handling</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed mb-3">Some tools (especially AI-powered ones) may involve uploading your images to our servers for processing.</p>
+                    <ul class="list-disc list-inside space-y-1.5 text-sm text-slate-700 dark:text-slate-300 pl-2">
+                        <li>We do not claim ownership of the images or files you upload.</li>
+                        <li>You are responsible for ensuring you have the legal right to process any content you submit.</li>
+                        <li>Always keep backups of your original files before processing.</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">5. No Professional Guarantee</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">ToolImg does not guarantee that our tools will meet your specific requirements, produce production-ready output, or function without interruption. The service is provided on an “As Is” and “As Available” basis.</p>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">6. External Links & Third-Party Services</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">Our website may contain links to external websites or third-party services (including Razorpay for payments). We have no control over and assume no responsibility for the content, privacy policies, or practices of any third-party sites.</p>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">7. Changes to Disclaimer</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">We reserve the right to update or modify this Disclaimer at any time. Changes will be effective immediately upon posting on this page. We encourage you to review this page periodically.</p>
+                </div>
+
+                <div>
+                    <h2 class="text-lg font-bold text-violet-600 dark:text-violet-400 mb-3">8. Contact Us</h2>
+                    <p class="text-slate-700 dark:text-slate-300 text-sm leading-relaxed">If you have any questions about this Disclaimer, please contact us at: <a href="mailto:support@toolimg.online" class="text-violet-600 dark:text-violet-400 font-medium hover:underline">support@toolimg.online</a></p>
+                </div>
+
+                <div class="bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/60 p-6 rounded-2xl text-center mt-8">
+                    <h2 class="text-lg font-bold text-slate-900 dark:text-white mb-2">9. Consent</h2>
+                    <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">By using ToolImg, you hereby consent to this Disclaimer and agree to its terms. If you do not agree with any part of this Disclaimer, please do not use our website or services.</p>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-slate-950 mt-auto pt-16 pb-8 transition-colors border-t border-slate-100 dark:border-slate-800">
+        <div class="max-w-[85vw] mx-auto px-4 sm:px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+                <div class="md:col-span-1">
+                    <a href="/" class="flex items-center gap-2 mb-4">
+                        <img src="https://toolimg.online/logo.jpg" alt="ToolIMG" class="logo-img h-8 object-contain" onerror="this.onerror=null; this.src='/logo.jpg';">
+                        <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
+                    </a>
+                    <p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed mb-4">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
+                    <a href="mailto:support@toolimg.online" class="text-violet-600 dark:text-violet-400 font-medium hover:underline text-[11px]">support@toolimg.online</a>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5">Products</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="/tools/image-to-code/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Image to Code AI</a></li>
+                        <li><a href="/tools/handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">English Handwriting OCR</a></li>
+                        <li><a href="/tools/hindi-handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition font-semibold text-violet-600 dark:text-violet-400">Hindi Handwriting OCR</a></li>
+                        <li><a href="/tools/html-to-image/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">HTML to Image</a></li>
+                        <li><a href="/tools/gemini-image-to-prompt/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Gemini Image to Prompt</a></li>
+                        <li><a href="/tools/text-to-image-generator/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">AI Text to Image Generator</a></li>
+                        <li><a href="/tools/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">All Tools</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5">Company</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="https://toolimg.online/about.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">About Us</a></li>
+                        <li><a href="https://toolimg.online/contact.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Contact Us</a></li>
+                        <li><a href="/pricing/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Pricing</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="font-bold text-slate-900 dark:text-white mb-5">Legal</h4>
+                    <ul class="space-y-3.5">
+                        <li><a href="https://toolimg.online/privacy-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="https://toolimg.online/terms.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Terms of Service</a></li>
+                        <li><a href="https://toolimg.online/refund-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Refund Policy</a></li>
+                        <li><a href="https://toolimg.online/disclaimer.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Disclaimer</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-8 border-t border-slate-100 dark:border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4">
+                <p class="text-[11px] text-slate-500 dark:text-slate-400">© 2026 ToolIMG. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+    function toggleTheme() {
+        if (document.documentElement.classList.contains('dark')) {
+            document.documentElement.classList.remove('dark');
+            localStorage.theme = 'light';
+        } else {
+            document.documentElement.classList.add('dark');
+            localStorage.theme = 'dark';
+        }
+    }
+    const themeBtns = [document.getElementById('theme-btn'), document.getElementById('theme-btn-desktop')];
+    themeBtns.forEach(btn => { if(btn) btn.addEventListener('click', toggleTheme); });
+
+    function toggleLangMenu(e) {
+        if (e) e.stopPropagation();
+        const p = document.getElementById('lang-popover');
+        if (p) p.classList.toggle('hidden');
+    }
+    document.addEventListener('click', () => {
+        const p = document.getElementById('lang-popover');
+        if (p && !p.classList.contains('hidden')) p.classList.add('hidden');
+    });
+    function switchLang(lang) {
+        if (lang === 'en') window.location.href = '/disclaimer.html';
+        else window.location.href = '/' + lang + '/disclaimer.html';
+    }
+    </script>
+</body>
+</html>

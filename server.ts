@@ -840,9 +840,13 @@ app.use((req, res, next) => {
     req.url = req.url.replace(langPrefixRegex, '/');
   }
 
-  // Intercept any logo.png request (e.g. /logo.png, /logo/logo.png, /hi/logo.png)
-  if (/\/logo(\/logo)?\.png$/i.test(req.url)) {
+  // Intercept any logo request (e.g. /logo.png, /logo.jpg, /logo/logo.png, /logo/logo.jpg, /hi/logo.jpg)
+  if (/\/logo(\/logo)?\.(png|jpg|jpeg)$/i.test(req.url)) {
     const logoPaths = [
+      path.resolve('dist/logo/logo.jpg'),
+      path.resolve('dist/logo.jpg'),
+      path.resolve('public/logo/logo.jpg'),
+      path.resolve('public/logo.jpg'),
       path.resolve('dist/logo/logo.png'),
       path.resolve('dist/logo.png'),
       path.resolve('public/logo/logo.png'),
@@ -851,7 +855,7 @@ app.use((req, res, next) => {
 
     let fileToServe = logoPaths.find(p => fs.existsSync(p));
     if (fileToServe) {
-      res.setHeader('Content-Type', 'image/png');
+      res.setHeader('Content-Type', fileToServe.endsWith('.png') ? 'image/png' : 'image/jpeg');
       res.setHeader('Cache-Control', 'public, max-age=86400');
       return res.sendFile(fileToServe);
     }
