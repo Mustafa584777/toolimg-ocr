@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "node --experimental-strip-types server.ts",
-    "build": "vite build && cp output.css dist/ && cp style.css dist/ 2>/dev/null && cp firebase-applet-config.json dist/ 2>/dev/null || true",
+    "build": "vite build && mkdir -p dist/logo && cp -r public/* dist/ 2>/dev/null || true && cp output.css dist/ && cp style.css dist/ 2>/dev/null && cp firebase-applet-config.json dist/ 2>/dev/null || true",
     "start": "node server.ts",
     "clean": "rm -rf dist",
     "lint": "echo 'No linting required'"
@@ -16,8 +16,10 @@
     "express": "^5.2.1",
     "firebase-admin": "^14.2.0",
     "jimp": "^1.6.1",
+    "pngjs": "^7.0.0",
     "puppeteer": "^25.4.0",
     "razorpay": "^2.9.6",
+    "sharp": "^0.35.3",
     "vite": "^6.2.3"
   },
   "devDependencies": {

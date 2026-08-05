@@ -2495,7 +2495,7 @@
 
     <style>
         .dark .logo-img {
-            filter: brightness(0) invert(1);
+            filter: brightness(0) invert(1) !important;
         }
     </style>
 
@@ -2508,7 +2508,7 @@
             border-radius: 4px !important;
         }
         .dark .logo-img {
-            filter: brightness(0) invert(1);
+            filter: brightness(0) invert(1) !important;
         }
     </style>
 </head>
@@ -2517,7 +2517,7 @@
 <header class="w-full max-w-[85vw] mx-auto px-4 sm:px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-md dark: sticky top-4 z-40 shadow-sm rounded-[4px]-[4px] mb-8 transition-colors">
     <div class="flex items-center gap-2 w-full justify-between">
         <a href="/" class="flex items-center gap-2" style="display: flex !important; align-items: center !important; gap: 8px !important; text-decoration: none !important;">
-            <img src="/logo.png" alt="ToolIMG" class="logo-img h-8 object-contain" height="32" style="height: 32px !important; width: auto !important; object-fit: contain !important; display: block !important;">
+            <img src="/logo/logo.png" alt="ToolIMG" class="logo-img h-8 object-contain" height="32" style="height: 32px !important; width: auto !important; object-fit: contain !important; display: block !important;" onerror="this.onerror=null; this.src='/logo.png';">
             <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
         </a>
         
@@ -2620,7 +2620,7 @@
     <div id="mobile-menu-content" class="relative w-full max-w-[340px] bg-white dark:bg-slate-900 rounded-[4px]-[4px] shadow-2xl overflow-visible transition-all scale-95 opacity-0 duration-200 ease-out">
         <div class="flex items-center justify-between px-6 py-5 dark:">
             <div class="flex items-center gap-3">
-                <img src="/logo.png" alt="ToolIMG" class="logo-img h-6 object-contain">
+                <img src="/logo/logo.png" alt="ToolIMG" class="logo-img h-6 object-contain" onerror="this.onerror=null; this.src='/logo.png';">
                 <span class="font-bold text-lg text-slate-900 dark:text-white tracking-tight">ToolIMG</span>
             </div>
             <button id="mobile-menu-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1 rounded-[4px]-[4px] hover:bg-slate-50 dark:hover:bg-slate-800">
@@ -2718,7 +2718,7 @@
     </div>
     
     <!-- Premium Features Grid -->
-    <div class="max-w-6xl mx-auto mt-32 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 text-left z-10 w-full" id="tools-grid">
+    <div class="max-w-6xl mx-auto mt-20 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 text-left z-10 w-full" id="tools-grid">
         <!-- Tool Card 1 -->
         <a href="/tools/image-to-code/" class="group block p-8 rounded-[4px]-[4px] bg-white/60 dark:bg-slate-900/40 dark: backdrop-blur-md hover: dark:hover: transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-violet-100/50 dark:hover:shadow-violet-900/20">
             <div class="w-14 h-14 rounded-[4px]-[4px] bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
@@ -2778,6 +2778,18 @@
                 Try Tool <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
             </div>
         </a>
+
+        <!-- Tool Card 6 -->
+        <a href="/tools/text-to-image-generator/" class="group block p-8 rounded-[4px]-[4px] bg-white/60 dark:bg-slate-900/40 dark: backdrop-blur-md hover: dark:hover: transition-all hover:-translate-y-1 hover:shadow-xl hover:shadow-violet-100/50 dark:hover:shadow-violet-900/20">
+            <div class="w-14 h-14 rounded-[4px]-[4px] bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-6 group-hover:scale-110 transition-transform">
+                <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
+            </div>
+            <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2 group-hover:text-violet-600 dark:group-hover:text-violet-400 transition-colors">AI Text to Image Generator</h3>
+            <p class="text-slate-600 dark:text-slate-400 leading-relaxed mb-6">Create high-resolution AI art, pictures, and graphics from text descriptions and reference images.</p>
+            <div class="flex items-center text-violet-600 dark:text-violet-400 font-semibold text-sm">
+                Try Tool <svg class="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+            </div>
+        </a>
     </div>
 </main>
         
@@ -2791,7 +2803,7 @@
         <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
             <div class="md:col-span-1">
                 <a href="/" class="flex items-center gap-2 mb-4">
-                    <img src="/logo.png" alt="ToolIMG" class="logo-img h-8 object-contain">
+                    <img src="/logo/logo.png" alt="ToolIMG" class="logo-img h-8 object-contain" onerror="this.onerror=null; this.src='/logo.png';">
                     <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
                 </a>
                 <p class="text-slate-500 dark:text-slate-400 text-[11px] leading-relaxed mb-4">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
@@ -2803,7 +2815,9 @@
                     <li><a href="/tools/image-to-code/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Image to Code AI</a></li>
                     <li><a href="/tools/handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">English Handwriting OCR</a></li>
                     <li><a href="/tools/hindi-handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition font-semibold text-violet-600 dark:text-violet-400">Hindi Handwriting OCR</a></li>
+                    <li><a href="/tools/html-to-image/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">HTML to Image</a></li>
                     <li><a href="/tools/gemini-image-to-prompt/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Gemini Image to Prompt</a></li>
+                    <li><a href="/tools/text-to-image-generator/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">AI Text to Image Generator</a></li>
                     <li><a href="/tools/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">All Tools</a></li>
                 </ul>
             </div>

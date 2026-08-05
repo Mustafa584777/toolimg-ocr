@@ -2479,7 +2479,7 @@
 
     <style>
         .dark .logo-img {
-            filter: brightness(0) invert(1);
+            filter: brightness(0) invert(1) !important;
         }
     </style>
 
@@ -2492,7 +2492,7 @@
             border-radius: 4px !important;
         }
         .dark .logo-img {
-            filter: brightness(0) invert(1);
+            filter: brightness(0) invert(1) !important;
         }
     </style>
 </head>
@@ -2502,7 +2502,7 @@
     <header class="w-full max-w-[85vw] mx-auto px-4 sm:px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-md dark: sticky top-4 z-40 shadow-sm rounded-[4px]-[4px] mb-8 transition-colors">
         <div class="flex items-center gap-2 w-full justify-between">
             <a href="/" class="flex items-center gap-2" style="display: flex !important; align-items: center !important; gap: 8px !important; text-decoration: none !important;">
-                <img src="/logo.png" alt="ToolIMG" class="logo-img h-8 object-contain" height="32" style="height: 32px !important; width: auto !important; object-fit: contain !important; display: block !important;">
+                <img src="/logo/logo.png" alt="ToolIMG" class="logo-img h-8 object-contain" height="32" style="height: 32px !important; width: auto !important; object-fit: contain !important; display: block !important;" onerror="this.onerror=null; this.src='/logo.png';">
                 <span class="font-bold text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
             </a>
             
@@ -2605,7 +2605,7 @@
         <div id="mobile-menu-content" class="relative w-full max-w-[340px] bg-white dark:bg-slate-900 rounded-[4px]-[4px] shadow-2xl overflow-visible transition-all scale-95 opacity-0 duration-200 ease-out">
             <div class="flex items-center justify-between px-6 py-5 dark:">
                 <div class="flex items-center gap-3">
-                    <img src="/logo.png" alt="ToolIMG" class="logo-img h-6 object-contain">
+                    <img src="/logo/logo.png" alt="ToolIMG" class="logo-img h-6 object-contain" onerror="this.onerror=null; this.src='/logo.png';">
                     <span class="font-bold text-lg text-slate-900 dark:text-white tracking-tight">ToolIMG</span>
                 </div>
                 <button id="mobile-menu-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1 rounded-[4px]-[4px] hover:bg-slate-50 dark:hover:bg-slate-800">
@@ -2972,7 +2972,7 @@
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
                 <div class="md:col-span-1">
                     <a href="/" class="flex items-center gap-2 mb-4">
-                        <img src="/logo.png" alt="ToolIMG" class="logo-img h-8 object-contain">
+                        <img src="/logo/logo.png" alt="ToolIMG" class="logo-img h-8 object-contain" onerror="this.onerror=null; this.src='/logo.png';">
                         <span class="font-bold text-sm md:text-xl tracking-tight text-slate-900 dark:text-white">ToolIMG</span>
                     </a>
                     <p class="text-slate-500 dark:text-slate-400 text-[11px] md:text-[15px] leading-relaxed mb-4">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
