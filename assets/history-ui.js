@@ -1,6 +1,6 @@
 // assets/history-ui.js - Drawer and Modal UI Manager for ToolIMG History
-import { fetchHistoryItems, deleteHistoryItem, clearAllHistory, showToast, handleHistoryLogin } from './history.js';
-import { auth, db } from './firebase-config.js';
+import { fetchHistoryItems, deleteHistoryItem, clearAllHistory, showToast, handleHistoryLogin } from '/assets/history.js';
+import { auth, db } from '/assets/firebase-config.js';
 import { onSnapshot, doc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
 let currentToolId = 'all'; // Default
