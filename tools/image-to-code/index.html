@@ -3042,11 +3042,7 @@
 
     <script>
         function getApiUrl(endpoint) {
-            const hostname = window.location.hostname;
-            if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname.endsWith('.run.app')) {
-                return endpoint;
-            }
-            return 'https://ais-pre-evrfa65wiubcqn5xlwdv7y-261813730459.asia-east1.run.app' + endpoint;
+            return endpoint;
         }
 
         let currentBase64 = null;
