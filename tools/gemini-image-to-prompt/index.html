@@ -3065,20 +3065,9 @@
       import { initializeFirestore, getFirestore, doc, onSnapshot, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
 
       // Dynamically fetch Firebase Configuration from backend route /api/config
-      window.getApiUrl = function(endpoint) {
-          const host = window.location.hostname;
-          const isLocal = host === 'localhost' || host === '127.0.0.1' || host.includes('192.168.') || host.includes('0.0.0.0');
-          const isVercel = host.includes('vercel.app');
-          const isAIS = host.includes('run.app');
-          if (isLocal || isVercel || isAIS) {
-              return endpoint;
-          }
-          return 'https://toolimg-ocr.vercel.app' + endpoint;
-      };
-
       let app, auth, db;
       try {
-          const res = await fetch(window.getApiUrl('/api/config'));
+          const res = await fetch('/api/config');
           const firebaseConfig = await res.json();
           app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
           auth = getAuth(app);
@@ -3614,7 +3603,7 @@
           startLoadingAnimation();
 
           try {
-              const res = await fetch(window.getApiUrl('/api/image-to-prompt'), {
+              const res = await fetch('/api/image-to-prompt', {
                   method: 'POST',
                   headers: {
                       'Content-Type': 'application/json'

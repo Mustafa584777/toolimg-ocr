@@ -29,10 +29,7 @@ export default async function handler(req: Request, res: Response) {
     };
 
     // If any key is missing from environment, try to read from the JSON file as fallback
-    let configPath = path.join(process.cwd(), 'firebase-applet-config.json');
-    if (!fs.existsSync(configPath)) {
-      configPath = path.join(__dirname, '../firebase-applet-config.json');
-    }
+    const configPath = path.join(process.cwd(), 'firebase-applet-config.json');
     if (fs.existsSync(configPath) && (!configData.apiKey || !configData.projectId)) {
       const fileConfig = JSON.parse(fs.readFileSync(configPath, 'utf-8'));
       Object.assign(configData, fileConfig);

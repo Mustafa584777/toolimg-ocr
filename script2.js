@@ -1,10 +1,6 @@
 
 function getApiUrl(endpoint) {
-    const backendUrl = 'https://toolimg-ocr.vercel.app';
-    if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.hostname.includes('ais-dev-') || window.location.hostname.includes('ais-pre-') || window.location.hostname.includes('asia-east1.run.app')) {
-        return endpoint;
-    }
-    return backendUrl + endpoint;
+    return endpoint;
 }
 
         let currentBase64 = null;
