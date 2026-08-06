@@ -29,8 +29,7 @@ export default defineConfig(() => {
           about: resolve(__dirname, 'about.html'),
           contact: resolve(__dirname, 'contact.html'),
           disclaimer: resolve(__dirname, 'disclaimer.html'),
-          refundPolicy: resolve(__dirname, 'refund-policy.html'),
-          refundPolicy2: resolve(__dirname, 'refund-policy-2.html')
+          refundPolicy: resolve(__dirname, 'refund-policy.html')
         }
       }
     }
