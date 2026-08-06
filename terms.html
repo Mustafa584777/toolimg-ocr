@@ -795,6 +795,13 @@
             font-weight: 600;
             color: var(--text-body);
         }
+
+        .dark img[src*="logo.png"],
+        .dark img[alt*="ToolIMG Logo"],
+        .dark img[alt*="Logo"],
+        .dark .logo-img {
+            filter: brightness(0) invert(1) !important;
+        }
     </style>
 </head>
 <body>
@@ -804,6 +811,7 @@
     <div class="container site-header">
         <header class="header-bar">
             <a href="/" class="logo-link">
+                <img src="https://timetablecreator.online/blog/wp-content/uploads/2026/08/logo.png" alt="ToolIMG Logo" style="height: 32px; width: auto;">
                 <span>Tool<span class="logo-accent">IMG</span></span>
             </a>
             
@@ -832,7 +840,10 @@
     <div id="navigation-drawer" class="drawer-overlay">
         <div class="drawer-container">
             <div class="drawer-top">
-                <a href="/" class="drawer-logo">Tool<span class="logo-accent">IMG</span></a>
+                <a href="/" class="drawer-logo" style="display: flex; align-items: center; gap: 0.5rem;">
+                    <img src="https://timetablecreator.online/blog/wp-content/uploads/2026/08/logo.png" alt="ToolIMG Logo" style="height: 28px; width: auto;">
+                    <span>Tool<span class="logo-accent">IMG</span></span>
+                </a>
                 <button id="drawer-close-btn" class="drawer-close" aria-label="Close Navigation Menu">
                     <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
                 </button>
@@ -1013,7 +1024,10 @@
             <div class="footer-grid">
                 <!-- Col 1 -->
                 <div class="footer-about">
-                    <a href="/" class="footer-brand">Tool<span class="logo-accent">IMG</span></a>
+                    <a href="/" class="footer-brand" style="display: flex; align-items: center; gap: 0.5rem;">
+                        <img src="https://timetablecreator.online/blog/wp-content/uploads/2026/08/logo.png" alt="ToolIMG Logo" style="height: 32px; width: auto;">
+                        <span>Tool<span class="logo-accent">IMG</span></span>
+                    </a>
                     <p class="footer-description">A professional visual processing ecosystem. Convert layouts to code, transcribe handwriting, analyze graphics, reverse-engineer prompts, and process digital images.</p>
                     <a href="mailto:support@toolimg.online" class="footer-email">support@toolimg.online</a>
                     <div style="margin-top: 1rem;">

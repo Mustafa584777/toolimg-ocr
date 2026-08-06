@@ -2391,3 +2391,11 @@
     }
   }
 }
+
+.dark img[src*="logo.png"],
+.dark img[alt*="ToolIMG Logo"],
+.dark img[alt*="Logo"],
+.dark .logo-img {
+  filter: brightness(0) invert(1) !important;
+}
+

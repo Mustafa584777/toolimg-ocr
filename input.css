@@ -15,3 +15,12 @@
   --color-violet-800: #5b21b6;
   --color-violet-900: #4c1d95;
 }
+
+/* White logo image in dark theme */
+.dark img[src*="logo.png"],
+.dark img[alt*="ToolIMG Logo"],
+.dark img[alt*="Logo"],
+.dark .logo-img {
+  filter: brightness(0) invert(1) !important;
+}
+

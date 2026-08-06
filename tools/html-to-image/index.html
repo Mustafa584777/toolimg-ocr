@@ -5763,8 +5763,11 @@ input[type="range"].tmg-slider {
 </style>
 
     <style>
+        .dark img[src*="logo.png"],
+        .dark img[alt*="ToolIMG Logo"],
+        .dark img[alt*="Logo"],
         .dark .logo-img {
-            filter: brightness(0) invert(1);
+            filter: brightness(0) invert(1) !important;
         }
     </style>
 
@@ -5787,7 +5790,7 @@ input[type="range"].tmg-slider {
 <header class="w-full max-w-[85vw] mx-auto px-4 sm:px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-md dark: sticky top-4 z-40 shadow-sm rounded-[4px]-[4px] mb-8 transition-colors">
     <div class="flex items-center gap-2 w-full justify-between">
         <a href="/" class="flex items-center gap-2">
-            
+            <img src="https://timetablecreator.online/blog/wp-content/uploads/2026/08/logo.png" alt="ToolIMG Logo" class="h-8 w-auto">
             <span class="font-bold text-xl tracking-tight text-black dark:text-white">Tool<span class="text-violet-600 dark:text-violet-400">IMG</span></span>
         </a>
         
@@ -5885,9 +5888,10 @@ input[type="range"].tmg-slider {
     <div id="mobile-menu-backdrop" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
     <div id="mobile-menu-content" class="relative w-full max-w-[340px] bg-white dark:bg-slate-900 rounded-[4px]-[4px] shadow-2xl overflow-visible transition-all scale-95 opacity-0 duration-200 ease-out">
         <div class="flex items-center justify-between px-6 py-5 dark:">
-            <div class="flex items-center gap-3">
-                
+            <a href="/" class="flex items-center gap-2">
+                <img src="https://timetablecreator.online/blog/wp-content/uploads/2026/08/logo.png" alt="ToolIMG Logo" class="h-7 w-auto">
                 <span class="font-bold text-lg text-black dark:text-white tracking-tight">Tool<span class="text-violet-600 dark:text-violet-400">IMG</span></span>
+            </a>
             </div>
             <button id="mobile-menu-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1 rounded-[4px]-[4px] hover:bg-slate-50 dark:hover:bg-slate-800">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
@@ -6675,7 +6679,7 @@ input[type="range"].tmg-slider {
             <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
                 <div class="md:col-span-1">
                     <a href="/" class="flex items-center gap-2 mb-4">
-                        
+                        <img src="https://timetablecreator.online/blog/wp-content/uploads/2026/08/logo.png" alt="ToolIMG Logo" class="h-8 w-auto">
                         <span class="font-bold text-sm md:text-xl tracking-tight text-black dark:text-white">Tool<span class="text-violet-600 dark:text-violet-400">IMG</span></span>
                     </a>
                     <p class="text-slate-500 dark:text-slate-400 text-[11px] md:text-[15px] leading-relaxed mb-4">Your ultimate hub for AI-powered developer utilities. Convert designs, extract text, and build faster.</p>
