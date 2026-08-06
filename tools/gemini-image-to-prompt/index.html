@@ -3340,6 +3340,19 @@
                       processImageFile(file);
                   }
               });
+
+              // Clipboard paste support
+              document.addEventListener('paste', (e) => {
+                  const items = (e.clipboardData || e.originalEvent.clipboardData).items;
+                  for (let index in items) {
+                      const item = items[index];
+                      if (item.kind === 'file' && item.type.startsWith('image/')) {
+                          const file = item.getAsFile();
+                          processImageFile(file);
+                          break;
+                      }
+                  }
+              });
           }
           
           // Theme toggling initialization
@@ -3928,6 +3941,18 @@
           document.body.appendChild(toast);
           setTimeout(() => toast.remove(), 3000);
       }
+
+      // Expose module functions to window for HTML inline event handlers
+      window.handleFileSelect = handleFileSelect;
+      window.generatePrompt = generatePrompt;
+      window.switchTab = switchTab;
+      window.copyPrimaryPrompt = copyPrimaryPrompt;
+      window.resetTool = resetTool;
+      window.switchLang = switchLang;
+      window.toggleLangMenu = toggleLangMenu;
+      window.toggleUserDropdown = toggleUserDropdown;
+      window.setTheme = setTheme;
+      window.showToast = showToast;
     </script>
 
     <!-- Low Credits & Out of Credits Modals -->
