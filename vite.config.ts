@@ -23,7 +23,8 @@ export default defineConfig(() => {
           geminiImageToPrompt: resolve(__dirname, 'tools/gemini-image-to-prompt/index.html'),
           htmlToImage: resolve(__dirname, 'tools/html-to-image/index.html'),
           pricing: resolve(__dirname, 'pricing/index.html'),
-          dashboard: resolve(__dirname, 'dashboard/index.html')
+          dashboard: resolve(__dirname, 'dashboard/index.html'),
+          terms: resolve(__dirname, 'terms.html')
         }
       }
     }
