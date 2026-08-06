@@ -97,6 +97,7 @@
     
 
 
+
 <style>
 /* TAILWIND INJECTED CSS */
 /*! tailwindcss v4.3.3 | MIT License | https://tailwindcss.com */
@@ -212,7 +213,7 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    border: none !important;
+    border: 0 solid;
   }
   html, :host {
     line-height: 1.5;
@@ -267,8 +268,8 @@
   }
   table {
     text-indent: 0;
-    border: none !important;
-    border: none !important;
+    border-color: inherit;
+    border-collapse: collapse;
   }
   :-moz-focusring:where(:not(iframe)) {
     outline: auto;
@@ -296,7 +297,7 @@
     font-variation-settings: inherit;
     letter-spacing: inherit;
     color: inherit;
-    border: none !important;
+    border-radius: 0;
     background-color: transparent;
     opacity: 1;
   }
@@ -874,41 +875,41 @@
     overflow-x: auto;
   }
   .rounded {
-    border: none !important;
+    border-radius: 0.25rem;
   }
-  .rounded-[4px] {
-    border: none !important;
+  .rounded-2xl {
+    border-radius: var(--radius-2xl);
   }
-  .rounded-[4px] {
-    border: none !important;
+  .rounded-3xl {
+    border-radius: var(--radius-3xl);
   }
-  .rounded-[4px] {
-    border: none !important;
+  .rounded-full {
+    border-radius: calc(infinity * 1px);
   }
-  .rounded-[4px] {
-    border: none !important;
+  .rounded-lg {
+    border-radius: var(--radius-lg);
   }
-  .rounded-[4px] {
-    border: none !important;
+  .rounded-md {
+    border-radius: var(--radius-md);
   }
-  .rounded-[4px] {
-    border: none !important;
+  .rounded-xl {
+    border-radius: var(--radius-xl);
   }
   .border {
-    border: none !important;
-    border: none !important;
+    border-style: var(--tw-border-style);
+    border-width: 1px;
   }
   .border-0 {
-    border: none !important;
-    border: none !important;
+    border-style: var(--tw-border-style);
+    border-width: 0px;
   }
   .border-2 {
-    border: none !important;
-    border: none !important;
+    border-style: var(--tw-border-style);
+    border-width: 2px;
   }
   .border-4 {
-    border: none !important;
-    border: none !important;
+    border-style: var(--tw-border-style);
+    border-width: 4px;
   }
   .border-t {
     border-top-style: var(--tw-border-style);
@@ -919,76 +920,76 @@
     border-bottom-width: 1px;
   }
   .border-dashed {
-    --tw-border: none !important;
-    border: none !important;
+    --tw-border-style: dashed;
+    border-style: dashed;
   }
   .border-emerald-100 {
-    border: none !important;
+    border-color: var(--color-emerald-100);
   }
   .border-emerald-100\/30 {
-    border: none !important;
+    border-color: color-mix(in srgb, oklch(95% 0.052 163.051) 30%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
-      border: none !important;
+      border-color: color-mix(in oklab, var(--color-emerald-100) 30%, transparent);
     }
   }
   .border-emerald-100\/50 {
-    border: none !important;
+    border-color: color-mix(in srgb, oklch(95% 0.052 163.051) 50%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
-      border: none !important;
+      border-color: color-mix(in oklab, var(--color-emerald-100) 50%, transparent);
     }
   }
   .border-slate-100 {
-    border: none !important;
+    border-color: var(--color-slate-100);
   }
   .border-slate-200 {
-    border: none !important;
+    border-color: var(--color-slate-200);
   }
   .border-slate-200\/50 {
-    border: none !important;
+    border-color: color-mix(in srgb, oklch(92.9% 0.013 255.508) 50%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
-      border: none !important;
+      border-color: color-mix(in oklab, var(--color-slate-200) 50%, transparent);
     }
   }
   .border-slate-300 {
-    border: none !important;
+    border-color: var(--color-slate-300);
   }
   .border-transparent {
-    border: none !important;
+    border-color: transparent;
   }
   .border-violet-100 {
-    border: none !important;
+    border-color: var(--color-violet-100);
   }
   .border-violet-100\/30 {
-    border: none !important;
+    border-color: color-mix(in srgb, #ede9fe 30%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
-      border: none !important;
+      border-color: color-mix(in oklab, var(--color-violet-100) 30%, transparent);
     }
   }
   .border-violet-100\/50 {
-    border: none !important;
+    border-color: color-mix(in srgb, #ede9fe 50%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
-      border: none !important;
+      border-color: color-mix(in oklab, var(--color-violet-100) 50%, transparent);
     }
   }
   .border-violet-200 {
-    border: none !important;
+    border-color: var(--color-violet-200);
   }
   .border-violet-500 {
-    border: none !important;
+    border-color: var(--color-violet-500);
   }
   .border-white {
-    border: none !important;
+    border-color: var(--color-white);
   }
   .border-white\/10 {
-    border: none !important;
+    border-color: color-mix(in srgb, #fff 10%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
-      border: none !important;
+      border-color: color-mix(in oklab, var(--color-white) 10%, transparent);
     }
   }
   .border-white\/20 {
-    border: none !important;
+    border-color: color-mix(in srgb, #fff 20%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
-      border: none !important;
+      border-color: color-mix(in oklab, var(--color-white) 20%, transparent);
     }
   }
   .border-t-violet-600 {
@@ -1656,10 +1657,10 @@
       translate: var(--tw-translate-x) var(--tw-translate-y);
     }
     .hover\:border-slate-300:hover {
-      border: none !important;
+      border-color: var(--color-slate-300);
     }
     .hover\:border-violet-500:hover {
-      border: none !important;
+      border-color: var(--color-violet-500);
     }
     .hover\:bg-slate-50:hover {
       background-color: var(--color-slate-50);
@@ -1737,7 +1738,7 @@
     }
   }
   .focus\:border-violet-500:focus {
-    border: none !important;
+    border-color: var(--color-violet-500);
   }
   .focus\:ring-1:focus {
     --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
@@ -1871,45 +1872,45 @@
     display: none;
   }
   .dark\:border-emerald-900\/20:is(.dark *) {
-    border: none !important;
+    border-color: color-mix(in srgb, oklch(37.8% 0.077 168.94) 20%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
-      border: none !important;
+      border-color: color-mix(in oklab, var(--color-emerald-900) 20%, transparent);
     }
   }
   .dark\:border-slate-700:is(.dark *) {
-    border: none !important;
+    border-color: var(--color-slate-700);
   }
   .dark\:border-slate-700\/50:is(.dark *) {
-    border: none !important;
+    border-color: color-mix(in srgb, oklch(37.2% 0.044 257.287) 50%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
-      border: none !important;
+      border-color: color-mix(in oklab, var(--color-slate-700) 50%, transparent);
     }
   }
   .dark\:border-slate-800:is(.dark *) {
-    border: none !important;
+    border-color: var(--color-slate-800);
   }
   .dark\:border-slate-800\/50:is(.dark *) {
-    border: none !important;
+    border-color: color-mix(in srgb, oklch(27.9% 0.041 260.031) 50%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
-      border: none !important;
+      border-color: color-mix(in oklab, var(--color-slate-800) 50%, transparent);
     }
   }
   .dark\:border-violet-800\/50:is(.dark *) {
-    border: none !important;
+    border-color: color-mix(in srgb, #5b21b6 50%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
-      border: none !important;
+      border-color: color-mix(in oklab, var(--color-violet-800) 50%, transparent);
     }
   }
   .dark\:border-violet-900\/20:is(.dark *) {
-    border: none !important;
+    border-color: color-mix(in srgb, #4c1d95 20%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
-      border: none !important;
+      border-color: color-mix(in oklab, var(--color-violet-900) 20%, transparent);
     }
   }
   .dark\:border-violet-900\/30:is(.dark *) {
-    border: none !important;
+    border-color: color-mix(in srgb, #4c1d95 30%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
-      border: none !important;
+      border-color: color-mix(in oklab, var(--color-violet-900) 30%, transparent);
     }
   }
   .dark\:bg-black\/60:is(.dark *) {
@@ -2083,10 +2084,10 @@
       color: var(--color-violet-400);
     }
     .dark\:hover\:border-slate-600:is(.dark *):hover {
-      border: none !important;
+      border-color: var(--color-slate-600);
     }
     .dark\:hover\:border-violet-500:is(.dark *):hover {
-      border: none !important;
+      border-color: var(--color-violet-500);
     }
     .dark\:hover\:bg-slate-700:is(.dark *):hover {
       background-color: var(--color-slate-700);
@@ -2438,7 +2439,7 @@
       --tw-skew-x: initial;
       --tw-skew-y: initial;
       --tw-space-y-reverse: 0;
-      --tw-border: none !important;
+      --tw-border-style: solid;
       --tw-gradient-position: initial;
       --tw-gradient-from: #0000;
       --tw-gradient-via: #0000;
@@ -2493,127 +2494,19 @@
   }
 }
 
+.dark img[src*="logo.png"],
+.dark img[alt*="ToolIMG Logo"],
+.dark img[alt*="Logo"],
+.dark .logo-img {
+  filter: brightness(0) invert(1) !important;
+}
+
+
 </style>
-
-    <!-- Schema Structured Data -->
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "SoftwareApplication",
-      "name": "ToolIMG Hindi Handwriting to Text Converter AI",
-      "operatingSystem": "All",
-      "applicationCategory": "UtilitiesApplication",
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD"
-      },
-      "description": "Free online Hindi handwriting to text AI converter. Digitize Devanagari script handwritten documents, notes, diaries, and images into copyable Hindi Unicode text."
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "HowTo",
-      "name": "How to Convert Hindi Handwriting to Text Online Free",
-      "description": "Easy step-by-step guide to extract Hindi text from Devanagari handwritten pages and images using AI OCR.",
-      "step": [
-        {
-          "@type": "HowToStep",
-          "name": "Upload Hindi Handwritten Image",
-          "text": "Upload your handwritten Hindi page, letter, diary scan, or notebook photo into the online converter.",
-          "url": "https://toolimg.online/tools/hindi-handwriting-to-text/"
-        },
-        {
-          "@type": "HowToStep",
-          "name": "AI Devanagari Processing",
-          "text": "Click Extract Text to initiate our specialized Devanagari script neural handwriting recognition model.",
-          "url": "https://toolimg.online/tools/hindi-handwriting-to-text/"
-        },
-        {
-          "@type": "HowToStep",
-          "name": "Copy Extracted Hindi Text",
-          "text": "Review the clean digital Hindi Unicode text and copy it to your clipboard instantly.",
-          "url": "https://toolimg.online/tools/hindi-handwriting-to-text/"
-        }
-      ]
-    }
-    </script>
-    <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "FAQPage",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "What is the best Hindi handwriting to text converter online free?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "ToolIMG offers the leading Hindi handwriting to text converter online free tool. It uses specialized AI models trained on Devanagari script to extract accurate Hindi text from images."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How can I convert Hindi handwriting to text from image online?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Simply upload your photo or scan of handwritten Hindi notes to ToolIMG, click Extract Text, and copy the digitized Devanagari Unicode text."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Does this tool support Devanagari script and Hinglish notes?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes! The converter recognizes pure Devanagari Hindi handwriting as well as mixed Hinglish (Hindi written in Roman or Devanagari) and numerical math notations."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Is this Hindi handwriting OCR tool free to use?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Yes, ToolIMG provides free daily credits so anyone can convert Hindi handwritten notes to text online without any cost."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "Why choose ToolIMG for Hindi handwriting image to text conversion?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Standard OCR tools fail on complex Devanagari ligatures and handwritten matras. ToolIMG uses multimodal vision AI for industry-leading accuracy on Hindi handwriting."
-          }
-        }
-      ]
-    }
-    </script>
-
-
-    <style>
-        .dark img[src*="logo.png"],
-        .dark img[alt*="ToolIMG Logo"],
-        .dark img[alt*="Logo"],
-        .dark .logo-img {
-            filter: brightness(0) invert(1) !important;
-        }
-    </style>
-
-    <style id="custom-radius-border-override">
-        *, ::before, ::after {
-            border: none !important;
-            border-width: 0px !important;
-        }
-        [class*="rounded"], button, input, select, textarea, img, .card, div[class*="rounded"] {
-            border-radius: 4px !important;
-        }
-        .dark .logo-img {
-            filter: brightness(0) invert(1);
-        }
-    </style>
 </head>
 <body class="hero-gradient text-slate-800 min-h-screen flex flex-col">
     <!-- Navbar -->
-<header class="w-full max-w-[85vw] mx-auto px-4 sm:px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-md dark: sticky top-4 z-40 shadow-sm rounded-[4px]-[4px] mb-8 transition-colors">
+<header class="w-full max-w-[85vw] mx-auto px-4 sm:px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-slate-900/80 backdrop-blur-md dark: sticky top-4 z-40 shadow-sm rounded-[4px] mb-8 transition-colors">
     <div class="flex items-center gap-2 w-full justify-between">
         <a href="/" class="flex items-center gap-2">
             <img src="https://timetablecreator.online/blog/wp-content/uploads/2026/08/logo.png" alt="ToolIMG Logo" class="h-8 w-auto">
@@ -2625,14 +2518,14 @@
             <a href="/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Home</a>
             <a href="/tools/" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition">Tools</a>
             <a href="/dashboard/" id="dashboard-nav" class="text-[15px] font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition hidden">Dashboard</a>
-            <a href="/pricing/" class="px-4 py-1.5 text-[15px] font-bold bg-white text-violet-600 hover: rounded-[4px]-[4px] shadow-sm transition">Pricing</a>
+            <a href="/pricing/" class="px-4 py-1.5 text-[15px] font-bold bg-white text-violet-600 hover: rounded-[4px] shadow-sm transition">Pricing</a>
             
         </nav>
         
         <div class="flex items-center gap-3">
             
                         <div class="relative">
-                <button id="lang-menu-btn" type="button" onclick="toggleLangMenu(event)" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition flex items-center justify-center" aria-label="Select Language">
+                <button id="lang-menu-btn" type="button" onclick="toggleLangMenu(event)" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition flex items-center justify-center" aria-label="Select Language">
                     <svg class="w-5 h-5 text-violet-600 dark:text-violet-400" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
             <path d="M5 8l6 6"></path>
             <path d="M4 14l6-6 2-3"></path>
@@ -2642,7 +2535,7 @@
             <path d="M14 18h6"></path>
         </svg>
                 </button>
-                <div id="lang-popover" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] shadow-lg flex-col z-50 overflow-hidden">
+                <div id="lang-popover" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-slate-900 dark: rounded-[4px] shadow-lg flex-col z-50 overflow-hidden">
                     <div class="py-2">
                         <button type="button" onclick="switchLang('en')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">English</button>
                         <button type="button" onclick="switchLang('es')" class="w-full text-left block px-4 py-2 text-sm text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 transition">Español</button>
@@ -2653,7 +2546,7 @@
                     </div>
                 </div>
             </div>
-            <div id="credits-display" class="hidden items-center gap-[2px] bg-violet-100/50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-[11px] sm:text-xs font-bold px-2.5 py-1.5 rounded-[4px]-[4px] dark: cursor-pointer hover:bg-violet-200/80 dark:hover:bg-violet-950 transition">
+            <div id="credits-display" class="hidden items-center gap-[2px] bg-violet-100/50 dark:bg-violet-900/30 text-violet-700 dark:text-violet-300 text-[11px] sm:text-xs font-bold px-2.5 py-1.5 rounded-[4px] dark: cursor-pointer hover:bg-violet-200/80 dark:hover:bg-violet-950 transition">
             <svg class="w-3.5 h-3.5 text-violet-600 dark:text-violet-400 shrink-0" fill="currentColor" viewBox="0 0 24 24" style="width: 14px; height: 14px; display: block;"><path d="M6 3h12l4 6-10 13L2 9z"/></svg>
             <span id="credits-count" class="leading-none mt-[0.5px]">0</span>
         </div>
@@ -2667,18 +2560,18 @@
 
             
             <div id="header-auth-guest" class="hidden md:flex items-center gap-2">
-                <button id="login-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition">Log in</button>
-                <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-[4px]-[4px] transition shadow-sm">Sign up</button>
+                <button id="login-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">Log in</button>
+                <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-[4px] transition shadow-sm">Sign up</button>
             </div>
         
                                     <div id="user-menu" class="hidden relative items-center">
-                <button id="user-avatar-btn" type="button" onclick="toggleUserDropdown(event)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-[4px]-[4px] overflow-hidden dark: shadow-sm transition-transform active:scale-95 bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center text-violet-600 dark:text-violet-400 focus:outline-none cursor-pointer" aria-label="User Menu">
+                <button id="user-avatar-btn" type="button" onclick="toggleUserDropdown(event)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-[4px] overflow-hidden dark: shadow-sm transition-transform active:scale-95 bg-violet-100 dark:bg-violet-900/30 flex items-center justify-center text-violet-600 dark:text-violet-400 focus:outline-none cursor-pointer" aria-label="User Menu">
                     <img id="user-avatar" src="" alt="User" class="w-full h-full object-cover hidden" referrerpolicy="no-referrer" crossorigin="anonymous">
                     <div id="user-fallback" class="flex items-center justify-center">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                     </div>
                 </button>
-                <div id="user-dropdown" class="hidden absolute right-0 top-full mt-3.5 w-48 bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] shadow-2xl flex-col z-[100] overflow-hidden py-1.5 transition-all">
+                <div id="user-dropdown" class="hidden absolute right-0 top-full mt-3.5 w-48 bg-white dark:bg-slate-900 dark: rounded-[4px] shadow-2xl flex-col z-[100] overflow-hidden py-1.5 transition-all">
                     <div class="px-4 py-2 dark:">
                         <p id="user-name" class="text-xs font-bold text-slate-900 dark:text-white truncate"></p>
                     </div>
@@ -2698,87 +2591,82 @@
                 </div>
             </div>
 
-            <button id="theme-btn" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
+            <button id="theme-btn" class="p-2 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition text-slate-600 dark:text-slate-300" aria-label="Toggle Theme">
                     <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
                     <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
                 </button>
                 <!-- Mobile menu button -->
-            <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition ml-1">
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition ml-1">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
         </div>
     </div>
 </header>
 <!-- Mobile Menu Modal -->
-<div id="mobile-menu-modal" class="fixed inset-0 z-50 hidden flex-col items-center justify-center p-4">
-    <div id="mobile-menu-backdrop" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
-    <div id="mobile-menu-content" class="relative w-full max-w-[340px] bg-white dark:bg-slate-900 rounded-[4px]-[4px] shadow-2xl overflow-visible transition-all scale-95 opacity-0 duration-200 ease-out">
-        <div class="flex items-center justify-between px-6 py-5 dark:">
-            <a href="/" class="flex items-center gap-2">
-                <img src="https://timetablecreator.online/blog/wp-content/uploads/2026/08/logo.png" alt="ToolIMG Logo" class="h-7 w-auto">
-                <span class="font-bold text-lg text-black dark:text-white tracking-tight">Tool<span class="text-violet-600 dark:text-violet-400">IMG</span></span>
-            </a>
+    <div id="mobile-menu-modal" class="fixed inset-0 z-50 hidden flex-col items-center justify-center p-4">
+        <div id="mobile-menu-backdrop" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
+        <div id="mobile-menu-content" class="relative w-full max-w-[340px] bg-white dark:bg-slate-900 rounded-[4px] shadow-2xl overflow-visible transition-all scale-95 opacity-0 duration-200 ease-out border border-slate-100 dark:border-slate-800">
+            <div class="flex items-center justify-between px-6 py-5 border-b border-slate-100 dark:border-slate-800">
+                <a href="/" class="flex items-center gap-2">
+                    <img src="https://timetablecreator.online/blog/wp-content/uploads/2026/08/logo.png" alt="ToolIMG Logo" class="h-7 w-auto logo-img">
+                    <span class="font-bold text-lg text-black dark:text-white tracking-tight">Tool<span class="text-violet-600 dark:text-violet-400">IMG</span></span>
+                </a>
+                <button id="mobile-menu-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1 rounded-[4px] hover:bg-slate-50 dark:hover:bg-slate-800">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+                </button>
             </div>
-            <button id="mobile-menu-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1 rounded-[4px]-[4px] hover:bg-slate-50 dark:hover:bg-slate-800">
-                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
-            </button>
-        </div>
-        <div class="px-3 py-3 flex flex-col gap-1">
-            <a href="/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition flex items-center">Home</a>
-            <a href="/tools/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition flex items-center">Tools</a>
-            <a href="/dashboard/" id="mobile-dashboard-nav" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition flex items-center hidden">Dashboard</a>
-            <a href="/pricing/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition flex items-center">Pricing</a>
-            
-            <!-- Mobile Auth Section -->
-            <div id="mobile-auth-guest" class="flex flex-col gap-2 mt-2 px-3">
-                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-slate-700 dark:text-slate-300 dark: hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition">Log in</button>
-                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-[4px]-[4px] transition shadow-sm">Sign up</button>
-            </div>
-            <div id="mobile-auth-user" class="hidden flex-col gap-2 mt-2 px-3">
-                <div class="flex items-center gap-2 px-1 py-1">
-                    <span class="w-2 h-2 rounded-[4px]-[4px] bg-emerald-500 animate-pulse"></span>
-                    <span id="mobile-user-name" class="text-sm font-medium text-slate-700 dark:text-slate-300 truncate"></span>
+            <div class="px-3 py-3 flex flex-col gap-1">
+                <a href="/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition flex items-center">Home</a>
+                <a href="/tools/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition flex items-center">Tools</a>
+                <a href="/dashboard/" id="mobile-dashboard-nav" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition flex items-center hidden">Dashboard</a>
+                <a href="/pricing/" class="px-4 py-3.5 text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition flex items-center">Pricing</a>
+                
+                <!-- Mobile Auth Section -->
+                <div id="mobile-auth-guest" class="flex flex-col gap-2 mt-2 px-3">
+                    <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">Log in</button>
+                    <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-medium text-white bg-violet-600 hover:bg-violet-700 rounded-[4px] transition shadow-sm">Sign up</button>
                 </div>
-                <button onclick="handleLogout()" class="w-full py-2.5 text-center text-sm font-medium text-slate-500 hover:text-slate-700 dark:hover:text-slate-300 dark: hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition">Logout</button>
+                <div id="mobile-auth-user" class="hidden flex-col gap-2 mt-2 px-3">
+                    <button onclick="handleLogout()" class="w-full py-2.5 text-center text-sm font-medium text-slate-500 hover:text-rose-500 dark:hover:bg-slate-800 rounded-[4px] transition">Logout</button>
+                </div>
+
+                <div class="h-px bg-slate-100 dark:bg-slate-800 w-full my-2"></div>
+                
+                <!-- Theme Selection in Mobile Menu -->
+                <div class="px-3 py-2 relative">
+                    <button id="theme-menu-btn" class="w-full px-4 py-3.5 flex justify-between items-center text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">
+                        <span>Theme</span>
+                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                    </button>
+                    
+                    <div id="theme-popover" class="absolute bottom-[100%] right-3 mb-2 w-48 bg-white dark:bg-slate-900 rounded-[4px] shadow-xl p-2 hidden flex-col gap-1 z-50 border border-slate-100 dark:border-slate-800">
+                        <button onclick="setTheme('light')" id="theme-light-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-900 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                                Light
+                            </div>
+                            <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button onclick="setTheme('dark')" id="theme-dark-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                                Dark
+                            </div>
+                            <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                        <button onclick="setTheme('system')" id="theme-system-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">
+                            <div class="flex items-center gap-3">
+                                <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                System
+                            </div>
+                            <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                        </button>
+                    </div>
+                </div>
             </div>
-            
-            <!-- Divider -->
-            <div class="h-px bg-slate-100 dark:bg-slate-800 w-full my-2"></div>
-        <!-- Theme Toggle -->
-        <div class="px-3 py-2 relative">
-            <button id="theme-menu-btn" class="w-full px-4 py-3.5 flex justify-between items-center text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition">
-                <span>Theme</span>
-                <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-            </button>
-            
-            <!-- Theme Dropdown Popover -->
-            <div id="theme-popover" class="absolute bottom-[100%] right-3 mb-2 w-48 bg-white dark:bg-slate-900 rounded-[4px]-[4px] shadow-xl dark: p-2 hidden flex-col gap-1 z-50">
-                <button onclick="setTheme('light')" id="theme-light-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-900 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition">
-                    <div class="flex items-center gap-3">
-                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                        Light
-                    </div>
-                    <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                </button>
-                <button onclick="setTheme('dark')" id="theme-dark-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition">
-                    <div class="flex items-center gap-3">
-                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                        Dark
-                    </div>
-                    <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                </button>
-                <button onclick="setTheme('system')" id="theme-system-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition">
-                    <div class="flex items-center gap-3">
-                        <svg class="w-4 h-4 text-slate-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                        System
-                    </div>
-                    <svg class="w-4 h-4 text-violet-600 hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                </button>
-            </div>
-        </div>
         </div>
     </div>
-</div>
+
 <script>
     </script>
 <!-- End Navbar -->
@@ -2794,14 +2682,14 @@
 
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-start flex-grow">
             <!-- Left Panel: Upload -->
-            <div class="bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-6 md:p-8 flex flex-col shadow-sm">
+            <div class="bg-white dark:bg-slate-900 dark: rounded-[4px] p-6 md:p-8 flex flex-col shadow-sm">
                 <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Upload Image</h2>
                 
-                <div id="upload-zone" onclick="document.getElementById('file-input').click()" class="dark: hover: hover:bg-violet-50/50 dark:hover:bg-violet-900/10 rounded-[4px]-[4px] p-6 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[250px] relative overflow-hidden group">
+                <div id="upload-zone" onclick="document.getElementById('file-input').click()" class="dark: hover: hover:bg-violet-50/50 dark:hover:bg-violet-900/10 rounded-[4px] p-6 text-center cursor-pointer transition flex flex-col items-center justify-center min-h-[250px] relative overflow-hidden group">
                     <input type="file" id="file-input" class="hidden" accept="image/*" onchange="window.handleFileSelect(event)">
                     
                     <div id="upload-placeholder" class="flex flex-col items-center">
-                        <div class="w-16 h-16 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-[4px]-[4px] flex items-center justify-center mb-4">
+                        <div class="w-16 h-16 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-[4px] flex items-center justify-center mb-4">
                             <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
                         </div>
                         <p class="font-bold text-slate-800 dark:text-slate-200 mb-1">Click to upload Hindi handwriting</p>
@@ -2810,43 +2698,43 @@
                     
                     <img id="image-preview" class="absolute inset-0 w-full h-full object-contain bg-slate-50 dark:bg-slate-950 hidden z-10 p-2" />
                     <div id="image-overlay" class="absolute inset-0 bg-slate-900/60 hidden z-20 flex flex-col items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                        <span class="bg-white text-slate-900 font-bold px-4 py-2 rounded-[4px]-[4px] text-sm shadow-sm">Change Image</span>
+                        <span class="bg-white text-slate-900 font-bold px-4 py-2 rounded-[4px] text-sm shadow-sm">Change Image</span>
                     </div>
                 </div>
 
-                <button id="extract-btn" onclick="window.extractText()" disabled class="mt-6 w-full py-4 rounded-[4px]-[4px] bg-violet-600 disabled:bg-slate-300 disabled:cursor-not-allowed hover:bg-violet-700 text-white font-bold text-lg transition flex items-center justify-center gap-2 shadow-sm">
+                <button id="extract-btn" onclick="window.extractText()" disabled class="mt-6 w-full py-4 rounded-[4px] bg-violet-600 disabled:bg-slate-300 disabled:cursor-not-allowed hover:bg-violet-700 text-white font-bold text-lg transition flex items-center justify-center gap-2 shadow-sm">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                     Extract Text
                 </button>
             </div>
 
             <!-- Right Panel: Result -->
-            <div class="bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-6 md:p-8 flex flex-col shadow-sm">
+            <div class="bg-white dark:bg-slate-900 dark: rounded-[4px] p-6 md:p-8 flex flex-col shadow-sm">
                 <div class="flex justify-between items-center mb-6">
                     <div>
                         <h2 class="text-xl font-bold text-slate-900 dark:text-white">Extracted Text</h2>
                         <p class="text-sm text-slate-500 dark:text-slate-400">Your digitized text will appear here.</p>
                     </div>
-                    <button id="copy-btn" onclick="window.copyText()" class="hidden px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-[4px]-[4px] text-sm font-semibold transition dark: shadow-sm flex items-center gap-2">
+                    <button id="copy-btn" onclick="window.copyText()" class="hidden px-4 py-2 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-[4px] text-sm font-semibold transition dark: shadow-sm flex items-center gap-2">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"></path></svg>
                         Copy
                     </button>
                 </div>
                 
-                <div id="result-container" class="flex-grow bg-slate-50 dark:bg-slate-950 rounded-[4px]-[4px] dark: p-5 overflow-auto relative text-slate-700 dark:text-slate-300 min-h-[300px]">
+                <div id="result-container" class="flex-grow bg-slate-50 dark:bg-slate-950 rounded-[4px] dark: p-5 overflow-auto relative text-slate-700 dark:text-slate-300 min-h-[300px]">
                     <div id="empty-state" class="absolute inset-0 flex flex-col items-center justify-center text-slate-400 dark:text-slate-500">
                         <svg class="w-12 h-12 mb-3 opacity-50" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"></path></svg>
                         <p class="text-sm">Waiting for image...</p>
                     </div>
                     
                     
-    <div id="loading-state" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm z-10 p-6 rounded-[4px]-[4px] transition-all duration-300">
+    <div id="loading-state" class="hidden absolute inset-0 flex flex-col items-center justify-center bg-white/95 dark:bg-slate-900/95 backdrop-blur-sm z-10 p-6 rounded-[4px] transition-all duration-300">
         <!-- Cute Coding Character & Engagement Graphic -->
         <div class="relative flex flex-col items-center mb-8">
             <!-- Stage Animated Illustration Container -->
-            <div class="w-24 h-24 bg-violet-50 dark:bg-violet-950/40 rounded-[4px]-[4px] flex items-center justify-center shadow-inner relative overflow-hidden dark:">
+            <div class="w-24 h-24 bg-violet-50 dark:bg-violet-950/40 rounded-[4px] flex items-center justify-center shadow-inner relative overflow-hidden dark:">
                 <!-- Outer decorative orbiting particles -->
-                <div class="absolute inset-0 dark: rounded-[4px]-[4px] animate-spin duration-10000"></div>
+                <div class="absolute inset-0 dark: rounded-[4px] animate-spin duration-10000"></div>
                 
                 <!-- Stage 1 Graphic: Reading Lens -->
                 <div id="anim-stage-1" class="absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-100 scale-100">
@@ -2862,7 +2750,7 @@
                 <!-- Stage 2 Graphic: Brain Core Neural processing -->
                 <div id="anim-stage-2" class="absolute inset-0 flex items-center justify-center transition-all duration-300 opacity-0 scale-75">
                     <div class="relative">
-                        <span class="absolute inline-flex h-full w-full rounded-[4px]-[4px] bg-violet-400 opacity-75 animate-ping"></span>
+                        <span class="absolute inline-flex h-full w-full rounded-[4px] bg-violet-400 opacity-75 animate-ping"></span>
                         <svg class="w-10 h-10 text-violet-600 dark:text-violet-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 113.536 0V21h2v-2.243a5 5 0 013.536 0z"></path>
                         </svg>
@@ -2877,7 +2765,7 @@
                 </div>
             </div>
             <!-- Status Badge -->
-            <div id="loading-stage-badge" class="mt-3 px-2.5 py-0.5 text-xs font-semibold tracking-wide uppercase rounded-[4px]-[4px] bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">
+            <div id="loading-stage-badge" class="mt-3 px-2.5 py-0.5 text-xs font-semibold tracking-wide uppercase rounded-[4px] bg-violet-100 text-violet-700 dark:bg-violet-900/40 dark:text-violet-300">
                 Phase 1/3
             </div>
         </div>
@@ -2887,31 +2775,31 @@
         <p class="text-xs text-slate-500 dark:text-slate-400 mb-6">Running multimodal neural extractors</p>
         
         <!-- Horizontal Progress Bar Wrapper -->
-        <div class="w-full max-w-xs bg-slate-100 dark:bg-slate-800 rounded-[4px]-[4px] h-2 mb-8 overflow-hidden relative dark:">
-            <div id="horizontal-progress-bar" class="bg-violet-600 dark:bg-violet-500 h-full w-[10%] rounded-[4px]-[4px] transition-all duration-500 ease-out shadow-[0_0_8px_rgba(139,92,246,0.5)]"></div>
+        <div class="w-full max-w-xs bg-slate-100 dark:bg-slate-800 rounded-[4px] h-2 mb-8 overflow-hidden relative dark:">
+            <div id="horizontal-progress-bar" class="bg-violet-600 dark:bg-violet-500 h-full w-[10%] rounded-[4px] transition-all duration-500 ease-out shadow-[0_0_8px_rgba(139,92,246,0.5)]"></div>
         </div>
         
         <!-- Interactive Engagement Stage Cards -->
         <div class="w-full max-w-xs space-y-2.5">
-            <div id="stage-1" class="flex items-center justify-between p-3 rounded-[4px]-[4px] bg-violet-50/50 dark:bg-violet-950/20 dark: text-sm font-medium text-violet-700 dark:text-violet-300 transition-all duration-300">
+            <div id="stage-1" class="flex items-center justify-between p-3 rounded-[4px] bg-violet-50/50 dark:bg-violet-950/20 dark: text-sm font-medium text-violet-700 dark:text-violet-300 transition-all duration-300">
                 <div class="flex items-center gap-2.5">
-                    <span class="stage-num w-5 h-5 rounded-[4px]-[4px] bg-violet-600 text-white flex items-center justify-center text-[10px] font-bold">1</span>
+                    <span class="stage-num w-5 h-5 rounded-[4px] bg-violet-600 text-white flex items-center justify-center text-[10px] font-bold">1</span>
                     <span>Analyzing Image Details</span>
                 </div>
                 <div class="stage-status text-xs font-semibold">Active</div>
             </div>
             
-            <div id="stage-2" class="flex items-center justify-between p-3 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-900/40 text-sm font-medium text-slate-400 dark:text-slate-600 transition-all duration-300">
+            <div id="stage-2" class="flex items-center justify-between p-3 rounded-[4px] bg-slate-50 dark:bg-slate-900/40 text-sm font-medium text-slate-400 dark:text-slate-600 transition-all duration-300">
                 <div class="flex items-center gap-2.5">
-                    <span class="stage-num w-5 h-5 rounded-[4px]-[4px] bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 flex items-center justify-center text-[10px] font-bold">2</span>
+                    <span class="stage-num w-5 h-5 rounded-[4px] bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 flex items-center justify-center text-[10px] font-bold">2</span>
                     <span>Extracting Text Layout</span>
                 </div>
                 <div class="stage-status text-xs font-semibold">Pending</div>
             </div>
             
-            <div id="stage-3" class="flex items-center justify-between p-3 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-900/40 text-sm font-medium text-slate-400 dark:text-slate-600 transition-all duration-300">
+            <div id="stage-3" class="flex items-center justify-between p-3 rounded-[4px] bg-slate-50 dark:bg-slate-900/40 text-sm font-medium text-slate-400 dark:text-slate-600 transition-all duration-300">
                 <div class="flex items-center gap-2.5">
-                    <span class="stage-num w-5 h-5 rounded-[4px]-[4px] bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 flex items-center justify-center text-[10px] font-bold">3</span>
+                    <span class="stage-num w-5 h-5 rounded-[4px] bg-slate-200 dark:bg-slate-800 text-slate-400 dark:text-slate-600 flex items-center justify-center text-[10px] font-bold">3</span>
                     <span>Generating Digitized Output</span>
                 </div>
                 <div class="stage-status text-xs font-semibold">Pending</div>
@@ -2929,15 +2817,15 @@
 <section class="w-full max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 mt-20 mb-16">
     
 
-    <div class="relative rounded-[4px]-[4px] overflow-hidden dark: bg-white dark:bg-slate-900 p-6 shadow-sm">
+    <div class="relative rounded-[4px] overflow-hidden dark: bg-white dark:bg-slate-900 p-6 shadow-sm">
         <!-- Guest Blur Overlay if not logged in -->
         <div id="history-blur-overlay" class="absolute inset-0 z-25 backdrop-blur-lg bg-white/80 dark:bg-slate-950/90 flex flex-col items-center justify-center p-6 text-center transition-all duration-300 hidden">
-            <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-[4px]-[4px] flex items-center justify-center mb-4 shadow-inner">
+            <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-[4px] flex items-center justify-center mb-4 shadow-inner">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 002-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
             </div>
             <h3 class="text-lg font-extrabold text-slate-900 dark:text-white mb-2 tracking-tight">Log in to View Your Conversion History</h3>
             <p class="text-xs sm:text-sm text-slate-600 dark:text-slate-300 max-w-md mb-6 leading-relaxed">Sign in with Google to automatically save, sync, and access your generated media and code history across all devices.</p>
-            <button onclick="handleLogin()" class="px-14 py-4 bg-violet-600 hover:bg-violet-700 text-white font-bold text-xs sm:text-sm rounded-[4px]-[4px] shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center gap-3 cursor-pointer">
+            <button onclick="handleLogin()" class="px-14 py-4 bg-violet-600 hover:bg-violet-700 text-white font-bold text-xs sm:text-sm rounded-[4px] shadow-lg hover:shadow-xl transition-all hover:scale-[1.02] active:scale-[0.98] flex items-center gap-3 cursor-pointer">
                 <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 24 24"><path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.761H12.545z"/></svg>
                 Sign in with Google
             </button>
@@ -3005,22 +2893,22 @@
 
             if (guestItems.length === 0) {
                 listEl.innerHTML = `
-                    <div class="p-4 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-950 dark: space-y-2 opacity-50">
-                        <div class="h-32 bg-slate-200 dark:bg-slate-800 rounded-[4px]-[4px]"></div>
+                    <div class="p-4 rounded-[4px] bg-slate-50 dark:bg-slate-950 dark: space-y-2 opacity-50">
+                        <div class="h-32 bg-slate-200 dark:bg-slate-800 rounded-[4px]"></div>
                         <div class="h-4 bg-slate-200 dark:bg-slate-800 rounded-[4px] w-3/4"></div>
                         <div class="h-3 bg-slate-200 dark:bg-slate-800 rounded-[4px] w-1/2"></div>
                     </div>
-                    <div class="p-4 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-950 dark: space-y-2 opacity-50">
-                        <div class="h-32 bg-slate-200 dark:bg-slate-800 rounded-[4px]-[4px]"></div>
+                    <div class="p-4 rounded-[4px] bg-slate-50 dark:bg-slate-950 dark: space-y-2 opacity-50">
+                        <div class="h-32 bg-slate-200 dark:bg-slate-800 rounded-[4px]"></div>
                         <div class="h-4 bg-slate-200 dark:bg-slate-800 rounded-[4px] w-3/4"></div>
                         <div class="h-3 bg-slate-200 dark:bg-slate-800 rounded-[4px] w-1/2"></div>
                     </div>
                 `;
             } else {
                 listEl.innerHTML = guestItems.map(item => `
-                    <div class="group relative bg-slate-50 dark:bg-slate-950 dark: rounded-[4px]-[4px] p-4 flex flex-col justify-between shadow-sm">
+                    <div class="group relative bg-slate-50 dark:bg-slate-950 dark: rounded-[4px] p-4 flex flex-col justify-between shadow-sm">
                         <div>
-                            ${item.previewUrl ? `<div class="w-full h-36 rounded-[4px]-[4px] overflow-hidden bg-slate-100 dark:bg-slate-900 mb-3 dark:"><img src="${item.previewUrl}" alt="Preview" class="w-full h-full object-cover"></div>` : ''}
+                            ${item.previewUrl ? `<div class="w-full h-36 rounded-[4px] overflow-hidden bg-slate-100 dark:bg-slate-900 mb-3 dark:"><img src="${item.previewUrl}" alt="Preview" class="w-full h-full object-cover"></div>` : ''}
                             <div class="flex items-center justify-between mb-1">
                                 <span class="text-[10px] font-bold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-950/50 px-2 py-0.5 rounded-[4px]">${item.toolName || 'Hindi Handwriting OCR'}</span>
                                 <span class="text-[10px] text-slate-400">${new Date(item.timestamp || Date.now()).toLocaleDateString()}</span>
@@ -3049,10 +2937,10 @@
             }
 
             listEl.innerHTML = items.map(item => {
-                const previewHtml = item.previewUrl ? `<div class="w-full h-36 rounded-[4px]-[4px] overflow-hidden bg-slate-100 dark:bg-slate-900 mb-3 dark:"><img src="${item.previewUrl}" alt="Preview" class="w-full h-full object-cover"></div>` : '';
+                const previewHtml = item.previewUrl ? `<div class="w-full h-36 rounded-[4px] overflow-hidden bg-slate-100 dark:bg-slate-900 mb-3 dark:"><img src="${item.previewUrl}" alt="Preview" class="w-full h-full object-cover"></div>` : '';
                 const itemContent = typeof item.content === 'string' ? item.content : JSON.stringify(item.content);
                 return `
-                    <div class="group relative bg-slate-50 dark:bg-slate-950 dark: rounded-[4px]-[4px] p-4 flex flex-col justify-between hover: transition shadow-sm">
+                    <div class="group relative bg-slate-50 dark:bg-slate-950 dark: rounded-[4px] p-4 flex flex-col justify-between hover: transition shadow-sm">
                         <div>
                             ${previewHtml}
                             <div class="flex items-center justify-between mb-1">
@@ -3130,8 +3018,8 @@
                 </p>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-6 shadow-sm">
-                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-[4px]-[4px] flex items-center justify-center mb-4">
+                    <div class="bg-white dark:bg-slate-900 dark: rounded-[4px] p-6 shadow-sm">
+                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-[4px] flex items-center justify-center mb-4">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"></path></svg>
                         </div>
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Devanagari Script Engine</h3>
@@ -3140,8 +3028,8 @@
                         </p>
                     </div>
 
-                    <div class="bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-6 shadow-sm">
-                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-[4px]-[4px] flex items-center justify-center mb-4">
+                    <div class="bg-white dark:bg-slate-900 dark: rounded-[4px] p-6 shadow-sm">
+                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-[4px] flex items-center justify-center mb-4">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"></path></svg>
                         </div>
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Notebook & Diary OCR</h3>
@@ -3150,8 +3038,8 @@
                         </p>
                     </div>
 
-                    <div class="bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-6 shadow-sm">
-                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-[4px]-[4px] flex items-center justify-center mb-4">
+                    <div class="bg-white dark:bg-slate-900 dark: rounded-[4px] p-6 shadow-sm">
+                        <div class="w-12 h-12 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 rounded-[4px] flex items-center justify-center mb-4">
                             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>
                         </div>
                         <h3 class="text-lg font-bold text-slate-900 dark:text-white mb-2">Hindi Image to Text</h3>
@@ -3168,26 +3056,26 @@
                     How to Convert Hindi Handwriting to Text Online Free
                 </h2>
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
-                    <div class="relative flex flex-col items-start bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-5 shadow-sm">
-                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-[4px]-[4px] flex items-center justify-center mb-4 text-sm">1</div>
+                    <div class="relative flex flex-col items-start bg-white dark:bg-slate-900 dark: rounded-[4px] p-5 shadow-sm">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-[4px] flex items-center justify-center mb-4 text-sm">1</div>
                         <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Upload Hindi Note</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Upload a clear picture or scan of your handwritten Hindi document or diary page.</p>
                     </div>
 
-                    <div class="relative flex flex-col items-start bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-5 shadow-sm">
-                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-[4px]-[4px] flex items-center justify-center mb-4 text-sm">2</div>
+                    <div class="relative flex flex-col items-start bg-white dark:bg-slate-900 dark: rounded-[4px] p-5 shadow-sm">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-[4px] flex items-center justify-center mb-4 text-sm">2</div>
                         <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Process Image</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Click Extract Text to initiate AI recognition on Devanagari characters and words.</p>
                     </div>
 
-                    <div class="relative flex flex-col items-start bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-5 shadow-sm">
-                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-[4px]-[4px] flex items-center justify-center mb-4 text-sm">3</div>
+                    <div class="relative flex flex-col items-start bg-white dark:bg-slate-900 dark: rounded-[4px] p-5 shadow-sm">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-[4px] flex items-center justify-center mb-4 text-sm">3</div>
                         <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Verify Hindi Output</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Review the transcribed Hindi Unicode output on the result pane.</p>
                     </div>
 
-                    <div class="relative flex flex-col items-start bg-white dark:bg-slate-900 dark: rounded-[4px]-[4px] p-5 shadow-sm">
-                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-[4px]-[4px] flex items-center justify-center mb-4 text-sm">4</div>
+                    <div class="relative flex flex-col items-start bg-white dark:bg-slate-900 dark: rounded-[4px] p-5 shadow-sm">
+                        <div class="w-10 h-10 bg-violet-100 dark:bg-violet-900/50 text-violet-600 dark:text-violet-400 font-bold rounded-[4px] flex items-center justify-center mb-4 text-sm">4</div>
                         <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1.5">Copy Hindi Text</h3>
                         <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">Click Copy to copy the converted Hindi text for use in Word, WhatsApp, or Google Docs.</p>
                     </div>
@@ -3199,7 +3087,7 @@
                 <h2 class="text-xl md:text-2xl font-bold text-slate-900 dark:text-white tracking-tight mb-8">
                     Comparison: ToolIMG Hindi OCR vs. Generic OCR
                 </h2>
-                <div class="overflow-x-auto dark: rounded-[4px]-[4px] shadow-sm bg-white dark:bg-slate-900">
+                <div class="overflow-x-auto dark: rounded-[4px] shadow-sm bg-white dark:bg-slate-900">
                     <table class="w-full text-left">
                         <thead>
                             <tr class="bg-slate-50 dark:bg-slate-800/50 text-xs font-bold text-slate-600 dark:text-slate-400 dark: uppercase tracking-wider">
@@ -3296,7 +3184,7 @@
             <div class="mt-16 pt-10 dark:" id="changelog-section">
                 <div class="mb-10 text-left">
                     <div class="flex items-center gap-2 mb-3">
-                        <span class="inline-flex items-center px-3 py-1 rounded-[4px]-[4px] text-[11px] font-bold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 tracking-wider uppercase">
+                        <span class="inline-flex items-center px-3 py-1 rounded-[4px] text-[11px] font-bold bg-violet-100 dark:bg-violet-900/40 text-violet-700 dark:text-violet-300 tracking-wider uppercase">
                             🚀 Release Notes
                         </span>
                     </div>
@@ -3311,18 +3199,18 @@
                 <!-- Timeline Container -->
                 <div class="relative pl-12 space-y-4">
                     <!-- Perfect Vertical Timeline Line -->
-                    <div class="absolute left-[19px] top-2 bottom-2 w-0.5 bg-slate-100 dark:bg-slate-800 rounded-[4px]-[4px]"></div>
+                    <div class="absolute left-[19px] top-2 bottom-2 w-0.5 bg-slate-100 dark:bg-slate-800 rounded-[4px]"></div>
                     
                     <!-- Log Item 1 (Latest) -->
                     <div class="relative">
                         <!-- Circle Indicator - Latest (Purple Check) -->
-                        <div class="absolute -left-[35px] top-1/2 -translate-y-1/2 w-9 h-9 rounded-[4px]-[4px] bg-white dark:bg-slate-950 dark: flex items-center justify-center z-10 shadow-sm">
-                            <div class="w-6 h-6 rounded-[4px]-[4px] bg-violet-600 flex items-center justify-center text-white shadow-sm">
+                        <div class="absolute -left-[35px] top-1/2 -translate-y-1/2 w-9 h-9 rounded-[4px] bg-white dark:bg-slate-950 dark: flex items-center justify-center z-10 shadow-sm">
+                            <div class="w-6 h-6 rounded-[4px] bg-violet-600 flex items-center justify-center text-white shadow-sm">
                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M5 13l4 4L19 7"></path></svg>
                             </div>
                         </div>
                         
-                        <details class="changelog-item group bg-white dark:bg-slate-900/40 dark: rounded-[4px]-[4px] p-5 shadow-sm hover:shadow-md hover: dark:hover: transition-all duration-200">
+                        <details class="changelog-item group bg-white dark:bg-slate-900/40 dark: rounded-[4px] p-5 shadow-sm hover:shadow-md hover: dark:hover: transition-all duration-200">
                             <summary class="flex items-center justify-between cursor-pointer list-none select-none">
                                 <div class="flex flex-col gap-1 text-left">
                                     <span class="text-base font-bold text-slate-900 dark:text-white tracking-tight">Devanagari Matra Recognition Engine</span>
@@ -3331,7 +3219,7 @@
                                         July 30, 2026 at 09:30 AM
                                     </time>
                                 </div>
-                                <div class="w-8 h-8 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 flex items-center justify-center group-open:bg-violet-600 group-open:text-white transition-colors duration-200">
+                                <div class="w-8 h-8 rounded-[4px] bg-slate-50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 flex items-center justify-center group-open:bg-violet-600 group-open:text-white transition-colors duration-200">
                                     <svg class="w-4 h-4 group-open:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v12m6-6H6"></path></svg>
                                     <svg class="w-4 h-4 hidden group-open:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M18 12H6"></path></svg>
                                 </div>
@@ -3345,11 +3233,11 @@
                     <!-- Log Item 2 -->
                     <div class="relative">
                         <!-- Circle Indicator - Previous (Gray Dot) -->
-                        <div class="absolute -left-[35px] top-1/2 -translate-y-1/2 w-9 h-9 rounded-[4px]-[4px] bg-white dark:bg-slate-950 dark: flex items-center justify-center z-10 shadow-sm">
-                            <div class="w-2.5 h-2.5 rounded-[4px]-[4px] bg-slate-300 dark:bg-slate-700"></div>
+                        <div class="absolute -left-[35px] top-1/2 -translate-y-1/2 w-9 h-9 rounded-[4px] bg-white dark:bg-slate-950 dark: flex items-center justify-center z-10 shadow-sm">
+                            <div class="w-2.5 h-2.5 rounded-[4px] bg-slate-300 dark:bg-slate-700"></div>
                         </div>
                         
-                        <details class="changelog-item group bg-white dark:bg-slate-900/40 dark: rounded-[4px]-[4px] p-5 shadow-sm hover:shadow-md hover: dark:hover: transition-all duration-200">
+                        <details class="changelog-item group bg-white dark:bg-slate-900/40 dark: rounded-[4px] p-5 shadow-sm hover:shadow-md hover: dark:hover: transition-all duration-200">
                             <summary class="flex items-center justify-between cursor-pointer list-none select-none">
                                 <div class="flex flex-col gap-1 text-left">
                                     <span class="text-base font-bold text-slate-900 dark:text-white tracking-tight">Hinglish and Numeric Support</span>
@@ -3358,7 +3246,7 @@
                                         July 28, 2026 at 04:15 PM
                                     </time>
                                 </div>
-                                <div class="w-8 h-8 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 flex items-center justify-center group-open:bg-violet-600 group-open:text-white transition-colors duration-200">
+                                <div class="w-8 h-8 rounded-[4px] bg-slate-50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 flex items-center justify-center group-open:bg-violet-600 group-open:text-white transition-colors duration-200">
                                     <svg class="w-4 h-4 group-open:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v12m6-6H6"></path></svg>
                                     <svg class="w-4 h-4 hidden group-open:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M18 12H6"></path></svg>
                                 </div>
@@ -3371,11 +3259,11 @@
 
                     <!-- Log Item 3 -->
                     <div class="relative">
-                        <div class="absolute -left-[35px] top-1/2 -translate-y-1/2 w-9 h-9 rounded-[4px]-[4px] bg-white dark:bg-slate-950 dark: flex items-center justify-center z-10 shadow-sm">
-                            <div class="w-2.5 h-2.5 rounded-[4px]-[4px] bg-slate-300 dark:bg-slate-700"></div>
+                        <div class="absolute -left-[35px] top-1/2 -translate-y-1/2 w-9 h-9 rounded-[4px] bg-white dark:bg-slate-950 dark: flex items-center justify-center z-10 shadow-sm">
+                            <div class="w-2.5 h-2.5 rounded-[4px] bg-slate-300 dark:bg-slate-700"></div>
                         </div>
                         
-                        <details class="changelog-item group bg-white dark:bg-slate-900/40 dark: rounded-[4px]-[4px] p-5 shadow-sm hover:shadow-md hover: dark:hover: transition-all duration-200">
+                        <details class="changelog-item group bg-white dark:bg-slate-900/40 dark: rounded-[4px] p-5 shadow-sm hover:shadow-md hover: dark:hover: transition-all duration-200">
                             <summary class="flex items-center justify-between cursor-pointer list-none select-none">
                                 <div class="flex flex-col gap-1 text-left">
                                     <span class="text-base font-bold text-slate-900 dark:text-white tracking-tight">Cloud History Search Vault</span>
@@ -3384,7 +3272,7 @@
                                         July 25, 2026 at 11:00 AM
                                     </time>
                                 </div>
-                                <div class="w-8 h-8 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 flex items-center justify-center group-open:bg-violet-600 group-open:text-white transition-colors duration-200">
+                                <div class="w-8 h-8 rounded-[4px] bg-slate-50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 flex items-center justify-center group-open:bg-violet-600 group-open:text-white transition-colors duration-200">
                                     <svg class="w-4 h-4 group-open:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v12m6-6H6"></path></svg>
                                     <svg class="w-4 h-4 hidden group-open:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M18 12H6"></path></svg>
                                 </div>
@@ -3397,11 +3285,11 @@
 
                     <!-- Log Item 4 -->
                     <div class="relative">
-                        <div class="absolute -left-[35px] top-1/2 -translate-y-1/2 w-9 h-9 rounded-[4px]-[4px] bg-white dark:bg-slate-950 dark: flex items-center justify-center z-10 shadow-sm">
-                            <div class="w-2.5 h-2.5 rounded-[4px]-[4px] bg-slate-300 dark:bg-slate-700"></div>
+                        <div class="absolute -left-[35px] top-1/2 -translate-y-1/2 w-9 h-9 rounded-[4px] bg-white dark:bg-slate-950 dark: flex items-center justify-center z-10 shadow-sm">
+                            <div class="w-2.5 h-2.5 rounded-[4px] bg-slate-300 dark:bg-slate-700"></div>
                         </div>
                         
-                        <details class="changelog-item group bg-white dark:bg-slate-900/40 dark: rounded-[4px]-[4px] p-5 shadow-sm hover:shadow-md hover: dark:hover: transition-all duration-200">
+                        <details class="changelog-item group bg-white dark:bg-slate-900/40 dark: rounded-[4px] p-5 shadow-sm hover:shadow-md hover: dark:hover: transition-all duration-200">
                             <summary class="flex items-center justify-between cursor-pointer list-none select-none">
                                 <div class="flex flex-col gap-1 text-left">
                                     <span class="text-base font-bold text-slate-900 dark:text-white tracking-tight">High Contrast Dark Theme</span>
@@ -3410,7 +3298,7 @@
                                         July 20, 2026 at 02:45 PM
                                     </time>
                                 </div>
-                                <div class="w-8 h-8 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 flex items-center justify-center group-open:bg-violet-600 group-open:text-white transition-colors duration-200">
+                                <div class="w-8 h-8 rounded-[4px] bg-slate-50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 flex items-center justify-center group-open:bg-violet-600 group-open:text-white transition-colors duration-200">
                                     <svg class="w-4 h-4 group-open:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v12m6-6H6"></path></svg>
                                     <svg class="w-4 h-4 hidden group-open:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M18 12H6"></path></svg>
                                 </div>
@@ -3423,11 +3311,11 @@
 
                     <!-- Log Item 5 -->
                     <div class="relative">
-                        <div class="absolute -left-[35px] top-1/2 -translate-y-1/2 w-9 h-9 rounded-[4px]-[4px] bg-white dark:bg-slate-950 dark: flex items-center justify-center z-10 shadow-sm">
-                            <div class="w-2.5 h-2.5 rounded-[4px]-[4px] bg-slate-300 dark:bg-slate-700"></div>
+                        <div class="absolute -left-[35px] top-1/2 -translate-y-1/2 w-9 h-9 rounded-[4px] bg-white dark:bg-slate-950 dark: flex items-center justify-center z-10 shadow-sm">
+                            <div class="w-2.5 h-2.5 rounded-[4px] bg-slate-300 dark:bg-slate-700"></div>
                         </div>
                         
-                        <details class="changelog-item group bg-white dark:bg-slate-900/40 dark: rounded-[4px]-[4px] p-5 shadow-sm hover:shadow-md hover: dark:hover: transition-all duration-200">
+                        <details class="changelog-item group bg-white dark:bg-slate-900/40 dark: rounded-[4px] p-5 shadow-sm hover:shadow-md hover: dark:hover: transition-all duration-200">
                             <summary class="flex items-center justify-between cursor-pointer list-none select-none">
                                 <div class="flex flex-col gap-1 text-left">
                                     <span class="text-base font-bold text-slate-900 dark:text-white tracking-tight">Free Daily Guest Credits</span>
@@ -3436,7 +3324,7 @@
                                         July 15, 2026 at 10:20 AM
                                     </time>
                                 </div>
-                                <div class="w-8 h-8 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 flex items-center justify-center group-open:bg-violet-600 group-open:text-white transition-colors duration-200">
+                                <div class="w-8 h-8 rounded-[4px] bg-slate-50 dark:bg-slate-800/50 text-slate-400 dark:text-slate-500 flex items-center justify-center group-open:bg-violet-600 group-open:text-white transition-colors duration-200">
                                     <svg class="w-4 h-4 group-open:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 6v12m6-6H6"></path></svg>
                                     <svg class="w-4 h-4 hidden group-open:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M18 12H6"></path></svg>
                                 </div>
@@ -4283,13 +4171,13 @@
 <!-- Interactive Stats Popup Modal -->
 <div id="stats-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4">
     <div id="stats-modal-backdrop" class="absolute inset-0 bg-slate-900/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
-    <div id="stats-modal-content" class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-[4px]-[4px] shadow-2xl p-6 dark: transition-all scale-95 opacity-0 duration-200 ease-out">
+    <div id="stats-modal-content" class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-[4px] shadow-2xl p-6 dark: transition-all scale-95 opacity-0 duration-200 ease-out">
         <div class="flex items-center justify-between mb-6 pb-4 dark:">
             <h3 class="text-lg font-bold text-slate-900 dark:text-white flex items-center gap-2">
                 <svg class="w-5 h-5 text-violet-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
                 Credit Usage Stats
             </h3>
-            <button id="stats-modal-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1.5 rounded-[4px]-[4px] hover:bg-slate-50 dark:hover:bg-slate-800">
+            <button id="stats-modal-close" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 transition p-1.5 rounded-[4px] hover:bg-slate-50 dark:hover:bg-slate-800">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
@@ -4299,10 +4187,10 @@
             <div>
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Image to Code AI</span>
-                    <span id="stats-img-code-count" class="text-xs font-bold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 px-2.5 py-1 rounded-[4px]-[4px]">0 Credits</span>
+                    <span id="stats-img-code-count" class="text-xs font-bold text-violet-600 dark:text-violet-400 bg-violet-50 dark:bg-violet-900/30 px-2.5 py-1 rounded-[4px]">0 Credits</span>
                 </div>
-                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-[4px]-[4px] overflow-hidden">
-                    <div id="stats-img-code-progress" class="bg-violet-600 h-full rounded-[4px]-[4px] transition-all duration-500" style="width: 0%"></div>
+                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-[4px] overflow-hidden">
+                    <div id="stats-img-code-progress" class="bg-violet-600 h-full rounded-[4px] transition-all duration-500" style="width: 0%"></div>
                 </div>
             </div>
             
@@ -4310,10 +4198,10 @@
             <div>
                 <div class="flex justify-between items-center mb-2">
                     <span class="text-sm font-semibold text-slate-700 dark:text-slate-300">Handwriting OCR</span>
-                    <span id="stats-handwriting-count" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2.5 py-1 rounded-[4px]-[4px]">0 Credits</span>
+                    <span id="stats-handwriting-count" class="text-xs font-bold text-indigo-600 dark:text-indigo-400 bg-indigo-50 dark:bg-indigo-900/30 px-2.5 py-1 rounded-[4px]">0 Credits</span>
                 </div>
-                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-[4px]-[4px] overflow-hidden">
-                    <div id="stats-handwriting-progress" class="bg-indigo-600 h-full rounded-[4px]-[4px] transition-all duration-500" style="width: 0%"></div>
+                <div class="w-full bg-slate-100 dark:bg-slate-800 h-2.5 rounded-[4px] overflow-hidden">
+                    <div id="stats-handwriting-progress" class="bg-indigo-600 h-full rounded-[4px] transition-all duration-500" style="width: 0%"></div>
                 </div>
             </div>
             
@@ -4323,10 +4211,10 @@
                     <span id="stats-remaining-balance" class="font-bold text-slate-700 dark:text-slate-300">5 Credits</span>
                 </div>
                 <div class="flex items-center gap-2">
-                    <a href="/dashboard/" class="p-2 text-slate-500 hover:text-violet-600 hover:bg-violet-50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition" title="Dashboard">
+                    <a href="/dashboard/" class="p-2 text-slate-500 hover:text-violet-600 hover:bg-violet-50 dark:hover:bg-slate-800 rounded-[4px] transition" title="Dashboard">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2H6a2 2 0 01-2-2v-4zM14 16a2 2 0 012-2h2a2 2 0 012 2v4a2 2 0 01-2 2h-2a2 2 0 01-2-2v-4z"></path></svg>
                     </a>
-                    <a href="/pricing/" class="px-3 py-1.5 bg-violet-600 hover:bg-violet-700 text-white text-[11px] font-bold rounded-[4px]-[4px] transition shadow-sm">Explore Plans</a>
+                    <a href="/pricing/" class="px-3 py-1.5 bg-violet-600 hover:bg-violet-700 text-white text-[11px] font-bold rounded-[4px] transition shadow-sm">Explore Plans</a>
                 </div>
             </div>
         </div>
@@ -4576,8 +4464,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const toastHTML = `
         <div id="translation-toast" class="notranslate fixed z-[99999] px-4 py-2 flex items-center gap-3" style="top: 85px; right: 30px; background: transparent !important; border: none !important; box-shadow: none !important;">
             <div id="toast-loader" class="relative flex h-3 w-3 items-center justify-center">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-[4px]-[4px] bg-violet-400 opacity-75" style="background-color: #a78bfa !important;"></span>
-                <span class="relative inline-flex rounded-[4px]-[4px] h-2 w-2 bg-violet-600" style="background-color: #7c3aed !important;"></span>
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-[4px] bg-violet-400 opacity-75" style="background-color: #a78bfa !important;"></span>
+                <span class="relative inline-flex rounded-[4px] h-2 w-2 bg-violet-600" style="background-color: #7c3aed !important;"></span>
             </div>
             <span id="toast-text" class="text-[14px] font-bold tracking-wide flex items-center gap-1.5" style="color: #7c3aed !important;">
                 ${activeText}
@@ -4619,15 +4507,15 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- Credit Warning Modal (1 Credit Left) -->
 <div id="low-credits-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
     <div class="fixed inset-0 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeLowCreditsModal()"></div>
-    <div class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-[4px]-[4px] shadow-2xl dark: p-6 sm:p-8 z-10 transition-all transform duration-200">
-        <button onclick="closeLowCreditsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-2 rounded-[4px]-[4px] hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+    <div class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-[4px] shadow-2xl dark: p-6 sm:p-8 z-10 transition-all transform duration-200">
+        <button onclick="closeLowCreditsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-2 rounded-[4px] hover:bg-slate-100 dark:hover:bg-slate-800 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
         <div class="flex flex-col items-center text-center">
-            <div class="w-14 h-14 bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 rounded-[4px]-[4px] flex items-center justify-center mb-4 dark:">
+            <div class="w-14 h-14 bg-amber-100 dark:bg-amber-900/40 text-amber-600 dark:text-amber-400 rounded-[4px] flex items-center justify-center mb-4 dark:">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
             </div>
-            <span class="inline-flex items-center px-3 py-1 rounded-[4px]-[4px] text-xs font-semibold bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 mb-2">
+            <span class="inline-flex items-center px-3 py-1 rounded-[4px] text-xs font-semibold bg-amber-100 dark:bg-amber-900/50 text-amber-800 dark:text-amber-300 mb-2">
                 ⚡ 1 Credit Remaining
             </span>
             <h3 class="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Low Credits Warning</h3>
@@ -4636,11 +4524,11 @@ document.addEventListener('DOMContentLoaded', () => {
             </p>
         </div>
         <div class="mt-6 flex flex-col gap-2.5">
-            <a href="/pricing/" class="w-full py-3 px-4 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-semibold text-center rounded-[4px]-[4px] shadow-md transition transform active:scale-95 text-sm flex items-center justify-center gap-2">
+            <a href="/pricing/" class="w-full py-3 px-4 bg-gradient-to-r from-amber-500 to-orange-600 hover:from-amber-600 hover:to-orange-700 text-white font-semibold text-center rounded-[4px] shadow-md transition transform active:scale-95 text-sm flex items-center justify-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path></svg>
                 Buy Credits / Upgrade Plan
             </a>
-            <button onclick="closeLowCreditsModal()" class="w-full py-2.5 px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-[4px]-[4px] transition text-sm">
+            <button onclick="closeLowCreditsModal()" class="w-full py-2.5 px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-[4px] transition text-sm">
                 Maybe Later
             </button>
         </div>
@@ -4650,19 +4538,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 Share to get <span class="text-emerald-600 dark:text-emerald-400 font-bold">5 free credits</span> instantly & earn <span class="text-violet-600 dark:text-violet-400 font-bold">50 credits</span> when friends sign up!
             </p>
             <div class="flex items-center justify-center gap-3 mt-4">
-                <button onclick="shareTool('whatsapp')" class="w-10 h-10 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-emerald-600 hover: dark:hover: hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition-all shadow-sm" title="Share on WhatsApp">
+                <button onclick="shareTool('whatsapp')" class="w-10 h-10 rounded-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-emerald-600 hover: dark:hover: hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition-all shadow-sm" title="Share on WhatsApp">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                 </button>
-                <button onclick="shareTool('telegram')" class="w-10 h-10 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-sky-500 hover: dark:hover: hover:bg-sky-50 dark:hover:bg-sky-950/40 transition-all shadow-sm" title="Share on Telegram">
+                <button onclick="shareTool('telegram')" class="w-10 h-10 rounded-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-sky-500 hover: dark:hover: hover:bg-sky-50 dark:hover:bg-sky-950/40 transition-all shadow-sm" title="Share on Telegram">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.197 1.006.128.832.941z"/></svg>
                 </button>
-                <button onclick="shareTool('instagram')" class="w-10 h-10 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-pink-600 hover: dark:hover: hover:bg-pink-50 dark:hover:bg-pink-950/40 transition-all shadow-sm" title="Copy link for Instagram">
+                <button onclick="shareTool('instagram')" class="w-10 h-10 rounded-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-pink-600 hover: dark:hover: hover:bg-pink-50 dark:hover:bg-pink-950/40 transition-all shadow-sm" title="Copy link for Instagram">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 </button>
-                <button onclick="shareTool('linkedin')" class="w-10 h-10 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-blue-600 hover: dark:hover: hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-all shadow-sm" title="Share on LinkedIn">
+                <button onclick="shareTool('linkedin')" class="w-10 h-10 rounded-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-blue-600 hover: dark:hover: hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-all shadow-sm" title="Share on LinkedIn">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </button>
-                <button onclick="shareTool('facebook')" class="w-10 h-10 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-indigo-600 hover: dark:hover: hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition-all shadow-sm" title="Share on Facebook">
+                <button onclick="shareTool('facebook')" class="w-10 h-10 rounded-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-indigo-600 hover: dark:hover: hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition-all shadow-sm" title="Share on Facebook">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
                 </button>
             </div>
@@ -4674,15 +4562,15 @@ document.addEventListener('DOMContentLoaded', () => {
 <!-- Out of Credits Modal (0 Credits) -->
 <div id="out-of-credits-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center p-4">
     <div class="fixed inset-0 bg-slate-900/60 dark:bg-black/80 backdrop-blur-sm transition-opacity" onclick="closeOutOfCreditsModal()"></div>
-    <div class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-[4px]-[4px] shadow-2xl dark: p-6 sm:p-8 z-10 transition-all transform duration-200">
-        <button onclick="closeOutOfCreditsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-2 rounded-[4px]-[4px] hover:bg-slate-100 dark:hover:bg-slate-800 transition">
+    <div class="relative w-full max-w-md bg-white dark:bg-slate-900 rounded-[4px] shadow-2xl dark: p-6 sm:p-8 z-10 transition-all transform duration-200">
+        <button onclick="closeOutOfCreditsModal()" class="absolute top-4 right-4 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-2 rounded-[4px] hover:bg-slate-100 dark:hover:bg-slate-800 transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
         </button>
         <div class="flex flex-col items-center text-center">
-            <div class="w-14 h-14 bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400 rounded-[4px]-[4px] flex items-center justify-center mb-4 dark:">
+            <div class="w-14 h-14 bg-rose-100 dark:bg-rose-900/40 text-rose-600 dark:text-rose-400 rounded-[4px] flex items-center justify-center mb-4 dark:">
                 <svg class="w-7 h-7" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path></svg>
             </div>
-            <span class="inline-flex items-center px-3 py-1 rounded-[4px]-[4px] text-xs font-semibold bg-rose-100 dark:bg-rose-900/50 text-rose-800 dark:text-rose-300 mb-2">
+            <span class="inline-flex items-center px-3 py-1 rounded-[4px] text-xs font-semibold bg-rose-100 dark:bg-rose-900/50 text-rose-800 dark:text-rose-300 mb-2">
                 🚫 0 Credits Remaining
             </span>
             <h3 class="text-xl font-bold text-slate-900 dark:text-white tracking-tight">Out of Credits</h3>
@@ -4691,11 +4579,11 @@ document.addEventListener('DOMContentLoaded', () => {
             </p>
         </div>
         <div class="mt-6 flex flex-col gap-2.5">
-            <a href="/pricing/" class="w-full py-3 px-4 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-semibold text-center rounded-[4px]-[4px] shadow-md transition transform active:scale-95 text-sm flex items-center justify-center gap-2">
+            <a href="/pricing/" class="w-full py-3 px-4 bg-gradient-to-r from-violet-600 to-indigo-600 hover:from-violet-700 hover:to-indigo-700 text-white font-semibold text-center rounded-[4px] shadow-md transition transform active:scale-95 text-sm flex items-center justify-center gap-2">
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z"></path></svg>
                 Buy Credits Now
             </a>
-            <button onclick="closeOutOfCreditsModal()" class="w-full py-2.5 px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-[4px]-[4px] transition text-sm">
+            <button onclick="closeOutOfCreditsModal()" class="w-full py-2.5 px-4 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 font-medium rounded-[4px] transition text-sm">
                 Close
             </button>
         </div>
@@ -4705,19 +4593,19 @@ document.addEventListener('DOMContentLoaded', () => {
                 Share to get <span class="text-emerald-600 dark:text-emerald-400 font-bold">5 free credits</span> instantly & earn <span class="text-violet-600 dark:text-violet-400 font-bold">50 credits</span> when friends sign up!
             </p>
             <div class="flex items-center justify-center gap-3 mt-4">
-                <button onclick="shareTool('whatsapp')" class="w-10 h-10 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-emerald-600 hover: dark:hover: hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition-all shadow-sm" title="Share on WhatsApp">
+                <button onclick="shareTool('whatsapp')" class="w-10 h-10 rounded-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-emerald-600 hover: dark:hover: hover:bg-emerald-50 dark:hover:bg-emerald-950/40 transition-all shadow-sm" title="Share on WhatsApp">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                 </button>
-                <button onclick="shareTool('telegram')" class="w-10 h-10 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-sky-500 hover: dark:hover: hover:bg-sky-50 dark:hover:bg-sky-950/40 transition-all shadow-sm" title="Share on Telegram">
+                <button onclick="shareTool('telegram')" class="w-10 h-10 rounded-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-sky-500 hover: dark:hover: hover:bg-sky-50 dark:hover:bg-sky-950/40 transition-all shadow-sm" title="Share on Telegram">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 0c-6.627 0-12 5.373-12 12s5.373 12 12 12 12-5.373 12-12-5.373-12-12-12zm5.894 8.221l-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.446 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.121l-6.871 4.326-2.962-.924c-.643-.204-.657-.643.136-.953l11.57-4.461c.537-.197 1.006.128.832.941z"/></svg>
                 </button>
-                <button onclick="shareTool('instagram')" class="w-10 h-10 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-pink-600 hover: dark:hover: hover:bg-pink-50 dark:hover:bg-pink-950/40 transition-all shadow-sm" title="Copy link for Instagram">
+                <button onclick="shareTool('instagram')" class="w-10 h-10 rounded-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-pink-600 hover: dark:hover: hover:bg-pink-50 dark:hover:bg-pink-950/40 transition-all shadow-sm" title="Copy link for Instagram">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 </button>
-                <button onclick="shareTool('linkedin')" class="w-10 h-10 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-blue-600 hover: dark:hover: hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-all shadow-sm" title="Share on LinkedIn">
+                <button onclick="shareTool('linkedin')" class="w-10 h-10 rounded-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-blue-600 hover: dark:hover: hover:bg-blue-50 dark:hover:bg-blue-950/40 transition-all shadow-sm" title="Share on LinkedIn">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
                 </button>
-                <button onclick="shareTool('facebook')" class="w-10 h-10 rounded-[4px]-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-indigo-600 hover: dark:hover: hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition-all shadow-sm" title="Share on Facebook">
+                <button onclick="shareTool('facebook')" class="w-10 h-10 rounded-[4px] bg-slate-50 dark:bg-slate-800/80 dark: flex items-center justify-center text-slate-600 dark:text-slate-300 hover:text-indigo-600 hover: dark:hover: hover:bg-indigo-50 dark:hover:bg-indigo-950/40 transition-all shadow-sm" title="Share on Facebook">
                     <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M22.675 0h-21.35c-.732 0-1.325.593-1.325 1.325v21.351c0 .731.593 1.324 1.325 1.324h11.495v-9.294h-3.128v-3.622h3.128v-2.671c0-3.1 1.893-4.788 4.659-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.795.715-1.795 1.763v2.313h3.587l-.467 3.622h-3.12v9.293h6.116c.73 0 1.323-.593 1.323-1.325v-21.35c0-.732-.593-1.325-1.325-1.325z"/></svg>
                 </button>
             </div>
@@ -4734,7 +4622,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             <div class="px-6 py-5 bg-slate-50 dark:bg-slate-900/80 dark: flex items-center justify-between">
                 <div class="flex items-center gap-2.5">
-                    <div class="p-2 bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-[4px]-[4px]">
+                    <div class="p-2 bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-[4px]">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
@@ -4744,16 +4632,16 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p class="text-xs text-slate-500 dark:text-slate-400">View & reload saved results</p>
                     </div>
                 </div>
-                <button onclick="closeHistoryDrawer()" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-800 rounded-[4px]-[4px] transition">
+                <button onclick="closeHistoryDrawer()" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 hover:bg-slate-200/50 dark:hover:bg-slate-800 rounded-[4px] transition">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
                     </svg>
                 </button>
             </div>
 
-            <div id="history-guest-banner" class="hidden mx-4 mt-4 p-4 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-[4px]-[4px] shadow-md">
+            <div id="history-guest-banner" class="hidden mx-4 mt-4 p-4 bg-gradient-to-r from-violet-600 to-indigo-600 text-white rounded-[4px] shadow-md">
                 <div class="flex items-start gap-3">
-                    <div class="p-2 bg-white/20 rounded-[4px]-[4px] shrink-0 mt-0.5">
+                    <div class="p-2 bg-white/20 rounded-[4px] shrink-0 mt-0.5">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 002-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/>
                         </svg>
@@ -4761,7 +4649,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     <div class="flex-grow">
                         <h4 class="text-xs font-extrabold uppercase tracking-wider text-violet-200">Guest Session History</h4>
                         <p class="text-xs mt-1 text-violet-100 leading-relaxed">Your results are currently saved locally. Log in or sign up to permanently sync & back up your history across all devices!</p>
-                        <button onclick="window.ToolIMGHistory.handleHistoryLogin()" class="mt-3 px-3.5 py-1.5 bg-white text-violet-700 hover:bg-violet-50 text-xs font-bold rounded-[4px]-[4px] transition shadow-sm flex items-center gap-1.5">
+                        <button onclick="window.ToolIMGHistory.handleHistoryLogin()" class="mt-3 px-3.5 py-1.5 bg-white text-violet-700 hover:bg-violet-50 text-xs font-bold rounded-[4px] transition shadow-sm flex items-center gap-1.5">
                             <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12.545,10.239v3.821h5.445c-0.712,2.315-2.647,3.972-5.445,3.972c-3.332,0-6.033-2.701-6.033-6.032s2.701-6.032,6.033-6.032c1.498,0,2.866,0.549,3.921,1.453l2.814-2.814C17.503,2.988,15.139,2,12.545,2C7.021,2,2.543,6.477,2.543,12s4.478,10,10.002,10c8.396,0,10.249-7.85,9.426-11.761H12.545z"/></svg>
                             <span>Log In to Sync History</span>
                         </button>
@@ -4771,10 +4659,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
             <div class="p-4 dark: flex items-center justify-between gap-2">
                 <div class="flex gap-1.5 overflow-x-auto text-xs">
-                    <button onclick="setHistoryFilter('this')" id="hist-tab-this" class="px-3 py-1.5 rounded-[4px]-[4px] font-bold bg-violet-600 text-white shadow-sm transition">This Tool</button>
-                    <button onclick="setHistoryFilter('all')" id="hist-tab-all" class="px-3 py-1.5 rounded-[4px]-[4px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">All Tools</button>
+                    <button onclick="setHistoryFilter('this')" id="hist-tab-this" class="px-3 py-1.5 rounded-[4px] font-bold bg-violet-600 text-white shadow-sm transition">This Tool</button>
+                    <button onclick="setHistoryFilter('all')" id="hist-tab-all" class="px-3 py-1.5 rounded-[4px] font-bold bg-slate-100 dark:bg-slate-800 text-slate-600 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700 transition">All Tools</button>
                 </div>
-                <button onclick="clearHistoryWithConfirm()" class="text-xs font-bold text-rose-500 hover:text-rose-600 transition px-2.5 py-1 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-[4px]-[4px]">
+                <button onclick="clearHistoryWithConfirm()" class="text-xs font-bold text-rose-500 hover:text-rose-600 transition px-2.5 py-1 hover:bg-rose-50 dark:hover:bg-rose-950/40 rounded-[4px]">
                     Clear All
                 </button>
             </div>
@@ -4824,7 +4712,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <div class="w-screen max-w-md bg-white dark:bg-slate-900 shadow-2xl dark: flex flex-col">
                             <div class="px-6 py-5 bg-slate-50 dark:bg-slate-900/80 dark: flex items-center justify-between">
                                 <div class="flex items-center gap-2.5">
-                                    <div class="p-2 bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-[4px]-[4px]">
+                                    <div class="p-2 bg-violet-100 dark:bg-violet-900/40 text-violet-600 dark:text-violet-400 rounded-[4px]">
                                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
                                     </div>
                                     <div>
@@ -4832,7 +4720,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                         <p class="text-xs text-slate-500 dark:text-slate-400">Saved results</p>
                                     </div>
                                 </div>
-                                <button id="close-fallback-drawer-btn" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-[4px]-[4px]">
+                                <button id="close-fallback-drawer-btn" class="p-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 rounded-[4px]">
                                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
                                 </button>
                             </div>
@@ -4854,13 +4742,13 @@ document.addEventListener('DOMContentLoaded', () => {
                         listContainer.innerHTML = '<div class="text-center py-12 text-slate-400 text-xs font-semibold">No history items found yet.</div>';
                     } else {
                         listContainer.innerHTML = items.map(it => `
-                            <div class="p-3.5 bg-slate-50 dark:bg-slate-800/60 dark: rounded-[4px]-[4px] shadow-sm">
+                            <div class="p-3.5 bg-slate-50 dark:bg-slate-800/60 dark: rounded-[4px] shadow-sm">
                                 <div class="flex items-center justify-between">
                                     <span class="text-[11px] font-extrabold uppercase tracking-wider text-violet-600 dark:text-violet-400">${it.toolName || 'ToolIMG'}</span>
                                     <span class="text-[10px] text-slate-400">${new Date(it.timestamp || Date.now()).toLocaleDateString()}</span>
                                 </div>
                                 <h4 class="text-xs font-bold text-slate-800 dark:text-slate-200 mt-1 truncate">${it.title || 'Result'}</h4>
-                                ${it.content ? `<pre class="mt-2 p-2 bg-white dark:bg-slate-900 rounded-[4px]-[4px] text-[11px] text-slate-600 dark:text-slate-400 max-h-24 overflow-hidden text-ellipsis whitespace-pre-wrap">${typeof it.content === 'string' ? it.content.substring(0, 150) : ''}</pre>` : ''}
+                                ${it.content ? `<pre class="mt-2 p-2 bg-white dark:bg-slate-900 rounded-[4px] text-[11px] text-slate-600 dark:text-slate-400 max-h-24 overflow-hidden text-ellipsis whitespace-pre-wrap">${typeof it.content === 'string' ? it.content.substring(0, 150) : ''}</pre>` : ''}
                             </div>
                         `).join('');
                     }
