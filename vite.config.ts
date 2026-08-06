@@ -28,7 +28,9 @@ export default defineConfig(() => {
           privacyPolicy: resolve(__dirname, 'privacy-policy.html'),
           about: resolve(__dirname, 'about.html'),
           contact: resolve(__dirname, 'contact.html'),
-          disclaimer: resolve(__dirname, 'disclaimer.html')
+          disclaimer: resolve(__dirname, 'disclaimer.html'),
+          refundPolicy: resolve(__dirname, 'refund-policy.html'),
+          refundPolicy2: resolve(__dirname, 'refund-policy-2.html')
         }
       }
     }
