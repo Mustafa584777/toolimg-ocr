@@ -1,6 +1,6 @@
 {
   "name": "ToolIMG",
-  "description": "ToolIMG: AI Image to Code converter. Convert screenshots, wireframes, or design mockups into beautiful, functional, and responsive Tailwind CSS code instantly.",
+  "description": "ToolIMG: All-in-one suite of AI image tools, computer vision utilities, design-to-code converters, handwriting OCR, and image-to-prompt generators.",
   "requestFramePermissions": [],
   "majorCapabilities": [
     "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"

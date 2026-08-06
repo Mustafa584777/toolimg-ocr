@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-// Universal circular JSON safety polyfill to prevent platform logging and 3rd party crashes
+// Universal circular JSON safety polyfill
 (function() {
     const originalStringify = JSON.stringify;
     JSON.stringify = function(value, replacer, space) {
@@ -41,8 +41,8 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - ToolIMG AI Image Tools</title>
-    <meta name="description" content="ToolIMG Privacy Policy: Learn how we safeguard your uploaded images, documents, and privacy with strict volatile memory ephemeral processing.">
+    <title>Disclaimer Notice - ToolIMG AI Image Tools</title>
+    <meta name="description" content="ToolIMG Disclaimer Notice: Important legal disclosure regarding AI model outputs, code conversion fidelity, user image copyright compliance, and service non-liability.">
     
     <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -78,7 +78,7 @@
             color: #f8fafc;
         }
         
-        /* Mobile Scaling - 30% reduction on mobile */
+        /* Mobile Scaling */
         @media (max-width: 768px) {
             html { font-size: 12px; }
         }
@@ -162,7 +162,6 @@
                 
                 <div class="h-px bg-slate-100 dark:bg-slate-800 w-full my-2"></div>
                 
-                <!-- Theme Selection in Mobile Menu -->
                 <div class="px-3 py-2 relative">
                     <button id="theme-menu-btn" class="w-full px-4 py-3.5 flex justify-between items-center text-[15px] font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">
                         <span>Theme</span>
@@ -199,156 +198,109 @@
             <!-- Sticky Sidebar Nav for Document Sections -->
             <aside id="sidebar-navigation" class="hidden lg:block lg:col-span-1 sticky top-28 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-5 rounded-[4px] shadow-sm">
                 <p class="text-[11px] font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase mb-4">Sections</p>
-                <div class="flex flex-col gap-1">
-                    <a href="#intro" class="sidebar-link active block px-3 py-2 text-sm font-medium rounded-[4px] text-violet-600 dark:text-violet-400 bg-violet-50/50 dark:bg-violet-950/20 transition-all" data-sec="intro">1. Intro & Scope</a>
-                    <a href="#collection" class="sidebar-link block px-3 py-2 text-sm font-medium rounded-[4px] text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" data-sec="collection">2. Data We Collect</a>
-                    <a href="#processing" class="sidebar-link block px-3 py-2 text-sm font-medium rounded-[4px] text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" data-sec="processing">3. Image & OCR Safety</a>
-                    <a href="#cookies" class="sidebar-link block px-3 py-2 text-sm font-medium rounded-[4px] text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" data-sec="cookies">4. Cookies & Logs</a>
-                    <a href="#sharing" class="sidebar-link block px-3 py-2 text-sm font-medium rounded-[4px] text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" data-sec="sharing">5. Third-Party Partners</a>
-                    <a href="#rights" class="sidebar-link block px-3 py-2 text-sm font-medium rounded-[4px] text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" data-sec="rights">6. Your Rights & Contacts</a>
-                </div>
+                <nav class="space-y-1.5">
+                    <a href="#overview" data-sec="overview" class="sidebar-link block px-3 py-2 text-xs font-semibold rounded-[4px] transition text-violet-600 dark:text-violet-400 bg-violet-50/50 dark:bg-violet-950/20">1. Overview</a>
+                    <a href="#ai-accuracy" data-sec="ai-accuracy" class="sidebar-link block px-3 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">2. AI Vision Accuracy</a>
+                    <a href="#copyright" data-sec="copyright" class="sidebar-link block px-3 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">3. Image Copyright</a>
+                    <a href="#no-advice" data-sec="no-advice" class="sidebar-link block px-3 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">4. No Professional Advice</a>
+                    <a href="#uptime" data-sec="uptime" class="sidebar-link block px-3 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">5. Service Availability</a>
+                    <a href="#third-party" data-sec="third-party" class="sidebar-link block px-3 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">6. Third-Party APIs</a>
+                    <a href="#liability" data-sec="liability" class="sidebar-link block px-3 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">7. Limitation of Liability</a>
+                </nav>
             </aside>
 
-            <!-- Document Text Paper Card -->
-            <article id="privacy-content-card" class="col-span-1 lg:col-span-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[4px] p-6 sm:p-10 shadow-sm leading-relaxed transition-colors duration-300">
-                <header id="privacy-header-block" class="mb-10">
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-[4px] bg-violet-50 dark:bg-violet-950/30 text-violet-600 dark:text-violet-400 text-xs font-bold uppercase tracking-wider mb-4">
-                        <span class="flex h-2 w-2 rounded-full bg-violet-500"></span>
-                        Privacy Operations
-                    </div>
-                    <h1 id="page-title" class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">Privacy Policy</h1>
-                    <div class="text-xs text-slate-400 dark:text-slate-500 flex items-center gap-2">
-                        <span>ToolIMG Safety Standards</span>
-                        <span class="h-1 w-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
-                        <span>Last Updated: August 5, 2026</span>
-                    </div>
-                </header>
+            <!-- Main Document Article -->
+            <article class="lg:col-span-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-8 sm:p-12 rounded-[4px] shadow-sm">
+                
+                <!-- Hero Header -->
+                <div class="border-b border-slate-100 dark:border-slate-800 pb-8 mb-10">
+                    <span class="inline-block px-3 py-1 bg-violet-50 dark:bg-violet-950/50 text-violet-600 dark:text-violet-400 text-[11px] font-bold rounded-[4px] mb-4 tracking-wider uppercase">
+                        LEGAL NOTICE
+                    </span>
+                    <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+                        Disclaimer Notice
+                    </h1>
+                    <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm leading-relaxed max-w-3xl">
+                        Last Updated: August 2026 — Please read this disclaimer notice carefully before utilizing ToolIMG tools, services, image-to-code converters, or OCR utilities.
+                    </p>
+                </div>
 
-                <p class="text-base text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
-                    At ToolIMG, accessible at <a href="https://toolimg.online" class="text-violet-600 dark:text-violet-400 hover:underline font-semibold">https://toolimg.online</a>, protecting the privacy of our visitors, developers, and creators is one of our fundamental values. This Privacy Policy details what information we gather, how we utilize and secure your intellectual assets, and the steps we take to maintain maximum security and transparency across our automated image processing platform.
-                </p>
-
-                <hr class="border-slate-100 dark:border-slate-800 my-8" />
-
-                <!-- Document Body sections -->
-                <div class="space-y-12">
+                <!-- Sections -->
+                <div class="space-y-12 text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
                     
-                    <!-- Section 1 -->
-                    <section id="intro" class="scroll-mt-24">
-                        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 mb-4">
-                            <span class="text-violet-600 dark:text-violet-400 font-extrabold">1.</span>
-                            Introduction & Scope
+                    <section id="overview" class="scroll-mt-32">
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <span class="text-violet-600 dark:text-violet-400">1.</span> General Information & Purpose
                         </h2>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
-                            This Privacy Policy applies solely to our online services and tools available under the ToolIMG ecosystem. It pertains directly to visitors accessing our platform, utilizing our custom AI image tools, handwriting OCR scanners, design compilation pipelines, and image-to-prompt generators.
-                        </p>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                            By interacting with or utilizing ToolIMG, you hereby signify your assent to our Privacy Policy parameters, terms of use, and local cookie structures.
+                        <p class="mb-4">
+                            The information, software, image processing models, and AI utilities provided on <strong>ToolIMG</strong> (accessible at <a href="https://toolimg.online" class="text-violet-600 dark:text-violet-400 font-semibold hover:underline">https://toolimg.online</a>) are for general operational and developer convenience purposes only. By using ToolIMG, you accept and agree to the terms outlined in this Disclaimer Notice along with our <a href="/privacy-policy.html" class="text-violet-600 dark:text-violet-400 font-semibold hover:underline">Privacy Policy</a> and <a href="/terms.html" class="text-violet-600 dark:text-violet-400 font-semibold hover:underline">Terms of Service</a>.
                         </p>
                     </section>
 
-                    <!-- Section 2 -->
-                    <section id="collection" class="scroll-mt-24">
-                        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 mb-4">
-                            <span class="text-violet-600 dark:text-violet-400 font-extrabold">2.</span>
-                            Information We Collect
+                    <section id="ai-accuracy" class="scroll-mt-32">
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <span class="text-violet-600 dark:text-violet-400">2.</span> AI Vision & Output Accuracy
                         </h2>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
-                            We obtain user data only to optimize workflow execution, manage usage credits, and process layouts. The scope of information collected consists of:
+                        <p class="mb-4">
+                            ToolIMG utilizes probabilistic neural networks and multimodal artificial intelligence (including Google Gemini models) to perform image analysis, HTML/Tailwind code conversion, handwriting OCR, and prompt generation.
                         </p>
-                        <ul class="space-y-2.5 pl-1 mb-4">
-                            <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                                <span class="h-1.5 w-1.5 rounded-full bg-violet-500 mt-2 shrink-0"></span>
-                                <span><strong>Account Credentials</strong>: Registered email addresses, full name parameters, and avatar configurations when logging in via third-party providers (Google Firebase Auth).</span>
-                            </li>
-                            <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                                <span class="h-1.5 w-1.5 rounded-full bg-violet-500 mt-2 shrink-0"></span>
-                                <span><strong>Transaction Data</strong>: Secure transaction identifiers and plan details handled via Stripe. We do not persist raw billing cards on our servers.</span>
-                            </li>
-                            <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                                <span class="h-1.5 w-1.5 rounded-full bg-violet-500 mt-2 shrink-0"></span>
-                                <span><strong>Usage Metas</strong>: Running execution counts, diagnostic log logs, and history timelines generated internally to track and recharge user balances.</span>
-                            </li>
-                        </ul>
-                    </section>
-
-                    <!-- Section 3 -->
-                    <section id="processing" class="scroll-mt-24">
-                        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 mb-4">
-                            <span class="text-violet-600 dark:text-violet-400 font-extrabold">3.</span>
-                            Image & Vision Safety (Ephemeral Storage)
-                        </h2>
-                        <div class="p-5 bg-violet-50/50 dark:bg-violet-950/20 border border-violet-100/50 dark:border-violet-900/30 rounded-[4px] mb-4">
-                            <p class="text-xs font-bold text-violet-700 dark:text-violet-300 tracking-wider uppercase mb-2">Our Safety Guarantee</p>
-                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                                We believe your designs and documents are your absolute intellectual property. ToolIMG operates under a strict ephemeral storage rule:
+                        <div class="bg-amber-50/60 dark:bg-amber-950/20 p-5 rounded-[4px] border-l-4 border-amber-500 dark:border-amber-400 my-4 text-slate-700 dark:text-slate-300">
+                            <p class="font-semibold text-xs leading-relaxed">
+                                <strong>Important Notice on AI Generation:</strong> Outputs generated by AI models are produced automatically and may occasionally contain inaccuracies, incomplete code syntax, transcription errors, or misinterpretations of visual elements. ToolIMG does not warrant or guarantee that code generated from images will be bug-free or directly deployable without manual review.
                             </p>
                         </div>
-                        <ul class="space-y-3.5 pl-1">
-                            <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                                <svg class="h-5 w-5 text-violet-600 dark:text-violet-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                                <span><strong>Instant Processing</strong>: Client-side operations (like HTML-to-Image canvas tools) run entirely on-browser. No image packets or vectors travel to external cloud APIs.</span>
-                            </li>
-                            <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                                <svg class="h-5 w-5 text-violet-600 dark:text-violet-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                                <span><strong>Zero Permanent Retention</strong>: For cloud-driven image tools, vision analysis, OCR, and design conversion features, target files are stored only in memory for the exact duration of the synthesis transaction. All uploaded artifacts are automatically cleared immediately after output delivery.</span>
-                            </li>
+                    </section>
+
+                    <section id="copyright" class="scroll-mt-32">
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <span class="text-violet-600 dark:text-violet-400">3.</span> Image Ownership & Copyright Responsibilities
+                        </h2>
+                        <p class="mb-4">
+                            Users are solely responsible for ensuring they possess all necessary copyrights, intellectual property rights, licenses, or authorizations for any image, document, artwork, or screenshot submitted to ToolIMG tools.
+                        </p>
+                        <ul class="space-y-2 list-disc pl-5">
+                            <li>ToolIMG does not claim ownership over any images uploaded by users.</li>
+                            <li>Users must not upload copyright-infringing material, confidential documents without authorization, or illegal content.</li>
+                            <li>ToolIMG shall not be held liable for any copyright infringement or intellectual property dispute arising from user-uploaded images or AI outputs derived from them.</li>
                         </ul>
                     </section>
 
-                    <!-- Section 4 -->
-                    <section id="cookies" class="scroll-mt-24">
-                        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 mb-4">
-                            <span class="text-violet-600 dark:text-violet-400 font-extrabold">4.</span>
-                            Cookies & Analytics Logs
+                    <section id="no-advice" class="scroll-mt-32">
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <span class="text-violet-600 dark:text-violet-400">4.</span> No Professional Legal or Engineering Advice
                         </h2>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
-                            Like many interactive websites, ToolIMG utilizes standard internet cookies to hold interface settings (such as dark/light themes), remember selected languages, and optimize load speeds.
-                        </p>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                            We monitor traffic behaviors using third-party tracking components (such as Google Analytics). These cookies gather anonymous routing profiles, device definitions, page paths, and session timelines to compile aggregate reports. They cannot identify real names or personal coordinates.
+                        <p class="mb-4">
+                            The code, transcriptions, and prompts produced by ToolIMG should not be construed as professional software engineering, legal compliance, or certified document transcription advice. Users are strongly encouraged to inspect and test all generated code, HTML layouts, and transcribed text prior to production deployment or official use.
                         </p>
                     </section>
 
-                    <!-- Section 5 -->
-                    <section id="sharing" class="scroll-mt-24">
-                        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 mb-4">
-                            <span class="text-violet-600 dark:text-violet-400 font-extrabold">5.</span>
-                            Third-Party Partners
+                    <section id="uptime" class="scroll-mt-32">
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <span class="text-violet-600 dark:text-violet-400">5.</span> Service Availability & Ephemeral Storage
                         </h2>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
-                            We coordinate with select infrastructure providers to secure application runtime and database integrity:
+                        <p class="mb-4">
+                            While we strive to keep ToolIMG operational 24/7 with zero downtime, we do not guarantee uninterrupted access to our vision API endpoints or web tools. All uploaded images are processed transiently in volatile server memory and purged automatically upon completion. ToolIMG assumes no obligation to back up, recover, or archive any user files or conversion results.
                         </p>
-                        <ul class="space-y-3 pl-1">
-                            <li class="text-sm text-slate-600 dark:text-slate-300">
-                                <strong>Firebase (Google LLC)</strong>: Used to control database snapshots, safe user authentications, and platform operations safely.
-                            </li>
-                            <li class="text-sm text-slate-600 dark:text-slate-300">
-                                <strong>Google Gemini API</strong>: Powering multimodal OCR recognition, handwriting scripts compilation, and image-to-prompt formulating grids.
-                            </li>
-                            <li class="text-sm text-slate-600 dark:text-slate-300">
-                                <strong>Stripe Inc.</strong>: Handles purchase processes, invoice distributions, and subscription plans in a PCI-compliant sandbox.
-                            </li>
-                        </ul>
                     </section>
 
-                    <!-- Section 6 -->
-                    <section id="rights" class="scroll-mt-24">
-                        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 mb-4">
-                            <span class="text-violet-600 dark:text-violet-400 font-extrabold">6.</span>
-                            Your Rights & Support Contacts
+                    <section id="third-party" class="scroll-mt-32">
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <span class="text-violet-600 dark:text-violet-400">6.</span> Third-Party APIs & External Links
                         </h2>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
-                            Depending on your region, you may possess specific rights regarding your registered profiles, including the right to inspect data records, modify information parameters, or request total deletion of your logged profile.
+                        <p class="mb-4">
+                            Our platform connects with third-party service providers (such as Google Gemini APIs, Firebase, and Cloud infrastructure). ToolIMG has no control over the availability, policies, or operational disruptions of third-party API providers and shall not be held responsible for external service outages.
                         </p>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
-                            Should you wish to trigger data queries, request permanent deletion of your Firebase profile records, or obtain assistance with billing details, please contact our dedicated assistance team:
-                        </p>
-                        <a href="mailto:support@toolimg.online" class="inline-flex items-center gap-2 px-5 py-2.5 bg-violet-600 hover:bg-violet-700 text-white text-xs font-bold uppercase tracking-wider rounded-[4px] shadow-sm transition-all hover:-translate-y-0.5">
-                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            Email Support
-                        </a>
                     </section>
+
+                    <section id="liability" class="scroll-mt-32">
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <span class="text-violet-600 dark:text-violet-400">7.</span> Limitation of Liability
+                        </h2>
+                        <p class="mb-4">
+                            To the fullest extent permitted by applicable law, ToolIMG, its operators, founders, and affiliates shall not be liable for any direct, indirect, incidental, consequential, or punitive damages resulting from your use or inability to use our tools, reliance on AI outputs, or data loss.
+                        </p>
+                    </section>
+
                 </div>
             </article>
         </div>
@@ -375,7 +327,7 @@
                     <ul class="space-y-3.5">
                         <li><a href="/tools/image-to-code/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Image to Code AI</a></li>
                         <li><a href="/tools/handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">English Handwriting OCR</a></li>
-                        <li><a href="/tools/hindi-handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition font-semibold text-violet-600 dark:text-violet-400">Hindi Handwriting OCR</a></li>
+                        <li><a href="/tools/hindi-handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Hindi Handwriting OCR</a></li>
                         <li><a href="/tools/gemini-image-to-prompt/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Gemini Image to Prompt</a></li>
                         <li><a href="/tools/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">All Tools</a></li>
                     </ul>
@@ -391,10 +343,10 @@
                 <div>
                     <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-sm">Legal</h4>
                     <ul class="space-y-3.5">
-                        <li><a href="/privacy-policy.html" class="text-[11px] text-violet-600 dark:text-violet-400 font-semibold hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="/privacy-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a></li>
                         <li><a href="https://toolimg.online/terms.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Terms of Service</a></li>
                         <li><a href="https://toolimg.online/refund-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Refund Policy</a></li>
-                        <li><a href="https://toolimg.online/disclaimer.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Disclaimer</a></li>
+                        <li><a href="https://toolimg.online/disclaimer.html" class="text-[11px] text-violet-600 dark:text-violet-400 font-semibold hover:text-slate-900 dark:hover:text-white transition">Disclaimer</a></li>
                     </ul>
                 </div>
             </div>
@@ -613,7 +565,7 @@
             const docSections = document.querySelectorAll('section[id]');
 
             const onScroll = () => {
-                let currentSectionId = 'intro';
+                let currentSectionId = 'overview';
                 const scrollOffset = window.scrollY + 160;
 
                 docSections.forEach(section => {

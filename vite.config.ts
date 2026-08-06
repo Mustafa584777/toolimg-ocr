@@ -25,8 +25,10 @@ export default defineConfig(() => {
           pricing: resolve(__dirname, 'pricing/index.html'),
           dashboard: resolve(__dirname, 'dashboard/index.html'),
           terms: resolve(__dirname, 'terms.html'),
-          editorialPolicy: resolve(__dirname, 'editorial-policy.html'),
-          privacyPolicy: resolve(__dirname, 'privacy-policy.html')
+          privacyPolicy: resolve(__dirname, 'privacy-policy.html'),
+          about: resolve(__dirname, 'about.html'),
+          contact: resolve(__dirname, 'contact.html'),
+          disclaimer: resolve(__dirname, 'disclaimer.html')
         }
       }
     }

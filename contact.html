@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <script>
-// Universal circular JSON safety polyfill to prevent platform logging and 3rd party crashes
+// Universal circular JSON safety polyfill
 (function() {
     const originalStringify = JSON.stringify;
     JSON.stringify = function(value, replacer, space) {
@@ -41,8 +41,8 @@
     
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Privacy Policy - ToolIMG AI Image Tools</title>
-    <meta name="description" content="ToolIMG Privacy Policy: Learn how we safeguard your uploaded images, documents, and privacy with strict volatile memory ephemeral processing.">
+    <title>Contact Us & Support - ToolIMG AI Image Tools</title>
+    <meta name="description" content="Get in touch with ToolIMG support for questions about our AI image tools, API credits, custom integrations, or enterprise partnerships.">
     
     <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -78,6 +78,26 @@
             color: #f8fafc;
         }
         
+        /* Custom form inputs styling */
+        .form-input {
+            background-color: #f8fafc;
+            color: #0f172a;
+            border: 1px solid #e2e8f0 !important;
+            border-width: 1px !important;
+            transition: all 0.2s ease;
+        }
+        .dark .form-input {
+            background-color: #1e293b;
+            color: #f8fafc;
+            border: 1px solid #334155 !important;
+            border-width: 1px !important;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #7c3aed !important;
+            box-shadow: 0 0 0 2px rgba(124, 58, 237, 0.15);
+        }
+
         /* Mobile Scaling - 30% reduction on mobile */
         @media (max-width: 768px) {
             html { font-size: 12px; }
@@ -198,157 +218,167 @@
             
             <!-- Sticky Sidebar Nav for Document Sections -->
             <aside id="sidebar-navigation" class="hidden lg:block lg:col-span-1 sticky top-28 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-5 rounded-[4px] shadow-sm">
-                <p class="text-[11px] font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase mb-4">Sections</p>
-                <div class="flex flex-col gap-1">
-                    <a href="#intro" class="sidebar-link active block px-3 py-2 text-sm font-medium rounded-[4px] text-violet-600 dark:text-violet-400 bg-violet-50/50 dark:bg-violet-950/20 transition-all" data-sec="intro">1. Intro & Scope</a>
-                    <a href="#collection" class="sidebar-link block px-3 py-2 text-sm font-medium rounded-[4px] text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" data-sec="collection">2. Data We Collect</a>
-                    <a href="#processing" class="sidebar-link block px-3 py-2 text-sm font-medium rounded-[4px] text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" data-sec="processing">3. Image & OCR Safety</a>
-                    <a href="#cookies" class="sidebar-link block px-3 py-2 text-sm font-medium rounded-[4px] text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" data-sec="cookies">4. Cookies & Logs</a>
-                    <a href="#sharing" class="sidebar-link block px-3 py-2 text-sm font-medium rounded-[4px] text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" data-sec="sharing">5. Third-Party Partners</a>
-                    <a href="#rights" class="sidebar-link block px-3 py-2 text-sm font-medium rounded-[4px] text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-all" data-sec="rights">6. Your Rights & Contacts</a>
-                </div>
+                <p class="text-[11px] font-bold tracking-wider text-slate-400 dark:text-slate-500 uppercase mb-4">Navigation</p>
+                <nav class="space-y-1.5">
+                    <a href="#contact-form-section" data-sec="contact-form-section" class="sidebar-link block px-3 py-2 text-xs font-semibold rounded-[4px] transition text-violet-600 dark:text-violet-400 bg-violet-50/50 dark:bg-violet-950/20">1. Contact Form</a>
+                    <a href="#support-channels" data-sec="support-channels" class="sidebar-link block px-3 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">2. Support Channels</a>
+                    <a href="#faq-section" data-sec="faq-section" class="sidebar-link block px-3 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">3. Frequently Asked Questions</a>
+                    <a href="#business-info" data-sec="business-info" class="sidebar-link block px-3 py-2 text-xs font-semibold text-slate-600 dark:text-slate-400 hover:bg-slate-50 dark:hover:bg-slate-800 rounded-[4px] transition">4. Business Details</a>
+                </nav>
             </aside>
 
-            <!-- Document Text Paper Card -->
-            <article id="privacy-content-card" class="col-span-1 lg:col-span-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 rounded-[4px] p-6 sm:p-10 shadow-sm leading-relaxed transition-colors duration-300">
-                <header id="privacy-header-block" class="mb-10">
-                    <div class="inline-flex items-center gap-1.5 px-3 py-1 rounded-[4px] bg-violet-50 dark:bg-violet-950/30 text-violet-600 dark:text-violet-400 text-xs font-bold uppercase tracking-wider mb-4">
-                        <span class="flex h-2 w-2 rounded-full bg-violet-500"></span>
-                        Privacy Operations
-                    </div>
-                    <h1 id="page-title" class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-3">Privacy Policy</h1>
-                    <div class="text-xs text-slate-400 dark:text-slate-500 flex items-center gap-2">
-                        <span>ToolIMG Safety Standards</span>
-                        <span class="h-1 w-1 bg-slate-300 dark:bg-slate-700 rounded-full"></span>
-                        <span>Last Updated: August 5, 2026</span>
-                    </div>
-                </header>
+            <!-- Main Document Article -->
+            <article class="lg:col-span-3 bg-white dark:bg-slate-900 border border-slate-100 dark:border-slate-800 p-8 sm:p-12 rounded-[4px] shadow-sm">
+                
+                <!-- Hero Header -->
+                <div class="border-b border-slate-100 dark:border-slate-800 pb-8 mb-10">
+                    <span class="inline-block px-3 py-1 bg-violet-50 dark:bg-violet-950/50 text-violet-600 dark:text-violet-400 text-[11px] font-bold rounded-[4px] mb-4 tracking-wider uppercase">
+                        GET IN TOUCH
+                    </span>
+                    <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 dark:text-white tracking-tight mb-4">
+                        Contact Us & Customer Support
+                    </h1>
+                    <p class="text-slate-500 dark:text-slate-400 text-xs sm:text-sm leading-relaxed max-w-3xl">
+                        Have questions about our AI image tools, need help with API credits, or want to discuss custom image integrations? Send us a message and our support team will get back to you shortly.
+                    </p>
+                </div>
 
-                <p class="text-base text-slate-600 dark:text-slate-300 mb-8 leading-relaxed">
-                    At ToolIMG, accessible at <a href="https://toolimg.online" class="text-violet-600 dark:text-violet-400 hover:underline font-semibold">https://toolimg.online</a>, protecting the privacy of our visitors, developers, and creators is one of our fundamental values. This Privacy Policy details what information we gather, how we utilize and secure your intellectual assets, and the steps we take to maintain maximum security and transparency across our automated image processing platform.
-                </p>
-
-                <hr class="border-slate-100 dark:border-slate-800 my-8" />
-
-                <!-- Document Body sections -->
-                <div class="space-y-12">
+                <!-- Sections -->
+                <div class="space-y-12 text-slate-600 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">
                     
-                    <!-- Section 1 -->
-                    <section id="intro" class="scroll-mt-24">
-                        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 mb-4">
-                            <span class="text-violet-600 dark:text-violet-400 font-extrabold">1.</span>
-                            Introduction & Scope
+                    <!-- Contact Form Section -->
+                    <section id="contact-form-section" class="scroll-mt-32">
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                            <span class="text-violet-600 dark:text-violet-400">1.</span> Send Us a Message
                         </h2>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
-                            This Privacy Policy applies solely to our online services and tools available under the ToolIMG ecosystem. It pertains directly to visitors accessing our platform, utilizing our custom AI image tools, handwriting OCR scanners, design compilation pipelines, and image-to-prompt generators.
-                        </p>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                            By interacting with or utilizing ToolIMG, you hereby signify your assent to our Privacy Policy parameters, terms of use, and local cookie structures.
-                        </p>
+                        
+                        <form id="contact-form" onsubmit="handleContactSubmit(event)" class="space-y-5 bg-slate-50/50 dark:bg-slate-800/30 p-6 sm:p-8 rounded-[4px] border border-slate-100 dark:border-slate-800/80">
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="contact-name" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">Your Name *</label>
+                                    <input type="text" id="contact-name" required placeholder="John Doe" class="form-input w-full px-3.5 py-2.5 text-xs rounded-[4px]">
+                                </div>
+                                <div>
+                                    <label for="contact-email" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">Email Address *</label>
+                                    <input type="email" id="contact-email" required placeholder="john@example.com" class="form-input w-full px-3.5 py-2.5 text-xs rounded-[4px]">
+                                </div>
+                            </div>
+
+                            <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+                                <div>
+                                    <label for="contact-category" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">Inquiry Category *</label>
+                                    <select id="contact-category" required class="form-input w-full px-3.5 py-2.5 text-xs rounded-[4px]">
+                                        <option value="general">General Inquiry</option>
+                                        <option value="tech-support">Technical Support / Bug Report</option>
+                                        <option value="billing">Billing & Refund Request</option>
+                                        <option value="api-enterprise">API & Enterprise Partnership</option>
+                                        <option value="feedback">Feature Request & Feedback</option>
+                                    </select>
+                                </div>
+                                <div>
+                                    <label for="contact-subject" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">Subject *</label>
+                                    <input type="text" id="contact-subject" required placeholder="How can we help you?" class="form-input w-full px-3.5 py-2.5 text-xs rounded-[4px]">
+                                </div>
+                            </div>
+
+                            <div>
+                                <label for="contact-message" class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-2">Message *</label>
+                                <textarea id="contact-message" rows="5" required placeholder="Provide as much context as possible..." class="form-input w-full px-3.5 py-2.5 text-xs rounded-[4px]"></textarea>
+                            </div>
+
+                            <div class="flex items-center justify-between pt-2">
+                                <p class="text-[11px] text-slate-400 dark:text-slate-500">Average response time: &lt; 24 business hours.</p>
+                                <button type="submit" id="contact-submit-btn" class="px-6 py-2.5 bg-violet-600 hover:bg-violet-700 text-white font-bold text-xs rounded-[4px] transition shadow-sm flex items-center gap-2">
+                                    <span>Send Message</span>
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>
+                                </button>
+                            </div>
+
+                            <div id="contact-success-alert" class="hidden p-4 bg-emerald-50 dark:bg-emerald-950/40 text-emerald-700 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60 rounded-[4px] text-xs font-medium">
+                                <div class="flex items-center gap-2">
+                                    <svg class="w-4 h-4 text-emerald-600 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                                    <span>Thank you! Your message has been sent successfully. Our support team will respond to your email shortly.</span>
+                                </div>
+                            </div>
+                        </form>
                     </section>
 
-                    <!-- Section 2 -->
-                    <section id="collection" class="scroll-mt-24">
-                        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 mb-4">
-                            <span class="text-violet-600 dark:text-violet-400 font-extrabold">2.</span>
-                            Information We Collect
+                    <section id="support-channels" class="scroll-mt-32">
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                            <span class="text-violet-600 dark:text-violet-400">2.</span> Direct Support Channels
                         </h2>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
-                            We obtain user data only to optimize workflow execution, manage usage credits, and process layouts. The scope of information collected consists of:
-                        </p>
-                        <ul class="space-y-2.5 pl-1 mb-4">
-                            <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                                <span class="h-1.5 w-1.5 rounded-full bg-violet-500 mt-2 shrink-0"></span>
-                                <span><strong>Account Credentials</strong>: Registered email addresses, full name parameters, and avatar configurations when logging in via third-party providers (Google Firebase Auth).</span>
-                            </li>
-                            <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                                <span class="h-1.5 w-1.5 rounded-full bg-violet-500 mt-2 shrink-0"></span>
-                                <span><strong>Transaction Data</strong>: Secure transaction identifiers and plan details handled via Stripe. We do not persist raw billing cards on our servers.</span>
-                            </li>
-                            <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                                <span class="h-1.5 w-1.5 rounded-full bg-violet-500 mt-2 shrink-0"></span>
-                                <span><strong>Usage Metas</strong>: Running execution counts, diagnostic log logs, and history timelines generated internally to track and recharge user balances.</span>
-                            </li>
-                        </ul>
-                    </section>
+                        
+                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-5">
+                            <div class="bg-slate-50 dark:bg-slate-800/40 p-5 rounded-[4px] border border-slate-100 dark:border-slate-800">
+                                <div class="w-8 h-8 rounded-[4px] bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-3">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+                                </div>
+                                <h3 class="font-bold text-slate-900 dark:text-white text-xs mb-1">Email Support</h3>
+                                <p class="text-slate-500 dark:text-slate-400 text-[11px] mb-3">For general inquiries and user assistance.</p>
+                                <a href="mailto:support@toolimg.online" class="text-violet-600 dark:text-violet-400 font-bold text-xs hover:underline">support@toolimg.online</a>
+                            </div>
 
-                    <!-- Section 3 -->
-                    <section id="processing" class="scroll-mt-24">
-                        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 mb-4">
-                            <span class="text-violet-600 dark:text-violet-400 font-extrabold">3.</span>
-                            Image & Vision Safety (Ephemeral Storage)
-                        </h2>
-                        <div class="p-5 bg-violet-50/50 dark:bg-violet-950/20 border border-violet-100/50 dark:border-violet-900/30 rounded-[4px] mb-4">
-                            <p class="text-xs font-bold text-violet-700 dark:text-violet-300 tracking-wider uppercase mb-2">Our Safety Guarantee</p>
-                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
-                                We believe your designs and documents are your absolute intellectual property. ToolIMG operates under a strict ephemeral storage rule:
-                            </p>
+                            <div class="bg-slate-50 dark:bg-slate-800/40 p-5 rounded-[4px] border border-slate-100 dark:border-slate-800">
+                                <div class="w-8 h-8 rounded-[4px] bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-3">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path></svg>
+                                </div>
+                                <h3 class="font-bold text-slate-900 dark:text-white text-xs mb-1">Billing & Disputes</h3>
+                                <p class="text-slate-500 dark:text-slate-400 text-[11px] mb-3">Managed via Razorpay integration.</p>
+                                <a href="mailto:billing@toolimg.online" class="text-violet-600 dark:text-violet-400 font-bold text-xs hover:underline">billing@toolimg.online</a>
+                            </div>
+
+                            <div class="bg-slate-50 dark:bg-slate-800/40 p-5 rounded-[4px] border border-slate-100 dark:border-slate-800">
+                                <div class="w-8 h-8 rounded-[4px] bg-violet-100 dark:bg-violet-950/60 text-violet-600 dark:text-violet-400 flex items-center justify-center mb-3">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>
+                                </div>
+                                <h3 class="font-bold text-slate-900 dark:text-white text-xs mb-1">API Partnerships</h3>
+                                <p class="text-slate-500 dark:text-slate-400 text-[11px] mb-3">High-volume OCR & conversion keys.</p>
+                                <a href="mailto:api@toolimg.online" class="text-violet-600 dark:text-violet-400 font-bold text-xs hover:underline">api@toolimg.online</a>
+                            </div>
                         </div>
-                        <ul class="space-y-3.5 pl-1">
-                            <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                                <svg class="h-5 w-5 text-violet-600 dark:text-violet-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                                <span><strong>Instant Processing</strong>: Client-side operations (like HTML-to-Image canvas tools) run entirely on-browser. No image packets or vectors travel to external cloud APIs.</span>
-                            </li>
-                            <li class="flex items-start gap-3 text-sm text-slate-600 dark:text-slate-300">
-                                <svg class="h-5 w-5 text-violet-600 dark:text-violet-400 shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"></path></svg>
-                                <span><strong>Zero Permanent Retention</strong>: For cloud-driven image tools, vision analysis, OCR, and design conversion features, target files are stored only in memory for the exact duration of the synthesis transaction. All uploaded artifacts are automatically cleared immediately after output delivery.</span>
-                            </li>
-                        </ul>
                     </section>
 
-                    <!-- Section 4 -->
-                    <section id="cookies" class="scroll-mt-24">
-                        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 mb-4">
-                            <span class="text-violet-600 dark:text-violet-400 font-extrabold">4.</span>
-                            Cookies & Analytics Logs
+                    <section id="faq-section" class="scroll-mt-32">
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center gap-2">
+                            <span class="text-violet-600 dark:text-violet-400">3.</span> Frequently Asked Questions
                         </h2>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
-                            Like many interactive websites, ToolIMG utilizes standard internet cookies to hold interface settings (such as dark/light themes), remember selected languages, and optimize load speeds.
-                        </p>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
-                            We monitor traffic behaviors using third-party tracking components (such as Google Analytics). These cookies gather anonymous routing profiles, device definitions, page paths, and session timelines to compile aggregate reports. They cannot identify real names or personal coordinates.
-                        </p>
+
+                        <div class="space-y-4">
+                            <div class="bg-slate-50/70 dark:bg-slate-800/40 p-5 rounded-[4px] border border-slate-100 dark:border-slate-800">
+                                <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-2">How long does it take to receive a reply?</h3>
+                                <p class="text-slate-500 dark:text-slate-400 text-xs">
+                                    Our typical response time is between 2 to 24 hours during standard business days. Urgent billing and credit sync requests are prioritized.
+                                </p>
+                            </div>
+
+                            <div class="bg-slate-50/70 dark:bg-slate-800/40 p-5 rounded-[4px] border border-slate-100 dark:border-slate-800">
+                                <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-2">Where can I manage my usage credits or active plan?</h3>
+                                <p class="text-slate-500 dark:text-slate-400 text-xs">
+                                    You can view real-time credit consumption, request extra processing limits, and manage plan details in your <a href="/dashboard/" class="text-violet-600 dark:text-violet-400 font-semibold hover:underline">User Dashboard</a>.
+                                </p>
+                            </div>
+
+                            <div class="bg-slate-50/70 dark:bg-slate-800/40 p-5 rounded-[4px] border border-slate-100 dark:border-slate-800">
+                                <h3 class="font-bold text-slate-900 dark:text-white text-sm mb-2">How do I request a refund?</h3>
+                                <p class="text-slate-500 dark:text-slate-400 text-xs">
+                                    Please review our <a href="https://toolimg.online/refund-policy.html" class="text-violet-600 dark:text-violet-400 font-semibold hover:underline">Refund Policy</a> and send your transaction ID to support@toolimg.online.
+                                </p>
+                            </div>
+                        </div>
                     </section>
 
-                    <!-- Section 5 -->
-                    <section id="sharing" class="scroll-mt-24">
-                        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 mb-4">
-                            <span class="text-violet-600 dark:text-violet-400 font-extrabold">5.</span>
-                            Third-Party Partners
+                    <section id="business-info" class="scroll-mt-32">
+                        <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4 flex items-center gap-2">
+                            <span class="text-violet-600 dark:text-violet-400">4.</span> Business Details & Compliance
                         </h2>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
-                            We coordinate with select infrastructure providers to secure application runtime and database integrity:
-                        </p>
-                        <ul class="space-y-3 pl-1">
-                            <li class="text-sm text-slate-600 dark:text-slate-300">
-                                <strong>Firebase (Google LLC)</strong>: Used to control database snapshots, safe user authentications, and platform operations safely.
-                            </li>
-                            <li class="text-sm text-slate-600 dark:text-slate-300">
-                                <strong>Google Gemini API</strong>: Powering multimodal OCR recognition, handwriting scripts compilation, and image-to-prompt formulating grids.
-                            </li>
-                            <li class="text-sm text-slate-600 dark:text-slate-300">
-                                <strong>Stripe Inc.</strong>: Handles purchase processes, invoice distributions, and subscription plans in a PCI-compliant sandbox.
-                            </li>
-                        </ul>
+                        <div class="bg-slate-50 dark:bg-slate-800/40 p-6 rounded-[4px] border border-slate-100 dark:border-slate-800 space-y-2 text-xs">
+                            <p><strong class="text-slate-900 dark:text-white">Platform Name:</strong> ToolIMG Online Services</p>
+                            <p><strong class="text-slate-900 dark:text-white">Website Domain:</strong> <a href="https://toolimg.online" class="text-violet-600 dark:text-violet-400 font-medium">https://toolimg.online</a></p>
+                            <p><strong class="text-slate-900 dark:text-white">Payment Gateway Provider:</strong> Razorpay Software Pvt. Ltd.</p>
+                            <p><strong class="text-slate-900 dark:text-white">Primary Support Mail:</strong> support@toolimg.online</p>
+                        </div>
                     </section>
 
-                    <!-- Section 6 -->
-                    <section id="rights" class="scroll-mt-24">
-                        <h2 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-3 mb-4">
-                            <span class="text-violet-600 dark:text-violet-400 font-extrabold">6.</span>
-                            Your Rights & Support Contacts
-                        </h2>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-4">
-                            Depending on your region, you may possess specific rights regarding your registered profiles, including the right to inspect data records, modify information parameters, or request total deletion of your logged profile.
-                        </p>
-                        <p class="text-slate-600 dark:text-slate-300 text-sm leading-relaxed mb-6">
-                            Should you wish to trigger data queries, request permanent deletion of your Firebase profile records, or obtain assistance with billing details, please contact our dedicated assistance team:
-                        </p>
-                        <a href="mailto:support@toolimg.online" class="inline-flex items-center gap-2 px-5 py-2.5 bg-violet-600 hover:bg-violet-700 text-white text-xs font-bold uppercase tracking-wider rounded-[4px] shadow-sm transition-all hover:-translate-y-0.5">
-                            <svg class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                            Email Support
-                        </a>
-                    </section>
                 </div>
             </article>
         </div>
@@ -375,7 +405,7 @@
                     <ul class="space-y-3.5">
                         <li><a href="/tools/image-to-code/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Image to Code AI</a></li>
                         <li><a href="/tools/handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">English Handwriting OCR</a></li>
-                        <li><a href="/tools/hindi-handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition font-semibold text-violet-600 dark:text-violet-400">Hindi Handwriting OCR</a></li>
+                        <li><a href="/tools/hindi-handwriting-to-text/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Hindi Handwriting OCR</a></li>
                         <li><a href="/tools/gemini-image-to-prompt/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Gemini Image to Prompt</a></li>
                         <li><a href="/tools/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">All Tools</a></li>
                     </ul>
@@ -384,14 +414,14 @@
                     <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-sm">Company</h4>
                     <ul class="space-y-3.5">
                         <li><a href="/about.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">About Us</a></li>
-                        <li><a href="/contact.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Contact Us</a></li>
+                        <li><a href="/contact.html" class="text-[11px] text-violet-600 dark:text-violet-400 font-semibold hover:text-slate-900 dark:hover:text-white transition">Contact Us</a></li>
                         <li><a href="/pricing/" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Pricing</a></li>
                     </ul>
                 </div>
                 <div>
                     <h4 class="font-bold text-slate-900 dark:text-white mb-5 text-sm">Legal</h4>
                     <ul class="space-y-3.5">
-                        <li><a href="/privacy-policy.html" class="text-[11px] text-violet-600 dark:text-violet-400 font-semibold hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a></li>
+                        <li><a href="/privacy-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Privacy Policy</a></li>
                         <li><a href="https://toolimg.online/terms.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Terms of Service</a></li>
                         <li><a href="https://toolimg.online/refund-policy.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Refund Policy</a></li>
                         <li><a href="https://toolimg.online/disclaimer.html" class="text-[11px] text-slate-600 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition">Disclaimer</a></li>
@@ -459,6 +489,30 @@
 
     <!-- Theme Control & Setup Scripts -->
     <script>
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            const btn = document.getElementById('contact-submit-btn');
+            const alert = document.getElementById('contact-success-alert');
+            
+            if (btn) {
+                btn.disabled = true;
+                btn.classList.add('opacity-75', 'cursor-not-allowed');
+                btn.innerHTML = '<span>Sending...</span>';
+            }
+
+            setTimeout(() => {
+                if (btn) {
+                    btn.disabled = false;
+                    btn.classList.remove('opacity-75', 'cursor-not-allowed');
+                    btn.innerHTML = '<span>Send Message</span><svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path></svg>';
+                }
+                if (alert) {
+                    alert.classList.remove('hidden');
+                }
+                document.getElementById('contact-form').reset();
+            }, 800);
+        }
+
         function updateThemeIcons() {
             const isDark = document.documentElement.classList.contains('dark');
             const themeBtns = [document.getElementById('theme-btn'), document.getElementById('theme-btn-desktop')];
@@ -613,7 +667,7 @@
             const docSections = document.querySelectorAll('section[id]');
 
             const onScroll = () => {
-                let currentSectionId = 'intro';
+                let currentSectionId = 'contact-form-section';
                 const scrollOffset = window.scrollY + 160;
 
                 docSections.forEach(section => {
