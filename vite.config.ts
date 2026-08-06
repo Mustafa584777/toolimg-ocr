@@ -24,7 +24,9 @@ export default defineConfig(() => {
           htmlToImage: resolve(__dirname, 'tools/html-to-image/index.html'),
           pricing: resolve(__dirname, 'pricing/index.html'),
           dashboard: resolve(__dirname, 'dashboard/index.html'),
-          terms: resolve(__dirname, 'terms.html')
+          terms: resolve(__dirname, 'terms.html'),
+          editorialPolicy: resolve(__dirname, 'editorial-policy.html'),
+          privacyPolicy: resolve(__dirname, 'privacy-policy.html')
         }
       }
     }
