@@ -592,6 +592,111 @@ Your goal is to extract all handwritten text in Hindi/Devanagari from the provid
 
 
 // Gemini Image to Prompt Generator Endpoint
+
+app.post('/api/generate-prompt', async (req: express.Request, res: express.Response) => {
+  let creditSession: { decrement: () => Promise<void>, credits: number } | null = null;
+  try {
+    const { image, targetGenerator = 'Midjourney v6', customVibe = 'Standard Accurate Analysis', aspectRatio = '1:1' } = req.body;
+    
+    if (!image) {
+      return res.status(400).json({ error: 'No image data provided' });
+    }
+    
+    const base64Data = image.split(',')[1] || image;
+    const mimeMatch = image.match(/data:([a-zA-Z0-9]+\/[a-zA-Z0-9-.+]+).*,.*/);
+    const mimeType = mimeMatch ? mimeMatch[1] : 'image/jpeg';
+
+    const apiKey = process.env.GEMINI_API_KEY;
+    if (!apiKey) {
+      return res.status(500).json({ error: 'GEMINI_API_KEY is not configured on the server.' });
+    }
+
+    // Verify credits
+    try {
+      creditSession = await verifyAndConsumeCredit(req, 'image-to-prompt-2', 2); // Assuming 2 credits as per the frontend check
+    } catch (creditErr: any) {
+      if (creditErr.message === "INSUFFICIENT_CREDITS") {
+        return res.status(403).json({ error: "Sufficient credits are required to run this tool. Please purchase credits on the pricing page." });
+      }
+      if (creditErr.message === "GUEST_EXHAUSTED") {
+        return res.status(403).json({ error: "You have exhausted your free guest credits. Please log in or buy credits to continue." });
+      }
+      if (creditErr.message === "IDENTIFICATION_REQUIRED") {
+        return res.status(400).json({ error: "Authorization or Guest Identification is required." });
+      }
+      throw creditErr;
+    }
+
+    const systemInstruction = `You are an expert AI prompt engineer specializing in reverse-engineering high-quality, professional image generation prompts from reference images.
+Analyze the provided image in detail. Focus on the subject, style, details, lighting, and camera/rendering.
+
+Generate optimized prompts for the target generator: "${targetGenerator}".
+The vibe/style requested is: "${customVibe}".
+The requested aspect ratio is: "${aspectRatio}".
+
+Return a JSON response with exactly this structure:
+{
+  "subject": "Description of the main subject",
+  "style": "Description of the artistic style or medium",
+  "details": "Description of intricate details, setting, or background",
+  "lighting": "Description of the lighting",
+  "camera": "Description of camera, rendering, or perspective",
+  "fullPrompt": "A comprehensive prompt combining all aspects.",
+  "midjourneyPrompt": "A prompt specifically formatted for Midjourney (e.g. including --ar ${aspectRatio} --v 6.0).",
+  "negativePrompt": "A negative prompt specifying what to avoid."
+}`;
+
+    const responseSchema = {
+      type: Type.OBJECT,
+      properties: {
+        subject: { type: Type.STRING },
+        style: { type: Type.STRING },
+        details: { type: Type.STRING },
+        lighting: { type: Type.STRING },
+        camera: { type: Type.STRING },
+        fullPrompt: { type: Type.STRING },
+        midjourneyPrompt: { type: Type.STRING },
+        negativePrompt: { type: Type.STRING }
+      },
+      required: ['subject', 'style', 'details', 'lighting', 'camera', 'fullPrompt', 'midjourneyPrompt', 'negativePrompt']
+    };
+
+    const ai = getAIClient();
+    const imagePart = {
+      inlineData: { mimeType: mimeType, data: base64Data }
+    };
+
+    const result = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: [
+        { role: 'user', parts: [imagePart, { text: 'Analyze this image and generate the requested prompts.' }] }
+      ],
+      config: {
+        systemInstruction,
+        responseMimeType: 'application/json',
+        responseSchema,
+        temperature: 0.4
+      }
+    });
+
+    const responseText = result.text;
+    if (!responseText) {
+      throw new Error('Empty response from AI model');
+    }
+
+    const data = JSON.parse(responseText);
+
+    if (creditSession) {
+      await creditSession.decrement();
+    }
+
+    res.json(data);
+  } catch (error: any) {
+    console.error('Image to prompt 2 generation error:', error);
+    res.status(500).json({ error: error.message || 'Failed to generate prompt' });
+  }
+});
+
 app.post('/api/image-to-prompt', async (req: express.Request, res: express.Response) => {
   let creditSession: { decrement: () => Promise<void>, credits: number } | null = null;
   try {

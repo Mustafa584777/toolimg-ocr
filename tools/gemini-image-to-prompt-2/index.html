@@ -1,0 +1,768 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image to Prompt Generator | ToolIMG</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&family=Space+Grotesk:wght@300..700&display=swap" rel="stylesheet">
+    <!-- Main Style Sheet -->
+    <link rel="stylesheet" href="/style.css" />
+    
+    <style>
+      :root {
+        --font-sans: 'Space Grotesk', sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+      }
+      body {
+        font-family: var(--font-sans);
+        background-color: #fafafa;
+        color: #0a0a0a;
+        transition: background-color 0.2s, color 0.2s;
+      }
+      .dark body {
+        background-color: #080808;
+        color: #fafafa;
+      }
+      .font-display {
+        font-family: var(--font-sans);
+      }
+      .font-mono {
+        font-family: var(--font-mono);
+      }
+      
+      /* Smooth custom scrollbars for LaunchZone aesthetic */
+      ::-webkit-scrollbar {
+        width: 6px;
+        height: 6px;
+      }
+      ::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: #000;
+        border-radius: 0px;
+      }
+      .dark ::-webkit-scrollbar-thumb {
+        background: #fff;
+      }
+    </style>
+    
+    <script>
+      // Initialize theme on earliest load to prevent flash of light theme
+      if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    </script>
+  </head>
+  <body class="flex flex-col min-h-screen antialiased bg-[#fafafa] dark:bg-[#080808] text-[#0a0a0a] dark:text-[#fafafa] transition-colors duration-200">
+
+    <!-- HEADER HTML -->
+    <!-- HEADER HTML AND SCRIPTS -->
+<header class="w-full max-w-[85vw] mx-auto px-4 sm:px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-black/80 backdrop-blur-md dark: sticky top-4 z-40 shadow-sm rounded-none mb-8 transition-colors">
+    <div class="flex items-center gap-2 w-full justify-between">
+        <a href="/" class="flex items-center gap-2" style="display: flex !important; align-items: center !important; gap: 8px !important; text-decoration: none !important;">
+            <img src="https://timetablecreator.online/blog/wp-content/uploads/2026/08/logo.png" alt="ToolIMG Logo" class="h-8 w-auto">
+            <span class="font-bold text-xl tracking-tight text-black dark:text-gray-100">Tool<span class="text-black dark:text-black">IMG</span></span>
+        </a>
+        
+        <!-- Desktop Nav -->
+        <nav class="hidden md:flex items-center gap-8">
+            <a href="/" class="text-[15px] font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">Home</a>
+            <a href="/tools/" class="text-[15px] font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">Tools</a>
+            <a href="/dashboard/" id="dashboard-nav" class="text-[15px] font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition hidden">Dashboard</a>
+            <a href="/pricing/" class="px-4 py-1.5 text-[15px] font-bold bg-white text-black hover: rounded-none shadow-sm transition">Pricing</a>
+            
+            <div class="relative">
+                <button id="theme-btn-desktop" class="p-2 hover:bg-[#fafafa] dark:hover:bg-black rounded-none transition text-gray-600 dark:text-gray-400" aria-label="Toggle Theme">
+                    <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20" style="width: 20px !important; height: 20px !important;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24" width="20" height="20" style="width: 20px !important; height: 20px !important;"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </button>
+            </div>
+        </nav>
+        
+        <div class="flex items-center gap-3">
+            
+            <div class="relative">
+                <button id="lang-menu-btn" type="button" onclick="toggleLangMenu(event)" class="p-2 hover:bg-[#fafafa] dark:hover:bg-black rounded-none transition flex items-center justify-center" aria-label="Select Language">
+                    <svg class="w-5 h-5 text-black dark:text-black" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" style="width: 20px !important; height: 20px !important;">
+                        <path d="M5 8l6 6"></path>
+                        <path d="M4 14l6-6 2-3"></path>
+                        <path d="M2 5h12"></path>
+                        <path d="M7 2h1"></path>
+                        <path d="M22 22l-5-10-5 10"></path>
+                        <path d="M14 18h6"></path>
+                    </svg>
+                </button>
+                <div id="lang-popover" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-black dark: rounded-none shadow-lg flex-col z-50 overflow-hidden">
+                    <div class="py-2">
+                        <button type="button" onclick="switchLang('en')" class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-400 hover:bg-[#fafafa] dark:hover:bg-black transition">English</button>
+                        <button type="button" onclick="switchLang('es')" class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-400 hover:bg-[#fafafa] dark:hover:bg-black transition">Español</button>
+                        <button type="button" onclick="switchLang('fr')" class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-400 hover:bg-[#fafafa] dark:hover:bg-black transition">Français</button>
+                        <button type="button" onclick="switchLang('de')" class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-400 hover:bg-[#fafafa] dark:hover:bg-black transition">Deutsch</button>
+                        <button type="button" onclick="switchLang('ru')" class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-400 hover:bg-[#fafafa] dark:hover:bg-black transition">Русский</button>
+                        <button type="button" onclick="switchLang('ar')" class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-400 hover:bg-[#fafafa] dark:hover:bg-black transition">العربية</button>
+                    </div>
+                </div>
+            </div>
+            <div id="credits-display" class="hidden items-center gap-[2px] bg-gray-200/50 dark:bg-gray-200/50 text-black dark:text-black text-[11px] sm:text-xs font-bold px-2.5 py-1.5 rounded-none dark: cursor-pointer hover:bg-gray-200/50 dark:hover:bg-black transition">
+            <svg class="w-3.5 h-3.5 text-black dark:text-black shrink-0" fill="currentColor" viewBox="0 0 24 24" style="width: 14px; height: 14px; display: block;"><path d="M6 3h12l4 6-10 13L2 9z"/></svg>
+            <span id="credits-count" class="leading-none mt-[0.5px]">0</span>
+        </div>
+
+            <!-- Auth Controls -->
+            
+            </div>
+
+            
+            <div id="header-auth-guest" class="hidden md:flex items-center gap-2">
+                <button id="login-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-gray-700 dark:text-gray-400 hover:bg-[#fafafa] dark:hover:bg-black rounded-none transition">Log in</button>
+                <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-white bg-black hover:bg-gray-800 rounded-none transition shadow-sm">Sign up</button>
+            </div>
+        
+                                    <div id="user-menu" class="hidden relative items-center">
+                <button id="user-avatar-btn" type="button" onclick="toggleUserDropdown(event)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-none overflow-hidden dark: shadow-sm transition-transform active:scale-95 bg-gray-200 dark:bg-gray-200/50 flex items-center justify-center text-black dark:text-black focus:outline-none cursor-pointer" aria-label="User Menu">
+                    <img id="user-avatar" src="" alt="User" class="w-full h-full object-cover hidden" referrerpolicy="no-referrer" crossorigin="anonymous">
+                    <div id="user-fallback" class="flex items-center justify-center">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
+                    </div>
+                </button>
+                <div id="user-dropdown" class="hidden absolute right-0 top-full mt-3.5 w-48 bg-white dark:bg-black dark: rounded-none shadow-2xl flex-col z-[100] overflow-hidden py-1.5 transition-all">
+                    <div class="px-4 py-2 dark:">
+                        <p id="user-name" class="text-xs font-bold text-black dark:text-gray-100 truncate"></p>
+                    </div>
+                    <a href="/dashboard/" class="flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 dark:text-gray-400 hover:bg-[#fafafa] dark:hover:bg-black transition">
+                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 00-1-1v-4a1 1 0 011-1h2a1 1 0 001 1v4a1 1 0 001 1m-6 0h6"></path></svg>
+                        <span>Dashboard</span>
+                    </a>
+                    <button type="button" onclick="if(window.openHistoryDrawer){window.openHistoryDrawer();}toggleUserDropdown();" class="w-full text-left flex items-center gap-2.5 px-4 py-2 text-sm text-gray-700 dark:text-gray-400 hover:bg-[#fafafa] dark:hover:bg-black transition cursor-pointer">
+                        <svg class="w-4 h-4 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                        <span>History</span>
+                    </button>
+                    <div class="h-px bg-gray-100 dark:bg-black my-1"></div>
+                    <button type="button" onclick="handleLogout();toggleUserDropdown();" class="w-full text-left flex items-center gap-2.5 px-4 py-2 text-sm text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/30 transition cursor-pointer">
+                        <svg class="w-4 h-4 text-rose-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path></svg>
+                        <span>Logout</span>
+                    </button>
+                </div>
+            </div>
+            
+            
+                <button id="theme-btn" class="md:hidden p-2 hover:bg-[#fafafa] dark:hover:bg-black rounded-none transition text-gray-600 dark:text-gray-400" aria-label="Toggle Theme">
+                    <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
+                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
+                </button>
+                <!-- Mobile menu button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-[#fafafa] dark:hover:bg-black rounded-none transition ml-1">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+            </button>
+        </div>
+    </div>
+</header>
+
+<script>
+// --- Header & Theme Scripts ---
+
+// Theme Toggle
+const themeBtn = document.getElementById('theme-btn');
+const themeBtnDesktop = document.getElementById('theme-btn-desktop');
+const html = document.documentElement;
+
+function toggleTheme() {
+    html.classList.toggle('dark');
+    if (html.classList.contains('dark')) {
+        localStorage.setItem('theme', 'dark');
+    } else {
+        localStorage.setItem('theme', 'light');
+    }
+}
+if(themeBtn) themeBtn.addEventListener('click', toggleTheme);
+if(themeBtnDesktop) themeBtnDesktop.addEventListener('click', toggleTheme);
+
+// Mobile Menu
+const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+const mobileMenu = document.getElementById('mobile-menu');
+if(mobileMenuBtn && mobileMenu) {
+    mobileMenuBtn.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+    });
+}
+
+// User Dropdown
+function toggleUserDropdown(e) {
+    if(e) e.stopPropagation();
+    const dropdown = document.getElementById('user-dropdown');
+    if (dropdown) {
+        dropdown.classList.toggle('hidden');
+        if (!dropdown.classList.contains('hidden')) {
+            dropdown.classList.add('flex');
+        } else {
+            dropdown.classList.remove('flex');
+        }
+    }
+}
+
+// Language Dropdown
+function toggleLangMenu(e) {
+    if (e) e.stopPropagation();
+    const popover = document.getElementById('lang-popover');
+    if (popover) {
+        popover.classList.toggle('hidden');
+        if (!popover.classList.contains('hidden')) {
+            popover.classList.add('flex');
+        } else {
+            popover.classList.remove('flex');
+        }
+    }
+}
+
+// Close dropdowns on outside click
+document.addEventListener('click', (e) => {
+    const userDropdown = document.getElementById('user-dropdown');
+    const userBtn = document.getElementById('user-avatar-btn');
+    if (userDropdown && !userDropdown.classList.contains('hidden') && userBtn && !userBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+        userDropdown.classList.add('hidden');
+        userDropdown.classList.remove('flex');
+    }
+    
+    const langPopover = document.getElementById('lang-popover');
+    const langBtn = document.getElementById('lang-menu-btn');
+    if (langPopover && !langPopover.classList.contains('hidden') && langBtn && !langBtn.contains(e.target) && !langPopover.contains(e.target)) {
+        langPopover.classList.add('hidden');
+        langPopover.classList.remove('flex');
+    }
+});
+
+// Switch Language
+function switchLang(lang) {
+    const prevLang = localStorage.getItem('selected_lang') || 'en';
+    localStorage.setItem('prev_lang', prevLang);
+    localStorage.setItem('selected_lang', lang);
+    
+    const clearCookie = (name, domain) => {
+        let cookieStr = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        if (domain) cookieStr += " domain=" + domain + ";";
+        document.cookie = cookieStr;
+        document.cookie = cookieStr + " SameSite=None; Secure;";
+    };
+
+    clearCookie('googtrans');
+    clearCookie('googtrans', window.location.hostname);
+    clearCookie('googtrans', '.' + window.location.hostname);
+    const parts = window.location.hostname.split('.');
+    if (parts.length > 2) {
+        const mainDomain = parts.slice(-2).join('.');
+        clearCookie('googtrans', mainDomain);
+        clearCookie('googtrans', '.' + mainDomain);
+    }
+
+    if (lang !== 'en') {
+        const setCookie = (value, domain) => {
+            let base = "googtrans=" + value + "; path=/; SameSite=None; Secure;";
+            if (domain) base += " domain=" + domain + ";";
+            document.cookie = base;
+        };
+        
+        setCookie('/en/' + lang);
+        setCookie('/en/' + lang, window.location.hostname);
+        setCookie('/en/' + lang, '.' + window.location.hostname);
+        if (parts.length > 2) {
+            const mainDomain = parts.slice(-2).join('.');
+            setCookie('/en/' + lang, mainDomain);
+            setCookie('/en/' + lang, '.' + mainDomain);
+        }
+    }
+
+    const select = document.querySelector('#google_translate_element select') || document.querySelector('.goog-te-combo');
+    if (select) {
+        select.value = lang;
+        select.dispatchEvent(new Event('change'));
+    }
+    setTimeout(() => {
+        window.location.reload();
+    }, 100);
+}
+</script>
+
+
+<!-- You will also need to include Firebase JS SDKs and initialize them. -->
+<!-- Auth integration for header buttons is typically handled by the global combined.js or index.html scripts. -->
+
+
+    <!-- MAIN APP CONTENT -->
+    <main class="flex-grow w-full max-w-[85vw] mx-auto px-4 sm:px-6 mb-16">
+      
+      <!-- LaunchZone Hero Header Card -->
+      <div class="mb-12 border border-black dark:border-neutral-800 p-8 bg-black text-white dark:bg-neutral-950 dark:text-white relative overflow-hidden transition-all duration-200">
+        <div class="absolute right-0 top-0 h-full w-1/3 bg-[radial-gradient(circle_at_right,_var(--tw-gradient-stops))] from-neutral-900 to-black dark:from-neutral-900/40 dark:to-transparent opacity-50 pointer-events-none"></div>
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6">
+          <div class="flex-grow">
+            <div class="flex items-center gap-3 mb-3">
+              <span class="text-[10px] font-bold tracking-[0.16em] uppercase bg-white text-black px-2 py-0.5 font-mono dark:bg-neutral-800 dark:text-white">PROMPT ENGINE v1.2</span>
+              <span class="text-[10px] font-bold tracking-[0.16em] uppercase bg-green-500 text-black px-2 py-0.5 font-mono">POWERED BY GEMINI 3.6</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl md:text-5xl font-extrabold tracking-tight font-display text-white mb-2 uppercase">Image To Prompt</h1>
+            <p class="text-neutral-400 mt-2 text-xs sm:text-sm max-w-2xl font-mono leading-relaxed">
+              Convert raw images into descriptive, creative, and highly specific prompt strings optimized for generators like Midjourney, Stable Diffusion XL, DALL-E 3, and Flux.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <!-- MAIN LAYOUT GRID (Split panel layout) -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- LEFT COLUMN: Inputs & Config (Lg: 5 columns) -->
+        <div class="lg:col-span-5 flex flex-col gap-6">
+          
+          <!-- Image Upload Block -->
+          <div class="border border-black dark:border-neutral-800 p-6 bg-white dark:bg-neutral-950 transition-all duration-200">
+            <h2 class="font-display font-extrabold text-sm tracking-[0.16em] uppercase text-black dark:text-white border-b border-black dark:border-neutral-800 pb-3 mb-4 flex items-center justify-between">
+              <span>Source Media</span>
+              <span class="font-mono text-[10px] text-gray-400 uppercase">Input</span>
+            </h2>
+            
+            <!-- Drag & Drop Zone -->
+            <div id="drop-zone" class="border-2 border-dashed border-black dark:border-neutral-800 p-8 text-center cursor-pointer bg-neutral-50 dark:bg-neutral-900/20 hover:bg-neutral-100/50 dark:hover:bg-neutral-900/40 transition-all duration-150 flex flex-col items-center justify-center min-h-[250px]">
+              <input type="file" id="file-input" class="hidden" accept="image/*" />
+              <svg class="w-10 h-10 text-neutral-400 dark:text-neutral-600 mb-4 transition-transform group-hover:scale-105" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+              </svg>
+              <p class="font-display font-bold text-sm text-black dark:text-white uppercase tracking-[0.16em]">Drag & Drop Image Here</p>
+              <p class="text-[10px] text-neutral-400 dark:text-neutral-500 mt-1 font-mono uppercase">Or click to explore local files</p>
+              <p class="text-[10px] text-neutral-400 dark:text-neutral-600 mt-4 font-mono">JPEG, PNG, WEBP UP TO 10MB</p>
+            </div>
+            
+            <!-- Preview Zone (Initially Hidden) -->
+            <div id="preview-container" class="hidden flex flex-col gap-4">
+              <div class="relative group min-h-[200px] max-h-[350px] flex justify-center items-center overflow-hidden bg-neutral-100 dark:bg-neutral-900 border border-black dark:border-neutral-800">
+                <img id="image-preview" src="#" alt="Preview" class="max-w-full max-h-[320px] object-contain transition-transform duration-200" />
+                <div class="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-150 flex items-center justify-center">
+                  <button id="remove-btn" class="bg-black text-white px-4 py-2 text-xs font-mono font-bold tracking-[0.16em] hover:bg-neutral-900 border border-white transition-all cursor-pointer">
+                    REMOVE IMAGE
+                  </button>
+                </div>
+              </div>
+              <div class="grid grid-cols-2 gap-4 font-mono text-[10px] border-t border-black dark:border-neutral-800 pt-3 text-neutral-500 dark:text-neutral-400">
+                <div class="truncate">FILE: <span id="image-name" class="font-bold text-black dark:text-white">-</span></div>
+                <div class="text-right">SIZE: <span id="image-size" class="font-bold text-black dark:text-white">-</span></div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Tool Configuration Block -->
+          <div class="border border-black dark:border-neutral-800 p-6 bg-white dark:bg-neutral-950 transition-all duration-200">
+            <h2 class="font-display font-extrabold text-sm tracking-[0.16em] uppercase text-black dark:text-white border-b border-black dark:border-neutral-800 pb-3 mb-4 flex items-center justify-between">
+              <span>Configuration</span>
+              <span class="font-mono text-[10px] text-gray-400 uppercase">Parameters</span>
+            </h2>
+            
+            <div class="flex flex-col gap-5">
+              <!-- Target Generator Selector -->
+              <div>
+                <label class="text-[10px] font-mono tracking-[0.16em] text-neutral-400 dark:text-neutral-500 uppercase block mb-2">Target Generator Engine</label>
+                <div class="grid grid-cols-2 gap-2" id="generator-selector">
+                  <button data-val="Midjourney v6" class="gen-btn border border-black dark:border-neutral-800 bg-black text-white dark:bg-white dark:text-black font-mono text-[11px] font-bold py-2 px-3 transition cursor-pointer text-center">
+                    MIDJOURNEY V6
+                  </button>
+                  <button data-val="Stable Diffusion XL" class="gen-btn border border-black dark:border-neutral-800 bg-white text-black dark:bg-neutral-900 dark:text-neutral-300 font-mono text-[11px] py-2 px-3 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition cursor-pointer text-center">
+                    SDXL 1.0
+                  </button>
+                  <button data-val="DALL-E 3" class="gen-btn border border-black dark:border-neutral-800 bg-white text-black dark:bg-neutral-900 dark:text-neutral-300 font-mono text-[11px] py-2 px-3 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition cursor-pointer text-center">
+                    DALL-E 3
+                  </button>
+                  <button data-val="Flux.1 Pro" class="gen-btn border border-black dark:border-neutral-800 bg-white text-black dark:bg-neutral-900 dark:text-neutral-300 font-mono text-[11px] py-2 px-3 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition cursor-pointer text-center">
+                    FLUX.1 PRO
+                  </button>
+                </div>
+              </div>
+
+              <!-- Aspect Ratio Presets -->
+              <div>
+                <label class="text-[10px] font-mono tracking-[0.16em] text-neutral-400 dark:text-neutral-500 uppercase block mb-2">Aspect Ratio Preset</label>
+                <div class="grid grid-cols-5 gap-1.5" id="aspect-ratio-selector">
+                  <button data-val="1:1" class="ratio-btn border border-black dark:border-neutral-800 bg-black text-white dark:bg-white dark:text-black font-mono text-[10px] font-bold py-1.5 transition cursor-pointer text-center">1:1</button>
+                  <button data-val="16:9" class="ratio-btn border border-black dark:border-neutral-800 bg-white text-black dark:bg-neutral-900 dark:text-neutral-300 font-mono text-[10px] py-1.5 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition cursor-pointer text-center">16:9</button>
+                  <button data-val="9:16" class="ratio-btn border border-black dark:border-neutral-800 bg-white text-black dark:bg-neutral-900 dark:text-neutral-300 font-mono text-[10px] py-1.5 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition cursor-pointer text-center">9:16</button>
+                  <button data-val="4:3" class="ratio-btn border border-black dark:border-neutral-800 bg-white text-black dark:bg-neutral-900 dark:text-neutral-300 font-mono text-[10px] py-1.5 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition cursor-pointer text-center">4:3</button>
+                  <button data-val="21:9" class="ratio-btn border border-black dark:border-neutral-800 bg-white text-black dark:bg-neutral-900 dark:text-neutral-300 font-mono text-[10px] py-1.5 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition cursor-pointer text-center">21:9</button>
+                </div>
+              </div>
+
+              <!-- Vibe Style Overlays -->
+              <div>
+                <label class="text-[10px] font-mono tracking-[0.16em] text-neutral-400 dark:text-neutral-500 uppercase block mb-2">Creative Style Filter / Vibe</label>
+                <div class="flex flex-wrap gap-1.5 mb-3" id="vibe-selector">
+                  <button data-vibe="Standard Accurate Analysis" class="vibe-btn border border-black dark:border-neutral-800 bg-black text-white dark:bg-white dark:text-black font-mono text-[10px] font-bold px-2.5 py-1.5 transition cursor-pointer">STANDARD</button>
+                  <button data-vibe="Cinematic Movie Lighting & Atmospheric Grain" class="vibe-btn border border-black dark:border-neutral-800 bg-white text-black dark:bg-neutral-900 dark:text-neutral-300 font-mono text-[10px] px-2.5 py-1.5 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition cursor-pointer">CINEMATIC</button>
+                  <button data-vibe="Photorealistic Analog Camera Film Aesthetic" class="vibe-btn border border-black dark:border-neutral-800 bg-white text-black dark:bg-neutral-900 dark:text-neutral-300 font-mono text-[10px] px-2.5 py-1.5 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition cursor-pointer">PHOTOREALISTIC</button>
+                  <button data-vibe="Cyberpunk Vaporwave Retro Neon Vibe" class="vibe-btn border border-black dark:border-neutral-800 bg-white text-black dark:bg-neutral-900 dark:text-neutral-300 font-mono text-[10px] px-2.5 py-1.5 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition cursor-pointer">CYBERPUNK</button>
+                  <button data-vibe="Dreamy Oil Painting Artwork Medium" class="vibe-btn border border-black dark:border-neutral-800 bg-white text-black dark:bg-neutral-900 dark:text-neutral-300 font-mono text-[10px] px-2.5 py-1.5 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition cursor-pointer">OIL PAINTING</button>
+                  <button data-vibe="Minimal Flat Design Vector Illustration" class="vibe-btn border border-black dark:border-neutral-800 bg-white text-black dark:bg-neutral-900 dark:text-neutral-300 font-mono text-[10px] px-2.5 py-1.5 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition cursor-pointer">VECTOR ART</button>
+                </div>
+                
+                <div class="flex flex-col gap-1">
+                  <label for="custom-vibe" class="text-[9px] font-mono tracking-[0.16em] text-neutral-400 dark:text-neutral-500 uppercase">Or describe your custom creative direction:</label>
+                  <input type="text" id="custom-vibe" placeholder="e.g. moody dark fantasy in 1990s anime style..." class="w-full border border-black dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900 px-3 py-2 text-xs font-mono text-black dark:text-white placeholder-neutral-400 dark:placeholder-neutral-600 focus:outline-none focus:border-black dark:focus:border-white transition" />
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <!-- Run Button -->
+          <button id="generate-btn" disabled class="w-full bg-black text-white dark:bg-white dark:text-black py-4 px-6 font-display font-extrabold text-sm tracking-[0.16em] hover:bg-neutral-900 dark:hover:bg-neutral-100 transition disabled:opacity-20 disabled:cursor-not-allowed border border-black dark:border-white uppercase select-none cursor-pointer">
+            Analyze & Generate Prompt
+          </button>
+          
+        </div>
+        
+        <!-- RIGHT COLUMN: Output & Details (Lg: 7 columns) -->
+        <div class="lg:col-span-7 flex flex-col gap-6">
+          
+          <!-- Loader Card -->
+          <div id="loader-card" class="hidden border border-black dark:border-neutral-800 p-8 bg-white dark:bg-neutral-950 flex flex-col items-center justify-center min-h-[480px] text-center transition-all duration-200">
+            <div class="relative w-16 h-16 mb-6">
+              <!-- Geometric minimal loader rotating -->
+              <div class="absolute inset-0 border border-neutral-300 dark:border-neutral-700"></div>
+              <div class="absolute inset-1 border border-black dark:border-white border-t-transparent dark:border-t-transparent rounded-full animate-spin"></div>
+            </div>
+            <h3 class="font-display font-extrabold text-base tracking-[0.16em] text-black dark:text-white uppercase">Deciphering Visual Attributes</h3>
+            <p class="text-neutral-400 dark:text-neutral-500 font-mono text-xs mt-1 uppercase tracking-[0.16em]">Consulting Gemini Multimodal Model...</p>
+            
+            <!-- Dynamic Console/Terminal Logs -->
+            <div class="w-full bg-neutral-50 dark:bg-neutral-900/60 border border-black dark:border-neutral-800 p-4 mt-8 text-left font-mono text-[11px] text-neutral-500 dark:text-neutral-400 space-y-1 overflow-y-auto max-h-[160px] select-none" id="loader-terminal">
+              <div class="text-neutral-400 dark:text-neutral-500">[INFO] Client thread connected to API pipeline...</div>
+            </div>
+          </div>
+          
+          <!-- Empty State (No prompt generated yet) -->
+          <div id="empty-state" class="border border-black dark:border-neutral-800 p-8 bg-white dark:bg-neutral-950 flex flex-col items-center justify-center min-h-[480px] text-center transition-all duration-200">
+            <svg class="w-12 h-12 text-neutral-300 dark:text-neutral-700 mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+            </svg>
+            <h3 class="font-display font-extrabold text-sm tracking-[0.16em] text-black dark:text-white uppercase">Prompt Output Console</h3>
+            <p class="text-neutral-400 dark:text-neutral-500 font-mono text-xs mt-2 max-w-sm">
+              Please load a source image on the left panel, configure your engine variables, and click "Analyze & Generate Prompt" to begin.
+            </p>
+          </div>
+          
+          <!-- RESULTS DASHBOARD -->
+          <div id="results-dashboard" class="hidden flex flex-col gap-6">
+            
+            <!-- Output Content & Copy Block -->
+            <div class="border border-black dark:border-neutral-800 bg-white dark:bg-neutral-950 transition-all duration-200">
+              
+              <!-- Tab Navigation -->
+              <div class="flex border-b border-black dark:border-neutral-800 bg-neutral-50 dark:bg-neutral-900/40 font-mono text-xs font-bold select-none">
+                <button id="tab-full" class="px-5 py-3 border-r border-black dark:border-neutral-800 bg-white dark:bg-neutral-950 text-black dark:text-white transition cursor-pointer">FULL PROMPT</button>
+                <button id="tab-midjourney" class="px-5 py-3 border-r border-black dark:border-neutral-800 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 transition cursor-pointer">MIDJOURNEY v6</button>
+                <button id="tab-negative" class="px-5 py-3 hover:bg-neutral-100 dark:hover:bg-neutral-800 text-neutral-500 dark:text-neutral-400 transition cursor-pointer">NEGATIVE ARTIFACTS</button>
+              </div>
+              
+              <!-- Active Prompt Output Screen -->
+              <div class="p-6">
+                <div class="relative group">
+                  <!-- Visual Container with huge text for easy copy/view -->
+                  <div class="border border-black dark:border-neutral-800 p-6 bg-neutral-50 dark:bg-neutral-900/20 font-mono text-sm leading-relaxed text-black dark:text-neutral-100 min-h-[140px] whitespace-pre-wrap select-text break-words" id="prompt-output-box">
+                    Loading content...
+                  </div>
+                  
+                  <!-- Easy Copy Floating Button -->
+                  <div class="absolute right-4 bottom-4 flex gap-2">
+                    <button id="copy-btn" class="bg-black hover:bg-neutral-900 text-white dark:bg-white dark:text-black dark:hover:bg-neutral-100 font-mono font-bold text-[10px] tracking-[0.16em] py-1.5 px-3 border border-neutral-300 dark:border-neutral-700 shadow-sm transition active:scale-95 uppercase select-none cursor-pointer">
+                      COPY PROMPT
+                    </button>
+                  </div>
+                </div>
+                
+                <!-- Client-side Interactive Prompt Variations / Tweaker -->
+                <div class="mt-6 border-t border-black dark:border-neutral-800 pt-6">
+                  <div class="flex items-center justify-between mb-3 select-none">
+                    <span class="text-[10px] font-mono tracking-[0.16em] text-neutral-400 dark:text-neutral-500 uppercase">Instant Client-Side Modifiers</span>
+                    <span class="text-[9px] font-mono text-gray-400">Append & format instantly</span>
+                  </div>
+                  <div class="flex flex-wrap gap-1.5" id="variations-panel">
+                    <button data-mod=", captured during dramatic golden hour lighting" class="var-btn border border-neutral-300 dark:border-neutral-800 hover:border-black dark:hover:border-white font-mono text-[10px] px-2 py-1 bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-300 transition cursor-pointer">+ GOLDEN HOUR</button>
+                    <button data-mod=", infused with heavy vintage film grain and light leaks" class="var-btn border border-neutral-300 dark:border-neutral-800 hover:border-black dark:hover:border-white font-mono text-[10px] px-2 py-1 bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-300 transition cursor-pointer">+ FILM GRAIN</button>
+                    <button data-mod=", depicted under rainy overcast weather with wet street reflections" class="var-btn border border-neutral-300 dark:border-neutral-800 hover:border-black dark:hover:border-white font-mono text-[10px] px-2 py-1 bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-300 transition cursor-pointer">+ RAINY REFLECTIONS</button>
+                    <button data-mod=", styled as a retro futuristic 1980s cyberpunk grid aesthetic" class="var-btn border border-neutral-300 dark:border-neutral-800 hover:border-black dark:hover:border-white font-mono text-[10px] px-2 py-1 bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-300 transition cursor-pointer">+ 1980S CYBERPUNK</button>
+                    <button data-mod=", stylized as an intricate highly detailed pencil sketch artwork" class="var-btn border border-neutral-300 dark:border-neutral-800 hover:border-black dark:hover:border-white font-mono text-[10px] px-2 py-1 bg-white dark:bg-neutral-900 text-neutral-600 dark:text-neutral-300 transition cursor-pointer">+ PENCIL DRAWING</button>
+                    <button id="reset-var-btn" class="border border-neutral-300 dark:border-neutral-800 hover:border-red-500 hover:text-red-500 font-mono text-[10px] px-2 py-1 bg-neutral-100 dark:bg-neutral-900 text-neutral-400 transition cursor-pointer uppercase font-bold">RESET</button>
+                  </div>
+                </div>
+
+              </div>
+              
+            </div>
+            
+            <!-- Extracted Image Attributes Breakdown -->
+            <div class="border border-black dark:border-neutral-800 p-6 bg-white dark:bg-neutral-950 transition-all duration-200">
+              <h3 class="font-display font-extrabold text-sm tracking-[0.16em] uppercase text-black dark:text-white border-b border-black dark:border-neutral-800 pb-3 mb-4 flex items-center justify-between select-none">
+                <span>Extracted Image Attributes</span>
+                <span class="font-mono text-[10px] text-gray-400 uppercase">Analysis breakdown</span>
+              </h3>
+              
+              <!-- Bento-style list of distinct segments -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                
+                <!-- Subject -->
+                <div class="border border-neutral-200 dark:border-neutral-800 p-4 hover:border-black dark:hover:border-neutral-400 transition duration-150">
+                  <div class="flex items-center gap-2 mb-2 select-none">
+                    <span class="text-[9px] font-mono font-bold tracking-[0.16em] uppercase bg-black text-white dark:bg-white dark:text-black px-1.5 py-0.5">SUBJECT</span>
+                  </div>
+                  <p id="attr-subject" class="font-mono text-[11px] leading-relaxed text-neutral-600 dark:text-neutral-400">Analysis pending...</p>
+                </div>
+                
+                <!-- Style -->
+                <div class="border border-neutral-200 dark:border-neutral-800 p-4 hover:border-black dark:hover:border-neutral-400 transition duration-150">
+                  <div class="flex items-center gap-2 mb-2 select-none">
+                    <span class="text-[9px] font-mono font-bold tracking-[0.16em] uppercase bg-black text-white dark:bg-white dark:text-black px-1.5 py-0.5">STYLE</span>
+                  </div>
+                  <p id="attr-style" class="font-mono text-[11px] leading-relaxed text-neutral-600 dark:text-neutral-400">Analysis pending...</p>
+                </div>
+                
+                <!-- Details -->
+                <div class="border border-neutral-200 dark:border-neutral-800 p-4 hover:border-black dark:hover:border-neutral-400 transition duration-150">
+                  <div class="flex items-center gap-2 mb-2 select-none">
+                    <span class="text-[9px] font-mono font-bold tracking-[0.16em] uppercase bg-black text-white dark:bg-white dark:text-black px-1.5 py-0.5">DETAILS</span>
+                  </div>
+                  <p id="attr-details" class="font-mono text-[11px] leading-relaxed text-neutral-600 dark:text-neutral-400">Analysis pending...</p>
+                </div>
+                
+                <!-- Lighting -->
+                <div class="border border-neutral-200 dark:border-neutral-800 p-4 hover:border-black dark:hover:border-neutral-400 transition duration-150">
+                  <div class="flex items-center gap-2 mb-2 select-none">
+                    <span class="text-[9px] font-mono font-bold tracking-[0.16em] uppercase bg-black text-white dark:bg-white dark:text-black px-1.5 py-0.5">LIGHTING</span>
+                  </div>
+                  <p id="attr-lighting" class="font-mono text-[11px] leading-relaxed text-neutral-600 dark:text-neutral-400">Analysis pending...</p>
+                </div>
+                
+                <!-- Camera -->
+                <div class="border border-neutral-200 dark:border-neutral-800 p-4 hover:border-black dark:hover:border-neutral-400 transition duration-150 md:col-span-2">
+                  <div class="flex items-center gap-2 mb-2 select-none">
+                    <span class="text-[9px] font-mono font-bold tracking-[0.16em] uppercase bg-black text-white dark:bg-white dark:text-black px-1.5 py-0.5">CAMERA & RENDERING</span>
+                  </div>
+                  <p id="attr-camera" class="font-mono text-[11px] leading-relaxed text-neutral-600 dark:text-neutral-400">Analysis pending...</p>
+                </div>
+                
+              </div>
+            </div>
+            
+          </div>
+          
+        </div>
+      </div>
+
+      <!-- BOTTOM ROW: Prompt Generation History (Client-Side Persistence) -->
+      <div class="mt-16 border border-black dark:border-neutral-800 p-6 sm:p-8 bg-white dark:bg-neutral-950 transition-all duration-200">
+        <h2 class="font-display font-extrabold text-base tracking-[0.16em] uppercase text-black dark:text-white border-b border-black dark:border-neutral-800 pb-3 mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 select-none">
+          <div class="flex items-center gap-2">
+            <span>Generation History Logs</span>
+            <span id="history-badge" class="font-mono text-[10px] bg-neutral-100 dark:bg-neutral-900 border border-neutral-300 dark:border-neutral-800 text-neutral-500 px-2 py-0.5">0 SAVED</span>
+          </div>
+          <button id="clear-history-btn" class="font-mono text-[10px] text-red-600 dark:text-red-400 font-bold hover:underline self-start sm:self-auto cursor-pointer">CLEAR ALL LOGS</button>
+        </h2>
+        
+        <!-- Empty history block -->
+        <div id="history-empty" class="text-center py-12 select-none">
+          <p class="font-mono text-xs text-neutral-400 dark:text-neutral-500">Your previous visual analysis runs will be listed here for fast retrieval.</p>
+        </div>
+        
+        <!-- History grid list -->
+        <div id="history-grid" class="hidden grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <!-- Populated dynamically via template strings -->
+        </div>
+      </div>
+
+    </main>
+
+    <!-- FOOTER HTML -->
+    <!-- FOOTER HTML AND SCRIPTS -->
+<footer class="bg-white dark:bg-black dark: mt-auto pt-16 pb-8 transition-colors">
+    <div class="max-w-[85vw] mx-auto px-4 sm:px-6">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-10 mb-12">
+            <div class="md:col-span-1">
+                <a href="/" class="flex items-center gap-2 mb-4">
+                    <img src="https://timetablecreator.online/blog/wp-content/uploads/2026/08/logo.png" alt="ToolIMG Logo" class="h-8 w-auto">
+                    <span class="font-bold text-xl tracking-tight text-black dark:text-gray-100">Tool<span class="text-black dark:text-black">IMG</span></span>
+                </a>
+                <p class="text-gray-500 dark:text-gray-400 text-[11px] leading-relaxed mb-4">Your ultimate hub for AI image tools, computer vision, code conversion, and prompt engineering utilities.</p>
+                <a href="mailto:support@toolimg.online" class="text-black dark:text-black font-medium hover:underline text-[11px]">support@toolimg.online</a>
+                <div class="mt-4">
+                    <a href="https://submitaitools.org" target="_blank">
+                        <img src="https://submitaitools.org/static_submitaitools/images/submitaitools.png" alt="Submit AI Tools" style="border-radius: 10px; width: 200px; height: 60px;" />
+                    </a>
+                </div>
+            </div>
+            <div>
+                <h4 class="font-bold text-black dark:text-gray-100 mb-5">Products</h4>
+                <ul class="space-y-3.5">
+                    <li><a href="/tools/image-to-code/" class="text-[11px] text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">Image to Code AI</a></li>
+                    <li><a href="/tools/handwriting-to-text/" class="text-[11px] text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">English Handwriting OCR</a></li>
+                    <li><a href="/tools/hindi-handwriting-to-text/" class="text-[11px] text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition font-semibold text-black dark:text-black">Hindi Handwriting OCR</a></li>
+                    <li><a href="/tools/gemini-image-to-prompt/" class="text-[11px] text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">Gemini Image to Prompt</a></li>
+                    <li><a href="/tools/" class="text-[11px] text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">All Tools</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-black dark:text-gray-100 mb-5">Company</h4>
+                <ul class="space-y-3.5">
+                    <li><a href="https://toolimg.online/about.html" class="text-[11px] text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">About Us</a></li>
+                    <li><a href="https://toolimg.online/contact.html" class="text-[11px] text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">Contact Us</a></li>
+                    <li><a href="/pricing/" class="text-[11px] text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">Pricing</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="font-bold text-black dark:text-gray-100 mb-5">Legal</h4>
+                <ul class="space-y-3.5">
+                    <li><a href="/privacy-policy.html" class="text-[11px] text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">Privacy Policy</a></li>
+                    <li><a href="https://toolimg.online/terms.html" class="text-[11px] text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">Terms of Service</a></li>
+                    <li><a href="/refund-policy.html" class="text-[11px] text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">Refund Policy</a></li>
+                    <li><a href="https://toolimg.online/disclaimer.html" class="text-[11px] text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">Disclaimer</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="pt-8 dark: flex flex-col md:flex-row justify-between items-center gap-4">
+            <p class="text-[11px] text-gray-500 dark:text-gray-400">© 2026 ToolIMG. All rights reserved.</p>
+            <div class="flex gap-4">
+            </div>
+        </div>
+    </div>
+</footer>
+
+<!-- Google Translate Element for Footer -->
+<script type="text/javascript">
+function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+        pageLanguage: 'en',
+        includedLanguages: 'en,es,fr,de,ru,ar,hi,pt,zh-CN,ja,ko,it,nl,pl,tr',
+        layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+        autoDisplay: false
+    }, 'google_translate_element');
+}
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+
+    <!-- INTERACTIVE APP SCRIPT -->
+    
+
+
+    <!-- Global Auth Logic -->
+    <script type="module">
+      import { auth, db } from '/assets/firebase-config.js';
+      import { signInWithPopup, signInWithRedirect, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+      import { doc, getDoc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+      const provider = new GoogleAuthProvider();
+
+      window.handleLogin = async function() {
+          if (!auth) return;
+          try {
+              await signInWithPopup(auth, provider);
+          } catch (error) {
+              if (error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request') return;
+              try {
+                  await signInWithRedirect(auth, provider);
+              } catch (redirectError) {
+                  alert("Login failed: " + redirectError.message);
+              }
+          }
+      };
+
+      window.handleLogout = async function() {
+          if (auth) {
+              try {
+                  await signOut(auth);
+                  window.location.reload();
+              } catch (error) {
+                  console.error("Logout error", error);
+              }
+          }
+      };
+
+      const userAvatarBtn = document.getElementById('user-avatar-btn');
+      const userAvatar = document.getElementById('user-avatar');
+      const userFallback = document.getElementById('user-fallback');
+      const userName = document.getElementById('user-name');
+      const headerAuthGuest = document.getElementById('header-auth-guest');
+      const userMenu = document.getElementById('user-menu');
+      const dashboardNav = document.getElementById('dashboard-nav');
+      const creditsDisplay = document.getElementById('credits-display');
+      const creditsCount = document.getElementById('credits-count');
+      const generateBtn = document.getElementById('generate-btn');
+      
+      let currentUser = null;
+      let userDocUnsubscribe = null;
+
+      if (auth) {
+          onAuthStateChanged(auth, async (user) => {
+              if (user) {
+                  currentUser = user;
+                  if (headerAuthGuest) headerAuthGuest.classList.add('hidden');
+                  if (userMenu) userMenu.classList.remove('hidden');
+                  if (dashboardNav) dashboardNav.classList.remove('hidden');
+                  if (creditsDisplay) {
+                      creditsDisplay.classList.remove('hidden');
+                      creditsDisplay.classList.add('flex');
+                  }
+                  
+                  if (userAvatar && user.photoURL) {
+                      userAvatar.src = user.photoURL;
+                      userAvatar.classList.remove('hidden');
+                      if (userFallback) userFallback.classList.add('hidden');
+                  }
+                  if (userName) userName.textContent = user.displayName || user.email;
+
+                  const userRef = doc(db, 'users', user.uid);
+                  userDocUnsubscribe = onSnapshot(userRef, (docSnap) => {
+                      if (docSnap.exists()) {
+                          const data = docSnap.data();
+                          if (creditsCount) creditsCount.textContent = data.credits || 0;
+                      }
+                  });
+              } else {
+                  currentUser = null;
+                  if (userDocUnsubscribe) {
+                      userDocUnsubscribe();
+                      userDocUnsubscribe = null;
+                  }
+                  if (headerAuthGuest) headerAuthGuest.classList.remove('hidden');
+                  if (headerAuthGuest) headerAuthGuest.classList.add('flex');
+                  if (userMenu) userMenu.classList.add('hidden');
+                  if (dashboardNav) dashboardNav.classList.add('hidden');
+                  if (creditsDisplay) {
+                      creditsDisplay.classList.add('hidden');
+                      creditsDisplay.classList.remove('flex');
+                  }
+              }
+          });
+      }
+
+      // Tool-specific validation
+      if (generateBtn) {
+          generateBtn.addEventListener('click', (e) => {
+              if (!currentUser) {
+                  e.preventDefault();
+                  e.stopImmediatePropagation();
+                  window.handleLogin();
+                  return false;
+              }
+              const currentCredits = parseInt(creditsCount.textContent || '0');
+              if (currentCredits < 2) {
+                  e.preventDefault();
+                  e.stopImmediatePropagation();
+                  alert('Insufficient credits. You need 2 credits for this tool.');
+                  window.location.href = '/pricing/';
+                  return false;
+              }
+          }, true); // Capture phase
+      }
+    </script>
+
+</body>
+</html>

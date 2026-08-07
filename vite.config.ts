@@ -21,6 +21,7 @@ export default defineConfig(() => {
           hindiHandwritingToText: resolve(__dirname, 'tools/hindi-handwriting-to-text/index.html'),
           toolsArchive: resolve(__dirname, 'tools/index.html'),
           geminiImageToPrompt: resolve(__dirname, 'tools/gemini-image-to-prompt/index.html'),
+        geminiImageToPrompt2: resolve(__dirname, 'tools/gemini-image-to-prompt-2/index.html'),
           htmlToImage: resolve(__dirname, 'tools/html-to-image/index.html'),
           pricing: resolve(__dirname, 'pricing/index.html'),
           dashboard: resolve(__dirname, 'dashboard/index.html'),
