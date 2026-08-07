@@ -18,11 +18,11 @@ if (firebaseConfig && firebaseConfig.apiKey) {
     try {
         app = getApps().length === 0 ? initializeApp(firebaseConfig) : getApp();
         auth = getAuth(app);
+        const dbId = firebaseConfig.firestoreDatabaseId || 'ai-studio-toolimg-a40860b9-3db9-4eab-a65f-f070e159a9b3';
         try {
-            db = initializeFirestore(app, { experimentalForceLongPolling: true }, firebaseConfig.firestoreDatabaseId || 'default');
+            db = initializeFirestore(app, { experimentalAutoDetectLongPolling: true }, dbId);
         } catch (fErr) {
-            console.warn('initializeFirestore failed (probably already initialized), falling back to getFirestore:', fErr);
-            db = getFirestore(app);
+            db = getFirestore(app, dbId);
         }
     } catch (e) {
         console.error('Firebase initialization failed:', e);
