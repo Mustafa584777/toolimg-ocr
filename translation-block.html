@@ -119,11 +119,11 @@ document.addEventListener('DOMContentLoaded', () => {
         buttons.forEach(btn => {
             const onclickValue = btn.getAttribute('onclick') || '';
             if (onclickValue.includes(`'${savedLangVal}'`) || onclickValue.includes(`"${savedLangVal}"`)) {
-                btn.classList.add('text-violet-600', 'dark:text-violet-400', 'font-semibold');
-                btn.classList.remove('text-slate-700', 'dark:text-slate-300');
+                btn.classList.add('text-black', 'dark:text-black', 'font-semibold');
+                btn.classList.remove('text-gray-700', 'dark:text-gray-400');
             } else {
-                btn.classList.remove('text-violet-600', 'dark:text-violet-400', 'font-semibold');
-                btn.classList.add('text-slate-700', 'dark:text-slate-300');
+                btn.classList.remove('text-black', 'dark:text-black', 'font-semibold');
+                btn.classList.add('text-gray-700', 'dark:text-gray-400');
             }
         });
     }
@@ -210,8 +210,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const toastHTML = `
         <div id="translation-toast" class="notranslate fixed z-[99999] px-4 py-2 flex items-center gap-3" style="top: 85px; right: 30px; background: transparent !important; border: none !important; box-shadow: none !important;">
             <div id="toast-loader" class="relative flex h-3 w-3 items-center justify-center">
-                <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-violet-400 opacity-75" style="background-color: #a78bfa !important;"></span>
-                <span class="relative inline-flex rounded-full h-2 w-2 bg-violet-600" style="background-color: #7c3aed !important;"></span>
+                <span class="animate-ping absolute inline-flex h-full w-full rounded-none bg-black opacity-75" style="background-color: #a78bfa !important;"></span>
+                <span class="relative inline-flex rounded-none h-2 w-2 bg-black" style="background-color: #7c3aed !important;"></span>
             </div>
             <span id="toast-text" class="text-[14px] font-bold tracking-wide flex items-center gap-1.5" style="color: #7c3aed !important;">
                 ${activeText}
