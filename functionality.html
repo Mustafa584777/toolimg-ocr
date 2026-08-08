@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ToolIMG - Global Frontend Functionality Code</title>
+</head>
+<body>
+<!-- 
+====================================================================================================
+                       ToolIMG GLOBAL FRONTEND INTEGRATION CODE (functionality.html)
+====================================================================================================
+Aap is file ke andar diye gaye scripts ko kisi bhi naye HTML tool me directly use kar sakte hain. 
+Isme saari functional cheezein (Login/Signup, Credit System, Google Translate, and Light/Dark Theme)
+ek sath proper state management ke sath configured hain.
+
+Naye Tool ke HTML me kaise use karein:
+1. Header aur Footer ko apne HTML me paste karein.
+2. Niche diye gaye saare <script> blocks ko apne HTML ke bilkul aakhiri me (just before </body>) paste kar dein.
+3. `/assets/firebase-config.js` file aapke project me already available hai, isliye scripts automatically configure ho jayenge.
+====================================================================================================
+-->
+
+<!-- ==========================================================
+     SECTION 1: THEME TOGGLE (LIGHT / DARK MODE) SCRIPT
+     ========================================================== 
+     Isko aap chahein to <head> tag me bhi daal sakte hain taaki theme load hote waat flick na kare,
+     aur toggle buttons ke click event handlers niche body ke script me trigger hote hain.
+-->
+<script>
+    // 1. Initial Theme check: Isko <head> me daalna recommended hai taaki flashing na ho.
+    if (localStorage.getItem('theme') === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+    } else {
+        document.documentElement.classList.remove('dark');
+    }
+
+    // 2. DOMContentLoaded event handler to attach click listeners for theme buttons
+    document.addEventListener('DOMContentLoaded', () => {
+        const themeBtn = document.getElementById('theme-btn');
+        const themeBtnDesktop = document.getElementById('theme-btn-desktop');
+        const html = document.documentElement;
+
+        function toggleTheme() {
+            html.classList.toggle('dark');
+            if (html.classList.contains('dark')) {
+                localStorage.setItem('theme', 'dark');
+            } else {
+                localStorage.setItem('theme', 'light');
+            }
+        }
+
+        if (themeBtn) themeBtn.addEventListener('click', toggleTheme);
+        if (themeBtnDesktop) themeBtnDesktop.addEventListener('click', toggleTheme);
+    });
+</script>
+
+
+<!-- ==========================================================
+     SECTION 2: GOOGLE TRANSLATE (DUMMY SELECTOR + DROPDOWN INTEGRATION)
+     ========================================================== 
+     Aapke header me jo global dropdown buttons hain, ye script unhe Google Translate custom combo box
+     se map karta hai, cookie create karta hai aur automatically page transform kar deta hai.
+-->
+<div id="google_translate_element" style="display: none;"></div>
+<script type="text/javascript">
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+            autoDisplay: false
+        }, 'google_translate_element');
+    }
+</script>
+<script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script>
+    // Lang Menu popover toggle handler
+    function toggleLangMenu(e) {
+        if (e) e.stopPropagation();
+        const popover = document.getElementById('lang-popover');
+        if (popover) {
+            popover.classList.toggle('hidden');
+            if (!popover.classList.contains('hidden')) {
+                popover.classList.add('flex');
+            } else {
+                popover.classList.remove('flex');
+            }
+        }
+    }
+
+    // Switch Language and set necessary cookies for Google Translate API
+    function switchLang(lang) {
+        const prevLang = localStorage.getItem('selected_lang') || 'en';
+        localStorage.setItem('prev_lang', prevLang);
+        localStorage.setItem('selected_lang', lang);
+        
+        const clearCookie = (name, domain) => {
+            let cookieStr = name + "=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+            if (domain) cookieStr += " domain=" + domain + ";";
+            document.cookie = cookieStr;
+            document.cookie = cookieStr + " SameSite=None; Secure;";
+        };
+
+        clearCookie('googtrans');
+        clearCookie('googtrans', window.location.hostname);
+        clearCookie('googtrans', '.' + window.location.hostname);
+        
+        const parts = window.location.hostname.split('.');
+        if (parts.length > 2) {
+            const mainDomain = parts.slice(-2).join('.');
+            clearCookie('googtrans', mainDomain);
+            clearCookie('googtrans', '.' + mainDomain);
+        }
+
+        if (lang !== 'en') {
+            const setCookie = (value, domain) => {
+                let base = "googtrans=" + value + "; path=/; SameSite=None; Secure;";
+                if (domain) base += " domain=" + domain + ";";
+                document.cookie = base;
+            };
+            
+            setCookie('/en/' + lang);
+            setCookie('/en/' + lang, window.location.hostname);
+            setCookie('/en/' + lang, '.' + window.location.hostname);
+            if (parts.length > 2) {
+                const mainDomain = parts.slice(-2).join('.');
+                setCookie('/en/' + lang, mainDomain);
+                setCookie('/en/' + lang, '.' + mainDomain);
+            }
+        }
+
+        const select = document.querySelector('#google_translate_element select') || document.querySelector('.goog-te-combo');
+        if (select) {
+            select.value = lang;
+            select.dispatchEvent(new Event('change'));
+        }
+        setTimeout(() => {
+            window.location.reload();
+        }, 120);
+    }
+
+    // Window click event to automatically close both dropdowns if user clicks outside
+    document.addEventListener('click', (e) => {
+        const userDropdown = document.getElementById('user-dropdown');
+        const userBtn = document.getElementById('user-avatar-btn');
+        if (userDropdown && !userDropdown.classList.contains('hidden') && userBtn && !userBtn.contains(e.target) && !userDropdown.contains(e.target)) {
+            userDropdown.classList.add('hidden');
+            userDropdown.classList.remove('flex');
+        }
+        
+        const langPopover = document.getElementById('lang-popover');
+        const langBtn = document.getElementById('lang-menu-btn');
+        if (langPopover && !langPopover.classList.contains('hidden') && langBtn && !langBtn.contains(e.target) && !langPopover.contains(e.target)) {
+            langPopover.classList.add('hidden');
+            langPopover.classList.remove('flex');
+        }
+    });
+</script>
+
+
+<!-- ==========================================================
+     SECTION 3: FIREBASE INTEGRATION (AUTH, PROFILE DROPDOWN & CREDIT SYSTEM)
+     ========================================================== 
+     Ye module script pure Firebase state management aur dynamic logic ko handle karta hai:
+     1. onAuthStateChanged listener set karta hai aur guest vs logged-in state manage karta hai.
+     2. Agla user logged-in hai to database ('users' collection) se credits dynamic tarike se sync karta hai.
+     3. Naye Tool me target Action Button click hone par verify karta hai ki kya user logged in hai aur credit balance >= 2 hai.
+-->
+<script type="module">
+    import { auth, db } from '/assets/firebase-config.js';
+    import { signInWithPopup, signInWithRedirect, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+    import { doc, onSnapshot } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-firestore.js";
+
+    const provider = new GoogleAuthProvider();
+
+    // 1. Google Login POPUP trigger handler
+    window.handleLogin = async function() {
+        if (!auth) {
+            alert("Firebase is not initialized. Please ensure assets/firebase-config.js has correct credentials.");
+            return;
+        }
+        try {
+            await signInWithPopup(auth, provider);
+        } catch (error) {
+            if (error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request') {
+                console.log('User closed popup window.');
+                return;
+            }
+            console.warn("Popup blocked or failed, fallback to redirect method:", error);
+            try {
+                await signInWithRedirect(auth, provider);
+            } catch (redirectError) {
+                console.error("Login redirect also failed:", redirectError);
+                alert("Login process failed: " + (redirectError.message || error.message));
+            }
+        }
+    };
+
+    // 2. Signout handler
+    window.handleLogout = async function() {
+        if (auth) {
+            try {
+                await signOut(auth);
+                window.location.reload();
+            } catch (error) {
+                console.error("Logout error:", error);
+            }
+        }
+    };
+
+    // 3. Dropdown toggle helper
+    window.toggleUserDropdown = function(e) {
+        if(e) e.stopPropagation();
+        const dropdown = document.getElementById('user-dropdown');
+        if (dropdown) {
+            dropdown.classList.toggle('hidden');
+            if (!dropdown.classList.contains('hidden')) {
+                dropdown.classList.add('flex');
+            } else {
+                dropdown.classList.remove('flex');
+            }
+        }
+    }
+
+    // 4. Elements reference caching
+    const userAvatarBtn = document.getElementById('user-avatar-btn');
+    const userAvatar = document.getElementById('user-avatar');
+    const userFallback = document.getElementById('user-fallback');
+    const userName = document.getElementById('user-name');
+    const headerAuthGuest = document.getElementById('header-auth-guest');
+    const userMenu = document.getElementById('user-menu');
+    const dashboardNav = document.getElementById('dashboard-nav');
+    const creditsDisplay = document.getElementById('credits-display');
+    const creditsCount = document.getElementById('credits-count');
+    
+    // IMPORTANT: Apne naye tool ke Generate ya run button ki ID change karke 'generate-btn' rakhein!
+    const generateBtn = document.getElementById('generate-btn'); 
+
+    let currentUser = null;
+    let userDocUnsubscribe = null;
+
+    if (auth) {
+        onAuthStateChanged(auth, async (user) => {
+            if (user) {
+                currentUser = user;
+                // Header elements refresh (Logged In state)
+                if (headerAuthGuest) headerAuthGuest.classList.add('hidden');
+                if (userMenu) userMenu.classList.remove('hidden');
+                if (dashboardNav) dashboardNav.classList.remove('hidden');
+                
+                if (creditsDisplay) {
+                    creditsDisplay.classList.remove('hidden');
+                    creditsDisplay.classList.add('flex');
+                }
+                
+                if (userAvatar && user.photoURL) {
+                    userAvatar.src = user.photoURL;
+                    userAvatar.classList.remove('hidden');
+                    if (userFallback) userFallback.classList.add('hidden');
+                }
+                if (userName) userName.textContent = user.displayName || user.email;
+
+                // Sync live Firestore credits count
+                const userRef = doc(db, 'users', user.uid);
+                userDocUnsubscribe = onSnapshot(userRef, (docSnap) => {
+                    if (docSnap.exists()) {
+                        const data = docSnap.data();
+                        if (creditsCount) creditsCount.textContent = data.credits || 0;
+                    }
+                }, (error) => {
+                    console.error("Failed to fetch credits snapshot:", error);
+                });
+            } else {
+                currentUser = null;
+                if (userDocUnsubscribe) {
+                    userDocUnsubscribe();
+                    userDocUnsubscribe = null;
+                }
+                // Header elements refresh (Guest state)
+                if (headerAuthGuest) {
+                    headerAuthGuest.classList.remove('hidden');
+                    headerAuthGuest.classList.add('flex');
+                }
+                if (userMenu) userMenu.classList.add('hidden');
+                if (dashboardNav) dashboardNav.classList.add('hidden');
+                if (creditsDisplay) {
+                    creditsDisplay.classList.add('hidden');
+                    creditsDisplay.classList.remove('flex');
+                }
+            }
+        });
+    }
+
+    // 5. Action Interception (Click Validation Gate)
+    // Jab user Kisi generator button pe click karega, use interrupt karke auth validation lagayenge.
+    if (generateBtn) {
+        generateBtn.addEventListener('click', (e) => {
+            // Check 1: User Logged-in hona chahiye
+            if (!currentUser) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                window.handleLogin();
+                return false;
+            }
+            
+            // Check 2: User ke paas minimum 2 credits hone chahiye
+            const currentCredits = parseInt(creditsCount ? creditsCount.textContent : '0') || 0;
+            if (currentCredits < 2) {
+                e.preventDefault();
+                e.stopImmediatePropagation();
+                alert('Insufficient credits! Is tool ko chalane ke liye 2 credits ki avashyakta hai.');
+                window.location.href = '/pricing/';
+                return false;
+            }
+        }, true); // "true" ensures capture phase run so that standard event handler blocks before proceeding
+    }
+</script>
+
+<!-- Mobile Menu trigger toggle for small displays -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        if (mobileMenuBtn && mobileMenu) {
+            mobileMenuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+            });
+        }
+    });
+</script>
+</body>
+</html>

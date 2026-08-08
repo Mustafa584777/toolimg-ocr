@@ -1,0 +1,114 @@
+====================================================================================================
+                        ToolIMG - HTML ID REQUIRED LIST & INTEGRATION GUIDE
+====================================================================================================
+
+Aap jab bhi kisi naye chat me naya tool banayein, to uske HTML elements me niche diye gaye IDs 
+ko bilkul EXACT same rakhiyega. Isse `functionality.html` me diya gaya global script bina kisi 
+manual edit ke automatically work karega.
+
+----------------------------------------------------------------------------------------------------
+1. THEME TOGGLE (LIGHT & DARK MODE) IDs
+----------------------------------------------------------------------------------------------------
+* theme-btn : 
+  - Element: <button>
+  - Description: Mobile view me theme change (Light/Dark) karne wala button.
+  
+* theme-btn-desktop : 
+  - Element: <button>
+  - Description: Desktop view me header ke andar theme change karne wala button.
+
+----------------------------------------------------------------------------------------------------
+2. GOOGLE TRANSLATE & MULTILINGUAL IDs
+----------------------------------------------------------------------------------------------------
+* lang-menu-btn : 
+  - Element: <button>
+  - Description: Language select karne wala main globe icon button jis par click karne par popover khulega.
+  - Required Attribute: isme 'onclick="toggleLangMenu(event)"' laga hona chahiye.
+
+* lang-popover : 
+  - Element: <div>
+  - Description: Language ki list wala drop-down container (English, Español, Hindi, etc.).
+  - Class hint: Isme class 'hidden' honi chahiye by default.
+
+* google_translate_element :
+  - Element: <div id="google_translate_element" style="display: none;"></div>
+  - Description: Google Translate widget ko hidden rakhne ke liye ye element page me hona zaroori hai.
+
+----------------------------------------------------------------------------------------------------
+3. CREDIT SYSTEM IDs
+----------------------------------------------------------------------------------------------------
+* credits-display : 
+  - Element: <div>
+  - Description: Header me credits balance dikhane wala wrapper card/box.
+  - Class hint: 'hidden' by default. Login hone ke baad script isse automatically show ('flex') kar dega.
+
+* credits-count : 
+  - Element: <span> aur <p>
+  - Description: Is tag ke andar user ke real-time credits ka active number load hota hai (e.g., '50').
+
+----------------------------------------------------------------------------------------------------
+4. USER PROFILE & DROPDOWN IDs (FIREBASE AUTH)
+----------------------------------------------------------------------------------------------------
+* header-auth-guest : 
+  - Element: <div>
+  - Description: "Log in" aur "Sign up" buttons ka outer container jo tabhi dikhta hai jab user guest state me ho.
+
+* user-menu : 
+  - Element: <div>
+  - Description: Profile Picture aur dropdown menu ka wrapper element. 
+  - Class hint: 'hidden' by default. Login hone ke baad automatic visible hoga.
+
+* user-avatar-btn : 
+  - Element: <button>
+  - Description: Profile picture click karne wala container button.
+  - Required Attribute: isme 'onclick="toggleUserDropdown(event)"' hona chahiye.
+
+* user-avatar : 
+  - Element: <img>
+  - Description: Google profile photo rendering tag. Isme image source dynamically set hoga.
+  - Class hint: 'hidden' by default.
+
+* user-fallback : 
+  - Element: <div>
+  - Description: Agar Google DP available nahi hai ya image fail ho jati hai to isme default user icon show hota hai.
+
+* user-dropdown : 
+  - Element: <div>
+  - Description: Profile pic click hone par khulne wala drop-down panel (dashboard, history, logout choices).
+  - Class hint: 'hidden' by default.
+
+* user-name : 
+  - Element: <p> aur <span>
+  - Description: Is dropdown tag me user ka full Name ya Email dynamic load hoga.
+
+* dashboard-nav : 
+  - Element: <a>
+  - Description: Dashboard ki link jo side-bar ya header me tabhi show honi chahiye jab user authenticated ho.
+
+----------------------------------------------------------------------------------------------------
+5. TOOL CORE BUTTON ID (CREDIT & LOGIN CHECK GATE)
+----------------------------------------------------------------------------------------------------
+* generate-btn : 
+  - Element: <button>
+  - Description: Ye sabse CRITICAL ID hai. Kisi bhi tool me jab user 'Convert', 'Generate', 'Analyze', ya 'Run' button par click karta hai, to us button ki ID 'generate-btn' honi chahiye.
+  - Working: Jab user is ID wale button par click karega, functionality.html ka script click ko intercept karega. Agar user logged in nahi hai to login popup show hoga, aur agar logged in hai but credits < 2 hai, to pricing page par redirect kar dega.
+
+----------------------------------------------------------------------------------------------------
+6. MOBILE NAVIGATION MENU IDs
+----------------------------------------------------------------------------------------------------
+* mobile-menu-btn : 
+  - Element: <button>
+  - Description: Mobile displays par click karne par navigation links drawer/list kholne wala hamburger icon.
+
+* mobile-menu : 
+  - Element: <div>
+  - Description: Saari navigation links wala container mobile view me.
+
+====================================================================================================
+                              TIPS FOR SECURE & FAST DEPLOYMENT
+====================================================================================================
+1. Ek blank file `template.html` bana kar upar diye gaye elements ko exact layout me ek baar setup kar lijiye.
+2. Naya tool banate waqt, AI ko is list_id guide ko dekar simple instruction dijiye:
+   "Upar diye gaye ID mappings ko maintain karte huye design kijiye taaki dynamic state and validation bypass na ho."
+3. Backend integration ke liye humesha server-side me target endpoint `/api/generate-prompt` (ya jo naya handler aap chaho) parse karenge aur standard Firestore document refresh automatically handle hota rahega.
+====================================================================================================
