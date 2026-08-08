@@ -3,16 +3,33 @@
                             ToolIMG - OFFICIAL HEADER TEMPLATE (header.html)
 ====================================================================================================
 Aap is code ko kisi bhi naye tool ke index.html ke top me (inside <body>, before <main>) paste kar sakte hain. 
-Isme Header, Mobile Menu Drawer, Translate Widget, Theme Toggles aur complete Auth Integration (Firebase) 
-ekdam perfectly setup hain.
+Isme Header, Mobile Menu Drawer, Translate Widget, aur complete Auth Integration (Firebase) 
+homepage ke jaisa ekdam perfectly setup hain.
 ====================================================================================================
 -->
+
+<style>
+    /* Robust responsive styling to prevent any layout/Tailwind conflicts on mobile vs desktop */
+    @media (max-width: 767px) {
+        #header-auth-guest {
+            display: none !important;
+        }
+        #mobile-menu-btn {
+            display: block !important;
+        }
+    }
+    @media (min-width: 768px) {
+        #mobile-menu-btn {
+            display: none !important;
+        }
+    }
+</style>
 
 <!-- Google Translate Hidden Container -->
 <div id="google_translate_element" style="display: none;"></div>
 
 <!-- Navbar Header -->
-<header class="w-full max-w-[85vw] mx-auto px-4 sm:px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-black/80 backdrop-blur-md sticky top-4 z-40 shadow-sm rounded border border-black/5 dark:border-neutral-800 mb-8 transition-colors">
+<header class="w-full max-w-[85vw] mx-auto px-4 sm:px-6 py-4 flex justify-between items-center bg-white/80 dark:bg-black/80 backdrop-blur-md sticky top-4 z-40 shadow-sm rounded-none mb-8 transition-colors">
     <div class="flex items-center gap-2 w-full justify-between">
         <!-- Logo -->
         <a href="/" class="flex items-center gap-2" style="display: flex !important; align-items: center !important; gap: 8px !important; text-decoration: none !important;">
@@ -25,16 +42,15 @@ ekdam perfectly setup hain.
             <a href="/" class="text-[15px] font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">Home</a>
             <a href="/tools/" class="text-[15px] font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition">Tools</a>
             <a href="/dashboard/" id="dashboard-nav" class="text-[15px] font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition hidden">Dashboard</a>
-            <a href="/pricing/" class="px-4 py-1.5 text-[15px] font-bold bg-white text-black rounded border border-gray-200 dark:border-neutral-800 shadow-sm transition hover:bg-gray-100">Pricing</a>
-            
-            </nav>
+            <a href="/pricing/" class="px-4 py-1.5 text-[15px] font-bold bg-white text-black rounded-none border border-gray-200 dark:border-neutral-800 shadow-sm transition hover:bg-gray-100">Pricing</a>
+        </nav>
         
         <!-- Quick Actions & Auth Controls -->
         <div class="flex items-center gap-3">
             
             <!-- Language Select Button -->
             <div class="relative">
-                <button id="lang-menu-btn" type="button" onclick="toggleLangMenu(event)" class="p-2 hover:bg-[#fafafa] dark:hover:bg-black rounded border border-gray-100 dark:border-neutral-900 transition flex items-center justify-center cursor-pointer" aria-label="Select Language">
+                <button id="lang-menu-btn" type="button" onclick="toggleLangMenu(event)" class="p-2 hover:bg-[#fafafa] dark:hover:bg-black rounded-none border border-gray-100 dark:border-neutral-900 transition flex items-center justify-center cursor-pointer" aria-label="Select Language">
                     <svg class="w-5 h-5 text-black dark:text-gray-300" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" width="20" height="20" style="width: 20px; height: 20px;">
                         <path d="M5 8l6 6"></path>
                         <path d="M4 14l6-6 2-3"></path>
@@ -46,7 +62,7 @@ ekdam perfectly setup hain.
                 </button>
                 
                 <!-- Language Dropdown Menu -->
-                <div id="lang-popover" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-black rounded shadow-lg flex-col z-50 overflow-hidden border border-gray-200 dark:border-neutral-800">
+                <div id="lang-popover" class="hidden absolute right-0 mt-2 w-40 bg-white dark:bg-black rounded-none shadow-lg flex-col z-50 overflow-hidden border border-gray-200 dark:border-neutral-800">
                     <div class="py-2">
                         <button type="button" onclick="switchLang('en')" class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-[#fafafa] dark:hover:bg-neutral-900 transition">English</button>
                         <button type="button" onclick="switchLang('es')" class="w-full text-left block px-4 py-2 text-sm text-gray-700 dark:text-gray-300 hover:bg-[#fafafa] dark:hover:bg-neutral-900 transition">Español</button>
@@ -58,27 +74,27 @@ ekdam perfectly setup hain.
                 </div>
             </div>
 
-            <!-- Credit System Badge (Static Indicator - No popup triggers, redirects to pricing) -->
-            <a href="/pricing/" id="credits-display" class="hidden items-center gap-[4px] bg-amber-500/10 text-amber-600 dark:text-amber-500 text-[11px] sm:text-xs font-bold px-2.5 py-1.5 rounded border border-amber-500/20 transition hover:bg-amber-500/20">
-                <svg class="w-3.5 h-3.5 text-amber-500 shrink-0" fill="currentColor" viewBox="0 0 24 24" style="width: 14px; height: 14px; display: block;"><path d="M6 3h12l4 6-10 13L2 9z"/></svg>
-                <span id="credits-count" class="leading-none mt-[0.5px]">0</span>
+            <!-- Credit System Badge -->
+            <a href="/pricing/" id="credits-display" class="flex items-center gap-[2px] bg-gray-200/50 dark:bg-gray-200/50 text-black dark:text-black text-[11px] sm:text-xs font-bold px-2.5 py-1.5 rounded-none cursor-pointer hover:bg-gray-200/50 dark:hover:bg-black transition" style="display: flex !important; text-decoration: none !important;">
+                <svg class="w-3.5 h-3.5 text-black dark:text-black shrink-0" fill="currentColor" viewBox="0 0 24 24" style="width: 14px; height: 14px; display: block;"><path d="M6 3h12l4 6-10 13L2 9z"/></svg>
+                <span id="credits-count" class="leading-none mt-[0.5px]">5</span>
             </a>
 
             <!-- Auth Controls (Desktop Guest Mode) -->
             <div id="header-auth-guest" class="hidden md:flex items-center gap-2">
-                <button id="login-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-gray-700 dark:text-gray-400 hover:bg-[#fafafa] dark:hover:bg-black rounded border border-gray-100 dark:border-neutral-900 transition cursor-pointer">Log in</button>
-                <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-white bg-black hover:bg-gray-800 rounded transition shadow-sm cursor-pointer border border-black dark:border-neutral-800 dark:bg-neutral-900 dark:hover:bg-neutral-800">Sign up</button>
+                <button id="login-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-gray-700 dark:text-gray-400 hover:bg-[#fafafa] dark:hover:bg-black rounded-none border border-gray-100 dark:border-neutral-900 transition cursor-pointer">Log in</button>
+                <button id="signup-btn" onclick="handleLogin()" class="px-4 py-2 text-[15px] font-medium text-white bg-black hover:bg-gray-800 rounded-none transition shadow-sm cursor-pointer border border-black dark:border-neutral-800 dark:bg-neutral-900 dark:hover:bg-neutral-800">Sign up</button>
             </div>
         
             <!-- Auth Controls (Desktop Authenticated User Dropdown) -->
             <div id="user-menu" class="hidden relative items-center">
-                <button id="user-avatar-btn" type="button" onclick="toggleUserDropdown(event)" class="w-8 h-8 sm:w-9 sm:h-9 rounded overflow-hidden shadow-sm border border-gray-100 dark:border-neutral-900 transition-transform active:scale-95 bg-gray-200 dark:bg-neutral-800 flex items-center justify-center text-black dark:text-white focus:outline-none cursor-pointer" aria-label="User Menu">
+                <button id="user-avatar-btn" type="button" onclick="toggleUserDropdown(event)" class="w-8 h-8 sm:w-9 sm:h-9 rounded-none overflow-hidden shadow-sm border border-gray-100 dark:border-neutral-900 transition-transform active:scale-95 bg-gray-200 dark:bg-neutral-800 flex items-center justify-center text-black dark:text-white focus:outline-none cursor-pointer" aria-label="User Menu">
                     <img id="user-avatar" src="" alt="User" class="w-full h-full object-cover hidden" referrerpolicy="no-referrer" crossorigin="anonymous">
                     <div id="user-fallback" class="flex items-center justify-center">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path></svg>
                     </div>
                 </button>
-                <div id="user-dropdown" class="hidden absolute right-0 top-full mt-3.5 w-48 bg-white dark:bg-black rounded shadow-2xl flex-col z-[100] overflow-hidden py-1.5 border border-gray-200 dark:border-neutral-800">
+                <div id="user-dropdown" class="hidden absolute right-0 top-full mt-3.5 w-48 bg-white dark:bg-black rounded-none shadow-2xl flex-col z-[100] overflow-hidden py-1.5 border border-gray-200 dark:border-neutral-800">
                     <div class="px-4 py-2 border-b border-gray-100 dark:border-neutral-900">
                         <p id="user-name" class="text-xs font-bold text-black dark:text-gray-100 truncate"></p>
                     </div>
@@ -99,7 +115,7 @@ ekdam perfectly setup hain.
             </div>
             
             <!-- Mobile Menu Burger Button -->
-            <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-[#fafafa] dark:hover:bg-black rounded border border-gray-100 dark:border-neutral-900 transition ml-1 cursor-pointer">
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-[#fafafa] dark:hover:bg-black rounded-none border border-gray-100 dark:border-neutral-900 transition ml-1 cursor-pointer" aria-label="Open Mobile Menu">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
             </button>
         </div>
@@ -112,41 +128,41 @@ ekdam perfectly setup hain.
     <div id="mobile-menu-backdrop" class="absolute inset-0 bg-black/40 dark:bg-black/60 backdrop-blur-sm transition-opacity opacity-0"></div>
     
     <!-- Drawer Content -->
-    <div id="mobile-menu-content" class="relative w-full max-w-[340px] bg-white dark:bg-black rounded shadow-2xl overflow-visible transition-all scale-95 opacity-0 duration-200 ease-out border border-gray-200 dark:border-neutral-800">
+    <div id="mobile-menu-content" class="relative w-full max-w-[340px] bg-white dark:bg-black rounded-none shadow-2xl overflow-visible transition-all scale-95 opacity-0 duration-200 ease-out border border-gray-200 dark:border-neutral-800">
         <!-- Close & Logo Header -->
         <div class="flex items-center justify-between px-6 py-5 border-b border-black/5 dark:border-gray-800">
             <a href="/" class="flex items-center gap-2">
                 <img src="https://timetablecreator.online/blog/wp-content/uploads/2026/08/logo.png" alt="ToolIMG Logo" class="h-7 w-auto logo-img">
                 <span class="font-bold text-lg text-black dark:text-gray-100 tracking-tight">Tool<span class="text-black dark:text-black">IMG</span></span>
             </a>
-            <button id="mobile-menu-close" class="text-slate-400 hover:text-gray-600 dark:hover:text-slate-300 transition p-1 rounded hover:bg-[#fafafa] dark:hover:bg-black cursor-pointer">
+            <button id="mobile-menu-close" class="text-slate-400 hover:text-gray-600 dark:hover:text-slate-300 transition p-1 rounded-none hover:bg-[#fafafa] dark:hover:bg-black cursor-pointer" aria-label="Close Mobile Menu">
                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
             </button>
         </div>
         
         <!-- Navigation Links inside Mobile Menu -->
         <div class="px-3 py-4 flex flex-col gap-1">
-            <a href="/" class="px-4 py-3 text-[15px] font-semibold text-gray-700 dark:text-gray-300 hover:bg-[#fafafa] dark:hover:bg-neutral-900 rounded transition flex items-center">Home</a>
-            <a href="/tools/" class="px-4 py-3 text-[15px] font-semibold text-gray-700 dark:text-gray-300 hover:bg-[#fafafa] dark:hover:bg-neutral-900 rounded transition flex items-center">Tools</a>
-            <a href="/dashboard/" id="mobile-dashboard-nav" class="px-4 py-3 text-[15px] font-semibold text-gray-700 dark:text-gray-300 hover:bg-[#fafafa] dark:hover:bg-neutral-900 rounded transition flex items-center hidden">Dashboard</a>
-            <a href="/pricing/" class="px-4 py-3 text-[15px] font-semibold text-gray-700 dark:text-gray-300 hover:bg-[#fafafa] dark:hover:bg-neutral-900 rounded transition flex items-center">Pricing</a>
+            <a href="/" class="px-4 py-3 text-[15px] font-semibold text-gray-700 dark:text-gray-300 hover:bg-[#fafafa] dark:hover:bg-neutral-900 rounded-none transition flex items-center">Home</a>
+            <a href="/tools/" class="px-4 py-3 text-[15px] font-semibold text-gray-700 dark:text-gray-300 hover:bg-[#fafafa] dark:hover:bg-neutral-900 rounded-none transition flex items-center">Tools</a>
+            <a href="/dashboard/" id="mobile-dashboard-nav" class="px-4 py-3 text-[15px] font-semibold text-gray-700 dark:text-gray-300 hover:bg-[#fafafa] dark:hover:bg-neutral-900 rounded-none transition flex items-center hidden">Dashboard</a>
+            <a href="/pricing/" class="px-4 py-3 text-[15px] font-semibold text-gray-700 dark:text-gray-300 hover:bg-[#fafafa] dark:hover:bg-neutral-900 rounded-none transition flex items-center">Pricing</a>
             
             <div class="h-px bg-gray-100 dark:bg-neutral-900 w-full my-2"></div>
             
             <!-- Mobile Auth State (Rendered dynamically) -->
             <!-- Guest state -->
             <div id="mobile-auth-guest" class="flex flex-col gap-2 px-3 mt-2">
-                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-[#fafafa] dark:hover:bg-neutral-900 rounded transition border border-gray-200 dark:border-neutral-800 cursor-pointer">Log in</button>
-                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-bold text-white bg-black hover:bg-gray-800 dark:bg-neutral-900 dark:hover:bg-neutral-800 rounded transition shadow-sm cursor-pointer">Sign up</button>
+                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-semibold text-gray-700 dark:text-gray-300 hover:bg-[#fafafa] dark:hover:bg-neutral-900 rounded-none transition border border-gray-200 dark:border-neutral-800 cursor-pointer">Log in</button>
+                <button onclick="handleLogin()" class="w-full py-2.5 text-center text-sm font-bold text-white bg-black hover:bg-gray-800 dark:bg-neutral-900 dark:hover:bg-neutral-800 rounded-none transition shadow-sm cursor-pointer">Sign up</button>
             </div>
             
             <!-- User state -->
             <div id="mobile-auth-user" class="hidden flex-col gap-2 px-3 mt-2">
                 <div class="flex items-center gap-2 py-2 mb-1">
-                    <div class="w-7 h-7 rounded bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-xs font-bold font-mono">U</div>
+                    <div class="w-7 h-7 rounded-none bg-indigo-100 dark:bg-indigo-900 flex items-center justify-center text-indigo-600 dark:text-indigo-400 text-xs font-bold font-mono">U</div>
                     <span id="mobile-username" class="text-sm font-semibold text-gray-700 dark:text-gray-300 truncate">User Profile</span>
                 </div>
-                <button onclick="handleLogout()" class="w-full py-2.5 text-center text-sm font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded transition cursor-pointer border border-rose-100 dark:border-rose-950/30">Logout</button>
+                <button onclick="handleLogout()" class="w-full py-2.5 text-center text-sm font-bold text-rose-600 dark:text-rose-400 hover:bg-rose-50 dark:hover:bg-rose-950/20 rounded-none transition cursor-pointer border border-rose-100 dark:border-rose-950/30">Logout</button>
             </div>
         </div>
     </div>
@@ -155,14 +171,8 @@ ekdam perfectly setup hain.
 
 <!-- ===================================================================
                  CORE INTERACTIVE LOGIC (SCRIPTS IN HEADER)
-     =================================================================== 
-     Niche diye gaye logic se saare dynamic drop-downs, translation, 
-     aur dynamic authentication features bina kisi lag ke perfectly run honge.
--->
+     =================================================================== -->
 <script>
-    // -------------------------------------------------------------
-    // 2. GOOGLE TRANSLATE HANDLER (DROPDOWN TRIGGER & COOKIE SYNC)
-    // -------------------------------------------------------------
     function googleTranslateElementInit() {
         new google.translate.TranslateElement({
             pageLanguage: 'en',
@@ -234,9 +244,6 @@ ekdam perfectly setup hain.
         }, 120);
     }
 
-    // -------------------------------------------------------------
-    // 3. MOBILE MENU MODAL / DRAWER INTERACTIVE ANIMATION LOGIC
-    // -------------------------------------------------------------
     document.addEventListener('DOMContentLoaded', () => {
         const mobileBtn = document.getElementById('mobile-menu-btn');
         const mobileCloseBtn = document.getElementById('mobile-menu-close');
@@ -248,7 +255,7 @@ ekdam perfectly setup hain.
             if (!mobileModal) return;
             mobileModal.classList.remove('hidden');
             mobileModal.classList.add('flex');
-            void mobileModal.offsetWidth; // trigger layout calculation for animation
+            void mobileModal.offsetWidth;
             if (mobileBackdrop) {
                 mobileBackdrop.classList.remove('opacity-0');
                 mobileBackdrop.classList.add('opacity-100');
@@ -272,15 +279,14 @@ ekdam perfectly setup hain.
             setTimeout(() => {
                 mobileModal.classList.add('hidden');
                 mobileModal.classList.remove('flex');
-                
-                }
+            }, 200);
+        }
         
         if (mobileBtn) mobileBtn.addEventListener('click', openMobileMenu);
         if (mobileCloseBtn) mobileCloseBtn.addEventListener('click', closeMobileMenu);
         if (mobileBackdrop) mobileBackdrop.addEventListener('click', closeMobileMenu);
     });
 
-    // Universal Dropdown Auto-Close on Outside Clicks
     document.addEventListener('click', (e) => {
         const userDropdown = document.getElementById('user-dropdown');
         const userBtn = document.getElementById('user-avatar-btn');
@@ -295,19 +301,14 @@ ekdam perfectly setup hain.
             langPopover.classList.add('hidden');
             langPopover.classList.remove('flex');
         }
-        
-        });
+    });
 </script>
 
 <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-
 <!-- ===================================================================
               4. FIREBASE AUTHENTICATION & CREDIT STATE SYNCHRONIZATION
-     =================================================================== 
-     Ye block directly user collection snapshot bind karta hai iske saare state ko 
-     header elements me dynamically reflect karne ke liye.
--->
+     =================================================================== -->
 <script type="module">
     import { auth, db } from '/assets/firebase-config.js';
     import { signInWithPopup, signInWithRedirect, GoogleAuthProvider, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
@@ -315,7 +316,6 @@ ekdam perfectly setup hain.
 
     const provider = new GoogleAuthProvider();
 
-    // Global Login Helper (Available inline)
     window.handleLogin = async function() {
         if (!auth) {
             alert("Firebase not found. Please verify assets/firebase-config.js credentials.");
@@ -325,10 +325,8 @@ ekdam perfectly setup hain.
             await signInWithPopup(auth, provider);
         } catch (error) {
             if (error.code === 'auth/popup-closed-by-user' || error.code === 'auth/cancelled-popup-request') {
-                console.log('Popup window closed by user.');
                 return;
             }
-            console.warn("Popup blocked, trying redirect method:", error);
             try {
                 await signInWithRedirect(auth, provider);
             } catch (redirectError) {
@@ -360,9 +358,23 @@ ekdam perfectly setup hain.
                 dropdown.classList.remove('flex');
             }
         }
+    };
+
+    // Initialize guest credits in localStorage if needed
+    if (localStorage.getItem('guest_credits') === null) {
+        localStorage.setItem('guest_credits', '5');
     }
 
-    // DOM Nodes caching
+    function updateCreditsUI(credits) {
+        const creditsDisplay = document.getElementById('credits-display');
+        const creditsCount = document.getElementById('credits-count');
+        if (creditsDisplay && creditsCount) {
+            creditsDisplay.classList.remove('hidden');
+            creditsDisplay.classList.add('flex');
+            creditsCount.textContent = credits;
+        }
+    }
+
     const userAvatar = document.getElementById('user-avatar');
     const userFallback = document.getElementById('user-fallback');
     const userName = document.getElementById('user-name');
@@ -372,12 +384,9 @@ ekdam perfectly setup hain.
     const userMenu = document.getElementById('user-menu');
     const dashboardNav = document.getElementById('dashboard-nav');
     const mobileDashboardNav = document.getElementById('mobile-dashboard-nav');
-    const creditsDisplay = document.getElementById('credits-display');
-    const creditsCount = document.getElementById('credits-count');
 
     const mobileAuthGuest = document.getElementById('mobile-auth-guest');
     const mobileAuthUser = document.getElementById('mobile-auth-user');
-
     const generateBtn = document.getElementById('generate-btn');
 
     let currentUser = null;
@@ -387,18 +396,17 @@ ekdam perfectly setup hain.
         onAuthStateChanged(auth, async (user) => {
             if (user) {
                 currentUser = user;
-                
-                // Show/hide elements for Authenticated state (Desktop)
-                if (headerAuthGuest) headerAuthGuest.classList.add('hidden');
+                if (headerAuthGuest) {
+                    headerAuthGuest.classList.add('hidden');
+                    headerAuthGuest.classList.remove('flex');
+                }
                 if (userMenu) userMenu.classList.remove('hidden');
                 if (dashboardNav) dashboardNav.classList.remove('hidden');
                 
-                // Show/hide elements for Authenticated state (Mobile Drawer)
                 if (mobileAuthGuest) mobileAuthGuest.classList.add('hidden');
                 if (mobileAuthUser) mobileAuthUser.classList.remove('hidden');
                 if (mobileDashboardNav) mobileDashboardNav.classList.remove('hidden');
                 
-                // Display profile details
                 if (userAvatar && user.photoURL) {
                     userAvatar.src = user.photoURL;
                     userAvatar.classList.remove('hidden');
@@ -409,18 +417,11 @@ ekdam perfectly setup hain.
                 if (userName) userName.textContent = formattedName;
                 if (mobileUsername) mobileUsername.textContent = formattedName;
 
-                // Sync Live credits count from Firestore
-                if (creditsDisplay) {
-                    creditsDisplay.classList.remove('hidden');
-                    creditsDisplay.classList.add('flex');
-                }
-
                 const userRef = doc(db, 'users', user.uid);
                 creditsUnsub = onSnapshot(userRef, (snapshot) => {
                     if (snapshot.exists()) {
                         const data = snapshot.data();
-                        const creditBal = data.credits || 0;
-                        if (creditsCount) creditsCount.textContent = creditBal;
+                        updateCreditsUI(data.credits || 0);
                     }
                 }, (error) => {
                     console.error("Firestore balance sync failed:", error);
@@ -432,27 +433,26 @@ ekdam perfectly setup hain.
                     creditsUnsub = null;
                 }
                 
-                // Show/hide elements for Guest state (Desktop)
                 if (headerAuthGuest) {
                     headerAuthGuest.classList.remove('hidden');
                     headerAuthGuest.classList.add('flex');
                 }
                 if (userMenu) userMenu.classList.add('hidden');
                 if (dashboardNav) dashboardNav.classList.add('hidden');
-                if (creditsDisplay) {
-                    creditsDisplay.classList.add('hidden');
-                    creditsDisplay.classList.remove('flex');
-                }
 
-                // Show/hide elements for Guest state (Mobile Drawer)
                 if (mobileAuthGuest) mobileAuthGuest.classList.remove('hidden');
                 if (mobileAuthUser) mobileAuthUser.classList.add('hidden');
                 if (mobileDashboardNav) mobileDashboardNav.classList.add('hidden');
+
+                let guestCredits = parseInt(localStorage.getItem('guest_credits') || '5', 10);
+                updateCreditsUI(guestCredits);
             }
         });
+    } else {
+        let guestCredits = parseInt(localStorage.getItem('guest_credits') || '5', 10);
+        updateCreditsUI(guestCredits);
     }
 
-    // Interactive Core Gate check
     if (generateBtn) {
         generateBtn.addEventListener('click', (e) => {
             if (!currentUser) {
@@ -461,6 +461,7 @@ ekdam perfectly setup hain.
                 window.handleLogin();
                 return false;
             }
+            const creditsCount = document.getElementById('credits-count');
             const currentCredits = parseInt(creditsCount ? creditsCount.textContent : '0') || 0;
             if (currentCredits < 2) {
                 e.preventDefault();
