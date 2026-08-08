@@ -3802,13 +3802,7 @@
             <a href="/dashboard/" id="dashboard-nav" class="text-[15px] font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition hidden">Dashboard</a>
             <a href="/pricing/" class="px-4 py-1.5 text-[15px] font-bold bg-white text-black hover: rounded-none shadow-sm transition">Pricing</a>
             
-            <div class="relative">
-                <button id="theme-btn-desktop" class="p-2 hover:bg-[#fafafa] dark:hover:bg-black rounded-none transition text-gray-600 dark:text-gray-400" aria-label="Toggle Theme">
-                    <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                    <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                </button>
-            </div>
-        </nav>
+            </nav>
         
         <div class="flex items-center gap-3">
             
@@ -3876,10 +3870,6 @@
                 </div>
             </div>
 
-            <button id="theme-btn" class="md:hidden p-2 hover:bg-[#fafafa] dark:hover:bg-black rounded-none transition text-gray-600 dark:text-gray-400" aria-label="Toggle Theme">
-                <svg class="w-5 h-5 dark:hidden" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                <svg class="w-5 h-5 hidden dark:block" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-            </button>
             <!-- Mobile menu button -->
             <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-[#fafafa] dark:hover:bg-black rounded-none transition ml-1">
                 <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
@@ -3917,43 +3907,10 @@
 
                 <div class="h-px bg-gray-100 dark:bg-black w-full my-2"></div>
                 
-                <!-- Theme Selection in Mobile Menu -->
-                <div class="px-3 py-2 relative">
-                    <button id="theme-menu-btn" class="w-full px-4 py-3.5 flex justify-between items-center text-[15px] font-medium text-gray-700 dark:text-gray-400 hover:bg-[#fafafa] dark:hover:bg-black rounded-none transition">
-                        <span>Theme</span>
-                        <svg class="w-5 h-5 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                    </button>
-                    
-                    <div id="theme-popover" class="absolute bottom-[100%] right-3 mb-2 w-48 bg-white dark:bg-black rounded-none shadow-md p-2 hidden flex-col gap-1 z-50 border border-black/5 dark:border-gray-800">
-                        <button onclick="setTheme('light')" id="theme-light-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-black dark:text-gray-400 hover:bg-[#fafafa] dark:hover:bg-black rounded-none transition">
-                            <div class="flex items-center gap-3">
-                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M16 12a4 4 0 11-8 0 4 4 0 018 0z"></path></svg>
-                                Light
-                            </div>
-                            <svg class="w-4 h-4 text-black hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        </button>
-                        <button onclick="setTheme('dark')" id="theme-dark-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-[#fafafa] dark:hover:bg-black rounded-none transition">
-                            <div class="flex items-center gap-3">
-                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z"></path></svg>
-                                Dark
-                            </div>
-                            <svg class="w-4 h-4 text-black hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        </button>
-                        <button onclick="setTheme('system')" id="theme-system-btn" class="w-full flex items-center justify-between px-3 py-2.5 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white hover:bg-[#fafafa] dark:hover:bg-black rounded-none transition">
-                            <div class="flex items-center gap-3">
-                                <svg class="w-4 h-4 text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
-                                System
-                            </div>
-                            <svg class="w-4 h-4 text-black hidden check-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
-                        </button>
-                    </div>
                 </div>
-            </div>
         </div>
     </div>
 
-<script>
-    </script>
 <!-- End Navbar -->
     
     <main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 py-12">
@@ -4318,116 +4275,24 @@
     
 <script>
     
-    function updateThemeIcons() {
-        const isDark = document.documentElement.classList.contains('dark');
-        const themeBtns = [document.getElementById('theme-btn'), document.getElementById('theme-btn-desktop')];
-        themeBtns.forEach(btn => {
-            if (btn) {
-                const svgs = btn.querySelectorAll('svg');
-                if (svgs.length >= 2) {
-                    if (isDark) {
-                        svgs[0].classList.remove('hidden');
-                        svgs[1].classList.add('hidden');
-                    } else {
-                        svgs[0].classList.add('hidden');
-                        svgs[1].classList.remove('hidden');
-                    }
-                }
-            }
-        });
-    }
+    
             
-    function updateThemeUI(theme) {
-        ['light', 'dark', 'system'].forEach(t => {
-            const btn = document.getElementById('theme-' + t + '-btn');
-            if (btn) {
-                const check = btn.querySelector('.check-icon');
-                if (check) { if (t === theme) {
-                    check.classList.remove('hidden');
-                    btn.classList.add('bg-[#fafafa]', 'dark:bg-black', 'text-black', 'dark:text-gray-100');
-                    btn.classList.remove('text-gray-600', 'dark:text-gray-400');
-                } else {
-                    check.classList.add('hidden');
-                    btn.classList.remove('bg-[#fafafa]', 'dark:bg-black', 'text-black', 'dark:text-gray-100');
-                    btn.classList.add('text-gray-600', 'dark:text-gray-400');
-                } }
-            }
-        });
-    }
+    
 
-    function setTheme(theme) {
-        if (theme === 'system') {
-            localStorage.removeItem('theme');
-            if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark'); localStorage.theme = 'light';;
-            }
-        } else {
-            localStorage.theme = theme;
-            if (theme === 'dark') {
-                document.documentElement.classList.add('dark');
-            } else {
-                document.documentElement.classList.remove('dark'); localStorage.theme = 'light';;
-            }
-        }
-        updateThemeUI(theme);
-        updateThemeIcons();
-    }
+    
     window.setTheme = setTheme;
     window.updateThemeUI = updateThemeUI;
 
-    let initialTheme = 'light';
-    if (localStorage.theme === 'dark') {
-        document.documentElement.classList.add('dark');
-        initialTheme = 'dark';
-    } else if (localStorage.theme === 'light') {
-        document.documentElement.classList.remove('dark'); localStorage.theme = 'light';;
-        initialTheme = 'light';
-    } else if (!('theme' in localStorage)) {
+    else if (!('theme' in localStorage)) {
         document.documentElement.classList.remove('dark'); localStorage.theme = 'light';;
         initialTheme = 'light';
     }
 
     document.addEventListener('DOMContentLoaded', () => {
-        updateThemeUI(initialTheme);
-        updateThemeIcons();
-        
-        const themeBtns = [document.getElementById('theme-btn'), document.getElementById('theme-btn-desktop')];
-        themeBtns.forEach(btn => {
-            if (btn) {
-                btn.addEventListener('click', () => {
-                    if (document.documentElement.classList.contains('dark')) {
-                        setTheme('light');
-                    } else {
-                        setTheme('dark');
-                    }
-                });
-            }
+        }
         });
         
-        const mobileThemeBtn = document.getElementById('theme-menu-btn');
-        const themePopover = document.getElementById('theme-popover');
-        if(mobileThemeBtn && themePopover) {
-            mobileThemeBtn.addEventListener('click', (e) => {
-                e.stopPropagation();
-                if(themePopover.classList.contains('hidden')) {
-                    themePopover.classList.remove('hidden');
-                    themePopover.classList.add('flex');
-                } else {
-                    themePopover.classList.add('hidden');
-                    themePopover.classList.remove('flex');
-                }
-            });
-            document.addEventListener('click', (e) => {
-                if(!themePopover.contains(e.target) && !mobileThemeBtn.contains(e.target)) {
-                    themePopover.classList.add('hidden');
-                    themePopover.classList.remove('flex');
-                }
-            });
-        }
-    });
-</script>
+        </script>
 
     
     <script>
